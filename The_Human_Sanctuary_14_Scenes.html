@@ -1,0 +1,562 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#071416">
+  <meta name="description" content="Come as you are. Fourteen worlds of living light, quiet sound, wonder, and human connection. A creation of Universal Guard Trust.">
+  <title>The Human Sanctuary — Come as you are</title>
+  <link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iMTgiIGZpbGw9IiMwYjIwMjEiLz48ZyBmaWxsPSJub25lIiBzdHJva2U9IiNkN2U5YzciIHN0cm9rZS13aWR0aD0iMS4zIj48Y2lyY2xlIGN4PSIzMiIgY3k9IjMyIiByPSIyMiIvPjxlbGxpcHNlIGN4PSIzMiIgY3k9IjMyIiByeD0iMTAiIHJ5PSIyMiIgdHJhbnNmb3JtPSJyb3RhdGUoNDUgMzIgMzIpIi8+PGVsbGlwc2UgY3g9IjMyIiBjeT0iMzIiIHJ4PSIxMCIgcnk9IjIyIiB0cmFuc2Zvcm09InJvdGF0ZSgtNDUgMzIgMzIpIi8+PC9nPjxjaXJjbGUgY3g9IjMyIiBjeT0iMzIiIHI9IjMiIGZpbGw9IiNkN2U5YzciLz48L3N2Zz4K" type="image/svg+xml">
+  <style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Manrope:wght@400;500;600;700&display=swap');
+:root{color-scheme:dark;--ink:#eef0dc;--muted:#a8b7ad;--subtle:#7d958b;--line:rgba(205,222,195,.17);--gold:#d9e5b1;--page:#061214;--serif:'Cormorant Garamond','Iowan Old Style',Georgia,serif;--sans:'Manrope',Arial,sans-serif}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--page)}body{color:var(--ink);font-family:var(--sans);font-size:14px;-webkit-font-smoothing:antialiased}button,a,input{-webkit-tap-highlight-color:transparent}button{font:inherit;color:inherit;cursor:pointer}button:focus-visible,a:focus-visible,summary:focus-visible{outline:2px solid #e3efbf;outline-offset:6px}button{border:0}a{color:inherit;text-decoration:none}button:disabled{cursor:default;opacity:.45}[hidden]{display:none!important}#app{position:relative;isolation:isolate;min-height:760px;height:100svh;overflow:hidden;background:radial-gradient(ellipse at 65% 50%,#153c36 0,transparent 50%),var(--page)}.world{position:absolute;inset:0;z-index:-2;touch-action:pan-y}.world canvas{display:block;width:100%;height:100%}.world-vignette{position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,rgba(3,13,14,.6),transparent 52%),linear-gradient(0deg,rgba(3,13,14,.72),transparent 22%,transparent 86%,rgba(3,13,14,.3))}.masthead{position:absolute;top:0;left:0;width:100%;padding:34px 4.4%;display:flex;justify-content:space-between;align-items:center;z-index:5}.brand{display:flex;align-items:center;gap:12px;font-size:10px;line-height:1.7;letter-spacing:2.5px;font-weight:500}.brand-mark{width:40px;height:40px;stroke:#d9e5c2;stroke-width:.8}.brand-sub{display:block;letter-spacing:4.1px;font-size:10px}.header-actions{display:flex;align-items:center;gap:13px}.quiet-button,.icon-button,.text-button{display:inline-flex;align-items:center;justify-content:center;background:none}.quiet-button{gap:10px;font-size:11px;letter-spacing:.4px;min-height:42px;padding:6px 9px}.icon-button{height:40px;width:40px;border:1px solid var(--line);border-radius:50%;transition:background .2s}.icon-button:hover{background:#ffffff0c}.icon-button svg{width:18px;height:18px;stroke:currentColor;stroke-width:1.2;stroke-linecap:round;stroke-linejoin:round}.sound-button{margin-right:3px;color:#cfdbc9}.sound-bars{display:flex;gap:3px;height:14px;align-items:center;width:20px}.sound-bars i{width:1px;background:currentColor;height:4px;transform-origin:center}.sound-bars i:nth-child(2){height:10px}.sound-bars i:nth-child(3){height:14px}.sound-bars i:nth-child(4){height:7px}.sound-button[aria-pressed=true] .sound-bars i{animation:sound-wave 2s ease-in-out infinite}.sound-button[aria-pressed=true] .sound-bars i:nth-child(2){animation-delay:-.8s}.sound-button[aria-pressed=true] .sound-bars i:nth-child(3){animation-delay:-1.2s}.sound-button[aria-pressed=true] .sound-bars i:nth-child(4){animation-delay:-.4s}@keyframes sound-wave{50%{transform:scaleY(.35)}}
+.welcome{position:absolute;top:50%;left:8.2%;transform:translateY(-47%);width:45%;max-width:650px;z-index:2}.eyebrow{font-size:9px;font-weight:500;letter-spacing:2.2px;line-height:1.9;text-transform:uppercase;color:#c2d3b8;display:flex;align-items:center;gap:10px}.little-star{font-size:20px;color:#d8e7b4}h1{font-family:var(--serif);font-size:clamp(86px,8.3vw,152px);font-weight:400;line-height:.88;letter-spacing:-4px;margin:35px 0 27px}h1 em{font-weight:400;color:#d6e4ba}p{line-height:1.8}.welcome-copy{font-size:13px;color:#bcc8b9;line-height:1.95;margin-bottom:30px}.enter-button{background:linear-gradient(110deg,#deebc4,#b9d7ae);color:#15362b;display:inline-flex;align-items:center;justify-content:space-between;gap:42px;border-radius:50px;padding:19px 25px;font-size:12px;font-weight:600;box-shadow:0 4px 40px #b9dea00a;transition:transform .25s,box-shadow .25s,background .25s;min-height:56px}.enter-button:hover{transform:translateY(-2px);box-shadow:0 8px 38px #d2e8a71a;background:#e5efcf}.enter-button svg{height:20px;width:20px;stroke:currentColor;stroke-width:1.3;stroke-linecap:round;stroke-linejoin:round}.session-note{font-size:8px;color:#8da593;letter-spacing:1.45px;margin-top:18px}.session-note span{margin:0 8px}.world-caption{position:absolute;right:7%;top:78%;display:flex;align-items:center;gap:14px;font-size:8px;letter-spacing:2px;color:#b1c5b2;pointer-events:none}.caption-line{width:33px;height:1px;background:#849d7c}.caption-coordinate{color:#728e80;font-size:9px;letter-spacing:.3px;margin-left:5px}.footer{position:absolute;bottom:30px;left:4.4%;right:4.4%;display:flex;align-items:flex-end;justify-content:space-between;gap:30px;z-index:4}.origin{font-size:8px;letter-spacing:1.4px;display:flex;gap:10px;align-items:center;color:#adbdab;min-height:32px}.origin-dot{width:5px;height:5px;background:#b5d494;border-radius:100%;box-shadow:0 0 14px #bfed9580}.origin-name{font-size:8px;letter-spacing:.3px;color:#8ea18f}.origin-divider{color:#3e6155}.text-button{font-size:10px;color:#b1c0af;gap:15px;padding:9px 0;background:none;min-height:38px}.text-button:hover{color:#f2f4de}.chapter-nav{display:flex;gap:17px;width:min(440px,40vw);position:absolute;left:50%;transform:translateX(-50%)}.chapter-nav button{background:none;text-align:left;padding:7px 0;flex:1;min-width:0}.chapter-track{display:block;height:1px;background:#98b39c38;position:relative;margin-bottom:11px}.chapter-track>span{display:block;width:0;height:1px;background:#d9e8bf;transition:width 1s linear;box-shadow:0 0 9px #d7e5bc30}.chapter-nav [aria-current] .chapter-track>span{min-width:18%}.chapter-name{display:flex;gap:7px;font-size:8px;color:#5e7f6e;white-space:nowrap;letter-spacing:.3px}.chapter-name b{font-weight:400;color:#9ab09d}.chapter-nav [aria-current] .chapter-name,.chapter-nav [aria-current] b{color:#dce8c6}.chapter-nav button:hover .chapter-name b{color:#edf2df}
+.journey{position:absolute;inset:0;z-index:2;pointer-events:none}.journey-top{position:absolute;top:126px;left:4.4%;right:4.4%;display:flex;justify-content:space-between;color:#9ab19f;font-size:8px;letter-spacing:2px}.session-clock{font-variant-numeric:tabular-nums;letter-spacing:1px}.scene-copy{position:absolute;left:8.2%;bottom:23%;max-width:560px;transition:opacity .7s,transform .7s;pointer-events:none}.scene-copy.changing{opacity:0;transform:translateY(8px)}.scene-eyebrow{font-size:8px;letter-spacing:2px;color:#b1c8ad}.scene-copy h1{font-size:clamp(47px,4.8vw,84px);line-height:1.04;letter-spacing:-2px;margin:18px 0 22px}.scene-copy h1:focus{outline:none}.scene-instruction{font-size:12px;color:#b8cbb6;line-height:1.9;max-width:310px}.interaction-hint{position:absolute;right:6%;bottom:24%;display:flex;align-items:center;gap:11px;color:#8da98e;font-size:9px;letter-spacing:.2px;max-width:250px}.hint-dot{width:13px;height:13px;border:1px solid #9dbb8355;border-radius:50%;position:relative;flex:none}.hint-dot:after{content:'';position:absolute;inset:4px;border-radius:50%;background:#bdce9c}.journey-controls{position:absolute;left:8.2%;right:6%;bottom:14%;display:flex;align-items:center;justify-content:space-between;gap:16px;pointer-events:auto}.journey-controls .quiet-button{font-size:10px;padding:8px 0;color:#bdceb7;min-width:65px;justify-content:flex-start}.quiet-button svg{height:17px;width:17px;stroke:currentColor;stroke-width:1.3;stroke-linecap:round;stroke-linejoin:round}.paused-message{font-family:var(--serif);font-size:20px;font-style:italic;color:#b6c7ac;line-height:1.2;text-align:center}.completion{position:absolute;left:50%;top:51%;transform:translate(-50%,-45%);width:min(670px,85%);text-align:center;z-index:3}.completion .eyebrow{justify-content:center}.completion h1{font-size:clamp(60px,6.4vw,100px);line-height:.98;margin:22px 0;letter-spacing:-3px}.completion-copy{font-size:12px;color:#c3cbb7}.care-choices{display:flex;gap:10px;margin-top:26px}.care-choice{flex:1;min-width:0;text-align:left;padding:16px 15px;background:#102422c9;border:1px solid #abc39725;border-radius:9px;transition:background .2s,border-color .2s}.care-choice:hover{background:#1c342ac9}.care-choice[aria-pressed=true]{background:#304b36d9;border-color:#c2dba768}.care-choice span{display:block;font-family:var(--serif);font-size:23px;color:#e6e9d2;line-height:1.2}.care-choice small{display:block;font-size:9px;line-height:1.8;margin-top:8px;color:#b2c1a7}.care-confirmation{font-size:10px;color:#b1c1a8;min-height:22px;margin:15px 0 22px}.small-enter{padding:15px 24px;font-size:11px;min-height:48px}.completion>.text-button{margin-left:20px}.sanctuary-dialog{color:var(--ink);background:#102321f5;border:1px solid #b5cba02b;border-radius:18px;padding:40px;width:440px;max-width:calc(100% - 32px);max-height:85svh;box-shadow:0 30px 100px #0008;overscroll-behavior:contain}.sanctuary-dialog::backdrop{background:#020b0caa;backdrop-filter:blur(14px)}.sanctuary-dialog .eyebrow{font-size:8px;letter-spacing:1.6px;margin-top:0}.sanctuary-dialog h2{font-family:var(--serif);font-size:43px;font-weight:400;line-height:1.05;letter-spacing:-1px;margin:16px 0 28px;color:#e2ead0}.close-button{position:absolute;top:17px;right:18px;background:none;font-size:27px;color:#aebfa6;line-height:1;width:32px;height:32px;display:grid;place-items:center}.setting-row{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:20px 0;border-top:1px solid var(--line)}.setting-row label{font-size:12px}.setting-row p{color:#8eaa94;font-size:10px;margin:5px 0 0}.setting-row input{appearance:none;width:38px;height:23px;background:#254136;border:1px solid #5c785d;border-radius:16px;position:relative;flex:none;cursor:pointer}.setting-row input:after{content:'';display:block;position:absolute;left:4px;top:4px;width:13px;height:13px;background:#819b7d;border-radius:50%;transition:transform .2s,background .2s}.setting-row input:checked{background:#a9c88e;border-color:#a9c88e}.setting-row input:checked:after{background:#173c28;transform:translateX(15px)}.volume-setting{margin:3px 0 23px}.volume-setting label{display:flex;justify-content:space-between;font-size:10px;color:#a2b997;margin-bottom:14px}.volume-setting input{width:100%;accent-color:#c8deab}.settings-note{font-size:10px;color:#91aa93;line-height:1.8;margin:13px 0 25px}.dialog-done{font-size:11px;min-height:45px;padding:13px 21px;width:100%}.about-dialog{width:510px}.about-dialog>p:not(.eyebrow){font-size:11px;color:#b1c4ad;line-height:1.95}.about-dialog details{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:15px 0;margin:22px 0}.about-dialog summary{font-size:11px;color:#d7dfc5;cursor:pointer;line-height:1.7}.about-dialog details p{font-size:10px;color:#9fb39b;line-height:1.9}.research-links{display:flex;flex-direction:column;gap:10px;font-size:10px;padding:6px 0;color:#d2ddba}.about-dialog .privacy-note{font-size:10px!important;color:#8ea38c!important}.about-signature{font-family:var(--serif);color:#b5c7a7;font-size:21px;line-height:1.5;margin-top:25px}.about-signature strong{font-family:var(--sans);font-size:9px;font-weight:500;letter-spacing:1.2px}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}.noscript{position:absolute;top:30%;left:10%;right:10%;background:#112e26;padding:30px;z-index:10}.quiet-mode .sound-bars i{animation:none!important}[data-view=journey] .world-vignette{background:linear-gradient(90deg,rgba(3,13,14,.45),transparent 55%),linear-gradient(0deg,rgba(3,13,14,.9),transparent 28%,transparent 88%,rgba(3,13,14,.3))}[data-view=journey] .world-caption{display:none}[data-view=completion] .world-vignette{background:linear-gradient(0deg,#061214cc,transparent 85%),#06121455}[data-view=completion] .world-caption,[data-view=completion] .chapter-nav{display:none}
+@media(min-width:1700px){.welcome{left:10%;max-width:650px}.scene-copy{left:10%}.world-caption{right:10%}}
+@media(max-width:1100px){.origin-name,.origin-divider{display:none}.chapter-nav{width:40vw}.chapter-nav{gap:12px}.world-caption{right:7%}.caption-coordinate{display:none}.welcome{left:7%;width:50%}.welcome .eyebrow{max-width:270px;font-size:8px;letter-spacing:1.5px}h1{font-size:105px}.scene-copy{left:7%;max-width:460px}.scene-copy h1{font-size:62px}.interaction-hint{max-width:190px}.scene-instruction{max-width:270px}}
+@media(max-width:700px){#app{min-height:760px}.masthead{padding:23px 6%}.brand{font-size:8px;letter-spacing:1.8px;gap:9px}.brand-sub{font-size:8px;letter-spacing:3px}.brand-mark{width:32px;height:32px}.header-actions{gap:7px}.fullscreen-button{display:none}.icon-button{width:33px;height:33px}.icon-button svg{width:15px;height:15px}.sound-button{font-size:9px;gap:7px;margin-right:2px;padding:4px}.sound-bars{transform:scale(.8)}.welcome{left:7%;width:86%;max-width:unset;top:auto;bottom:150px;transform:none;text-align:center}.welcome .eyebrow{max-width:none;justify-content:center;font-size:7px;letter-spacing:1.7px;margin-bottom:14px}.little-star{font-size:16px}h1{font-size:88px;line-height:.88;letter-spacing:-3px;margin:18px 0}.welcome h1 br{display:none}.welcome h1 em{display:block}.welcome-copy{font-size:11px;line-height:1.9;margin:19px 0 24px}.enter-button{font-size:11px;padding:16px 23px;min-height:52px;gap:35px}.session-note{font-size:6.5px;letter-spacing:1px;margin-top:16px}.session-note span{margin:0 5px}.footer{bottom:22px;left:6%;right:6%;gap:16px;flex-wrap:wrap;align-items:center}.origin{font-size:7px;letter-spacing:1.2px;min-height:23px;gap:7px}.about-button{font-size:9px;min-height:23px;padding:2px 0}.chapter-nav{position:relative;order:-1;left:auto;transform:none;width:100%;gap:15px;margin-bottom:12px}.chapter-track{margin-bottom:9px}.chapter-name{font-size:7px;gap:6px}.world-caption{top:39%;left:50%;right:auto;transform:translateX(-50%);font-size:6px;letter-spacing:1.7px;gap:8px;white-space:nowrap}.caption-line{width:20px}.world-vignette{background:linear-gradient(0deg,rgba(3,13,14,.8),rgba(3,13,14,.12) 50%,transparent 85%)}.journey-top{left:6%;right:6%;top:95px;font-size:7px}.scene-copy{left:7%;right:7%;max-width:none;bottom:220px;text-align:center}.scene-copy h1{font-size:clamp(41px,11vw,58px);letter-spacing:-1.7px;line-height:1.05;margin:15px 0 16px}.scene-eyebrow{font-size:7px;letter-spacing:1.7px}.scene-instruction{font-size:11px;max-width:none;line-height:1.85;margin:0 auto}.interaction-hint{right:7%;left:7%;justify-content:center;bottom:183px;max-width:none;font-size:8px}.hint-dot{height:11px;width:11px}.hint-dot:after{inset:3px}.journey-controls{left:7%;right:7%;bottom:132px}.journey-controls .quiet-button{font-size:9px}.paused-message{font-size:17px}.completion{top:47%;width:86%;transform:translate(-50%,-43%)}.completion h1{font-size:65px;letter-spacing:-2px}.completion .eyebrow{font-size:7px;letter-spacing:1.5px}.completion-copy{font-size:11px}.care-choices{gap:7px}.care-choice{padding:13px 9px}.care-choice span{font-size:21px}.care-choice small{font-size:8px;line-height:1.8}.care-confirmation{font-size:9px;line-height:1.7;min-height:32px;margin:14px 0 18px}.completion>.text-button{display:flex;margin:10px auto 0;font-size:9px}.small-enter{font-size:10px;padding:13px 22px;min-height:46px}.sanctuary-dialog{padding:32px 25px}.sanctuary-dialog h2{font-size:39px}.setting-row p{max-width:220px}.about-dialog>p:not(.eyebrow){font-size:11px}[data-view=journey] .world-vignette{background:linear-gradient(0deg,rgba(3,13,14,.9),rgba(3,13,14,.18) 52%,transparent 86%)}[data-view=completion] .footer{justify-content:space-between}}
+@media(max-height:780px) and (min-width:701px){#app{min-height:640px}.masthead{padding-top:24px}.welcome{transform:translateY(-45%)}h1{font-size:100px;margin:25px 0}.welcome-copy{margin-bottom:23px}.scene-copy{bottom:24%}.scene-copy h1{font-size:60px}.completion{top:48%}.completion h1{font-size:72px}.care-choices{margin-top:18px}.completion-copy{margin:10px 0}.world-caption{top:75%}.footer{bottom:23px}.journey-top{top:105px}}
+@media(max-width:700px) and (max-height:760px){#app{min-height:690px}.welcome{bottom:140px}.welcome h1{font-size:76px}.welcome-copy{margin:14px 0 20px}.world-caption{top:35%}.scene-copy{bottom:215px}.scene-copy h1{font-size:43px}.interaction-hint{bottom:178px}.journey-controls{bottom:127px}.completion h1{font-size:56px}.care-choice span{font-size:19px}.care-choices{margin-top:18px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+.chapter-nav button{min-height:44px}.chapter-name,.session-note{font-size:9px}.world-caption{font-size:9px}.origin{font-size:9px}.origin-name{font-size:9px}.journey-top,.scene-eyebrow{font-size:9px}.interaction-hint{font-size:10px}.scene-instruction{font-size:13px}
+@media(max-width:700px){.welcome .eyebrow,.completion .eyebrow,.scene-eyebrow,.journey-top{font-size:9px;letter-spacing:1.1px}.welcome-copy,.scene-instruction,.completion-copy{font-size:12px}.session-note{font-size:8px;letter-spacing:.7px}.chapter-name{font-size:9px;gap:4px}.chapter-nav{gap:12px;margin-bottom:3px}.origin{font-size:8px}.about-button{min-height:36px;font-size:10px}.world-caption{font-size:8px}.interaction-hint{font-size:9px}.care-choice small{font-size:9px}.header-actions .icon-button{width:42px;height:42px}.brand{font-size:9px}.brand-sub{font-size:9px}.sound-button{min-height:44px}.completion h1{font-size:59px}}
+[data-view=completion] .world-vignette{background:linear-gradient(0deg,#061214dd,transparent 95%),#06121488}
+@media(max-width:700px){.world-caption{display:none}}
+@media(max-width:700px) and (max-height:760px){.welcome>.eyebrow{display:none}}
+.chapter-nav{--chapter-inset:13.6px;overflow-x:auto;scrollbar-width:none;overscroll-behavior-x:contain}.chapter-nav::-webkit-scrollbar{display:none}.chapter-nav button{flex:0 0 calc(20% - var(--chapter-inset))}
+.chapter-name b{min-width:0;overflow:hidden;text-overflow:ellipsis}
+@media(max-width:1100px){.chapter-nav{--chapter-inset:9.6px}}
+
+.journey-controls{display:grid;grid-template-columns:1fr auto 1fr}.journey-controls>.quiet-button{justify-self:start}.journey-controls>.paused-message{grid-column:2}
+
+</style>
+</head>
+<body>
+  <div id="app" data-view="welcome">
+    <div class="world" id="world" aria-hidden="true"><canvas id="light"></canvas><div class="world-vignette"></div></div>
+    <header class="masthead">
+      <a class="brand" href="#" id="home-link" aria-label="The Human Sanctuary home">
+        <svg class="brand-mark" viewBox="0 0 40 40" fill="none" aria-hidden="true"><circle cx="20" cy="20" r="15"/><ellipse cx="20" cy="20" rx="7" ry="15" transform="rotate(45 20 20)"/><ellipse cx="20" cy="20" rx="7" ry="15" transform="rotate(-45 20 20)"/><circle cx="20" cy="20" r="2" fill="currentColor" stroke="none"/></svg>
+        <span>THE HUMAN<span class="brand-sub">SANCTUARY</span></span>
+      </a>
+      <div class="header-actions">
+        <button class="quiet-button sound-button" id="sound-button" type="button" aria-pressed="false" aria-label="Turn sound on"><span class="sound-bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span id="sound-label">Sound off</span></button>
+        <button class="icon-button" id="comfort-button" type="button" aria-label="Sound and comfort settings" title="Sound & comfort"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 7h16M4 17h16M9 4v6M15 14v6"/></svg></button>
+        <button class="icon-button fullscreen-button" id="fullscreen-button" type="button" aria-label="Enter full screen" title="Full screen"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M8 4H4v4m12-4h4v4M4 16v4h4m12-4v4h-4"/></svg></button>
+      </div>
+    </header>
+
+    <main>
+      <section class="welcome" id="welcome" aria-labelledby="welcome-title">
+        <p class="eyebrow"><span class="little-star" aria-hidden="true">✧</span> A little space to be yourself</p>
+        <h1 id="welcome-title">You can<br><em>just be.</em></h1>
+        <p class="welcome-copy">Put down the need to become anything.<br>Step into a world that asks you only to arrive.</p>
+        <button class="enter-button" id="enter-button" type="button"><span>Enter the sanctuary</span><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 12h15m-5-5 5 5-5 5"/></svg></button>
+        <p class="session-note">17 MINUTES <span>·</span> YOUR OWN PACE <span>·</span> SOUND OPTIONAL</p>
+      </section>
+
+      <div class="world-caption" id="world-caption" aria-hidden="true"><span class="caption-line"></span><span id="world-name">THE THRESHOLD</span><span class="caption-coordinate" id="world-coordinate">A place between hurry and here</span></div>
+
+      <section class="journey" id="journey" aria-labelledby="scene-title" hidden>
+        <div class="journey-top"><span id="scene-kicker">01 / ARRIVE</span><span class="session-clock" id="session-clock" aria-label="Time remaining">17:00</span></div>
+        <div class="scene-copy" id="scene-copy" aria-live="polite" aria-atomic="true"><p class="scene-eyebrow" id="scene-eyebrow">A MOMENT THAT BELONGS TO YOU</p><h1 id="scene-title" tabindex="-1">Nothing to prove.<br><em>Nowhere else to be.</em></h1><p class="scene-instruction" id="scene-instruction">Feel the surface supporting you.<br>You can let this moment be simple.</p></div>
+        <div class="interaction-hint" id="interaction-hint"><span class="hint-dot"></span><span id="hint-text">Touch the open space. Let the light gather.</span></div>
+        <div class="journey-controls"><button class="quiet-button" id="pause-button" type="button" aria-label="Pause experience"><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path id="pause-icon" d="M7 5v10M13 5v10"/></svg><span id="pause-label">Pause</span></button><span class="paused-message" id="paused-message" hidden>Take all the time you need.</span></div>
+      </section>
+
+      <section class="completion" id="completion" aria-labelledby="completion-title" hidden>
+        <p class="eyebrow">LET A LITTLE OF THIS GO WITH YOU</p>
+        <h1 id="completion-title">Make room<br><em>for one another.</em></h1>
+        <p class="completion-copy">You do not have to hold on to a feeling.<br>Let it become a small act of care.</p>
+        <div class="care-choices" role="group" aria-label="Choose a small act of care"><button type="button" class="care-choice" data-care="listen" aria-pressed="false"><span>Listen fully</span><small>Give someone a minute of your attention.</small></button><button type="button" class="care-choice" data-care="kindness" aria-pressed="false"><span>Offer kindness</span><small>Make one ordinary moment easier.</small></button><button type="button" class="care-choice" data-care="outside" aria-pressed="false"><span>Step outside</span><small>Notice one living thing, without rushing.</small></button></div>
+        <p class="care-confirmation" id="care-confirmation" aria-live="polite">Choose whatever feels possible today.</p>
+        <button class="enter-button small-enter" id="return-button" type="button"><span>Stay a little longer</span><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M18 8a7 7 0 1 0 1 8M18 3v5h-5"/></svg></button>
+        <button class="text-button" id="begin-again" type="button">Begin again</button>
+      </section>
+    </main>
+
+    <footer class="footer" id="footer">
+      <div class="origin"><span class="origin-dot" aria-hidden="true"></span><span>ONE HUMANITY</span><span class="origin-divider">/</span><span class="origin-name">Universal Guard Trust</span></div>
+      <nav class="chapter-nav" id="chapter-nav" aria-label="Experience chapters"><button type="button" data-chapter="0" aria-label="Arrive" aria-current="step"><span class="chapter-track"><span></span></span><span class="chapter-name">01 <b>Arrive</b></span></button><button type="button" data-chapter="1" aria-label="Settle"><span class="chapter-track"><span></span></span><span class="chapter-name">02 <b>Settle</b></span></button><button type="button" data-chapter="2" aria-label="Wonder"><span class="chapter-track"><span></span></span><span class="chapter-name">03 <b>Wonder</b></span></button><button type="button" data-chapter="3" aria-label="Belong"><span class="chapter-track"><span></span></span><span class="chapter-name">04 <b>Belong</b></span></button><button type="button" data-chapter="4" aria-label="Return"><span class="chapter-track"><span></span></span><span class="chapter-name">05 <b>Return</b></span></button></nav>
+      <button class="text-button about-button" id="about-button" type="button">The intention <span aria-hidden="true">↗</span></button>
+    </footer>
+    <p class="sr-only" id="status" role="status"></p>
+    <noscript><div class="noscript">This experience needs JavaScript. You can still pause here, notice your surroundings, and take an unhurried moment for yourself.</div></noscript>
+  </div>
+
+  <dialog class="sanctuary-dialog" id="comfort-dialog" aria-labelledby="comfort-title"><button class="close-button" type="button" data-close aria-label="Close settings">×</button><p class="eyebrow">MAKE YOURSELF AT HOME</p><h2 id="comfort-title">Your kind of quiet.</h2><div class="setting-row"><div><label for="sound-toggle">Ambient sound</label><p>A gentle, slowly changing soundscape.</p></div><input id="sound-toggle" type="checkbox" role="switch"></div><div class="volume-setting"><label for="volume">Volume <span id="volume-label">30%</span></label><input id="volume" type="range" min="0" max="100" value="30"></div><div class="setting-row"><div><label for="motion-toggle">Moving light</label><p>Turn off for a still visual world.</p></div><input id="motion-toggle" type="checkbox" role="switch" checked></div><p class="settings-note">Keep the volume comfortable. You can pause or leave at any moment.</p><button class="enter-button dialog-done" type="button" data-close>That feels right <span aria-hidden="true">→</span></button></dialog>
+
+  <dialog class="sanctuary-dialog about-dialog" id="about-dialog" aria-labelledby="about-title"><button class="close-button" type="button" data-close aria-label="Close intention">×</button><p class="eyebrow">THE INTENTION</p><h2 id="about-title">A little more room<br>to be human.</h2><p>The Human Sanctuary brings together living light, optional ambient sound, and gentle invitations to notice your body and the world around you.</p><p>Each of its fourteen worlds offers a different focus: arriving, settling, wonder, belonging, and bringing care into everyday life. Follow the seventeen-minute journey or move between worlds at your own pace.</p><p>You do not need to feel anything in particular. Quiet, distraction, emotion, or very little at all are welcome. Every invitation is optional.</p><details><summary>What informs the experience?</summary><p>Research on brief breathing practices and attention to awe inspired parts of the design. Those studies do not test this digital experience, and it is not a treatment or a promise of a particular state.</p><div class="research-links"><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC9873947/" target="_blank" rel="noopener noreferrer">Brief breathing practices · 2023 ↗</a><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC8034841/" target="_blank" rel="noopener noreferrer">Awe walks and emotion · 2020 ↗</a></div></details><p class="privacy-note">The experience uses no camera or microphone. Your touch shapes the light; it does not read your emotions. Any small act you choose stays in this page.</p><div class="about-signature">Created for one humanity.<br><strong>Universal Guard Trust</strong></div></dialog>
+  <script>
+/* The Human Sanctuary — procedural light worlds. No external rendering library. */
+(() => {
+  'use strict';
+  const TAU = Math.PI * 2;
+  function randomGenerator(seed) { return () => { let t = seed += 0x6D2B79F5; t = Math.imul(t ^ t >>> 15, t | 1); t ^= t + Math.imul(t ^ t >>> 7, t | 61); return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+  const rand = randomGenerator(71731);
+  const count = matchMedia('(max-width: 700px)').matches ? 11000 : 18500;
+  const shapes = Array.from({length: 14}, () => new Float32Array(count * 3));
+  const meta = new Float32Array(count * 3);
+  const segments = [], leaves = [];
+  function branch(start, direction, length, depth, width) {
+    const end = start.map((v,i) => v + direction[i] * length);
+    segments.push({start, end, width, weight:length});
+    if (depth <= 0) { leaves.push(end); return; }
+    const split = depth > 3 ? 3 : 2;
+    for (let j=0; j<split; j++) {
+      const azimuth = j * TAU / split + rand() * 1.4;
+      const spread = .35 + rand() * .35;
+      let d = [direction[0] * .6 + Math.cos(azimuth) * spread, Math.abs(direction[1]) * .55 + .25 + rand()*.25, direction[2] * .6 + Math.sin(azimuth) * spread];
+      const norm = Math.hypot(...d); d = d.map(v => v/norm);
+      branch(end, d, length * (.62 + rand()*.13), depth - 1, width * .62);
+    }
+  }
+  branch([0,-1.65,0], [0,1,0], .88, 5, .045);
+  const segmentWeight = segments.reduce((s,b) => s+b.weight,0);
+  const cumulative = []; let weight=0; for(const s of segments) cumulative.push(weight+=s.weight);
+  for(let i=0; i<count; i++) {
+    const j=i*3, a=rand()*TAU, b=rand()*TAU, q=rand();
+    meta[j]=rand(); meta[j+1]=rand(); meta[j+2]=rand();
+    // A braided, three-dimensional aperture.
+    const tube=.17+.035*Math.sin(a*7+b*2), radius=1.30+tube*Math.cos(b)+.045*Math.sin(a*11+b);
+    shapes[0].set([radius*Math.cos(a),radius*Math.sin(a),tube*Math.sin(b)*1.7+.07*Math.sin(a*5)],j);
+    // A broad sheet of water, viewed at a low angle.
+    const wx=(rand()-.5)*6.6, wz=(rand()-.5)*5.0;
+    shapes[1].set([wx,-.28+Math.sin(wx*.9+wz*.5)*.22+Math.sin(wz*1.4)*.12,wz],j);
+    // Branches and small constellations of leaves, all sharing one trunk.
+    if(q<.64) {
+      const target=rand()*segmentWeight; let si=0; while(cumulative[si]<target) si++;
+      const s=segments[si], f=rand(), theta=rand()*TAU;
+      shapes[2].set([s.start[0]+(s.end[0]-s.start[0])*f+Math.cos(theta)*s.width,s.start[1]+(s.end[1]-s.start[1])*f,s.start[2]+(s.end[2]-s.start[2])*f+Math.sin(theta)*s.width],j);
+    } else {
+      const leaf=leaves[Math.floor(rand()*leaves.length)], l=rand()**.5*.12, la=rand()*TAU, lz=rand()*2-1;
+      shapes[2].set([leaf[0]+Math.cos(la)*l,leaf[1]+lz*l,leaf[2]+Math.sin(la)*l],j);
+    }
+    // A sphere with luminous depth, rather than a flat circle.
+    const sy=1-2*(i+.5)/count, sr=Math.sqrt(1-sy*sy), angle=i*2.3999632297;
+    const shell=rand()<.8 ? 1.5 : .3+rand()*1.2;
+    shapes[3].set([Math.cos(angle)*sr*shell,sy*shell,Math.sin(angle)*sr*shell],j);
+    // Dawn: a sunflower disc above an open field of ripples.
+    if(q<.68) {
+      const r=Math.sqrt(rand())*1.05, da=i*2.3999632297;
+      shapes[4].set([Math.cos(da)*r,.55+Math.sin(da)*r,(rand()-.5)*.12],j);
+    } else {
+      const dx=(rand()-.5)*6, dz=(rand()-.5)*4;
+      shapes[4].set([dx,-.7+Math.sin(dx*.7+dz)*.09,dz],j);
+    }
+  }
+  const treeYs=[]; for(let i=1;i<shapes[2].length;i+=3) treeYs.push(shapes[2][i]);
+  const treeMax=Math.max(...treeYs), treeMin=Math.min(...treeYs), treeScale=3.25/(treeMax-treeMin);
+  for(let i=0;i<count;i++){const j=i*3;shapes[2][j]*=treeScale;shapes[2][j+1]=(shapes[2][j+1]-(treeMax+treeMin)/2)*treeScale;shapes[2][j+2]*=treeScale;}
+
+  // A separate seed leaves every point in the original five worlds intact.
+  const extraRand=randomGenerator(924617);
+  for(let i=0;i<count;i++){
+    const j=i*3,a=extraRand()*TAU,b=extraRand()*TAU,q=extraRand();
+    // 06: an open, seven-petalled bloom with a folded centre.
+    const br=Math.sqrt(q)*1.6*(.82+.18*Math.cos(a*7));
+    shapes[5].set([br*Math.cos(a),br*Math.sin(a),.30*Math.cos(a*7)*(br/1.6)**1.5+.10*Math.cos(br*8)],j);
+    // 07: a ribbon river, with three streams sharing its bends.
+    const rx=(q-.5)*4.5,lane=Math.floor(extraRand()*3)-1,rw=(extraRand()-.5)*.19;
+    shapes[6].set([rx,.40*Math.sin(rx*1.45)+rw+lane*.13,.65*Math.cos(rx*1.2)+lane*.34+(extraRand()-.5)*.10],j);
+    // 08: little seed heads with filaments, drifting through an open space.
+    const seed=i%27,sa=seed*2.3999632297,sy=(seed/26-.5)*2.9,sx=Math.sin(sa)*(.62+extraRand()*.16),sz=Math.cos(sa)*.72;
+    const stem=q<.70?q*.22:0,fan=q<.70?stem*.63:.028;
+    shapes[7].set([sx+Math.cos(a)*fan,sy+stem,sz+Math.sin(a)*fan],j);
+    // 09: a quiet centre surrounded by nested elliptical orbits.
+    const orbit=Math.floor(q*6),or=.30+orbit*.235,ot=a;
+    let ox=or*Math.cos(ot),oy=or*Math.sin(ot)*.74,oz=(extraRand()-.5)*.04;
+    const tilt=orbit*.38;shapes[8].set([ox*Math.cos(tilt)-oz*Math.sin(tilt),oy,ox*Math.sin(tilt)+oz*Math.cos(tilt)],j);
+    // 10: a field of listening arcs, rising and falling like a shell.
+    const ring=Math.floor(q*16),lr=.22+ring*.085,la=(a-TAU/2)*.86;
+    shapes[9].set([Math.cos(la)*lr,Math.sin(la)*lr*.86,Math.sin(la*2.0)*.28+ring*.035-.25],j);
+    // 11: a softly filled heart, held in the same jade and gold light.
+    const hr=Math.sqrt(q),hx=1.6*Math.sin(a)**3,hy=(13*Math.cos(a)-5*Math.cos(2*a)-2*Math.cos(3*a)-Math.cos(4*a))/10;
+    shapes[10].set([hx*hr,hy*hr+.1,(extraRand()-.5)*.35*Math.sqrt(1-hr*.85)],j);
+    // 12: one continuous, interlaced torus knot.
+    const kt=a,kr=1.03+.34*Math.cos(3*kt),tube=(extraRand()-.5)*.065;
+    shapes[11].set([(kr+tube*Math.cos(b))*Math.cos(2*kt),(kr+tube*Math.cos(b))*Math.sin(2*kt),.53*Math.sin(3*kt)+tube*Math.sin(b)],j);
+    // 13: many small lights gathered into four unfurling spiral arms.
+    const gr=Math.sqrt(q)*1.6,ga=gr*3.5+(i%4)*Math.PI/2+(extraRand()-.5)*.27;
+    shapes[12].set([gr*Math.cos(ga),gr*Math.sin(ga)*.76,(extraRand()-.5)*(.13+.13*gr)],j);
+    // 14: a seed of light with a long, gently tapering flame.
+    const fy=(q-.5)*3.3,fr=.70*Math.pow(Math.max(0,1-(fy/1.65)**2),.8)*(1-fy*.27),shell=extraRand()<.70?1:Math.sqrt(extraRand());
+    shapes[13].set([Math.cos(a)*fr*shell,fy,Math.sin(a)*fr*.72*shell],j);
+  }
+
+  const vertex = `
+  precision highp float;
+  attribute vec3 aFrom; attribute vec3 aTo; attribute vec3 aMeta;
+  uniform float uTime; uniform float uScene; uniform float uAspect; uniform float uDpr; uniform float uScale; uniform float uHold; uniform float uMotion;
+  uniform vec2 uCenter; uniform vec2 uPointer;
+  varying vec3 vColor; varying float vAlpha;
+  mat2 rot(float a){return mat2(cos(a),-sin(a),sin(a),cos(a));}
+  void main(){
+    float s=clamp(uScene,0.0,13.0), f=smoothstep(0.0,1.0,fract(s));
+    vec3 p=mix(aFrom,aTo,f);
+    float wave=max(0.0,1.0-abs(s-1.0));
+    float tree=max(0.0,1.0-abs(s-2.0));
+    float globe=max(0.0,1.0-abs(s-3.0));
+    float dawn=max(0.0,1.0-abs(s-4.0));
+    float aperture=max(0.0,1.0-s);
+    p.y+=wave*(sin(p.x*1.7+p.z*1.2+uTime*.32)*.13+cos(p.x*.8-p.z*1.7+uTime*.23)*.08)*uMotion;
+    p.x+=tree*sin(uTime*.21+p.y*1.7)*.025*max(p.y+.8,0.0)*uMotion;
+    p.xy=rot(sin(uTime*.07)*.04*aperture*uMotion)*p.xy;
+    float bloom=max(0.0,1.0-abs(s-5.0)),river=max(0.0,1.0-abs(s-6.0)),seeds=max(0.0,1.0-abs(s-7.0));
+    float listen=max(0.0,1.0-abs(s-9.0)),weave=max(0.0,1.0-abs(s-11.0)),gifts=max(0.0,1.0-abs(s-12.0)),flame=max(0.0,1.0-abs(s-13.0));
+    p.y+=river*sin(p.x*2.2+uTime*.26)*.065*uMotion;
+    p.y+=seeds*sin(uTime*.13+aMeta.y*6.28)*.11*uMotion;
+    p.xy=rot(uTime*.016*(bloom+listen*.35+gifts*.5)*uMotion)*p.xy;
+    p.xz=rot(uTime*.025*weave*uMotion)*p.xz;
+    p.x+=flame*sin(p.y*2.1+uTime*.20)*.035*max(0.0,p.y+.8)*uMotion;
+    p.xz=rot(uTime*.045*globe*uMotion+uPointer.x*.12)*p.xz;
+    p.yz=rot(-.13*aperture-.13*wave+uPointer.y*.065)*p.yz;
+    p*=1.0+uHold*.035;
+    p.xy+=uPointer*.025;
+    float depth=5.2-p.z;
+    vec2 projected=p.xy*2.15/depth*uScale;
+    gl_Position=vec4(projected.x/uAspect+uCenter.x,projected.y+uCenter.y,0.0,1.0);
+    float sparkle=pow(aMeta.x,16.0);
+    gl_PointSize=clamp((1.5+aMeta.y*1.8+sparkle*5.5)*uDpr*4.2/depth,1.0,13.0*uDpr);
+    vec3 jade=vec3(.30,.65,.50), gold=vec3(1.0,.78,.39), ivory=vec3(.89,.96,.76), blue=vec3(.38,.67,.79);
+    vec3 c0=mix(jade,gold,smoothstep(-1.2,1.3,p.y)*.75+aMeta.z*.22);
+    vec3 c1=mix(blue,ivory,aMeta.z*.35);
+    vec3 c2=mix(vec3(.32,.65,.36),gold,smoothstep(-.4,1.5,p.y)*.65+aMeta.z*.22);
+    vec3 c3=mix(jade,ivory,aMeta.z*.8);
+    vec3 c4=mix(vec3(.66,.43,.19),vec3(1.0,.89,.58),smoothstep(-.8,.9,p.y));
+    vec3 c=c0;
+    if(s<1.0)c=mix(c0,c1,f);else if(s<2.0)c=mix(c1,c2,f);else if(s<3.0)c=mix(c2,c3,f);else if(s<4.0)c=mix(c3,c4,f);else c=c4;
+    if(s>4.0){vec3 continuation=mix(jade,gold,.26+aMeta.z*.55);continuation=mix(continuation,ivory,aMeta.y*.18);c=mix(c4,continuation,clamp(s-4.0,0.0,1.0));}
+    float shimmer=.84+.16*sin(uTime*.38+aMeta.z*60.0)*uMotion;
+    vColor=mix(c,ivory,sparkle*.65)*(1.0+uHold*.25);
+    vAlpha=(.45+aMeta.y*.4)*shimmer;
+  }`;
+  const fragment = `
+  precision mediump float;
+  varying vec3 vColor; varying float vAlpha;
+  void main(){vec2 p=gl_PointCoord*2.0-1.0;float d=dot(p,p);if(d>1.0)discard;float core=exp(-d*5.0);float halo=exp(-d*2.2)*.12;gl_FragColor=vec4(vColor, (core*.7+halo)*vAlpha);}`;
+  const backgroundVertex = `attribute vec2 aPosition;varying vec2 vUv;void main(){vUv=aPosition*.5+.5;gl_Position=vec4(aPosition,0.,1.);}`;
+  const blitFragment = `precision mediump float;varying vec2 vUv;uniform sampler2D uTexture;void main(){gl_FragColor=texture2D(uTexture,vUv);}`;
+  const backgroundFragment = `
+  precision highp float;
+  varying vec2 vUv;
+  uniform vec2 uResolution;uniform vec2 uCenter;uniform vec2 uPointer;uniform float uTime;uniform float uScene;uniform float uScale;uniform float uHold;uniform float uMotion;
+  float hash(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
+  float noise(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);return mix(mix(hash(i),hash(i+vec2(1,0)),f.x),mix(hash(i+vec2(0,1)),hash(i+vec2(1,1)),f.x),f.y);}
+  float fbm(vec2 p){float v=0.,a=.5;for(int i=0;i<4;i++){v+=noise(p)*a;p=p*2.03+vec2(7.1,9.2);a*=.5;}return v;}
+  void main(){
+    float aspect=uResolution.x/uResolution.y;
+    vec2 uv=(vUv-.5)*vec2(aspect,1.0),center=uCenter*.5*vec2(aspect,1.);
+    vec2 p=(uv-center)/uScale;
+    float t=uTime*uMotion;
+    float quiet=max(0.,1.-abs(uScene-1.)),tree=max(0.,1.-abs(uScene-2.)),globe=max(0.,1.-abs(uScene-3.)),dawn=max(0.,1.-abs(uScene-4.));
+    vec3 base=mix(vec3(.013,.041,.046),vec3(.026,.048,.057),quiet);
+    vec3 hue=mix(vec3(.11,.27,.20),vec3(.12,.23,.31),quiet);
+    hue=mix(hue,vec3(.28,.21,.10),dawn*.85);
+    float mist=fbm(p*3.+vec2(t*.014,-t*.009));
+    float glow=exp(-length(p*vec2(1.,.8))*3.6);
+    vec3 col=base+hue*glow*(.46+mist*.28);
+    float radius=length(p);
+    float ring=exp(-pow((radius-.267)/.045,2.));
+    col+=vec3(.16,.24,.13)*ring*(1.-min(uScene,1.))*.33;
+    float sun=exp(-pow(length(p-vec2(0.,.115))/.17,2.));
+    col+=vec3(.35,.23,.075)*sun*dawn*.55;
+    float curtain=pow(max(0.,fbm(vec2(p.x*5.,p.y*.8+t*.018))-.36),2.5);
+    col+=hue*curtain*.55*glow;
+    vec2 cell=floor(vUv*uResolution/3.);
+    float star=step(.9986,hash(cell));
+    col+=vec3(.33,.45,.36)*star*(.25+.25*sin(t*.13+hash(cell+2.)*40.));
+    float horizon=-.25;
+    if(p.y<horizon){float waterY=horizon-p.y;float r=sin((p.x*4.+t*.035+fbm(vec2(p.x*3.,waterY*8.)))*4.+1./(waterY+.09));col+=hue*pow(max(r,0.),10.)*.025*exp(-abs(p.x)*2.)*(1.+quiet+dawn);}
+    vec2 touch=p-uPointer*vec2(.3,.18);
+    col+=vec3(.12,.22,.14)*exp(-length(touch)*7.)*uHold;
+    col+=((hash(gl_FragCoord.xy+floor(uTime*.25))-.5)/255.)*.65;
+    gl_FragColor=vec4(col,1.);
+  }`;
+  const lineVertex=`precision highp float;attribute vec3 aPosition;uniform float uTime;uniform float uAspect;uniform float uScale;uniform float uMotion;uniform vec2 uCenter;uniform vec2 uPointer;void main(){vec3 p=aPosition;float a=uTime*.045*uMotion+uPointer.x*.12;p.xz=mat2(cos(a),-sin(a),sin(a),cos(a))*p.xz;float b=uPointer.y*.065;p.yz=mat2(cos(b),-sin(b),sin(b),cos(b))*p.yz;vec2 q=p.xy*2.15/(5.2-p.z)*uScale;gl_Position=vec4(q.x/uAspect+uCenter.x,q.y+uCenter.y,0.,1.);}`;
+  const lineFragment=`precision mediump float;uniform float uAlpha;void main(){gl_FragColor=vec4(.44,.69,.48,uAlpha);}`;
+
+  class LightWorld {
+    constructor(canvas) {
+      this.canvas=canvas;this.scene=0;this.center=[.36,.04];this.scale=1;this.pointer=[0,0];this.hold=0;this.time=0;this.motion=true;this.dpr=1;this.width=1;this.height=1;
+      try { this.gl=canvas.getContext('webgl',{alpha:false,antialias:false,powerPreference:'low-power',preserveDrawingBuffer:false});if(!this.gl)throw Error('No WebGL');this.setupGL(); }
+      catch(error){console.info('Using the quiet light renderer:',error.message);this.setupFallback();}
+      this.resize= this.resize.bind(this);window.addEventListener('resize',this.resize);this.resize();
+      if(this.gl)this.canvas.addEventListener('webglcontextlost',e=>{e.preventDefault();this.setupFallback();this.resize();},{once:true});
+    }
+    setupFallback(){const replacement=document.createElement('canvas');replacement.id=this.canvas.id;this.canvas.replaceWith(replacement);this.canvas=replacement;this.gl=null;this.ctx=replacement.getContext('2d');this.fallback=true;}
+    program(vs,fs){const gl=this.gl;const compile=(type,source)=>{const shader=gl.createShader(type);gl.shaderSource(shader,source);gl.compileShader(shader);if(!gl.getShaderParameter(shader,gl.COMPILE_STATUS))throw Error(gl.getShaderInfoLog(shader));return shader;};const p=gl.createProgram();gl.attachShader(p,compile(gl.VERTEX_SHADER,vs));gl.attachShader(p,compile(gl.FRAGMENT_SHADER,fs));gl.linkProgram(p);if(!gl.getProgramParameter(p,gl.LINK_STATUS))throw Error(gl.getProgramInfoLog(p));return p;}
+    buffer(data){const gl=this.gl,b=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,b);gl.bufferData(gl.ARRAY_BUFFER,data,gl.STATIC_DRAW);return b;}
+    setupGL(){
+      const gl=this.gl;this.points=this.program(vertex,fragment);this.background=this.program(backgroundVertex,backgroundFragment);this.blit=this.program(backgroundVertex,blitFragment);this.lines=this.program(lineVertex,lineFragment);
+      this.backgroundTexture=gl.createTexture();gl.bindTexture(gl.TEXTURE_2D,this.backgroundTexture);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.LINEAR);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.LINEAR);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE);this.backgroundFramebuffer=gl.createFramebuffer();
+      this.shapeBuffers=shapes.map(s=>this.buffer(s));this.metaBuffer=this.buffer(meta);this.quad=this.buffer(new Float32Array([-1,-1,1,-1,-1,1,-1,1,1,-1,1,1]));
+      const verts=[];const r=1.5;
+      for(let lat=-2;lat<=2;lat++){const y=lat*.38,rr=Math.sqrt(r*r-y*y);for(let a=0;a<94;a++){const t0=a/94*TAU,t1=(a+1)/94*TAU;verts.push(rr*Math.cos(t0),y,rr*Math.sin(t0),rr*Math.cos(t1),y,rr*Math.sin(t1));}}
+      for(let k=0;k<7;k++){const longitude=k*Math.PI/7;for(let a=0;a<74;a++){const t0=a/74*TAU,t1=(a+1)/74*TAU;verts.push(r*Math.cos(t0)*Math.cos(longitude),r*Math.sin(t0),r*Math.cos(t0)*Math.sin(longitude),r*Math.cos(t1)*Math.cos(longitude),r*Math.sin(t1),r*Math.cos(t1)*Math.sin(longitude));}}
+      this.lineCount=verts.length/3;this.lineBuffer=this.buffer(new Float32Array(verts));
+      this.locations=new Map();this.attributeSlots=Math.min(gl.getParameter(gl.MAX_VERTEX_ATTRIBS),8);gl.disable(gl.DEPTH_TEST);
+    }
+    location(program,name){let locations=this.locations.get(program);if(!locations){locations={};this.locations.set(program,locations);}if(!(name in locations))locations[name]=this.gl.getUniformLocation(program,name);return locations[name];}
+    uniform(program,name,value){const gl=this.gl,l=this.location(program,name);if(l===null)return;if(Array.isArray(value))gl.uniform2fv(l,value);else gl.uniform1f(l,value);}
+    attribute(program,name,buffer,size){const gl=this.gl,location=gl.getAttribLocation(program,name);if(location<0)return;gl.bindBuffer(gl.ARRAY_BUFFER,buffer);gl.enableVertexAttribArray(location);gl.vertexAttribPointer(location,size,gl.FLOAT,false,0,0);}
+    resize(){this.width=innerWidth;this.height=this.canvas.parentElement.clientHeight;this.dpr=Math.min(devicePixelRatio||1,innerWidth<701?1.5:1.65);this.canvas.width=Math.round(this.width*this.dpr);this.canvas.height=Math.round(this.height*this.dpr);if(this.gl){const gl=this.gl;this.backgroundWidth=Math.max(1,Math.round(this.canvas.width*.4));this.backgroundHeight=Math.max(1,Math.round(this.canvas.height*.4));gl.bindTexture(gl.TEXTURE_2D,this.backgroundTexture);gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,this.backgroundWidth,this.backgroundHeight,0,gl.RGBA,gl.UNSIGNED_BYTE,null);gl.bindFramebuffer(gl.FRAMEBUFFER,this.backgroundFramebuffer);gl.framebufferTexture2D(gl.FRAMEBUFFER,gl.COLOR_ATTACHMENT0,gl.TEXTURE_2D,this.backgroundTexture,0);gl.bindFramebuffer(gl.FRAMEBUFFER,null);gl.viewport(0,0,this.canvas.width,this.canvas.height);}}
+    common(program){const gl=this.gl;gl.useProgram(program);this.uniform(program,'uTime',this.time);this.uniform(program,'uScene',this.scene);this.uniform(program,'uAspect',this.width/this.height);this.uniform(program,'uDpr',this.dpr);this.uniform(program,'uScale',this.scale);this.uniform(program,'uHold',this.hold);this.uniform(program,'uMotion',this.motion?1:0);this.uniform(program,'uCenter',this.center);this.uniform(program,'uPointer',this.pointer);this.uniform(program,'uResolution',[this.canvas.width,this.canvas.height]);}
+    render(){
+      if(!this.gl){this.drawFallback();return;}
+      const gl=this.gl;
+      for(let i=0;i<this.attributeSlots;i++)gl.disableVertexAttribArray(i);
+      gl.disable(gl.BLEND);gl.bindFramebuffer(gl.FRAMEBUFFER,this.backgroundFramebuffer);gl.viewport(0,0,this.backgroundWidth,this.backgroundHeight);this.common(this.background);this.attribute(this.background,'aPosition',this.quad,2);gl.drawArrays(gl.TRIANGLES,0,6);
+      gl.bindFramebuffer(gl.FRAMEBUFFER,null);gl.viewport(0,0,this.canvas.width,this.canvas.height);gl.useProgram(this.blit);gl.activeTexture(gl.TEXTURE0);gl.bindTexture(gl.TEXTURE_2D,this.backgroundTexture);gl.uniform1i(this.location(this.blit,'uTexture'),0);this.attribute(this.blit,'aPosition',this.quad,2);gl.drawArrays(gl.TRIANGLES,0,6);
+      for(let i=0;i<this.attributeSlots;i++)gl.disableVertexAttribArray(i);
+      gl.enable(gl.BLEND);gl.blendFunc(gl.SRC_ALPHA,gl.ONE);
+      const lineAlpha=Math.max(0,1-Math.abs(this.scene-3)*1.7)*.105;
+      if(lineAlpha>0){this.common(this.lines);this.uniform(this.lines,'uAlpha',lineAlpha);this.attribute(this.lines,'aPosition',this.lineBuffer,3);gl.drawArrays(gl.LINES,0,this.lineCount);for(let i=0;i<this.attributeSlots;i++)gl.disableVertexAttribArray(i);}
+      const scene=Math.max(0,Math.min(shapes.length-1,this.scene)),from=Math.floor(scene),to=Math.min(shapes.length-1,from+1);
+      this.common(this.points);this.attribute(this.points,'aFrom',this.shapeBuffers[from],3);this.attribute(this.points,'aTo',this.shapeBuffers[to],3);this.attribute(this.points,'aMeta',this.metaBuffer,3);gl.drawArrays(gl.POINTS,0,count);
+    }
+    drawFallback(){
+      const ctx=this.ctx;if(!ctx)return;const w=this.canvas.width,h=this.canvas.height;ctx.globalCompositeOperation='source-over';ctx.fillStyle='#061315';ctx.fillRect(0,0,w,h);
+      const cx=(this.center[0]*.5+.5)*w,cy=(.5-this.center[1]*.5)*h;
+      const glow=ctx.createRadialGradient(cx,cy,0,cx,cy,h*.5*this.scale);glow.addColorStop(0,this.scene>3?'#383923':'#153b31');glow.addColorStop(1,'#061315');ctx.fillStyle=glow;ctx.fillRect(0,0,w,h);
+      const s=Math.max(0,Math.min(shapes.length-1,this.scene)),si=Math.floor(s),f0=s-si,f=f0*f0*(3-2*f0),sa=shapes[si],sb=shapes[Math.min(shapes.length-1,si+1)];ctx.globalCompositeOperation='lighter';
+      const a=this.time*.045*Math.max(0,1-Math.abs(s-3))*(this.motion?1:0)+this.pointer[0]*.12,co=Math.cos(a),sn=Math.sin(a);
+      for(let i=0;i<count;i+=3){const j=i*3;let x=sa[j]*(1-f)+sb[j]*f,y=sa[j+1]*(1-f)+sb[j+1]*f,z=sa[j+2]*(1-f)+sb[j+2]*f;const xx=x*co-z*sn;z=x*sn+z*co;x=xx;if(this.motion)y+=Math.max(0,1-Math.abs(s-1))*Math.sin(x*1.7+z+this.time*.32)*.13;const k=2.15/(5.2-z)*this.scale;const px=cx+x*k*h*.5,py=cy-y*k*h*.5;ctx.fillStyle=(s>3||meta[j+2]>.6)?'rgba(228,207,131,.50)':'rgba(110,189,147,.46)';const size=(.65+meta[j]*.85)*this.dpr;ctx.beginPath();ctx.arc(px,py,size,0,TAU);ctx.fill();}
+      ctx.globalCompositeOperation='source-over';
+    }
+  }
+  window.LightWorld=LightWorld;
+})();
+
+</script>
+  <script>
+(() => {
+  'use strict';
+  const $ = id => document.getElementById(id);
+  const scenes = [
+    {name:'Arrive',world:'THE THRESHOLD',duration:60,cues:[
+      [0,'A MOMENT THAT BELONGS TO YOU','Nothing to prove.<br><em>Nowhere else to be.</em>','Feel the surface supporting you.<br>You can let this moment be simple.'],
+      [20,'LET THE WORLD COME TO YOU','You have<br><em>already arrived.</em>','Notice a sound nearby, then one farther away.<br>You do not need to search for quiet.'],
+      [40,'COME AS YOU ARE','There is room<br><em>for all of you.</em>','Whatever kind of day you have had,<br>you can bring it with you.']
+    ],hint:'Touch the open space. Let the light gather.'},
+    {name:'Settle',world:'THE QUIET WATER',duration:120,cues:[
+      [0,'THE BODY CAN HAVE A MOMENT','Let the ground<br><em>do the holding.</em>','Notice where your body meets the surface.<br>Let your hands rest however they are comfortable.'],
+      [30,'AN UNHURRIED MOMENT','Let a breath<br><em>be a breath.</em>','If it feels comfortable, notice your breathing.<br>No counting. No need to change it.'],
+      [60,'THOUGHTS ARE WELCOME HERE','You can notice<br><em>and let it pass.</em>','When a thought arrives, you can leave it unfinished.<br>Return to a sound, a colour, or the support beneath you.'],
+      [90,'A LITTLE LESS EFFORT','Nothing to force.<br><em>Nothing to finish.</em>','If it feels good, soften your hands or your jaw.<br>You can also simply look around the room.']
+    ],hint:'Let your eyes rest wherever they are comfortable.'},
+    {name:'Wonder',world:'THE LIVING TREE',duration:120,cues:[
+      [0,'ATTENTION CAN BECOME WONDER','A whole world<br><em>in a small thing.</em>','Follow one branch of light.<br>Notice where it divides, and where it begins.'],
+      [30,'LET CURIOSITY TAKE ITS TIME','Before the name,<br><em>the wonder.</em>','Look at the shape, the space, the tiny differences.<br>There is no explanation you need to reach.'],
+      [60,'YOU CAN FIND THIS OUTSIDE THE SCREEN','The ordinary<br><em>is still here.</em>','A leaf. A patch of sky. Light on a wall.<br>Remember something small you might look at again.'],
+      [90,'GIVE ONE THING YOUR ATTENTION','For a moment,<br><em>look a little closer.</em>','Choose one detail in the light.<br>Let it be enough to be curious.']
+    ],hint:'Touch gently. The whole tree shares the light.'},
+    {name:'Belong',world:'ONE HUMANITY',duration:120,cues:[
+      [0,'MANY LIVES, ONE SHARED WORLD','Every light,<br><em>a world within.</em>','Think of the people passing through an ordinary day.<br>Each carrying a life you cannot fully see.'],
+      [30,'A SMALL MOMENT CAN MATTER','Remember<br><em>a little kindness.</em>','It may be something you received or offered.<br>A small moment is enough, if one comes to mind.'],
+      [60,'YOU DO NOT HAVE TO FEEL CONNECTED','There is room<br><em>to feel as you feel.</em>','Connection does not have to arrive on command.<br>You can simply share this moment with the world.'],
+      [90,'ATTENTION IS SOMETHING YOU CAN GIVE','Someone, somewhere,<br><em>needs a little care.</em>','Let one possible act of kindness come to mind.<br>It can be very small. It can include yourself.']
+    ],hint:'One touch, a little more light between us.'},
+    {name:'Return',world:'THE OPEN DAWN',duration:60,cues:[
+      [0,'BRING THE MOMENT INTO YOUR DAY','Nothing to keep.<br><em>Something to give.</em>','You do not need to hold on to a feeling.<br>You can carry one small intention.'],
+      [25,'BACK TO THE ROOM, BACK TO YOUR LIFE','The world<br><em>is still waiting.</em>','Notice the room around you.<br>Move your hands or feet, if that feels comfortable.'],
+      [45,'ONE ORDINARY, HUMAN BEGINNING','Let care<br><em>be the next thing.</em>','Take your time.<br>There is no perfect way to begin again.']
+    ],hint:'A small act can give the moment somewhere to go.'},
+    {name:'Open',world:'THE OPEN BLOOM',duration:60,cues:[
+      [0,'THERE CAN BE ANOTHER WAY TO LOOK','Leave a little<br><em>room for possibility.</em>','Notice how the light opens out.<br>You do not have to decide what comes next.'],
+      [20,'CURIOSITY CAN STAY SMALL','Something new<br><em>can begin gently.</em>','Think of one ordinary thing you have not noticed today.<br>Let curiosity be enough for now.'],
+      [40,'YOU CAN BEGIN WHERE YOU ARE','No perfect moment.<br><em>This one will do.</em>','You can meet the next small moment<br>without having your whole life figured out.']
+    ],hint:'Touch the open space. Let the bloom gather light.'},
+    {name:'Flow',world:'THE LIVING RIVER',duration:60,cues:[
+      [0,'ONE MOMENT CAN FOLLOW ANOTHER','You can move<br><em>one thing at a time.</em>','Follow one bend in the river of light.<br>You do not need to follow every stream.'],
+      [20,'ATTENTION CAN RETURN','Begin again,<br><em>as often as you need.</em>','If your attention wanders, notice where it went.<br>You can return to one moving point of light.'],
+      [40,'AN ORDINARY PACE IS ENOUGH','Let the next thing<br><em>be a small thing.</em>','Remember one manageable part of your day.<br>For now, you can leave the rest unfinished.']
+    ],hint:'Let your eyes follow one stream, at your own pace.'},
+    {name:'Release',world:'THE DRIFTING SEEDS',duration:60,cues:[
+      [0,'SOME THINGS CAN WAIT A MOMENT','You can put down<br><em>one small weight.</em>','If there is a thought you keep rehearsing,<br>you can leave it unanswered for this moment.'],
+      [20,'NOT EVERY THOUGHT NEEDS A TASK','Let a thought<br><em>have some space.</em>','Notice it as something passing through your attention.<br>You do not have to push it away.'],
+      [40,'RETURN TO SOMETHING NEARBY','The present<br><em>has simple details.</em>','Notice a colour or a sound in the room.<br>Let one nearby detail receive your attention.']
+    ],hint:'Watch a seed drift. There is nothing to catch.'},
+    {name:'Enough',world:'THE QUIET CENTRE',duration:60,cues:[
+      [0,'REST DOES NOT NEED A RESULT','This moment<br><em>can be enough.</em>','You can stop checking whether you are doing this well.<br>There is no state you have to reach.'],
+      [20,'YOU DO NOT HAVE TO EARN EVERY PAUSE','A little rest<br><em>belongs here too.</em>','Notice one place where you can use less effort.<br>It might be your hands, your gaze, or your posture.'],
+      [40,'LET YOUR OWN EXPERIENCE COUNT','Whatever is here,<br><em>you can notice it.</em>','Quiet, restlessness, feeling, or very little.<br>You can let your experience be your own.']
+    ],hint:'There is no task inside this light.'},
+    {name:'Listen',world:'THE LISTENING FIELD',duration:60,cues:[
+      [0,'MAKE A LITTLE ROOM FOR THE WORLD','Before an answer,<br><em>a moment to listen.</em>','Notice a sound without deciding whether you like it.<br>You can let it arrive and fade.'],
+      [20,'ATTENTION CAN LEAVE ROOM','You do not need<br><em>to fill every silence.</em>','Let one unhurried moment pass.<br>Nothing needs to be added to it.'],
+      [40,'TAKE THIS INTO A CONVERSATION','Someone can be<br><em>heard by you.</em>','Think of a conversation where you might listen a little longer.<br>You can choose the moment when it comes.']
+    ],hint:'With sound off or on, the room has its own life.'},
+    {name:'Kindness',world:'THE HEART OF LIGHT',duration:60,cues:[
+      [0,'CARE CAN HAVE AN ORDINARY SHAPE','A small kindness<br><em>still counts.</em>','Remember a simple way someone made a day easier.<br>Or imagine a kindness you would like to offer.'],
+      [20,'MAKE THE INVITATION GENTLE','You can include<br><em>yourself in the care.</em>','Consider how you would speak to someone having a hard day.<br>You can try that same gentleness with yourself.'],
+      [40,'KEEP THE NEXT STEP POSSIBLE','No grand gesture.<br><em>One human moment.</em>','A patient reply. A little help. An honest thank-you.<br>Choose something that fits the life you have.']
+    ],hint:'Touch gently. Let a little warmth gather.'},
+    {name:'Together',world:'THE WOVEN WORLD',duration:60,cues:[
+      [0,'MANY HANDS TOUCH AN ORDINARY DAY','Your day holds<br><em>other people\u2019s care.</em>','Think of the hands behind something you used today.<br>Someone grew, made, carried, cleaned, or repaired it.'],
+      [20,'CONNECTION CAN BE QUIET','You are part<br><em>of an everyday weave.</em>','Notice one way you contribute to another person\u2019s day.<br>Small contributions belong in the picture too.'],
+      [40,'DIFFERENCE CAN HAVE ROOM','Many lives.<br><em>Room for each.</em>','You do not need to understand someone completely<br>to offer a little respect.']
+    ],hint:'Follow one thread. Notice where it meets another.'},
+    {name:'Gratitude',world:'THE MANY SMALL GIFTS',duration:60,cues:[
+      [0,'NOTICE WHAT HAS HELPED','One small thing<br><em>that met you well.</em>','Something useful, beautiful, or simply welcome.<br>Let one detail come to mind, if it does.'],
+      [20,'LET TWO TRUTHS HAVE ROOM','Something difficult.<br><em>Something kind.</em>','Noticing something good does not erase what is hard.<br>You can leave room for both.'],
+      [40,'APPRECIATION CAN BECOME A GESTURE','Let a thank-you<br><em>find its way out.</em>','If someone comes to mind, you might tell them later.<br>There is nothing you need to write here.']
+    ],hint:'You do not have to feel grateful. Simply notice.'},
+    {name:'Carry',world:'THE LIGHT YOU CARRY',duration:60,cues:[
+      [0,'THE MOMENT CAN MEET YOUR LIFE','You can take<br><em>one thing with you.</em>','A little curiosity. A patient pause. A kinder reply.<br>Let one possibility be enough.'],
+      [20,'RETURN AT YOUR OWN PACE','Feel the room.<br><em>Meet the day.</em>','Notice what is around you.<br>Move your hands or feet, if you would like to.'],
+      [40,'ONE SMALL ACT IS A BEGINNING','Let the light<br><em>become a little care.</em>','You do not have to hold on to this moment.<br>You can give the next one your attention.']
+    ],hint:'Take your time. There is a world beyond the light.'}
+  ];
+  const total = scenes.reduce((sum,s)=>sum+s.duration,0);
+  const starts = [];let start=0;for(const s of scenes){starts.push(start);start+=s.duration;}
+  const app=$('app'),world=new window.LightWorld($('light'));
+  const reducedMotion=matchMedia('(prefers-reduced-motion: reduce)');
+  let mode='welcome', elapsed=0, paused=false, sceneIndex=0, cueIndex=-1;
+  let motion=!reducedMotion.matches, soundOn=false, volume=.30, dialogOpen=false;
+  let lastTime=performance.now(),visualTime=0,point=[0,0],targetPoint=[0,0],held=false,copyVersion=0;
+  let lastSecond=-1, lastScene=-1;
+  const chapterNav=$('chapter-nav');
+  chapterNav.setAttribute('aria-label',scenes.length+' experience chapters');
+  for(let i=chapterNav.children.length;i<scenes.length;i++){
+    const button=chapterNav.firstElementChild.cloneNode(true);button.dataset.chapter=String(i);button.setAttribute('aria-label',scenes[i].name);button.removeAttribute('aria-current');button.querySelector('.chapter-name').innerHTML=String(i+1).padStart(2,'0')+' <b>'+scenes[i].name+'</b>';chapterNav.appendChild(button);
+  }
+  const chapterButtons=[...document.querySelectorAll('[data-chapter]')];
+  const finalScene=scenes.length-1;let chapterPage=-1;
+
+  class Soundscape {
+    constructor(){this.context=null;this.master=null;this.oscillators=[];this.enabled=false;this.suspendTimer=null;this.scene=0;}
+    async prepare(){
+      if(this.context){await this.context.resume();return;}
+      const Audio=window.AudioContext||window.webkitAudioContext;if(!Audio)throw Error('Audio unavailable');
+      const ctx=this.context=new Audio();
+      this.master=ctx.createGain();this.master.gain.value=0;
+      const compressor=ctx.createDynamicsCompressor();compressor.threshold.value=-20;compressor.knee.value=20;compressor.ratio.value=3;compressor.attack.value=.05;compressor.release.value=.5;
+      this.master.connect(compressor);compressor.connect(ctx.destination);
+      this.filter=ctx.createBiquadFilter();this.filter.type='lowpass';this.filter.frequency.value=1100;this.filter.Q.value=.4;this.filter.connect(this.master);
+      const chord=[146.832,220,293.664,369.994];
+      chord.forEach((frequency,i)=>{
+        const gain=ctx.createGain();gain.gain.value=.16/(i+1);
+        let destination=gain;
+        if(ctx.createStereoPanner){const pan=ctx.createStereoPanner();pan.pan.value=(i%2?1:-1)*.32;gain.connect(pan);pan.connect(this.filter);const lfo=ctx.createOscillator(),depth=ctx.createGain();lfo.frequency.value=.017+i*.006;depth.gain.value=.18;lfo.connect(depth);depth.connect(pan.pan);lfo.start();}else gain.connect(this.filter);
+        for(let j=0;j<2;j++){const oscillator=ctx.createOscillator();oscillator.type='sine';oscillator.frequency.value=frequency;oscillator.detune.value=j?2:-2;oscillator.connect(destination);oscillator.start();this.oscillators.push(oscillator);}
+      });
+      const buffer=ctx.createBuffer(1,ctx.sampleRate*3,ctx.sampleRate),data=buffer.getChannelData(0);let brown=0;for(let i=0;i<data.length;i++){brown=(brown+(Math.random()*2-1)*.02)/1.02;data[i]=brown*3.5;}
+      const noise=ctx.createBufferSource();noise.buffer=buffer;noise.loop=true;
+      const noiseFilter=ctx.createBiquadFilter();noiseFilter.type='lowpass';noiseFilter.frequency.value=550;
+      const noiseGain=ctx.createGain();noiseGain.gain.value=.065;noise.connect(noiseFilter);noiseFilter.connect(noiseGain);noiseGain.connect(this.filter);noise.start();
+      await ctx.resume();this.tune(this.scene);
+    }
+    async enable(){clearTimeout(this.suspendTimer);await this.prepare();this.enabled=true;this.update();}
+    update(){if(!this.context||!this.master)return;const isAudible=this.enabled&&!document.hidden&&!(mode==='journey'&&paused);const now=this.context.currentTime;this.master.gain.setTargetAtTime(isAudible?volume*.8:0,now,.65);}
+    disable(){this.enabled=false;this.update();clearTimeout(this.suspendTimer);if(this.context)this.suspendTimer=setTimeout(()=>{if(!this.enabled)this.context.suspend().catch(()=>{});},2500);}
+    tune(index){this.scene=index;if(!this.context)return;const chords=[[146.832,220,293.664,369.994],[130.813,196,261.626,329.628],[174.614,261.626,349.228,440],[164.814,246.942,329.628,415.305],[146.832,220,293.664,440],[174.614,261.626,349.228,440],[146.832,220,293.664,369.994],[130.813,196,261.626,392],[130.813,196,261.626,329.628],[164.814,246.942,329.628,415.305],[174.614,220,349.228,440],[146.832,220,293.664,440],[164.814,246.942,329.628,440],[146.832,220,293.664,440]];const time=this.context.currentTime;this.oscillators.forEach((o,i)=>o.frequency.setTargetAtTime(chords[index][Math.floor(i/2)],time,2));this.filter.frequency.setTargetAtTime([1100,650,1400,1000,1500,1400,800,850,650,950,1050,1200,1350,1500][index],time,3);}
+  }
+  const audio=new Soundscape();
+  function announce(message){$('status').textContent=message;}
+  function updateSoundUI(){
+    $('sound-button').setAttribute('aria-pressed',String(soundOn));$('sound-button').setAttribute('aria-label',soundOn?'Turn sound off':'Turn sound on');$('sound-label').textContent=soundOn?'Sound on':'Sound off';$('sound-toggle').checked=soundOn;
+  }
+  async function setSound(value){
+    soundOn=value;updateSoundUI();
+    if(value){try{await audio.enable();if(!soundOn)audio.disable();}catch(error){soundOn=false;updateSoundUI();announce('Sound is unavailable in this browser. You can still enjoy the quiet experience.');}}
+    else audio.disable();
+  }
+  function setMotion(value){motion=value;$('motion-toggle').checked=value;document.body.classList.toggle('quiet-mode',!value);if(!value){targetPoint=[0,0];point=[0,0];held=false;}world.motion=value;$('hint-text').textContent=value?scenes[sceneIndex].hint:'A still world. Take all the time you need.';}
+  setMotion(motion);
+  reducedMotion.addEventListener('change',event=>setMotion(!event.matches));
+
+  function cueFor(index,seconds){let result=0;for(let i=0;i<scenes[index].cues.length;i++)if(seconds>=scenes[index].cues[i][0])result=i;return result;}
+  function setCopy(index,cue,immediate=false){
+    const data=scenes[index].cues[cue],version=++copyVersion;
+    const apply=()=>{if(version!==copyVersion)return;$('scene-eyebrow').textContent=data[1];$('scene-title').innerHTML=data[2];$('scene-instruction').innerHTML=data[3];$('scene-copy').classList.remove('changing');};
+    if(immediate||!motion)apply();else{$('scene-copy').classList.add('changing');setTimeout(apply,450);}
+  }
+  function updateChapterUI(){
+    const page=Math.floor(sceneIndex/5);
+    if(page!==chapterPage){chapterPage=page;const first=chapterButtons[page*5];chapterNav.scrollTo({left:first.offsetLeft-chapterButtons[0].offsetLeft,behavior:motion&&mode!=='welcome'?'smooth':'instant'});}
+    for(let i=0;i<chapterButtons.length;i++){
+      const button=chapterButtons[i];if(i===sceneIndex&&mode!=='completion')button.setAttribute('aria-current','step');else button.removeAttribute('aria-current');
+      const progress=mode==='welcome'?(i===0?.18:0):Math.min(1,Math.max(0,(elapsed-starts[i])/scenes[i].duration));
+      button.querySelector('.chapter-track>span').style.width=(progress*100)+'%';
+    }
+  }
+  function updateJourney(immediate=false){
+    let index=0;while(index<finalScene&&elapsed>=starts[index+1])index++;
+    sceneIndex=index;const local=Math.max(0,elapsed-starts[index]),cue=cueFor(index,local);
+    if(index!==lastScene){
+      cueIndex=-1;
+      lastScene=index;audio.tune(index);$('scene-kicker').textContent=String(index+1).padStart(2,'0')+' / '+scenes[index].name.toUpperCase();$('world-name').textContent=scenes[index].world;$('hint-text').textContent=motion?scenes[index].hint:'A still world. Take all the time you need.';
+    }
+    if(cue!==cueIndex||immediate){cueIndex=cue;setCopy(index,cue,immediate);}
+    const remaining=Math.ceil(Math.max(0,total-elapsed));if(remaining!==lastSecond){lastSecond=remaining;$('session-clock').textContent=Math.floor(remaining/60)+':'+String(remaining%60).padStart(2,'0');updateChapterUI();}
+  }
+  function setPaused(value,message){paused=value;$('pause-label').textContent=value?'Resume':'Pause';$('pause-button').setAttribute('aria-label',value?'Resume experience':'Pause experience');$('pause-icon').setAttribute('d',value?'M7 4l8 6-8 6V4':'M7 5v10M13 5v10');$('paused-message').hidden=!value;audio.update();if(message)announce(message);}
+  function startJourney(index=0,stay=false){
+    mode='journey';app.dataset.view=mode;$('welcome').hidden=true;$('completion').hidden=true;$('journey').hidden=false;
+    elapsed=starts[index];sceneIndex=index;lastScene=-1;cueIndex=-1;lastSecond=-1;lastTime=performance.now();setPaused(stay);if(stay)world.scene=index;updateJourney(true);$('scene-title').focus({preventScroll:true});announce(stay?'Stay as long as you like. Choose Resume when you are ready.':'The seventeen-minute sanctuary has begun. Every invitation is optional.');
+  }
+  function goToScene(index){
+    if(mode!=='journey'){startJourney(index);return;}
+    elapsed=starts[index];if(paused)world.scene=index;lastScene=-1;cueIndex=-1;lastSecond=-1;updateJourney(true);$('scene-title').focus({preventScroll:true});announce(scenes[index].name+'. Move at your own pace.');
+  }
+  function finish(){
+    mode='completion';app.dataset.view=mode;sceneIndex=finalScene;elapsed=total;$('journey').hidden=true;$('welcome').hidden=true;$('completion').hidden=false;setPaused(false);$('completion-title').focus({preventScroll:true});announce('The journey is complete. Choose a small act of care, or stay a little longer.');
+  }
+  function goHome(){mode='welcome';app.dataset.view=mode;$('welcome').hidden=false;$('journey').hidden=true;$('completion').hidden=true;sceneIndex=0;elapsed=0;setPaused(false);$('world-name').textContent='THE THRESHOLD';$('world-coordinate').textContent='A place between hurry and here';updateChapterUI();$('enter-button').focus({preventScroll:true});}
+  $('enter-button').addEventListener('click',()=>startJourney());
+  $('home-link').addEventListener('click',event=>{event.preventDefault();goHome();});
+  $('pause-button').addEventListener('click',()=>setPaused(!paused,paused?'Experience resumed.':'Experience paused. Take all the time you need.'));
+  $('return-button').addEventListener('click',()=>startJourney(finalScene,true));
+  $('begin-again').addEventListener('click',()=>startJourney());
+  chapterButtons.forEach(button=>button.addEventListener('click',()=>goToScene(Number(button.dataset.chapter))));
+  $('sound-button').addEventListener('click',()=>setSound(!soundOn));
+  $('sound-toggle').addEventListener('change',event=>setSound(event.target.checked));
+  $('volume').addEventListener('input',event=>{volume=Number(event.target.value)/100;$('volume-label').textContent=Math.round(volume*100)+'%';audio.update();});
+  $('motion-toggle').addEventListener('change',event=>setMotion(event.target.checked));
+  const fullscreen=$('fullscreen-button');if(!document.fullscreenEnabled)fullscreen.hidden=true;
+  fullscreen.addEventListener('click',async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else await document.documentElement.requestFullscreen();}catch(error){announce('Full screen is unavailable here. The sanctuary will continue in this window.');}});
+  document.addEventListener('fullscreenchange',()=>fullscreen.setAttribute('aria-label',document.fullscreenElement?'Leave full screen':'Enter full screen'));
+  function openDialog(dialog){dialog.showModal();dialogOpen=true;held=false;}
+  $('comfort-button').addEventListener('click',()=>openDialog($('comfort-dialog')));
+  $('about-button').addEventListener('click',()=>openDialog($('about-dialog')));
+  document.querySelectorAll('[data-close]').forEach(button=>button.addEventListener('click',()=>button.closest('dialog').close()));
+  document.querySelectorAll('dialog').forEach(dialog=>{
+    dialog.addEventListener('close',()=>{dialogOpen=!!document.querySelector('dialog[open]');lastTime=performance.now();});
+    dialog.addEventListener('click',event=>{if(event.target===dialog){const rect=dialog.getBoundingClientRect();if(event.clientX<rect.left||event.clientX>rect.right||event.clientY<rect.top||event.clientY>rect.bottom)dialog.close();}});
+  });
+  const confirmations={listen:'One unhurried minute of listening can be your next small beginning.',kindness:'Choose a small kindness that fits your day. You decide what that looks like.',outside:'When you are ready, meet one ordinary detail with a little curiosity.'};
+  document.querySelectorAll('[data-care]').forEach(button=>button.addEventListener('click',()=>{document.querySelectorAll('[data-care]').forEach(b=>b.setAttribute('aria-pressed',String(b===button)));$('care-confirmation').textContent=confirmations[button.dataset.care];}));
+  document.addEventListener('visibilitychange',()=>{lastTime=performance.now();held=false;if(document.hidden&&mode==='journey'&&!paused)setPaused(true,'The sanctuary paused while you were away. Choose Resume whenever you are ready.');audio.update();});
+  window.addEventListener('blur',()=>{held=false;});
+  function interactive(event){return event.target.closest('button,a,input,summary,dialog');}
+  window.addEventListener('pointermove',event=>{if(!motion||dialogOpen||interactive(event))return;targetPoint=[(event.clientX/innerWidth-.5)*2,(.5-event.clientY/innerHeight)*2];},{passive:true});
+  window.addEventListener('pointerdown',event=>{if(!interactive(event)&&!dialogOpen&&motion){held=true;targetPoint=[(event.clientX/innerWidth-.5)*2,(.5-event.clientY/innerHeight)*2];}},{passive:true});
+  window.addEventListener('pointerup',()=>{held=false;},{passive:true});window.addEventListener('pointercancel',()=>{held=false;},{passive:true});
+  document.addEventListener('keydown',event=>{if(dialogOpen||event.target.closest('button,a,input,summary'))return;if(mode==='journey'&&event.code==='Space'){event.preventDefault();setPaused(!paused);}if(mode==='journey'&&event.key==='ArrowRight'){event.preventDefault();if(sceneIndex<finalScene)goToScene(sceneIndex+1);else finish();}if(mode==='journey'&&event.key==='ArrowLeft'){event.preventDefault();goToScene(Math.max(0,sceneIndex-1));}});
+  function frame(time){
+    const activeDt=Math.max(0,(time-lastTime)/1000),dt=Math.min(activeDt,.08);lastTime=time;
+    const frozen=document.hidden||dialogOpen||(mode==='journey'&&paused);
+    if(!frozen){
+      if(motion)visualTime+=dt;
+      if(mode==='journey'){elapsed+=activeDt;if(elapsed>=total)finish();else updateJourney();}
+      point[0]+=(targetPoint[0]-point[0])*Math.min(1,dt*1.8);point[1]+=(targetPoint[1]-point[1])*Math.min(1,dt*1.8);world.hold+=((held?.9:0)-world.hold)*Math.min(1,dt*1.6);
+    }
+    const mobile=innerWidth<=700,aspect=world.width/world.height;
+    const targetScene=mode==='welcome'?0:sceneIndex;
+    const ease=motion?Math.min(1,dt*.75):1;
+    if(!frozen){world.scene+=(targetScene-world.scene)*ease;}
+    const targetCenter=mobile?[0,mode==='welcome'?.53:mode==='completion'?.33:.37]:[mode==='completion'?0:.36,mode==='completion'?.13:.06];
+    const targetScale=mobile?Math.min(1,aspect*(mode==='welcome'?(world.height<=760?.86:1.02):1.16)):(mode==='completion'?.95:1.13);
+    if(!frozen||!motion){world.center[0]+=(targetCenter[0]-world.center[0])*Math.min(1,dt*2);world.center[1]+=(targetCenter[1]-world.center[1])*Math.min(1,dt*2);world.scale+=(targetScale-world.scale)*Math.min(1,dt*2);}
+    world.pointer=motion?point:[0,0];world.motion=motion;world.time=visualTime;world.render();requestAnimationFrame(frame);
+  }
+  $('completion-title').setAttribute('tabindex','-1');
+  world.center=innerWidth<=700?[0,.53]:[.36,.06];world.scale=innerWidth<=700?Math.min(1,world.width/world.height*(world.height<=760?.86:1.02)):1.13;
+  updateChapterUI();requestAnimationFrame(frame);
+})();
+
+</script>
+</body>
+</html>
