@@ -1,4 +1,20 @@
 <!DOCTYPE html>
+<<<<<<< HEAD
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intro Smoke Test - 12 Products</title>
+    <style>
+        body { margin: 0; font-family: Arial, sans-serif; }
+        video { width: 100%; }
+    </style>
+</head>
+<body>
+    
+</body>
+</html>
+=======
 <html lang="en" class="dark">
 <head>
   <meta charset="UTF-8">
@@ -72,7 +88,8 @@
     }
     #intro-flow.intro-hidden { opacity: 0; visibility: hidden; pointer-events: none; }
 
-    /* Video intro stage — plays 3 clips, then hands off to entry portal */
+    /* Entry portal — the very first screen of the flow */
+    /* Video intro stage */
     #intro-video-stage {
       position: absolute; inset: 0; z-index: 20;
       background: #000;
@@ -219,6 +236,50 @@
       .intro-text { min-height: 30vh; }
     }
 
+    /* ===== STAGE 0 — VIDEO INTRODUCTION (plays before the entry portal, then hands off) ===== */
+    #intro-video {
+      position: fixed; inset: 0; z-index: 360;
+      background: #000; overflow: hidden;
+      transition: opacity 1s ease, visibility 1s ease;
+    }
+    #intro-video.intro-hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+    #intro-video-el {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      object-fit: cover; display: block; background: #000;
+    }
+    #intro-video::after {
+      content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 1;
+      background:
+        radial-gradient(ellipse at 50% 120%, rgba(3,7,18,.85) 0%, rgba(3,7,18,0) 60%),
+        linear-gradient(180deg, rgba(3,7,18,.55) 0%, rgba(3,7,18,0) 25%, rgba(3,7,18,0) 68%, rgba(3,7,18,.8) 100%);
+    }
+    .intro-video-hud {
+      position: absolute; top: 0; left: 0; right: 0; z-index: 2;
+      display: flex; align-items: center; justify-content: space-between; gap: 10px;
+      padding: 16px; flex-wrap: wrap;
+    }
+    .intro-video-hud .intro-brand { color: rgba(0,240,255,.55); }
+    .intro-video-hud .intro-counter { color: #f39c12; }
+    .intro-video-bottom {
+      position: absolute; bottom: 0; left: 0; right: 0; z-index: 2;
+      display: flex; flex-direction: column; align-items: center; gap: 14px;
+      padding: 20px 16px 30px; text-align: center;
+    }
+    #intro-video-caption {
+      font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 600;
+      letter-spacing: 4px; text-transform: uppercase; color: rgba(255,255,255,.55);
+    }
+    #intro-video-caption em { font-style: normal; color: #f39c12; }
+    .intro-video-seg { display: flex; gap: 6px; }
+    .intro-video-seg i {
+      display: block; width: 26px; height: 3px; border-radius: 2px;
+      background: rgba(255,255,255,.18);
+      transition: background .4s ease, box-shadow .4s ease;
+    }
+    .intro-video-seg i.on { background: #f39c12; box-shadow: 0 0 10px #f39c12; }
+    .intro-video-controls { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; }
+    @media (max-width: 520px) { .intro-video-seg i { width: 20px; } }
+
     /* ===== SECTION SWITCHER + SECTION 3 (Product 3 — Sovereign Matrix Escape Protocol) ===== */
     .is-hidden { display: none !important; }
 
@@ -328,9 +389,26 @@
 </head>
 <body class="min-h-screen flex flex-col justify-between selection:bg-cyan-500 selection:text-black intro-lock">
 
+  <!-- ============ STAGE 0 — VIDEO INTRODUCTION: three clips in order, then hands off to the flow ============ -->
+  <div id="intro-video" aria-label="Introduction video">
+    <video id="intro-video-el" playsinline muted autoplay preload="auto"></video>
+    <div class="intro-video-hud">
+      <span class="intro-brand">Introduction // Signal Inbound</span>
+      <span class="intro-counter" id="intro-video-count">01 / 03</span>
+    </div>
+    <div class="intro-video-bottom">
+      <div id="intro-video-caption">Receiving signal · <em>Clip 01</em></div>
+      <div class="intro-video-seg" id="intro-video-seg"><i class="on"></i><i></i><i></i></div>
+      <div class="intro-video-controls">
+        <button class="hud-btn" id="intro-video-sound" type="button">Sound Off</button>
+        <button class="hud-btn" id="intro-video-skip" type="button">Skip Intro →</button>
+      </div>
+    </div>
+  </div>
+
   <!-- ============ STEP 1 — INTRO FLOW: runs first, then opens the 21-day protocol ============ -->
   <div id="intro-flow">
-    <!-- Video intro stage (plays 3 clips, then hands off to entry portal) -->
+  <!-- Video intro stage (plays 3 clips, then hands off to entry portal) -->
   <div id="intro-video-stage">
     <video id="introVideo" autoplay muted playsinline></video>
     <div id="video-label">UGT // Intro</div>
@@ -338,7 +416,7 @@
     <button id="video-skip">Skip →</button>
   </div>
 
-  <!-- Entry portal -->
+    <!-- Entry portal -->
     <div id="intro-entry" class="intro-hidden">
       <div class="intro-kicker">UGT // Sovereignty</div>
       <div class="intro-title">The Matrix Escape Manual</div>
@@ -426,7 +504,6 @@
 
     if (skipBtn) skipBtn.addEventListener('click', finish);
 
-    // start
     load(0);
   })();
   </script>
@@ -447,6 +524,22 @@
       <button class="section-tab" id="sec-product5">Product 5 // One God, One Voice</button>
       <button class="section-tab" id="sec-journey">Human Journey</button>
       <button class="section-tab" id="sec-product6">Product 6 // Passage</button>
+      <button class="section-tab" id="sec-product7">Product 7 // Sleep</button>
+      <button class="section-tab" id="sec-product8">Product 8 // The Loop</button>
+      <button class="section-tab" id="sec-product9">Product 9 // Rewire</button>
+      <button class="section-tab" id="sec-product10">Product 10 // Frequencies</button>
+      <button class="section-tab" id="sec-product11">Product 11 // Clarity</button>
+      <button class="section-tab" id="sec-product12">Product 12 // ONE 99 Thoughts</button>
+      <button class="section-tab" id="sec-product13">Product 13 // Human Mirror 14 Worlds</button>
+      <button class="section-tab" id="sec-product14">Product 14 // Human Mirror Reimagined</button>
+      <button class="section-tab" id="sec-product15">Product 15 // Human Sanctuary 14 Scenes</button>
+    </div>
+  </main>\"\"\"
+    </div>
+    <!-- ============ SECTION 2 — SESSION ENGINE (titles removed — pure app) ============ -->
+    </div>
+
+  </main>"""
     </div>
 
     <!-- ============ SECTION 2 — SESSION ENGINE (titles removed — pure app) ============ -->
@@ -600,6 +693,87 @@
         <button class="p3-hud-btn" id="passage-fullscreen">Fullscreen ⛶</button>
       </div>
       <iframe id="passage-frame" class="passage-frame" src="extra-dimensional-passage.html" title="The 10-Minute Extra-Dimensional Passage — Complete Immersive Edition" loading="lazy" allow="autoplay; fullscreen"></iframe>
+    </section>
+
+    <!-- ============ SECTION 8 — PRODUCT 7: TWENTY MINUTES DOWN (SLEEP) ============ -->
+    <section id="sleep-panel" class="glass-card rounded-2xl p-4 sm:p-6 relative overflow-hidden is-hidden">
+      <div class="flex items-center justify-between gap-2 mb-3 flex-wrap">
+        <span class="text-[10px] font-mono tracking-widest uppercase text-gray-500">UGT // Twenty Minutes Down: Sleep — Guided Breathing + Pink-Noise Wind-Down</span>
+        <button class="p3-hud-btn" id="sleep-fullscreen">Fullscreen ⛶</button>
+      </div>
+      <iframe id="sleep-frame" class="passage-frame" src="twenty-minutes-down.html" title="Twenty Minutes Down: Sleep — Guided Relaxation Session" loading="lazy" allow="autoplay; fullscreen"></iframe>
+    </section>
+
+    <!-- ============ SECTION 9 — PRODUCT 8: THE LOOP (21 Days of Greater Choice) ============ -->
+    <section id="loop-panel" class="glass-card rounded-2xl p-4 sm:p-6 relative overflow-hidden is-hidden">
+      <div class="flex items-center justify-between gap-2 mb-3 flex-wrap">
+        <span class="text-[10px] font-mono tracking-widest uppercase text-gray-500">UGT // The Loop — 21 Days of Greater Choice</span>
+        <button class="p3-hud-btn" id="loop-fullscreen">Fullscreen ⛶</button>
+      </div>
+      <iframe id="loop-frame" class="passage-frame" src="the-loop-complete-app.html" title="The Loop — 21 Days of Greater Choice" loading="lazy" allow="autoplay; fullscreen"></iframe>
+    </section>
+
+    <!-- ============ SECTION 10 — PRODUCT 9: REWIRE (A Daily Wallpaper Ritual) ============ -->
+    <section id="rewire-panel" class="glass-card rounded-2xl p-4 sm:p-6 relative overflow-hidden is-hidden">
+      <div class="flex items-center justify-between gap-2 mb-3 flex-wrap">
+        <span class="text-[10px] font-mono tracking-widest uppercase text-gray-500">UGT // Rewire — A Daily Wallpaper Ritual</span>
+        <button class="p3-hud-btn" id="rewire-fullscreen">Fullscreen ⛶</button>
+      </div>
+      <iframe id="rewire-frame" class="passage-frame" src="rewire-wallpaper-app.html" title="Rewire — A Daily Wallpaper Ritual" loading="lazy" allow="autoplay; fullscreen"></iframe>
+    </section>
+
+    <!-- ============ SECTION 11 — PRODUCT 10: FREQUENCY PLAYGROUND (99 Moments) ============ -->
+    <section id="frequency-panel" class="glass-card rounded-2xl p-4 sm:p-6 relative overflow-hidden is-hidden">
+      <div class="flex items-center justify-between gap-2 mb-3 flex-wrap">
+        <span class="text-[10px] font-mono tracking-widest uppercase text-gray-500">UGT // Frequency Playground — 99 Moments</span>
+        <button class="p3-hud-btn" id="frequency-fullscreen">Fullscreen ⛶</button>
+      </div>
+      <iframe id="frequency-frame" class="passage-frame" src="frequency-playground-99-scenarios.html" title="Frequency Playground — 99 Moments" loading="lazy" allow="autoplay; fullscreen"></iframe>
+    </section>
+
+    <!-- ============ SECTION 12 — PRODUCT 11: CLARITY / 30 (30-Day Affirmations) ============ -->
+    <section id="clarity-panel" class="glass-card rounded-2xl p-4 sm:p-6 relative overflow-hidden is-hidden">
+      <div class="flex items-center justify-between gap-2 mb-3 flex-wrap">
+        <span class="text-[10px] font-mono tracking-widest uppercase text-gray-500">UGT // Clarity / 30 — 30 Days of Morning & Evening Affirmations</span>
+        <button class="p3-hud-btn" id="clarity-fullscreen">Fullscreen ⛶</button>
+      </div>
+      <iframe id="clarity-frame" class="passage-frame" src="clarity-30-day-affirmations.html" title="Clarity / 30 — 30 Days of Affirmations" loading="lazy" allow="autoplay; fullscreen"></iframe>
+    </section>
+
+    <!-- ============ SECTION 13 — PRODUCT 12: ONE — 99 THOUGHTS ============ -->
+    <section id="thoughts-panel" class="glass-card rounded-2xl p-4 sm:p-6 relative overflow-hidden is-hidden">
+      <div class="flex items-center justify-between gap-2 mb-3 flex-wrap">
+        <span class="text-[10px] font-mono tracking-widest uppercase text-gray-500">UGT // ONE — 99 Thoughts</span>
+        <button class="p3-hud-btn" id="thoughts-fullscreen">Fullscreen ⛶</button>
+      </div>
+      <iframe id="thoughts-frame" class="passage-frame" src="ONE_99_Thoughts.html" title="ONE — 99 Thoughts" loading="lazy" allow="autoplay; fullscreen"></iframe>
+    </section>
+
+    <!-- ============ SECTION 14 — PRODUCT 13: HUMAN MIRROR — 14 WORLDS ============ -->
+    <section id="mirror14-panel" class="glass-card rounded-2xl p-4 sm:p-6 relative overflow-hidden is-hidden">
+      <div class="flex items-center justify-between gap-2 mb-3 flex-wrap">
+        <span class="text-[10px] font-mono tracking-widest uppercase text-gray-500">UGT // Human Mirror — 14 Worlds</span>
+        <button class="p3-hud-btn" id="mirror14-fullscreen">Fullscreen ⛶</button>
+      </div>
+      <iframe id="mirror14-frame" class="passage-frame" src="The_Human_Mirror_14_Worlds.html" title="The Human Mirror — 14 Worlds" loading="lazy" allow="autoplay; fullscreen"></iframe>
+    </section>
+
+    <!-- ============ SECTION 15 — PRODUCT 14: HUMAN MIRROR — REIMAGINED ============ -->
+    <section id="mirrorre-panel" class="glass-card rounded-2xl p-4 sm:p-6 relative overflow-hidden is-hidden">
+      <div class="flex items-center justify-between gap-2 mb-3 flex-wrap">
+        <span class="text-[10px] font-mono tracking-widest uppercase text-gray-500">UGT // Human Mirror — Reimagined</span>
+        <button class="p3-hud-btn" id="mirrorre-fullscreen">Fullscreen ⛶</button>
+      </div>
+      <iframe id="mirrorre-frame" class="passage-frame" src="The_Human_Mirror_REIMAGINED.html" title="The Human Mirror — Reimagined" loading="lazy" allow="autoplay; fullscreen"></iframe>
+    </section>
+
+    <!-- ============ SECTION 16 — PRODUCT 15: HUMAN SANCTUARY — 14 SCENES ============ -->
+    <section id="sanctuary-panel" class="glass-card rounded-2xl p-4 sm:p-6 relative overflow-hidden is-hidden">
+      <div class="flex items-center justify-between gap-2 mb-3 flex-wrap">
+        <span class="text-[10px] font-mono tracking-widest uppercase text-gray-500">UGT // Human Sanctuary — 14 Scenes</span>
+        <button class="p3-hud-btn" id="sanctuary-fullscreen">Fullscreen ⛶</button>
+      </div>
+      <iframe id="sanctuary-frame" class="passage-frame" src="The_Human_Sanctuary_14_Scenes.html" title="The Human Sanctuary — 14 Scenes" loading="lazy" allow="autoplay; fullscreen"></iframe>
     </section>
 
   </main>
@@ -1301,7 +1475,96 @@
     window.addEventListener('load', () => {
       initProtocolCanvas();
       renderProtocolVisuals();
+      // Start the intro video sequence automatically
+      // After intro completes, protocol will hand off automatically
+      // setTimeout(() => { window.__videoIntroEngine && window.__videoIntroEngine.load(0); }, 500);
     });
+  </script>
+
+  <script>
+    // ===== STAGE 0 — VIDEO INTRODUCTION ENGINE (three clips in order → hands off to the entry portal) =====
+    (function () {
+      const CLIPS = ['videos/intro-1.mp4', 'videos/intro-2.mp4', 'videos/intro-3.mp4'];
+      const stage = document.getElementById('intro-video');
+      const video = document.getElementById('intro-video-el');
+      const counter = document.getElementById('intro-video-count');
+      const caption = document.getElementById('intro-video-caption');
+      const segs = document.getElementById('intro-video-seg');
+      const soundBtn = document.getElementById('intro-video-sound');
+      const skipBtn = document.getElementById('intro-video-skip');
+      if (!stage || !video) return;
+      const pad = n => (n < 10 ? '0' : '') + n;
+
+      let idx = 0, done = false, muted = true;
+
+      function paint() {
+        counter.textContent = pad(idx + 1) + ' / ' + pad(CLIPS.length);
+        caption.innerHTML = 'Receiving signal · <em>Clip ' + pad(idx + 1) + '</em>';
+        Array.prototype.forEach.call(segs.children, (s, i) => s.classList.toggle('on', i <= idx));
+      }
+
+      function play() {
+        try {
+          video.muted = muted;
+          const p = video.play();
+          if (p && typeof p.catch === 'function') p.catch(function () {});
+        } catch (e) {}
+      }
+
+      function load(i) {
+        idx = i;
+        paint();
+        try { video.src = CLIPS[i]; } catch (e) {}
+        play();
+      }
+
+      function advance() {
+        if (done) return;
+        if (idx < CLIPS.length - 1) load(idx + 1);
+        else finish();
+      }
+
+      function finish() {
+        if (done) return;
+        done = true;
+        try { video.pause(); } catch (e) {}
+        stage.classList.add('intro-hidden');
+      }
+
+      video.addEventListener('ended', advance);
+      // never hang on a broken clip — move on if a source fails to load
+      video.addEventListener('error', function () { advance(); });
+
+      // Auto-start the intro video sequence when page loads
+      load(0);
+
+      if (soundBtn) soundBtn.addEventListener('click', function () {
+        muted = !muted;
+        try { video.muted = muted; } catch (e) {}
+        soundBtn.classList.toggle('active', !muted);
+        soundBtn.textContent = muted ? 'Sound Off' : 'Sound On';
+        if (!muted) play();
+      });
+      if (skipBtn) skipBtn.addEventListener('click', finish);
+
+      // Escape skips the cinematic intro (never traps the visitor)
+      window.addEventListener('keydown', function (e) {
+        if (done) return;
+        if (e.key === 'Escape') { e.preventDefault(); finish(); }
+      });
+
+      load(0);
+
+      // test / debug hook
+      window.__introVideo = {
+        clips: CLIPS,
+        get idx() { return idx; },
+        get done() { return done; },
+        next: advance,
+        skip: finish,
+        goto: load
+      };
+    })();
   </script>
 
   <script>
@@ -1723,7 +1986,7 @@
 
       // --- section switcher (global) — protocol / product3 / journey ---
       window.switchSection = function (name) {
-        const panels = { protocol: 'app', product3: 'product3-panel', product4: 'awakening-panel', product5: 'one-god-panel', journey: 'journey-panel', product6: 'passage-panel' };
+        const panels = { protocol: 'app', product3: 'product3-panel', product4: 'awakening-panel', product5: 'one-god-panel', journey: 'journey-panel', product6: 'passage-panel', product7: 'sleep-panel', product8: 'loop-panel', product9: 'rewire-panel', product10: 'frequency-panel', product11: 'clarity-panel', product12: 'thoughts-panel', product13: 'mirror14-panel', product14: 'mirrorre-panel', product15: 'sanctuary-panel' };
         if (!panels[name]) return;
         const isP3 = name === 'product3';
         if (name !== 'protocol' && typeof protocolActive !== 'undefined' && protocolActive && typeof stopProtocolSession === 'function') {
@@ -1740,6 +2003,16 @@
         document.getElementById('sec-product5').classList.toggle('active', name === 'product5');
         document.getElementById('sec-journey').classList.toggle('active', name === 'journey');
         document.getElementById('sec-product6').classList.toggle('active', name === 'product6');
+        document.getElementById('sec-product7').classList.toggle('active', name === 'product7');
+        document.getElementById('sec-product8').classList.toggle('active', name === 'product8');
+        document.getElementById('sec-product9').classList.toggle('active', name === 'product9');
+        document.getElementById('sec-product10').classList.toggle('active', name === 'product10');
+        document.getElementById('sec-product11').classList.toggle('active', name === 'product11');
+        document.getElementById('sec-product12').classList.toggle('active', name === 'product12');
+        document.getElementById('sec-product13').classList.toggle('active', name === 'product13');
+        document.getElementById('sec-product14').classList.toggle('active', name === 'product14');
+        document.getElementById('sec-product15').classList.toggle('active', name === 'product15');
+        
         if (isP3) p3Render();
       };
 
@@ -1747,6 +2020,24 @@
       document.getElementById('sec-product3').addEventListener('click', () => window.switchSection('product3'));
       // --- Product 4 (66 Days of Awakening) ---
       document.getElementById('sec-product4').addEventListener('click', () => window.switchSection('product4'));
+
+      // --- Product 13 (Human Mirror — 14 Worlds) ---
+      
+
+      // --- mirror14 fullscreen ---
+      
+
+      // --- Product 14 (Human Mirror — Reimagined) ---
+      
+
+      // --- mirrorre fullscreen ---
+      
+
+      // --- Product 15 (Human Sanctuary — 14 Scenes) ---
+      
+
+      // --- sanctuary fullscreen ---
+      
 
       // --- Product 5 (One God, One Voice, One Humanity) ---
       document.getElementById('sec-product5').addEventListener('click', () => window.switchSection('product5'));
@@ -1800,6 +2091,106 @@
       // --- passage fullscreen ---
       document.getElementById('passage-fullscreen').addEventListener('click', () => {
         const fr = document.getElementById('passage-frame');
+        try {
+          if (document.fullscreenElement) document.exitFullscreen();
+          else if (fr.requestFullscreen) fr.requestFullscreen();
+        } catch (e) {}
+      });
+
+      // --- Product 7 (Twenty Minutes Down: Sleep) ---
+      document.getElementById('sec-product7').addEventListener('click', () => window.switchSection('product7'));
+
+      // --- sleep fullscreen ---
+      document.getElementById('sleep-fullscreen').addEventListener('click', () => {
+        const fr = document.getElementById('sleep-frame');
+        try {
+          if (document.fullscreenElement) document.exitFullscreen();
+          else if (fr.requestFullscreen) fr.requestFullscreen();
+        } catch (e) {}
+      });
+
+      // --- Product 8 (The Loop — 21 Days of Greater Choice) ---
+      document.getElementById('sec-product8').addEventListener('click', () => window.switchSection('product8'));
+
+      // --- loop fullscreen ---
+      document.getElementById('loop-fullscreen').addEventListener('click', () => {
+        const fr = document.getElementById('loop-frame');
+        try {
+          if (document.fullscreenElement) document.exitFullscreen();
+          else if (fr.requestFullscreen) fr.requestFullscreen();
+        } catch (e) {}
+      });
+
+      // --- Product 9 (Rewire — A Daily Wallpaper Ritual) ---
+      document.getElementById('sec-product9').addEventListener('click', () => window.switchSection('product9'));
+
+      // --- rewire fullscreen ---
+      document.getElementById('rewire-fullscreen').addEventListener('click', () => {
+        const fr = document.getElementById('rewire-frame');
+        try {
+          if (document.fullscreenElement) document.exitFullscreen();
+          else if (fr.requestFullscreen) fr.requestFullscreen();
+        } catch (e) {}
+      });
+
+      // --- Product 10 (Frequency Playground — 99 Moments) ---
+      document.getElementById('sec-product10').addEventListener('click', () => window.switchSection('product10'));
+
+      // --- frequency fullscreen ---
+      document.getElementById('frequency-fullscreen').addEventListener('click', () => {
+        const fr = document.getElementById('frequency-frame');
+        try {
+          if (document.fullscreenElement) document.exitFullscreen();
+          else if (fr.requestFullscreen) fr.requestFullscreen();
+        } catch (e) {}
+      });
+
+      // --- Product 11 (Clarity / 30 — 30-Day Affirmations) ---
+      document.getElementById('sec-product11').addEventListener('click', () => window.switchSection('product11'));
+
+      // --- clarity fullscreen ---
+      document.getElementById('clarity-fullscreen').addEventListener('click', () => {
+        const fr = document.getElementById('clarity-frame');
+        try {
+          if (document.fullscreenElement) document.exitFullscreen();
+          else if (fr.requestFullscreen) fr.requestFullscreen();
+        } catch (e) {}
+      });
+
+      // --- Product 12 (ONE — 99 Thoughts) ---
+      document.getElementById('sec-product12').addEventListener('click', () => window.switchSection('product12'));
+document.getElementById('sec-product13').addEventListener('click', () => window.switchSection('product13'));
+document.getElementById('sec-product14').addEventListener('click', () => window.switchSection('product14'));
+document.getElementById('sec-product15').addEventListener('click', () => window.switchSection('product15'));
+
+      // --- thoughts fullscreen ---
+      document.getElementById('thoughts-fullscreen').addEventListener('click', () => {
+        const fr = document.getElementById('thoughts-frame');
+        try {
+          if (document.fullscreenElement) document.exitFullscreen();
+          else if (fr.requestFullscreen) fr.requestFullscreen();
+        } catch (e) {}
+      });
+
+      // --- mirror14 fullscreen ---
+      document.getElementById('mirror14-fullscreen').addEventListener('click', () => {
+        const fr = document.getElementById('mirror14-frame');
+        try {
+          if (document.fullscreenElement) document.exitFullscreen();
+          else if (fr.requestFullscreen) fr.requestFullscreen();
+        } catch (e) {}
+      });
+      // --- mirrorre fullscreen ---
+      document.getElementById('mirrorre-fullscreen').addEventListener('click', () => {
+        const fr = document.getElementById('mirrorre-frame');
+        try {
+          if (document.fullscreenElement) document.exitFullscreen();
+          else if (fr.requestFullscreen) fr.requestFullscreen();
+        } catch (e) {}
+      });
+      // --- sanctuary fullscreen ---
+      document.getElementById('sanctuary-fullscreen').addEventListener('click', () => {
+        const fr = document.getElementById('sanctuary-frame');
         try {
           if (document.fullscreenElement) document.exitFullscreen();
           else if (fr.requestFullscreen) fr.requestFullscreen();
@@ -2282,3 +2673,4 @@
 
 </body>
 </html>
+>>>>>>> eb500e4a407c4ed10e80e203a6efb595e1fc22cc
