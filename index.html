@@ -284,6 +284,7 @@
     .is-hidden { display: none !important; }
 
     .section-tab {
+      white-space: nowrap;
       background: rgba(255,255,255,.03);
       border: 1px solid rgba(255,255,255,.1);
       color: rgba(255,255,255,.55);
@@ -517,7 +518,7 @@
 
   <main class="flex-1 max-w-5xl w-full mx-auto p-4 sm:p-6 lg:p-8 flex flex-col gap-6">
     <!-- ============ SECTION SWITCHER (hides during immersive sessions) ============ -->
-    <div class="flex gap-2 sess-hide" id="section-tabs">
+    <div class="flex gap-2 sess-hide overflow-x-auto pb-2" id="section-tabs">
       <button class="section-tab active" id="sec-protocol">21-Day Protocol</button>
       <button class="section-tab" id="sec-product3">Product 3 // Escape</button>
       <button class="section-tab" id="sec-product4">Product 4 // 66 Days of Awakening</button>
