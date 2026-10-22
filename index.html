@@ -72,7 +72,38 @@
     }
     #intro-flow.intro-hidden { opacity: 0; visibility: hidden; pointer-events: none; }
 
-    /* Entry portal — the very first screen of the flow */
+    /* Video intro stage — plays 3 clips, then hands off to entry portal */
+    #intro-video-stage {
+      position: absolute; inset: 0; z-index: 20;
+      background: #000;
+      display: flex; flex-direction: column; justify-content: center; align-items: center;
+      transition: opacity 1s ease, visibility 1s ease;
+    }
+    #intro-video-stage.intro-hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+    #intro-video-stage video {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+    }
+    #video-counter {
+      position: absolute; top: 22px; right: 24px; z-index: 2;
+      font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 3px;
+      color: rgba(255,255,255,.7); text-transform: uppercase;
+      background: rgba(0,0,0,.45); padding: 6px 12px; border-radius: 20px;
+      border: 1px solid rgba(255,255,255,.15);
+    }
+    #video-skip {
+      position: absolute; bottom: 24px; right: 24px; z-index: 2;
+      background: rgba(0,0,0,.45); border: 1px solid rgba(255,255,255,.25);
+      color: rgba(255,255,255,.7); font-family: 'JetBrains Mono', monospace;
+      font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+      padding: 8px 16px; border-radius: 20px; cursor: pointer;
+    }
+    #video-skip:hover { color: #fff; border-color: rgba(255,255,255,.6); }
+    #video-label {
+      position: absolute; top: 22px; left: 24px; z-index: 2;
+      font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 4px;
+      color: rgba(0,240,255,.6); text-transform: uppercase;
+    }
+
     #intro-entry {
       position: absolute; inset: 0; z-index: 12;
       background: radial-gradient(circle at center, #0a0d16 0%, #010204 100%);
@@ -299,8 +330,16 @@
 
   <!-- ============ STEP 1 — INTRO FLOW: runs first, then opens the 21-day protocol ============ -->
   <div id="intro-flow">
-    <!-- Entry portal -->
-    <div id="intro-entry">
+    <!-- Video intro stage (plays 3 clips, then hands off to entry portal) -->
+  <div id="intro-video-stage">
+    <video id="introVideo" autoplay muted playsinline></video>
+    <div id="video-label">UGT // Intro</div>
+    <div id="video-counter">01 / 03</div>
+    <button id="video-skip">Skip →</button>
+  </div>
+
+  <!-- Entry portal -->
+    <div id="intro-entry" class="intro-hidden">
       <div class="intro-kicker">UGT // Sovereignty</div>
       <div class="intro-title">The Matrix Escape Manual</div>
       <div class="intro-sub">Breathe · 21 statements · one flow<br>Day 01 opens when it completes</div>
@@ -334,6 +373,63 @@
       <button class="intro-begin" id="intro-begin">Begin protocol →</button>
     </div>
   </div>
+
+  <script>
+  (function () {
+    const clips = ['videos/intro-1.mp4', 'videos/intro-2.mp4', 'videos/intro-3.mp4'];
+    const pad = n => (n < 10 ? '0' : '') + n;
+    const stage = document.getElementById('intro-video-stage');
+    const video = document.getElementById('introVideo');
+    const counter = document.getElementById('video-counter');
+    const skipBtn = document.getElementById('video-skip');
+    const entry = document.getElementById('intro-entry');
+    if (!stage || !video) return;
+
+    let idx = 0;
+    let done = false;
+    let timer = null;
+
+    function finish() {
+      if (done) return;
+      done = true;
+      if (timer) { clearTimeout(timer); timer = null; }
+      try { video.pause(); } catch (e) {}
+      stage.classList.add('intro-hidden');
+      if (entry) entry.classList.remove('intro-hidden');
+    }
+
+    function advance() {
+      if (done) return;
+      if (idx < clips.length - 1) {
+        load(idx + 1);
+      } else {
+        finish();
+      }
+    }
+
+    function load(i) {
+      idx = i;
+      if (counter) counter.textContent = pad(i + 1) + ' / ' + pad(clips.length);
+      const src = clips[i];
+      video.src = src;
+      video.load();
+      const p = video.play();
+      if (p && typeof p.catch === 'function') p.catch(function () {});
+      if (timer) clearTimeout(timer);
+      timer = setTimeout(advance, 3500);
+    }
+
+    video.addEventListener('ended', function () {
+      if (timer) { clearTimeout(timer); timer = null; }
+      advance();
+    });
+
+    if (skipBtn) skipBtn.addEventListener('click', finish);
+
+    // start
+    load(0);
+  })();
+  </script>
 
   <header id="topbar" class="w-full border-b border-gray-800/80 bg-cyber-900/90 backdrop-blur-md sticky top-0 z-50 px-4 py-3 sm:px-8 flex items-center gap-3 sess-hide">
     <div class="w-full h-1.5 rounded-full bg-gray-800 overflow-hidden">
