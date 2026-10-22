@@ -1,61 +1,2188 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Intro Smoke Test - 12 Products</title>
-    <style>
-        body { margin: 0; font-family: Arial, sans-serif; background: #1a1a2e; color: white; }
-        video { width: 100%; height: 100vh; object-fit: cover; display: block; }
-        .product-label {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            background: rgba(0,0,0,0.7);
-            padding: 10px 20px;
-            border-radius: 8px;
-            font-size: 1.5em;
-            z-index: 10;
-        }
-    </style>
-</head>
-<body>
-    <!-- Intro video section - auto-plays on load -->
-    <div class="product-label" id="productLabel">Product 1</div>
-    <video id="introVideo" autoplay loop muted playsinline>
-        <source src="videos/intro-1.mp4" type="video/mp4">
-    </video>
-
-    <script>
-        // Intro video IIFE - auto-start the sequence on page load
-        (function() {
-            const products = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
-            let currentProduct = 0;
-            const video = document.getElementById('introVideo');
-            const label = document.getElementById('productLabel');
-
-            function load(productIndex) {
-                currentProduct = productIndex;
-                const src = 'videos/intro-' + products[productIndex] + '.mp4';
-                console.log('Loading product ' + products[productIndex] + ' intro video: ' + src);
-                label.textContent = 'Product ' + products[productIndex];
-                
-                // Update video source
-                video.src = src;
-                video.load();
-                video.play().catch(function(e) { console.warn('Autoplay blocked:', e); });
-                
-                // Auto-transition logic
-                if (currentProduct < products.length - 1) {
-                    setTimeout(function() { load(currentProduct + 1); }, 3000);
-                } else {
-                    console.log('All 12 products intro sequence complete');
-                }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>UGT — 21-Day Neural Recalibration Protocol</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            cyber: {
+              900: '#030712',
+              800: '#0b0f19',
+              700: '#111827',
+              600: '#1f2937',
+              cyan: '#00f0ff',
+              violet: '#8b5cf6',
+              glow: 'rgba(0, 240, 255, 0.15)'
             }
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap');
 
-            // Start the intro sequence immediately
-            load(0);
-        })();
-    </script>
+    body { background-color: #030712; color: #f3f4f6; overflow-x: hidden; }
+
+    .glass-card {
+      background: rgba(17, 24, 39, 0.7);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    ::-webkit-scrollbar { width: 4px; height: 4px; }
+    ::-webkit-scrollbar-track { background: #030712; }
+    ::-webkit-scrollbar-thumb { background: #1f2937; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #00f0ff; }
+
+    .day-chip { transition: all 0.2s ease; }
+    .day-chip.locked { opacity: 0.35; cursor: not-allowed; filter: grayscale(0.7); }
+
+    /* Immersive session mode — hide ALL text (even the counter), full-screen visual only */
+    body.immersive { overflow: hidden; }
+    body.immersive .sess-hide { display: none !important; }
+    body.immersive #app {
+      position: fixed; inset: 0; z-index: 60;
+      border-radius: 0; border: none; background: #030712;
+      padding: 0; margin: 0; display: flex; flex-direction: column;
+    }
+    body.immersive #protocol-stage { flex: 1 1 auto; height: auto !important; margin: 0; border: none; border-radius: 0; }
+    body.immersive #p-timer, body.immersive #p-hint { display: none !important; }
+
+    /* ===== STEP 1 — INTRO FLOW (Matrix Escape Manual → opens the 21-day protocol) ===== */
+    body.intro-lock { overflow: hidden; }
+
+    #intro-flow {
+      position: fixed; inset: 0; z-index: 300;
+      background: radial-gradient(circle at 50% 38%, #0a0d16 0%, #010204 75%);
+      display: flex; flex-direction: column;
+      justify-content: space-between; align-items: center;
+      transition: opacity 1.2s ease, visibility 1.2s ease;
+    }
+    #intro-flow.intro-hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+
+    /* Entry portal — the very first screen of the flow */
+    #intro-entry {
+      position: absolute; inset: 0; z-index: 12;
+      background: radial-gradient(circle at center, #0a0d16 0%, #010204 100%);
+      display: flex; flex-direction: column; justify-content: center; align-items: center;
+      gap: 22px; padding: 24px;
+      transition: opacity 1s ease, visibility 1s ease;
+    }
+    #intro-entry.intro-hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+    .intro-kicker { font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 600; letter-spacing: 5px; text-transform: uppercase; color: rgba(0, 240, 255, 0.55); }
+    .intro-title { font-size: clamp(1.4rem, 5vw, 2.2rem); font-weight: 300; letter-spacing: 2px; text-align: center; color: #fff; }
+    .intro-sub { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 3px; color: rgba(255,255,255,.35); text-transform: uppercase; text-align: center; line-height: 1.8; }
+
+    .enter-btn {
+      background: transparent;
+      border: 1px solid rgba(243, 156, 18, 0.45);
+      color: #f39c12;
+      padding: 16px 36px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      border-radius: 40px;
+      cursor: pointer;
+      box-shadow: 0 0 30px rgba(243, 156, 18, 0.15);
+      transition: all 0.4s ease;
+    }
+    .enter-btn:hover { border-color: #f39c12; box-shadow: 0 0 50px rgba(243, 156, 18, 0.4); background: rgba(243, 156, 18, 0.06); transform: scale(1.03); }
+
+    .intro-skip-link {
+      background: none; border: none; cursor: pointer;
+      font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 2px;
+      color: rgba(255,255,255,.3); text-transform: uppercase; padding: 6px 10px;
+      transition: color .3s ease;
+    }
+    .intro-skip-link:hover { color: rgba(255,255,255,.75); }
+
+    /* Intro HUD */
+    .intro-hud {
+      width: 100%; display: flex; align-items: center; justify-content: space-between;
+      gap: 10px; padding: 14px 16px; flex-wrap: wrap; z-index: 5;
+    }
+    .intro-brand { font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: rgba(255,255,255,.35); }
+    .intro-counter { font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 600; letter-spacing: 2px; color: #f39c12; }
+    .intro-controls { display: flex; gap: 8px; flex-wrap: wrap; }
+
+    .hud-btn {
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(255,255,255,.1);
+      color: rgba(255,255,255,.55);
+      padding: 6px 12px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 1.5px;
+      border-radius: 20px;
+      cursor: pointer;
+      text-transform: uppercase;
+      transition: all .3s ease;
+    }
+    .hud-btn:hover { color: #fff; border-color: rgba(255,255,255,.3); }
+    .hud-btn.active { border-color: #f39c12; color: #f39c12; background: rgba(243,156,18,.06); box-shadow: 0 0 12px rgba(243,156,18,.18); }
+
+    /* Canvas + statement + footer */
+    .intro-canvas-wrap { width: 100%; height: 34vh; min-height: 160px; display: flex; justify-content: center; align-items: center; }
+    #intro-canvas { width: 100%; height: 100%; max-width: 560px; display: block; }
+
+    .intro-text {
+      width: min(92%, 760px); min-height: 24vh;
+      display: flex; justify-content: center; align-items: center; text-align: center;
+      padding: 0 20px;
+    }
+    .foveal-text {
+      font-size: clamp(1.35rem, 3.4vw, 2.3rem);
+      font-weight: 300; line-height: 1.55; letter-spacing: .4px; color: #fff;
+      text-shadow: 0 0 24px rgba(255,255,255,.18);
+      opacity: 0; transform: translateY(12px);
+      transition: opacity 1s cubic-bezier(.16,1,.3,1), transform 1s cubic-bezier(.16,1,.3,1);
+    }
+    .foveal-text.visible { opacity: 1; transform: translateY(0); }
+
+    .intro-footer {
+      width: 100%; display: flex; justify-content: center; align-items: center;
+      gap: 20px; padding: 14px 16px 26px; flex-wrap: wrap; z-index: 5;
+    }
+    .nav-btn {
+      background: none; border: none; color: rgba(255,255,255,.3);
+      font-size: 1.4rem; cursor: pointer; padding: 8px 12px;
+      transition: color .3s ease, transform .3s ease;
+    }
+    .nav-btn:hover { color: rgba(255,255,255,.85); transform: scale(1.15); }
+    .nav-btn:disabled { opacity: .2; pointer-events: none; }
+
+    .intro-dots { display: flex; gap: 6px; flex-wrap: wrap; justify-content: center; max-width: 340px; }
+    .dot { width: 4px; height: 4px; border-radius: 50%; background: rgba(255,255,255,.15); transition: all .4s ease; }
+    .dot.active { background: #f39c12; box-shadow: 0 0 8px #f39c12; transform: scale(1.6); }
+
+    .intro-begin {
+      display: none;
+      background: rgba(243,156,18,.08);
+      border: 1px solid rgba(243,156,18,.6);
+      color: #f39c12;
+      font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 600;
+      letter-spacing: 3px; text-transform: uppercase;
+      padding: 10px 20px; border-radius: 30px; cursor: pointer;
+      box-shadow: 0 0 20px rgba(243,156,18,.2);
+      transition: all .3s ease;
+    }
+    .intro-begin.show { display: inline-block; }
+    .intro-begin:hover { background: rgba(243,156,18,.16); box-shadow: 0 0 34px rgba(243,156,18,.4); }
+
+    @media (max-width: 520px) {
+      .intro-brand { display: none; }
+      .intro-canvas-wrap { height: 26vh; }
+      .intro-text { min-height: 30vh; }
+    }
+
+    /* ===== SECTION SWITCHER + SECTION 3 (Product 3 — Sovereign Matrix Escape Protocol) ===== */
+    .is-hidden { display: none !important; }
+
+    .section-tab {
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(255,255,255,.1);
+      color: rgba(255,255,255,.55);
+      padding: 8px 16px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all .3s ease;
+    }
+    .section-tab:hover { color: #fff; border-color: rgba(255,255,255,.3); }
+    .section-tab.active { border-color: #00f0ff; color: #00f0ff; background: rgba(0,240,255,.06); box-shadow: 0 0 14px rgba(0,240,255,.2); }
+
+    .p3-hud-btn {
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(255,255,255,.1);
+      color: rgba(255,255,255,.55);
+      padding: 6px 12px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      border-radius: 20px;
+      cursor: pointer;
+      text-transform: uppercase;
+      transition: all .3s ease;
+    }
+    .p3-hud-btn:hover { color: #fff; border-color: rgba(255,255,255,.3); }
+    .p3-hud-btn.active { border-color: #00f0ff; color: #00f0ff; background: rgba(0,240,255,.06); box-shadow: 0 0 12px rgba(0,240,255,.2); }
+    .p3-hud-btn.p3-audio.active { border-color: #f39c12; color: #f39c12; background: rgba(243,156,18,.06); box-shadow: 0 0 12px rgba(243,156,18,.22); }
+
+    .p3-content {
+      opacity: 0; transform: translateY(12px);
+      transition: opacity .6s cubic-bezier(.16,1,.3,1), transform .6s cubic-bezier(.16,1,.3,1);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+    }
+    .p3-content.visible { opacity: 1; transform: translateY(0); }
+
+    .p3-action {
+      background: rgba(0,240,255,.05);
+      border: 1px solid #00f0ff;
+      color: #00f0ff;
+      padding: 10px 24px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: all .3s ease;
+      box-shadow: 0 0 18px rgba(0,240,255,.1);
+    }
+    .p3-action:hover { background: #00f0ff; color: #030712; box-shadow: 0 0 30px rgba(0,240,255,.4); }
+
+    .p3-nav {
+      background: none; border: none; color: rgba(255,255,255,.3);
+      font-size: 1.5rem; cursor: pointer; padding: 8px 12px;
+      transition: color .3s ease, transform .3s ease;
+    }
+    .p3-nav:hover { color: rgba(255,255,255,.85); transform: scale(1.15); }
+    .p3-nav:disabled { opacity: .2; pointer-events: none; }
+
+    .p3-toast {
+      position: absolute; bottom: 18px; left: 50%;
+      transform: translate(-50%, 20px);
+      background: #00f0ff; color: #030712;
+      padding: 8px 20px; border-radius: 30px;
+      font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 600; letter-spacing: 2px;
+      box-shadow: 0 0 25px rgba(0,240,255,.45);
+      opacity: 0; transition: all .4s ease; pointer-events: none; z-index: 40;
+      white-space: nowrap;
+    }
+    .p3-toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+    /* ===== SECTION 4 — THE HUMAN JOURNEY (standalone immersive reader, embedded) ===== */
+    .journey-frame {
+      width: 100%;
+      height: 68vh;
+      min-height: 420px;
+      border: 0;
+      border-radius: 12px;
+      background: #050711;
+      display: block;
+    }
+    .journey-frame:fullscreen { width: 100vw; height: 100vh; border-radius: 0; }
+
+    /* ===== SECTION 7 — PRODUCT 6: THE 10-MINUTE EXTRA-DIMENSIONAL PASSAGE ===== */
+    .passage-frame {
+      width: 100%;
+      height: 78vh;
+      min-height: 520px;
+      border: 0;
+      border-radius: 12px;
+      background: #000000;
+      display: block;
+    }
+    .passage-frame:fullscreen { width: 100vw; height: 100vh; border-radius: 0; }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-cyan-500 selection:text-black intro-lock">
+
+  <!-- ============ STEP 1 — INTRO FLOW: runs first, then opens the 21-day protocol ============ -->
+  <div id="intro-flow">
+    <!-- Entry portal -->
+    <div id="intro-entry">
+      <div class="intro-kicker">UGT // Sovereignty</div>
+      <div class="intro-title">The Matrix Escape Manual</div>
+      <div class="intro-sub">Breathe · 21 statements · one flow<br>Day 01 opens when it completes</div>
+      <button class="enter-btn" id="intro-start">ENTER THE SANCTUARY</button>
+      <button class="intro-skip-link" id="intro-skip-link">Skip intro →</button>
+    </div>
+
+    <!-- Top HUD -->
+    <div class="intro-hud">
+      <span class="intro-brand">Introduction // Step 01</span>
+      <span class="intro-counter" id="intro-counter">01 / 21</span>
+      <div class="intro-controls">
+        <button class="hud-btn active" id="intro-audio">432Hz Sound</button>
+        <button class="hud-btn active" id="intro-voice">VOG Voice</button>
+        <button class="hud-btn active" id="intro-auto">Auto-Flow</button>
+        <button class="hud-btn" id="intro-skip">Skip →</button>
+      </div>
+    </div>
+
+    <!-- Shape-shifting VOG canvas -->
+    <div class="intro-canvas-wrap"><canvas id="intro-canvas"></canvas></div>
+
+    <!-- Statement display -->
+    <div class="intro-text"><div class="foveal-text" id="intro-statement"></div></div>
+
+    <!-- Navigation -->
+    <div class="intro-footer">
+      <button class="nav-btn" id="intro-prev" aria-label="Previous statement">←</button>
+      <div class="intro-dots" id="intro-dots"></div>
+      <button class="nav-btn" id="intro-next" aria-label="Next statement">→</button>
+      <button class="intro-begin" id="intro-begin">Begin protocol →</button>
+    </div>
+  </div>
+
+  <header id="topbar" class="w-full border-b border-gray-800/80 bg-cyber-900/90 backdrop-blur-md sticky top-0 z-50 px-4 py-3 sm:px-8 flex items-center gap-3 sess-hide">
+    <div class="w-full h-1.5 rounded-full bg-gray-800 overflow-hidden">
+      <div id="progressBar" class="h-full rounded-full transition-all duration-500" style="width:0%;background:linear-gradient(90deg,#818cf8,#60a5fa,#00f0ff,#fbbf24,#f472b6)"></div>
+    </div>
+    <button onclick="resetProtocolProgress()" aria-label="Reset progress" class="shrink-0 w-7 h-7 rounded-full bg-gray-900 border border-gray-700 text-gray-400 hover:text-white hover:border-gray-500 font-mono text-sm cursor-pointer transition-colors">↻</button>
+  </header>
+
+  <main class="flex-1 max-w-5xl w-full mx-auto p-4 sm:p-6 lg:p-8 flex flex-col gap-6">
+    <!-- ============ SECTION SWITCHER (hides during immersive sessions) ============ -->
+    <div class="flex gap-2 sess-hide" id="section-tabs">
+      <button class="section-tab active" id="sec-protocol">21-Day Protocol</button>
+      <button class="section-tab" id="sec-product3">Product 3 // Escape</button>
+      <button class="section-tab" id="sec-product4">Product 4 // 66 Days of Awakening</button>
+      <button class="section-tab" id="sec-product5">Product 5 // One God, One Voice</button>
+      <button class="section-tab" id="sec-journey">Human Journey</button>
+      <button class="section-tab" id="sec-product6">Product 6 // Passage</button>
+    </div>
+
+    <!-- ============ SECTION 2 — SESSION ENGINE (titles removed — pure app) ============ -->
+    <section id="app" class="glass-card rounded-2xl p-4 sm:p-6 relative overflow-hidden">
+      <!-- 21 day selector -->
+      <div class="flex gap-1.5 overflow-x-auto pb-2 mb-3 sess-hide" id="protocol-days" aria-label="Protocol days"></div>
+
+      <!-- Day detail (symbols + numbers only) -->
+      <div class="flex items-center justify-between mb-3 sess-hide" id="p-detail">
+        <div class="flex items-center gap-3">
+          <span class="text-4xl leading-none" id="p-emoji">🎯</span>
+          <span class="text-3xl font-extrabold font-mono" id="p-bandsym" style="color:#00f0ff">α</span>
+          <span class="text-2xl font-bold text-gray-600 font-mono" id="p-daynum">01</span>
+        </div>
+        <div class="font-mono text-right">
+          <div class="text-xl font-bold" id="p-carrier" style="color:#00f0ff">432 Hz</div>
+          <div class="text-sm font-bold" id="p-beat" style="color:#00f0ff">10 Hz</div>
+          <div class="text-xs font-bold" id="p-sub" style="color:#00f0ff"></div>
+        </div>
+      </div>
+
+      <!-- Session stage -->
+      <div class="relative w-full rounded-xl overflow-hidden border border-gray-800 bg-cyber-900/50 mb-3" style="height:200px" id="protocol-stage" onclick="stageTap()">
+        <canvas id="protocolCanvas" class="absolute inset-0 w-full h-full"></canvas>
+        <div id="p-squeeze" class="hidden absolute inset-0 z-30 flex-col items-center justify-center bg-red-500/15 backdrop-blur-sm text-center p-4" style="border:2px solid #ff0055">
+          <div class="text-6xl leading-none">💪</div>
+        </div>
+        <div class="absolute inset-0 z-20 flex flex-col items-center justify-center pointer-events-none">
+          <div id="p-timer" class="text-3xl sm:text-4xl font-extrabold font-mono text-white tracking-widest">03:00</div>
+          <div id="p-hint" class="text-[10px] font-mono uppercase tracking-widest text-gray-400 text-center px-4">🎧</div>
+        </div>
+      </div>
+
+      <div class="flex justify-center pt-3 border-t border-gray-800 sess-hide">
+        <button id="protocolBtn" onclick="toggleProtocolSession()" aria-label="Start session" class="w-14 h-14 rounded-full text-black font-bold text-xl transition-colors cursor-pointer" style="background:#00f0ff;box-shadow:0 0 25px rgba(0,240,255,.3)">▶</button>
+      </div>
+    </section>
+
+    <!-- ============ SECTION 3 — PRODUCT 3: THE SOVEREIGN MATRIX ESCAPE PROTOCOL ============ -->
+    <section id="product3-panel" class="glass-card rounded-2xl p-4 sm:p-6 relative overflow-hidden is-hidden">
+      <!-- P3 HUD -->
+      <div class="flex items-center justify-between gap-2 mb-3 flex-wrap">
+        <span class="text-[10px] font-mono tracking-widest uppercase text-gray-500">UGT // Product 3</span>
+        <div class="flex gap-2">
+          <button class="p3-hud-btn active" id="p3-tab-prompts">Prompts</button>
+          <button class="p3-hud-btn" id="p3-tab-truths">Truths</button>
+        </div>
+        <button class="p3-hud-btn p3-audio" id="p3-audio">432Hz Harmonic</button>
+      </div>
+
+      <!-- Sacred geometry canvas -->
+      <div class="w-full flex justify-center items-center mb-2" style="height:150px">
+        <canvas id="p3-canvas" class="w-full h-full" style="max-width:420px"></canvas>
+      </div>
+
+      <!-- Card viewport -->
+      <div class="flex flex-col items-center justify-center text-center px-2 py-4" style="min-height:290px">
+        <div class="p3-content" id="p3-content-box">
+          <div class="text-[11px] font-mono tracking-[3px] uppercase mb-3 font-bold" id="p3-card-number" style="color:#f39c12">Inquiry // 01</div>
+          <h2 class="text-base sm:text-xl font-bold text-white mb-4 leading-snug" id="p3-card-title"></h2>
+          <p class="text-sm sm:text-[15px] font-light leading-relaxed text-gray-400 max-w-[640px] mb-6 select-text whitespace-pre-wrap" id="p3-card-body">Loading...</p>
+          <button class="p3-action" id="p3-action-btn">Copy Prompt for AI →</button>
+        </div>
+      </div>
+
+      <!-- P3 footer nav -->
+      <div class="flex justify-center items-center gap-8 pt-3 border-t border-gray-800">
+        <button class="p3-nav" id="p3-prev" aria-label="Previous card">←</button>
+        <span class="font-mono text-xs tracking-widest text-gray-500" id="p3-counter">01 / 21</span>
+        <button class="p3-nav" id="p3-next" aria-label="Next card">→</button>
+      </div>
+
+      <!-- P3 toast -->
+      <div class="p3-toast" id="p3-toast">Prompt copied to clipboard</div>
+    </section>
+
+    <!-- ============ SECTION 5 - PRODUCT 4: 66 DAYS OF AWAKENING (Cosmic Dedication) ============ -->
+    <section id="awakening-panel" class="glass-card rounded-2xl p-4 sm:p-6 relative overflow-hidden is-hidden">
+      <!-- A4 HUD -->
+      <div class="flex items-center justify-between gap-2 mb-3 flex-wrap">
+        <span class="text-[10px] font-mono tracking-widest uppercase text-gray-500">UGT // Product 4 // 66 Days of Awakening</span>
+        <span class="text-[10px] font-mono tracking-widest uppercase text-cyan-400" id="awakening-cycle"></span>
+      </div>
+
+      <!-- Card viewport -->
+      <div class="flex flex-col items-center justify-center text-center px-2 py-4" style="min-height:360px">
+        <div class="p3-content" id="awakening-content-box">
+          <div class="text-[11px] font-mono tracking-[3px] uppercase mb-2 font-bold" id="awakening-card-number" style="color:#00f0ff">Day // 01</div>
+          <h2 class="text-base sm:text-xl font-bold text-white mb-3 leading-snug" id="awakening-card-title"></h2>
+          <div class="text-sm sm:text-[15px] font-light leading-relaxed text-gray-300 max-w-[680px] mb-4 select-text" id="awakening-card-body"></div>
+        </div>
+      </div>
+
+      <!-- A4 footer nav -->
+      <div class="flex justify-center items-center gap-8 pt-3 border-t border-gray-800">
+        <button class="p3-nav" id="awakening-prev" aria-label="Previous day">&#8592;</button>
+        <span class="font-mono text-xs tracking-widest text-gray-500" id="awakening-counter">01 / 66</span>
+        <button class="p3-nav" id="awakening-next" aria-label="Next day">&#8594;</button>
+      </div>
+    </section>
+
+    <!-- ============ SECTION 6 - PRODUCT 5: ONE GOD, ONE VOICE, ONE HUMANITY ===== -->
+    <section id="one-god-panel" class="glass-card rounded-2xl p-4 sm:p-6 relative overflow-hidden is-hidden">
+      <!-- HUD -->
+      <div class="flex items-center justify-between gap-2 mb-3 flex-wrap">
+        <span class="text-[10px] font-mono tracking-widest uppercase text-gray-500">UGT // Product 5 // One God, One Voice, One Humanity</span>
+      </div>
+
+      <!-- Card viewport -->
+      <div class="flex flex-col items-center justify-center text-center px-2 py-4" style="min-height:360px">
+        <div class="p3-content" id="one-god-content-box">
+          <div class="text-[11px] font-mono tracking-[3px] uppercase mb-2 font-bold" id="one-god-card-number" style="color:#f39c12">Voice // 01</div>
+          <h2 class="text-base sm:text-xl font-bold text-white mb-3 leading-snug" id="one-god-card-title"></h2>
+          <p class="text-sm sm:text-[15px] font-light leading-relaxed text-gray-300 max-w-[680px] mb-4 select-text" id="one-god-card-body"></p>
+          <div class="grid sm:grid-cols-3 gap-2 max-w-[680px] w-full mb-4" id="one-god-verses"></div>
+          <div class="text-[11px] font-mono tracking-wider uppercase text-cyan-300/80 max-w-[680px]" id="one-god-action"></div>
+        </div>
+      </div>
+
+      <!-- Footer nav -->
+      <div class="flex justify-center items-center gap-8 pt-3 border-t border-gray-800">
+        <button class="p3-nav" id="one-god-prev" aria-label="Previous voice">&#8592;</button>
+        <span class="font-mono text-xs tracking-widest text-gray-500" id="one-god-counter">01 / 32</span>
+        <button class="p3-nav" id="one-god-next" aria-label="Next voice">&#8594;</button>
+      </div>
+    </section>
+
+    <!-- ============ SECTION 4 ù THE HUMAN JOURNEY (standalone immersive reader) ============ -->
+    <section id="journey-panel" class="glass-card rounded-2xl p-4 sm:p-6 relative overflow-hidden is-hidden">
+      <div class="flex items-center justify-between gap-2 mb-3 flex-wrap">
+        <span class="text-[10px] font-mono tracking-widest uppercase text-gray-500">UGT // The Human Journey — Cosmic Origins to Shared Future</span>
+        <div class="flex gap-2 items-center">
+          <div class="flex gap-2" role="group" aria-label="Human Journey part selector">
+            <button class="p3-hud-btn active" id="journey-part1-btn" aria-pressed="true">Part I // Origins</button>
+            <button class="p3-hud-btn" id="journey-part2-btn" aria-pressed="false">Part II // The Loop</button>
+            <button class="p3-hud-btn" id="journey-part3-btn" aria-pressed="false">Part III // The Awakening</button>
+          </div>
+          <button class="p3-hud-btn" id="journey-fullscreen">Fullscreen ⛶</button>
+        </div>
+      </div>
+      <p class="text-[11px] font-mono tracking-wide text-gray-500 mb-3 leading-relaxed" id="journey-part-desc">Part I — from cosmic origins to a shared future. One continuous reflective passage.</p>
+      <iframe id="journey-frame" class="journey-frame" src="human-journey.html" title="The Human Journey — Part I — Cosmic Origins to Shared Future" loading="lazy"></iframe>
+      <iframe id="journey-frame-2" class="journey-frame is-hidden" src="human-journey-part2.html" title="The Human Journey — Part II — The Loop" loading="lazy"></iframe>
+      <iframe id="journey-frame-3" class="journey-frame is-hidden" src="human-journey-part3.html" title="The Human Journey — Part III — The Awakening" loading="lazy"></iframe>
+    </section>
+
+    <!-- ============ SECTION 7 — PRODUCT 6: THE 10-MINUTE EXTRA-DIMENSIONAL PASSAGE ============ -->
+    <section id="passage-panel" class="glass-card rounded-2xl p-4 sm:p-6 relative overflow-hidden is-hidden">
+      <div class="flex items-center justify-between gap-2 mb-3 flex-wrap">
+        <span class="text-[10px] font-mono tracking-widest uppercase text-gray-500">UGT // The 10-Minute Extra-Dimensional Passage — WebGL Voyage + 528Hz Entrainment</span>
+        <button class="p3-hud-btn" id="passage-fullscreen">Fullscreen ⛶</button>
+      </div>
+      <iframe id="passage-frame" class="passage-frame" src="extra-dimensional-passage.html" title="The 10-Minute Extra-Dimensional Passage — Complete Immersive Edition" loading="lazy" allow="autoplay; fullscreen"></iframe>
+    </section>
+
+  </main>
+
+  <!-- Success Notification Toast -->
+  <div id="toast" class="fixed bottom-6 right-6 z-[70] glass-card bg-cyber-900/95 border border-cyan-500 text-cyan-300 px-5 py-3 rounded-xl text-xs font-mono shadow-2xl translate-y-20 opacity-0 transition-all duration-300 pointer-events-none">
+    🎧
+  </div>
+
+  <script>
+    // ===== 21-DAY NEURAL RECALIBRATION PROTOCOL =====
+    const BANDS = {
+      delta: { sym: 'δ', color: '#818cf8', rgb: '129,140,248' },
+      theta: { sym: 'θ', color: '#60a5fa', rgb: '96,165,250' },
+      alpha: { sym: 'α', color: '#00f0ff', rgb: '0,240,255' },
+      beta: { sym: 'β', color: '#fbbf24', rgb: '251,191,36' },
+      gamma: { sym: 'γ', color: '#f472b6', rgb: '244,114,182' }
+    };
+
+    // 21 days: UNIQUE carrier pitch (c), UNIQUE beat (f), UNIQUE symbol (emo), UNIQUE visual (v),
+    // waveform (w), tremolo rate (am), noise layer (nz), stereo pan motion (sp). All science-matched to the band.
+    const protocol21 = [
+      { d: 1, n: 'Cortical Baseline', emo: '🎯', b: 'alpha', c: 432, f: 10, s: 0, w: 'sine', am: 0, nz: 0, sp: 0, v: 1 },
+      { d: 2, n: 'Tension Strain Release', emo: '💪', b: 'alpha', c: 417, f: 9, s: 0, w: 'sine', am: 0.4, nz: 0, sp: 0, v: 2 },
+      { d: 3, n: 'Auditory Cortical Drive', emo: '🎧', b: 'alpha', c: 396, f: 8, s: 0, w: 'triangle', am: 0, nz: 0, sp: 0.25, v: 3 },
+      { d: 4, n: 'Ganzfeld Light Sync', emo: '🌀', b: 'theta', c: 528, f: 7, s: 0, w: 'sine', am: 0, nz: 0.03, sp: 0, v: 4 },
+      { d: 5, n: 'Diaphragmatic Unclamp', emo: '🌬️', b: 'theta', c: 174, f: 6, s: 50, w: 'triangle', am: 0.15, nz: 0, sp: 0, v: 5 },
+      { d: 6, n: 'Peripheral Vision Scan', emo: '👁️', b: 'theta', c: 285, f: 5, s: 0, w: 'sine', am: 0, nz: 0, sp: 0.4, v: 6 },
+      { d: 7, n: 'Phase-1 Integration', emo: '🌙', b: 'theta', c: 196, f: 4, s: 42, w: 'sine', am: 0.1, nz: 0.02, sp: 0, v: 7 },
+      { d: 8, n: 'Somatic Tremor Drop', emo: '🔋', b: 'delta', c: 110, f: 3.5, s: 62, w: 'triangle', am: 0.12, nz: 0.04, sp: 0, v: 8 },
+      { d: 9, n: 'Ciliary Eye Cooling', emo: '👓', b: 'delta', c: 98, f: 3, s: 0, w: 'sine', am: 0.1, nz: 0.03, sp: 0, v: 9 },
+      { d: 10, n: 'Heart–Brain Coherence', emo: '❤️', b: 'theta', c: 639, f: 5.5, s: 52, w: 'sine', am: 0.1, nz: 0, sp: 0, v: 10 },
+      { d: 11, n: 'Subconscious Anchor', emo: '⚓', b: 'delta', c: 136.1, f: 2.5, s: 0, w: 'sine', am: 0, nz: 0.05, sp: 0, v: 11 },
+      { d: 12, n: 'Neural Noise Erasure', emo: '🧹', b: 'alpha', c: 741, f: 11, s: 0, w: 'sine', am: 0, nz: 0.02, sp: 0, v: 12 },
+      { d: 13, n: 'Dopamine Pathway Reset', emo: '🧪', b: 'beta', c: 440, f: 14, s: 0, w: 'sawtooth', am: 7, nz: 0, sp: 0, v: 13 },
+      { d: 14, n: 'Phase-2 Integration', emo: '🧩', b: 'theta', c: 210, f: 4.5, s: 56, w: 'triangle', am: 0.1, nz: 0.02, sp: 0, v: 14 },
+      { d: 15, n: 'Gamma Ignition', emo: '✨', b: 'gamma', c: 852, f: 40, s: 0, w: 'square', am: 12, nz: 0, sp: 0, v: 15 },
+      { d: 16, n: 'Vocal Resonance Reset', emo: '🎤', b: 'beta', c: 147, f: 20, s: 60, w: 'sawtooth', am: 4, nz: 0, sp: 0, v: 16 },
+      { d: 17, n: 'Emotional Defusion', emo: '🍃', b: 'beta', c: 294, f: 16, s: 0, w: 'sawtooth', am: 5, nz: 0, sp: 0, v: 17 },
+      { d: 18, n: 'Unflappable Lock-In', emo: '🧊', b: 'alpha', c: 349, f: 12, s: 0, w: 'triangle', am: 0.5, nz: 0, sp: 0, v: 18 },
+      { d: 19, n: 'Deep Spatial Shift', emo: '🪐', b: 'theta', c: 256, f: 6.5, s: 0, w: 'sine', am: 0.2, nz: 0, sp: 0.8, v: 19 },
+      { d: 20, n: 'Subconscious Intention', emo: '🌑', b: 'delta', c: 85, f: 1.5, s: 0, w: 'sine', am: 0.08, nz: 0.06, sp: 0, v: 20 },
+      { d: 21, n: 'Master Alignment', emo: '👑', b: 'alpha', c: 963, f: 10.5, s: 58, w: 'sine', am: 0.3, nz: 0, sp: 0, v: 21, oct: 1 }
+    ];
+
+    // ===== SEQUENTIAL GATING: day N unlocks only after day N-1 is finished =====
+    const PROTO_STORE_KEY = 'ugt21_completed_v1';
+    let protocolDay = 1;
+    let protocolActive = false;
+    let protocolTimer = null;
+    let protocolElapsed = 0;
+    let protocolFlicker = false;
+    let squeezeTimeout = null;
+    let pAudio = null, pMaster = null, pOscL = null, pOscR = null, pOscSub = null;
+    let protocolCanvas = null, pCtx = null, pTime = 0;
+    const PROTO_SESSION_SECONDS = 180;
+    let completedDays = [];
+    try {
+      const saved = JSON.parse(localStorage.getItem(PROTO_STORE_KEY) || '[]');
+      if (Array.isArray(saved)) completedDays = saved.filter(d => Number.isInteger(d) && d >= 1 && d <= 21);
+    } catch (e) { completedDays = []; }
+
+    function saveProgress() {
+      try { localStorage.setItem(PROTO_STORE_KEY, JSON.stringify(completedDays)); } catch (e) {}
+    }
+
+    function isDayCompleted(d) { return completedDays.includes(d); }
+
+    function isDayUnlocked(d) { return d === 1 || completedDays.includes(d - 1); }
+
+    function updateProgressUI() {
+      document.getElementById('progressBar').style.width = (completedDays.length / 21 * 100) + '%';
+    }
+
+    function firstOpenDay() {
+      for (let d = 1; d <= 21; d++) {
+        if (isDayUnlocked(d) && !isDayCompleted(d)) return d;
+      }
+      return 21;
+    }
+
+    function resetProtocolProgress() {
+      if (protocolActive) stopProtocolSession(false);
+      completedDays = [];
+      saveProgress();
+      protocolDay = 1;
+      buildProtocolDays();
+      updateProgressUI();
+      renderProtocolDetail();
+      showToast('↻');
+    }
+
+    function protoRgba(band, a) { return 'rgba(' + band.rgb + ', ' + a + ')'; }
+
+    function buildProtocolDays() {
+      const bar = document.getElementById('protocol-days');
+      bar.innerHTML = '';
+      protocol21.forEach(p => {
+        const band = BANDS[p.b];
+        const dd = (p.d < 10 ? '0' : '') + p.d;
+        const unlocked = isDayUnlocked(p.d);
+        const done = isDayCompleted(p.d);
+        const on = p.d === protocolDay && unlocked;
+        const chip = document.createElement('button');
+        chip.className = 'day-chip flex-none px-2.5 py-1 rounded-full border text-[10px] font-mono font-semibold' + (unlocked ? ' cursor-pointer' : ' locked');
+        if (!unlocked) {
+          chip.style.color = '#6b7280';
+          chip.style.borderColor = 'rgba(107,114,128,.4)';
+          chip.style.background = 'rgba(107,114,128,.08)';
+          chip.innerText = dd + ' 🔒';
+          chip.onclick = () => showToast('🔒');
+        } else {
+          chip.style.color = band.color;
+          chip.style.borderColor = (on || done) ? band.color : protoRgba(band, 0.35);
+          chip.style.background = on ? protoRgba(band, 0.2) : protoRgba(band, 0.07);
+          chip.style.boxShadow = on ? '0 0 12px ' + protoRgba(band, 0.4) : 'none';
+          chip.innerText = dd + ' ' + p.emo + ' ' + band.sym + (done ? ' ✓' : '');
+          chip.onclick = () => selectProtocolDay(p.d);
+        }
+        chip.setAttribute('aria-label', 'Day ' + p.d + ': ' + p.n + (unlocked ? (done ? ' completed' : ' open') : ' locked'));
+        bar.appendChild(chip);
+      });
+    }
+
+    function selectProtocolDay(dayNum) {
+      if (!isDayUnlocked(dayNum)) return;
+      if (protocolActive) stopProtocolSession(false);
+      protocolDay = dayNum;
+      buildProtocolDays();
+      renderProtocolDetail();
+    }
+
+    function renderProtocolDetail() {
+      const p = protocol21[protocolDay - 1];
+      const band = BANDS[p.b];
+      const dd = (p.d < 10 ? '0' : '') + p.d;
+      document.getElementById('p-emoji').innerText = p.emo;
+      const sym = document.getElementById('p-bandsym');
+      sym.innerText = band.sym;
+      sym.style.color = band.color;
+      document.getElementById('p-daynum').innerText = dd;
+      const carrier = document.getElementById('p-carrier');
+      const beat = document.getElementById('p-beat');
+      const sub = document.getElementById('p-sub');
+      carrier.innerText = p.c + ' Hz';
+      beat.innerText = p.f + ' Hz';
+      sub.innerText = p.s > 0 ? p.s + ' Hz' : '';
+      [carrier, beat, sub].forEach(el => { el.style.color = band.color; });
+      if (!protocolActive) {
+        const btn = document.getElementById('protocolBtn');
+        btn.innerText = '▶';
+        btn.style.background = band.color;
+        btn.style.boxShadow = '0 0 25px ' + protoRgba(band, 0.35);
+        document.getElementById('p-timer').innerText = '03:00';
+        document.getElementById('p-hint').innerText = '🎧';
+      }
+      updateProgressUI();
+    }
+    protocolDay = firstOpenDay();
+    buildProtocolDays();
+    updateProgressUI();
+    renderProtocolDetail();
+
+    function initProtocolCanvas() {
+      protocolCanvas = document.getElementById('protocolCanvas');
+      pCtx = protocolCanvas.getContext('2d');
+      resizeProtocolCanvas();
+      window.addEventListener('resize', resizeProtocolCanvas);
+    }
+
+    function resizeProtocolCanvas() {
+      if (!protocolCanvas || !protocolCanvas.parentElement) return;
+      protocolCanvas.width = protocolCanvas.parentElement.offsetWidth;
+      protocolCanvas.height = protocolCanvas.parentElement.offsetHeight;
+    }
+
+    // ===== 21 SCIENTIFIC VISUALS — one unique animation per day; tempo scales with the day frequency =====
+    function renderProtocolVisuals() {
+      if (protocolCanvas && pCtx) {
+        if (protocolCanvas.width !== protocolCanvas.parentElement.offsetWidth || protocolCanvas.height !== protocolCanvas.parentElement.offsetHeight) {
+          resizeProtocolCanvas();
+        }
+        const p = protocol21[protocolDay - 1];
+        const band = BANDS[p.b];
+        const w = protocolCanvas.width, h = protocolCanvas.height;
+        const cx = w / 2, cy = h / 2;
+        const m = Math.min(w, h);
+        pTime += 0.02 * (0.5 + Math.min(p.f, 40) / 12);
+        const t = pTime;
+        const col = a => protoRgba(band, a);
+        pCtx.fillStyle = 'rgba(3, 7, 18, ' + (protocolActive ? 0.14 : 0.3) + ')';
+        pCtx.fillRect(0, 0, w, h);
+        const pulse = (Math.sin(t * Math.min(p.f, 8)) + 1) / 2;
+
+        switch (p.v) {
+          case 1: {  // Infinity ocular track (alpha baseline)
+            const A = m * 0.36;
+            pCtx.strokeStyle = col(0.55); pCtx.lineWidth = 1.5; pCtx.beginPath();
+            for (let a = 0; a < Math.PI * 2 + 0.01; a += 0.05) {
+              const den = 1 + Math.sin(a) * Math.sin(a);
+              const x = cx + A * Math.cos(a) / den;
+              const y = cy + A * Math.sin(a) * Math.cos(a) / den;
+              if (a === 0) pCtx.moveTo(x, y); else pCtx.lineTo(x, y);
+            }
+            pCtx.closePath(); pCtx.stroke();
+            const ha = t % (Math.PI * 2);
+            const den = 1 + Math.sin(ha) * Math.sin(ha);
+            const hx = cx + A * Math.cos(ha) / den, hy = cy + A * Math.sin(ha) * Math.cos(ha) / den;
+            const g = pCtx.createRadialGradient(hx, hy, 1, hx, hy, 26);
+            g.addColorStop(0, col(0.95)); g.addColorStop(1, col(0));
+            pCtx.fillStyle = g; pCtx.beginPath(); pCtx.arc(hx, hy, 26, 0, Math.PI * 2); pCtx.fill();
+            break;
+          }
+          case 2: {  // Breathing orb (tension release)
+            const r = m * 0.2 * (1 + 0.35 * Math.sin(t * 1.2));
+            const g = pCtx.createRadialGradient(cx, cy, 1, cx, cy, r + 10);
+            g.addColorStop(0, col(0.9)); g.addColorStop(1, col(0));
+            pCtx.fillStyle = g; pCtx.beginPath(); pCtx.arc(cx, cy, r + 10, 0, Math.PI * 2); pCtx.fill();
+            pCtx.strokeStyle = col(0.5); pCtx.lineWidth = 1.5;
+            pCtx.beginPath(); pCtx.arc(cx, cy, r + 18, 0, Math.PI * 2); pCtx.stroke();
+            break;
+          }
+          case 3: {  // Rotating spiral (auditory drive + panning)
+            pCtx.strokeStyle = col(0.75); pCtx.lineWidth = 2; pCtx.beginPath();
+            for (let a = 0; a < Math.PI * 6; a += 0.08) {
+              const r = 6 + a * (m * 0.02);
+              const x = cx + Math.cos(a + t) * r;
+              const y = cy + Math.sin(a + t) * r;
+              if (a === 0) pCtx.moveTo(x, y); else pCtx.lineTo(x, y);
+            }
+            pCtx.stroke();
+            break;
+          }
+          case 4: {  // Ganzfeld full-field light sync
+            const g = pCtx.createRadialGradient(cx, cy, 1, cx, cy, m * 0.7);
+            g.addColorStop(0, col(0.35 + 0.3 * pulse));
+            g.addColorStop(1, col(0));
+            pCtx.fillStyle = g; pCtx.fillRect(0, 0, w, h);
+            break;
+          }
+          case 5: {  // Breath oscilloscope
+            pCtx.strokeStyle = col(0.9); pCtx.lineWidth = 2; pCtx.beginPath();
+            for (let x = 0; x <= w; x += 4) {
+              const env = Math.sin((x / w) * Math.PI);
+              const y = cy + Math.sin(x * 0.03 + t * 4) * h * 0.22 * env;
+              if (x === 0) pCtx.moveTo(x, y); else pCtx.lineTo(x, y);
+            }
+            pCtx.stroke();
+            break;
+          }
+          case 6: {  // Peripheral dot field
+            for (let i = 0; i < 18; i++) {
+              const ang = (i / 18) * Math.PI * 2;
+              const rr = 0.86 + 0.1 * Math.sin(t * 2 + i);
+              const x = cx + Math.cos(ang) * w * 0.44 * rr;
+              const y = cy + Math.sin(ang) * h * 0.42 * rr;
+              pCtx.fillStyle = col(0.35 + 0.5 * Math.abs(Math.sin(t + i)));
+              pCtx.beginPath(); pCtx.arc(x, y, 3.5, 0, Math.PI * 2); pCtx.fill();
+            }
+            pCtx.strokeStyle = col(0.4); pCtx.lineWidth = 1;
+            pCtx.beginPath(); pCtx.moveTo(cx - 10, cy); pCtx.lineTo(cx + 10, cy);
+            pCtx.moveTo(cx, cy - 10); pCtx.lineTo(cx, cy + 10); pCtx.stroke();
+            break;
+          }
+          case 7: {  // Horizon scan (integration drift)
+            const y = cy + Math.sin(t * 0.7) * h * 0.34;
+            pCtx.strokeStyle = col(0.9); pCtx.lineWidth = 2;
+            pCtx.beginPath(); pCtx.moveTo(0, y); pCtx.lineTo(w, y); pCtx.stroke();
+            pCtx.strokeStyle = col(0.3); pCtx.lineWidth = 1;
+            pCtx.beginPath(); pCtx.moveTo(0, cy * 2 - y); pCtx.lineTo(w, cy * 2 - y); pCtx.stroke();
+            pCtx.fillStyle = col(0.5);
+            for (let i = 1; i < 8; i++) pCtx.fillRect((w / 8) * i - 1, y - 6, 2, 12);
+            break;
+          }
+          case 8: {  // Receding tunnel squares (deep delta drop)
+            for (let i = 0; i < 6; i++) {
+              const sc = (((t * 0.35) % 1) + i / 6) % 1;
+              const s = 20 + sc * m * 0.85;
+              pCtx.save(); pCtx.translate(cx, cy); pCtx.rotate(t * 0.25 + i * 0.12);
+              pCtx.strokeStyle = col(0.15 + 0.6 * (1 - sc)); pCtx.lineWidth = 1.5;
+              pCtx.strokeRect(-s / 2, -s / 2, s, s); pCtx.restore();
+            }
+            break;
+          }
+          case 9: {  // Slow snowfall (ocular cooling)
+            for (let i = 0; i < 40; i++) {
+              const sx = ((i * 137) % 97) / 97 * w + Math.sin(t * 0.7 + i) * 8;
+              const speed = 8 + (i % 5) * 5;
+              const sy = ((((i * 61) % 89) / 89) * h + t * speed) % h;
+              pCtx.fillStyle = col(0.3 + 0.4 * ((i % 7) / 7));
+              pCtx.beginPath(); pCtx.arc(sx, sy, 2, 0, Math.PI * 2); pCtx.fill();
+            }
+            break;
+          }
+          case 10: { // Heart–brain coherence merge
+            const mg = (Math.sin(t * 0.9) + 1) / 2;
+            const dx = w * 0.16 * (1 - mg);
+            const r = m * 0.16;
+            pCtx.strokeStyle = col(0.85); pCtx.lineWidth = 2;
+            pCtx.beginPath(); pCtx.arc(cx - dx, cy, r, 0, Math.PI * 2); pCtx.stroke();
+            pCtx.beginPath(); pCtx.arc(cx + dx, cy, r, 0, Math.PI * 2); pCtx.stroke();
+            if (mg > 0.45) {
+              const g = pCtx.createRadialGradient(cx, cy, 1, cx, cy, r);
+              g.addColorStop(0, col(0.5 * mg)); g.addColorStop(1, col(0));
+              pCtx.fillStyle = g; pCtx.beginPath(); pCtx.arc(cx, cy, r, 0, Math.PI * 2); pCtx.fill();
+            }
+            break;
+          }
+          case 11: { // Plumb-line anchor pendulum
+            const px = cx, py = h * 0.12, L = h * 0.6;
+            const ang = Math.sin(t * 0.9) * 0.28;
+            const bx = px + Math.sin(ang) * L, by = py + Math.cos(ang) * L;
+            pCtx.strokeStyle = col(0.25); pCtx.setLineDash([4, 6]); pCtx.lineWidth = 1;
+            pCtx.beginPath(); pCtx.moveTo(px, py); pCtx.lineTo(px, py + L); pCtx.stroke(); pCtx.setLineDash([]);
+            pCtx.strokeStyle = col(0.9); pCtx.lineWidth = 2;
+            pCtx.beginPath(); pCtx.moveTo(px, py); pCtx.lineTo(bx, by); pCtx.stroke();
+            const g = pCtx.createRadialGradient(bx, by, 1, bx, by, 22);
+            g.addColorStop(0, col(0.95)); g.addColorStop(1, col(0));
+            pCtx.fillStyle = g; pCtx.beginPath(); pCtx.arc(bx, by, 22, 0, Math.PI * 2); pCtx.fill();
+            break;
+          }
+          case 12: { // Static noise erasing (clears over the session)
+            const density = protocolActive ? Math.max(0.05, 1 - protocolElapsed / 180) : 0.5;
+            const n = Math.floor(140 * density);
+            for (let i = 0; i < n; i++) {
+              pCtx.fillStyle = col(Math.random() * 0.7);
+              pCtx.fillRect(Math.random() * w, Math.random() * h, 2, 2);
+            }
+            const g = pCtx.createRadialGradient(cx, cy, 1, cx, cy, m * 0.16);
+            g.addColorStop(0, col(0.75)); g.addColorStop(1, col(0));
+            pCtx.fillStyle = g; pCtx.beginPath(); pCtx.arc(cx, cy, m * 0.16, 0, Math.PI * 2); pCtx.fill();
+            break;
+          }
+          case 13: { // Saccade corner jumps (dopamine snaps)
+            const corners = [[w * 0.2, h * 0.25], [w * 0.8, h * 0.25], [w * 0.2, h * 0.75], [w * 0.8, h * 0.75]];
+            const idx = Math.floor(t * 1.4) % 4;
+            const prev = corners[(idx + 3) % 4];
+            const cur = corners[idx];
+            const tgt = corners[(idx + 1) % 4];
+            pCtx.fillStyle = col(0.35);
+            pCtx.beginPath(); pCtx.arc(prev[0], prev[1], 5, 0, Math.PI * 2); pCtx.fill();
+            pCtx.strokeStyle = col(0.4); pCtx.lineWidth = 1.5;
+            pCtx.strokeRect(tgt[0] - 10, tgt[1] - 10, 20, 20);
+            const g = pCtx.createRadialGradient(cur[0], cur[1], 1, cur[0], cur[1], 24);
+            g.addColorStop(0, col(1)); g.addColorStop(1, col(0));
+            pCtx.fillStyle = g; pCtx.beginPath(); pCtx.arc(cur[0], cur[1], 24, 0, Math.PI * 2); pCtx.fill();
+            break;
+          }
+          case 14: { // Body-scan sweep line
+            const x = ((t * 0.3) % 1) * w;
+            const g = pCtx.createLinearGradient(x - 60, 0, x, 0);
+            g.addColorStop(0, col(0)); g.addColorStop(1, col(0.35));
+            pCtx.fillStyle = g; pCtx.fillRect(x - 60, 0, 60, h);
+            pCtx.strokeStyle = col(0.95); pCtx.lineWidth = 2;
+            pCtx.beginPath(); pCtx.moveTo(x, 0); pCtx.lineTo(x, h); pCtx.stroke();
+            pCtx.fillStyle = col(0.5);
+            for (let i = 1; i <= 5; i++) pCtx.fillRect(cx - 14, (h / 6) * i - 1, 28, 2);
+            break;
+          }
+          case 15: { // Gamma starburst
+            const spokes = 24;
+            for (let i = 0; i < spokes; i++) {
+              const ang = (i / spokes) * Math.PI * 2 + t * 1.5;
+              const len = m * 0.32 * (0.65 + 0.35 * Math.sin(t * 6 + i));
+              pCtx.strokeStyle = col(0.55); pCtx.lineWidth = 1.5;
+              pCtx.beginPath(); pCtx.moveTo(cx, cy);
+              pCtx.lineTo(cx + Math.cos(ang) * len, cy + Math.sin(ang) * len); pCtx.stroke();
+            }
+            const g2 = pCtx.createRadialGradient(cx, cy, 1, cx, cy, 30);
+            g2.addColorStop(0, col(1)); g2.addColorStop(1, col(0));
+            pCtx.fillStyle = g2; pCtx.beginPath(); pCtx.arc(cx, cy, 30, 0, Math.PI * 2); pCtx.fill();
+            break;
+          }
+          case 16: { // Hum rings rising (vocal resonance)
+            const ox = cx, oy = h * 0.82;
+            for (let i = 0; i < 5; i++) {
+              const ph = ((t * 0.5 + i / 5) % 1);
+              const r = ph * m * 0.75;
+              pCtx.strokeStyle = col(0.7 * (1 - ph)); pCtx.lineWidth = 2;
+              pCtx.beginPath(); pCtx.arc(ox, oy, r, Math.PI, Math.PI * 2); pCtx.stroke();
+            }
+            const g3 = pCtx.createRadialGradient(ox, oy, 1, ox, oy, 24);
+            g3.addColorStop(0, col(0.95)); g3.addColorStop(1, col(0));
+            pCtx.fillStyle = g3; pCtx.beginPath(); pCtx.arc(ox, oy, 24, 0, Math.PI * 2); pCtx.fill();
+            break;
+          }
+          case 17: { // Defusion leaves drifting away
+            for (let i = 0; i < 14; i++) {
+              const ph = ((t * 0.22 + i * 0.071) % 1);
+              const x = ((i * 137.5) % w) + Math.sin(t + i) * 14;
+              const y = h - ph * (h + 40);
+              pCtx.save(); pCtx.translate(x, y); pCtx.rotate(t * 1.2 + i);
+              pCtx.fillStyle = col(0.25 + 0.5 * (1 - ph));
+              pCtx.beginPath(); pCtx.ellipse(0, 0, 7, 3.2, 0, 0, Math.PI * 2); pCtx.fill();
+              pCtx.restore();
+            }
+            break;
+          }
+          case 18: { // Locked diamond (stillness in motion)
+            const R = m * 0.26 * (1 + 0.05 * pulse);
+            pCtx.save(); pCtx.translate(cx, cy); pCtx.rotate(t * 0.35);
+            pCtx.strokeStyle = col(0.85); pCtx.lineWidth = 2; pCtx.beginPath();
+            pCtx.moveTo(0, -R); pCtx.lineTo(R, 0); pCtx.lineTo(0, R); pCtx.lineTo(-R, 0); pCtx.closePath(); pCtx.stroke();
+            pCtx.rotate(-t * 0.9);
+            pCtx.strokeStyle = col(0.45); pCtx.beginPath();
+            const R2 = R * 0.55;
+            pCtx.moveTo(0, -R2); pCtx.lineTo(R2, 0); pCtx.lineTo(0, R2); pCtx.lineTo(-R2, 0); pCtx.closePath(); pCtx.stroke();
+            pCtx.restore();
+            pCtx.strokeStyle = col(0.2); pCtx.lineWidth = 1;
+            pCtx.strokeRect(cx - m * 0.36, cy - m * 0.36, m * 0.72, m * 0.72);
+            break;
+          }
+          case 19: { // Spatial vortex arms
+            for (let arm = 0; arm < 3; arm++) {
+              pCtx.strokeStyle = col(0.65); pCtx.lineWidth = 2; pCtx.beginPath();
+              for (let s = 0; s <= 1; s += 0.02) {
+                const r = s * m * 0.46;
+                const ang = s * 6 + t * 1.4 + arm * 2.094;
+                const x = cx + Math.cos(ang) * r * 1.15;
+                const y = cy + Math.sin(ang) * r;
+                if (s === 0) pCtx.moveTo(x, y); else pCtx.lineTo(x, y);
+              }
+              pCtx.stroke();
+            }
+            break;
+          }
+          case 20: { // Void — single distant star
+            pCtx.fillStyle = 'rgba(3, 7, 18, 0.55)'; pCtx.fillRect(0, 0, w, h);
+            const tw = 0.35 + 0.65 * Math.abs(Math.sin(t * 1.6));
+            const sx = cx, sy = cy - h * 0.08;
+            const g = pCtx.createRadialGradient(sx, sy, 1, sx, sy, 34);
+            g.addColorStop(0, col(tw)); g.addColorStop(1, col(0));
+            pCtx.fillStyle = g; pCtx.beginPath(); pCtx.arc(sx, sy, 34, 0, Math.PI * 2); pCtx.fill();
+            pCtx.fillStyle = 'rgba(255,255,255,' + (0.5 * tw) + ')';
+            pCtx.beginPath(); pCtx.arc(sx, sy, 1.6, 0, Math.PI * 2); pCtx.fill();
+            pCtx.strokeStyle = col(0.1); pCtx.lineWidth = 1;
+            pCtx.beginPath(); pCtx.arc(cx, cy, m * 0.4, 0, Math.PI * 2); pCtx.stroke();
+            break;
+          }
+          case 21: { // Master mandala (composite alignment)
+            for (let ring = 1; ring <= 3; ring++) {
+              pCtx.strokeStyle = col(0.35 + 0.15 * ring * (0.6 + 0.4 * pulse));
+              pCtx.lineWidth = 1.5;
+              pCtx.beginPath(); pCtx.arc(cx, cy, m * 0.1 * ring + pulse * 6, 0, Math.PI * 2); pCtx.stroke();
+            }
+            for (let i = 0; i < 12; i++) {
+              const ang = (i / 12) * Math.PI * 2 + t * 0.35;
+              const r = m * 0.3;
+              const x = cx + Math.cos(ang) * r, y = cy + Math.sin(ang) * r;
+              pCtx.save(); pCtx.translate(x, y); pCtx.rotate(ang + Math.PI / 2);
+              pCtx.strokeStyle = col(0.6); pCtx.lineWidth = 1.5;
+              pCtx.beginPath(); pCtx.ellipse(0, 0, 14, 6, 0, 0, Math.PI * 2); pCtx.stroke();
+              pCtx.restore();
+            }
+            const g = pCtx.createRadialGradient(cx, cy, 1, cx, cy, 26);
+            g.addColorStop(0, col(0.95)); g.addColorStop(1, col(0));
+            pCtx.fillStyle = g; pCtx.beginPath(); pCtx.arc(cx, cy, 26, 0, Math.PI * 2); pCtx.fill();
+            break;
+          }
+        }
+
+        if (protocolFlicker && Math.random() > 0.85) {
+          pCtx.fillStyle = col(0.07);
+          pCtx.fillRect(0, 0, w, h);
+        }
+      }
+      requestAnimationFrame(renderProtocolVisuals);
+    }
+
+    function toggleProtocolSession() {
+      if (protocolActive) stopProtocolSession(false);
+      else startProtocolSession();
+    }
+
+    function startProtocolSession() {
+      if (protocolActive) return;
+      const p = protocol21[protocolDay - 1];
+      const band = BANDS[p.b];
+      const dd = (p.d < 10 ? '0' : '') + p.d;
+      protocolActive = true;
+      protocolElapsed = 0;
+      // ===== IMMERSIVE: hide ALL text including the counter — visual only =====
+      document.body.classList.add('immersive');
+      const btn = document.getElementById('protocolBtn');
+      btn.innerText = '■';
+      btn.style.background = '#ff0055';
+      btn.style.boxShadow = '0 0 25px rgba(255, 0, 85, 0.4)';
+
+      try {
+        pAudio = new (window.AudioContext || window.webkitAudioContext)();
+        pMaster = pAudio.createGain();
+        pMaster.gain.setValueAtTime(0.001, pAudio.currentTime);
+        const merger = pAudio.createChannelMerger(2);
+
+        // --- waveform + unique carrier pitch + binaural beat ---
+        pOscL = pAudio.createOscillator();
+        pOscL.type = p.w;
+        pOscL.frequency.setValueAtTime(p.c, pAudio.currentTime);
+        pOscR = pAudio.createOscillator();
+        pOscR.type = p.w;
+        pOscR.frequency.setValueAtTime(p.c + p.f, pAudio.currentTime);
+        pOscL.connect(merger, 0, 0);
+        pOscR.connect(merger, 0, 1);
+
+        if (p.s > 0) {
+          pOscSub = pAudio.createOscillator();
+          pOscSub.type = 'triangle';
+          pOscSub.frequency.setValueAtTime(p.s, pAudio.currentTime);
+          pOscSub.connect(merger, 0, 0);
+          pOscSub.connect(merger, 0, 1);
+          pOscSub.start();
+        }
+
+        // --- octave shimmer (master day) ---
+        if (p.oct) {
+          const oct = pAudio.createOscillator();
+          oct.type = 'sine';
+          oct.frequency.setValueAtTime(p.c * 2, pAudio.currentTime);
+          const octG = pAudio.createGain();
+          octG.gain.value = 0.02;
+          oct.connect(octG);
+          octG.connect(merger, 0, 0);
+          octG.connect(merger, 0, 1);
+          oct.start();
+        }
+
+        // --- stereo motion for spatial days ---
+        let node = merger;
+        if (pAudio.createStereoPanner) {
+          const panner = pAudio.createStereoPanner();
+          merger.connect(panner);
+          if (p.sp > 0) {
+            const panLfo = pAudio.createOscillator();
+            panLfo.frequency.value = p.sp;
+            const panDepth = pAudio.createGain();
+            panDepth.gain.value = 0.9;
+            panLfo.connect(panDepth);
+            panDepth.connect(panner.pan);
+            panLfo.start();
+          }
+          node = panner;
+        }
+
+        node.connect(pMaster);
+        pMaster.connect(pAudio.destination);
+        const baseVol = p.w === 'sine' ? 0.1 : p.w === 'triangle' ? 0.09 : 0.055;
+        pMaster.gain.linearRampToValueAtTime(baseVol, pAudio.currentTime + 2);
+
+        // --- tremolo (amplitude modulation at the day rate) ---
+        if (p.am > 0) {
+          const am = pAudio.createOscillator();
+          am.frequency.value = p.am;
+          const depth = pAudio.createGain();
+          depth.gain.value = baseVol * 0.45;
+          am.connect(depth);
+          depth.connect(pMaster.gain);
+          am.start();
+        }
+
+        // --- filtered pink-ish noise layer ---
+        if (p.nz > 0) {
+          const len = Math.floor(pAudio.sampleRate * 2);
+          const buf = pAudio.createBuffer(1, len, pAudio.sampleRate);
+          const data = buf.getChannelData(0);
+          let lastOut = 0;
+          for (let i = 0; i < len; i++) {
+            const white = Math.random() * 2 - 1;
+            lastOut = (lastOut + 0.02 * white) / 1.02;
+            data[i] = lastOut * 3.2;
+          }
+          const src = pAudio.createBufferSource();
+          src.buffer = buf;
+          src.loop = true;
+          const lp = pAudio.createBiquadFilter();
+          lp.type = 'lowpass';
+          lp.frequency.value = 600;
+          const ng = pAudio.createGain();
+          ng.gain.value = p.nz;
+          src.connect(lp);
+          lp.connect(ng);
+          ng.connect(merger, 0, 0);
+          ng.connect(merger, 0, 1);
+          src.start();
+        }
+
+        pOscL.start();
+        pOscR.start();
+      } catch (e) { console.error(e); }
+
+      if ('vibrate' in navigator) navigator.vibrate(40);
+      protocolFlicker = (protocolDay === 4 || protocolDay === 15);
+
+      if (protocolDay === 2) {
+        const sq = document.getElementById('p-squeeze');
+        sq.classList.remove('hidden');
+        sq.classList.add('flex');
+        if ('vibrate' in navigator) navigator.vibrate([400, 80, 400, 80, 800]);
+        squeezeTimeout = setTimeout(() => {
+          sq.classList.add('hidden');
+          sq.classList.remove('flex');
+          if ('vibrate' in navigator) navigator.vibrate(100);
+        }, 8000);
+      }
+
+      protocolTimer = setInterval(() => {
+        protocolElapsed++;
+        const m = String(Math.floor(protocolElapsed / 60)).padStart(2, '0');
+        const s = String(protocolElapsed % 60).padStart(2, '0');
+        document.getElementById('p-timer').innerText = m + ':' + s;
+        if (protocolElapsed >= PROTO_SESSION_SECONDS) {
+          stopProtocolSession(true);
+        }
+      }, 1000);
+    }
+
+    function stopProtocolSession(completed) {
+      // Exit immersive — text returns
+      document.body.classList.remove('immersive');
+      if (squeezeTimeout) {
+        clearTimeout(squeezeTimeout);
+        squeezeTimeout = null;
+      }
+      const sq = document.getElementById('p-squeeze');
+      sq.classList.add('hidden');
+      sq.classList.remove('flex');
+      if (protocolTimer) {
+        clearInterval(protocolTimer);
+        protocolTimer = null;
+      }
+      protocolFlicker = false;
+      protocolActive = false;
+      if (pMaster && pAudio) {
+        try {
+          pMaster.gain.linearRampToValueAtTime(0.001, pAudio.currentTime + 1);
+          const ctxRef = pAudio;
+          setTimeout(() => { if (ctxRef && ctxRef.state !== 'closed') ctxRef.close(); }, 1100);
+        } catch (e) {}
+      }
+      pAudio = null;
+      pMaster = null;
+      pOscL = null;
+      pOscR = null;
+      pOscSub = null;
+      const p = protocol21[protocolDay - 1];
+      const band = BANDS[p.b];
+      const dd = (p.d < 10 ? '0' : '') + p.d;
+      const btn = document.getElementById('protocolBtn');
+      btn.innerText = '▶';
+      btn.style.background = band.color;
+      btn.style.boxShadow = '0 0 25px ' + protoRgba(band, 0.35);
+      document.getElementById('p-timer').innerText = '03:00';
+      document.getElementById('p-hint').innerText = completed ? '✓' : '🎧';
+
+      // ===== GATE: finishing a day unlocks the next one =====
+      if (completed) {
+        if (!isDayCompleted(p.d)) {
+          completedDays.push(p.d);
+          completedDays.sort((a, b) => a - b);
+          saveProgress();
+          buildProtocolDays();
+          updateProgressUI();
+          const nextDay = p.d + 1;
+          if (nextDay <= 21) {
+            showToast(dd + ' ✓ → ' + ((nextDay < 10 ? '0' : '') + nextDay));
+            protocolDay = nextDay;
+            renderProtocolDetail();
+          } else {
+            showToast('21 ✓ 👑');
+          }
+        } else {
+          showToast(dd + ' ✓');
+        }
+      }
+    }
+
+    function stageTap() {
+      if (document.body.classList.contains('immersive')) {
+        stopProtocolSession(false);
+      }
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      toast.innerText = msg;
+      toast.classList.remove('translate-y-20', 'opacity-0');
+      toast.classList.add('translate-y-0', 'opacity-100');
+      setTimeout(() => {
+        toast.classList.add('translate-y-20', 'opacity-0');
+        toast.classList.remove('translate-y-0', 'opacity-100');
+      }, 3500);
+    }
+
+    window.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && document.body.classList.contains('immersive')) {
+        stopProtocolSession(false);
+      }
+    });
+
+    window.addEventListener('load', () => {
+      initProtocolCanvas();
+      renderProtocolVisuals();
+    });
+  </script>
+
+  <script>
+    // ===== STEP 1 — INTRO FLOW ENGINE (Matrix Escape Manual → opens the 21-day protocol) =====
+    (function () {
+      const INTRO_STEPS = [
+        "Stop. You don't have to fix anything right now.",
+        "Take a deep breath. Exhale slow.",
+        "You owe no one your panic.",
+        "Drop your shoulders. Unclench your jaw.",
+        "Let the noise dissolve around you.",
+        "Feel the steady rhythm of your breathing.",
+        "Your nervous system is resetting now.",
+        "You are safe in this physical moment.",
+        "Silence is your natural baseline state.",
+        "Observe the mind without joining its chaos.",
+        "Step back into pure observer awareness.",
+        "Thoughts are clouds passing through clear sky.",
+        "You are not the fear; you are the space it appears in.",
+        "Let go of every outcome you are holding.",
+        "Rest in the silent presence behind your eyes.",
+        "Reclaim command over your attention.",
+        "Your power resides in focused stillness.",
+        "Choose calm clarity over reactive impulse.",
+        "Anchor yourself deeply in total sovereignty.",
+        "You are whole, clear, and fully present.",
+        "Welcome back to yourself."
+      ];
+      const LAST = INTRO_STEPS.length - 1;
+
+      const $ = id => document.getElementById(id);
+      const introFlow = $('intro-flow');
+      const introEntry = $('intro-entry');
+      const introStatement = $('intro-statement');
+      const introCounter = $('intro-counter');
+      const introDots = $('intro-dots');
+      const introPrev = $('intro-prev');
+      const introNext = $('intro-next');
+      const introBegin = $('intro-begin');
+      const audioToggle = $('intro-audio');
+      const voiceToggle = $('intro-voice');
+      const autoToggle = $('intro-auto');
+      const skipBtn = $('intro-skip');
+      const skipLink = $('intro-skip-link');
+      const startBtn = $('intro-start');
+
+      const synth = ('speechSynthesis' in window) ? window.speechSynthesis : null;
+      const pad = n => (n < 10 ? '0' : '') + n;
+
+      let idx = 0, started = false, finished = false;
+      let soundOn = true, voiceOn = true, autoOn = true;
+      let isSpeaking = false;
+      let stepToken = 0, autoTimer = null;
+      let introCtx = null, introMaster = null;
+
+      // --- progress dots ---
+      INTRO_STEPS.forEach((_, i) => {
+        const d = document.createElement('span');
+        d.className = 'dot' + (i === 0 ? ' active' : '');
+        introDots.appendChild(d);
+      });
+
+      // --- ambient drone: TRUE 10Hz alpha binaural (432 L / 442 R) + 55Hz vagal sub ---
+      function initIntroAudio() {
+        if (introCtx) { if (introCtx.state === 'suspended') introCtx.resume(); return; }
+        const AC = window.AudioContext || window.webkitAudioContext;
+        if (!AC) return;
+        try {
+          introCtx = new AC();
+          introMaster = introCtx.createGain();
+          introMaster.gain.setValueAtTime(0.0001, introCtx.currentTime);
+          introMaster.gain.exponentialRampToValueAtTime(soundOn ? 0.12 : 0.0001, introCtx.currentTime + 3);
+          introMaster.connect(introCtx.destination);
+
+          const merger = introCtx.createChannelMerger(2);
+          const tone = (freq, ch) => {
+            const o = introCtx.createOscillator();
+            o.type = 'sine';
+            o.frequency.setValueAtTime(freq, introCtx.currentTime);
+            o.connect(merger, 0, ch);
+            o.start();
+          };
+          tone(432, 0);
+          tone(442, 1); // → 10 Hz alpha binaural difference
+          const sub = introCtx.createOscillator();
+          sub.type = 'sine';
+          sub.frequency.setValueAtTime(55, introCtx.currentTime);
+          const subG = introCtx.createGain();
+          subG.gain.value = 0.22;
+          sub.connect(subG);
+          subG.connect(merger, 0, 0);
+          subG.connect(merger, 0, 1);
+          sub.start();
+          merger.connect(introMaster);
+        } catch (e) { introCtx = null; introMaster = null; }
+      }
+
+      function playChime() {
+        if (!soundOn || !introCtx) return;
+        try {
+          const o = introCtx.createOscillator();
+          const g = introCtx.createGain();
+          o.type = 'sine';
+          o.frequency.setValueAtTime(528, introCtx.currentTime);
+          g.gain.setValueAtTime(0.0001, introCtx.currentTime);
+          g.gain.exponentialRampToValueAtTime(0.08, introCtx.currentTime + 0.05);
+          g.gain.exponentialRampToValueAtTime(0.0001, introCtx.currentTime + 1.8);
+          o.connect(g);
+          g.connect(introCtx.destination);
+          o.start();
+          o.stop(introCtx.currentTime + 1.9);
+        } catch (e) {}
+      }
+
+      // --- voice-over (VOG) ---
+      function speakStep(token) {
+        const text = INTRO_STEPS[idx];
+        const fallback = Math.max(3200, text.split(/\s+/).length * 420 + 1500);
+        isSpeaking = false;
+        if (!voiceOn || !synth) { armAuto(fallback, token); return; }
+        try { synth.cancel(); } catch (e) {}
+        const u = new SpeechSynthesisUtterance(text);
+        u.rate = 0.82;
+        u.pitch = 0.75;
+        try {
+          const voices = synth.getVoices() || [];
+          const deep = voices.find(v => /^en/i.test(v.lang || '') && /(male|natural|google|daniel|alex|fred|david|george)/i.test(v.name))
+            || voices.find(v => /^en/i.test(v.lang || ''));
+          if (deep) u.voice = deep;
+        } catch (e) {}
+        u.onstart = () => { isSpeaking = true; };
+        u.onend = () => { isSpeaking = false; armAuto(3500, token); }; // 3.5s integration gap after speech
+        u.onerror = () => { isSpeaking = false; armAuto(fallback, token); };
+        try { synth.speak(u); } catch (e) { armAuto(fallback, token); return; }
+        // Safety net: if the engine never fires onend, keep the flow moving
+        armAuto(fallback + 20000, token);
+      }
+
+      function armAuto(delayMs, token) {
+        clearTimeout(autoTimer);
+        if (!autoOn || finished || token !== stepToken || !started) return;
+        autoTimer = setTimeout(() => {
+          if (finished || token !== stepToken) return;
+          goNext(true);
+        }, delayMs);
+      }
+
+      function renderStep() {
+        stepToken++;
+        const token = stepToken;
+        clearTimeout(autoTimer);
+        if (synth) { try { synth.cancel(); } catch (e) {} }
+        introStatement.classList.remove('visible');
+        introCounter.textContent = pad(idx + 1) + ' / ' + INTRO_STEPS.length;
+        introPrev.disabled = idx === 0;
+        introNext.innerText = idx === LAST ? '✓' : '→';
+        introBegin.classList.toggle('show', idx === LAST);
+        introDots.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i === idx));
+        playChime();
+        setTimeout(() => {
+          if (token !== stepToken || finished) return;
+          introStatement.textContent = INTRO_STEPS[idx];
+          introStatement.classList.add('visible');
+          speakStep(token);
+        }, 400);
+      }
+
+      function goNext(fromAuto) {
+        if (finished) return;
+        if (idx < LAST) { idx++; renderStep(); }
+        else finishIntro();
+      }
+
+      function goPrev() {
+        if (finished || idx === 0) return;
+        idx--;
+        renderStep();
+      }
+
+      // --- hand-off: intro complete → open the 21-day protocol ---
+      function finishIntro() {
+        if (finished) return;
+        finished = true;
+        clearTimeout(autoTimer);
+        if (synth) { try { synth.cancel(); } catch (e) {} }
+        introFlow.classList.add('intro-hidden');
+        document.body.classList.remove('intro-lock');
+        if (introMaster && introCtx) {
+          try {
+            const t = introCtx.currentTime;
+            introMaster.gain.cancelScheduledValues(t);
+            introMaster.gain.setValueAtTime(Math.max(introMaster.gain.value, 0.0001), t);
+            introMaster.gain.exponentialRampToValueAtTime(0.0001, t + 1.8);
+            const ref = introCtx;
+            setTimeout(() => { try { ref.close(); } catch (e) {} }, 2000);
+          } catch (e) {}
+          introMaster = null;
+          introCtx = null;
+        }
+        setTimeout(() => {
+          const day = (typeof firstOpenDay === 'function') ? firstOpenDay() : 1;
+          if (typeof showToast === 'function') showToast('INTRO ✓ → DAY ' + pad(day));
+          const btn = document.getElementById('protocolBtn');
+          if (btn && btn.animate) {
+            btn.animate(
+              [{ transform: 'scale(1)' }, { transform: 'scale(1.22)' }, { transform: 'scale(1)' }],
+              { duration: 900, iterations: 3 }
+            );
+          }
+        }, 800);
+      }
+
+      // --- controls ---
+      startBtn.addEventListener('click', () => {
+        if (started) return;
+        started = true;
+        initIntroAudio();
+        introEntry.classList.add('intro-hidden');
+        renderStep();
+      });
+
+      introNext.addEventListener('click', () => goNext(false));
+      introPrev.addEventListener('click', goPrev);
+      introBegin.addEventListener('click', finishIntro);
+      skipBtn.addEventListener('click', finishIntro);
+      skipLink.addEventListener('click', finishIntro);
+
+      audioToggle.addEventListener('click', () => {
+        soundOn = !soundOn;
+        audioToggle.classList.toggle('active', soundOn);
+        if (introMaster && introCtx) {
+          try { introMaster.gain.setTargetAtTime(soundOn ? 0.12 : 0.0001, introCtx.currentTime, 0.25); } catch (e) {}
+        }
+      });
+
+      voiceToggle.addEventListener('click', () => {
+        voiceOn = !voiceOn;
+        voiceToggle.classList.toggle('active', voiceOn);
+        if (!voiceOn) {
+          if (synth) { try { synth.cancel(); } catch (e) {} }
+          clearTimeout(autoTimer);
+        } else if (started && !finished) {
+          speakStep(stepToken); // resume the flow from the current statement
+        }
+      });
+
+      autoToggle.addEventListener('click', () => {
+        autoOn = !autoOn;
+        autoToggle.classList.toggle('active', autoOn);
+        if (!autoOn) {
+          clearTimeout(autoTimer);
+        } else if (started && !finished) {
+          armAuto(isSpeaking ? 3500 : 1600, stepToken);
+        }
+      });
+
+      window.addEventListener('keydown', e => {
+        if (finished) return;
+        if (!started) {
+          if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); startBtn.click(); }
+          return;
+        }
+        if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); goNext(false); }
+        else if (e.key === 'ArrowLeft') { e.preventDefault(); goPrev(); }
+      });
+
+      // --- shape-shifting VOG canvas (4 phases across the 21 statements) ---
+      const introCanvas = $('intro-canvas');
+      const iCtx = introCanvas.getContext('2d');
+      let iW = 0, iH = 0, iDpr = 1;
+
+      function resizeIntroCanvas() {
+        iDpr = Math.min(window.devicePixelRatio || 1, 2);
+        iW = introCanvas.clientWidth || (introCanvas.parentElement && introCanvas.parentElement.clientWidth) || 300;
+        iH = introCanvas.clientHeight || (introCanvas.parentElement && introCanvas.parentElement.clientHeight) || 300;
+        introCanvas.width = Math.max(1, Math.round(iW * iDpr));
+        introCanvas.height = Math.max(1, Math.round(iH * iDpr));
+        iCtx.setTransform(iDpr, 0, 0, iDpr, 0, 0);
+      }
+      window.addEventListener('resize', resizeIntroCanvas);
+      resizeIntroCanvas();
+
+      let iTime = 0;
+
+      function drawIntroVOG() {
+        if (finished) return; // release the loop once the protocol opens
+        if (introCanvas.clientWidth !== iW || introCanvas.clientHeight !== iH) resizeIntroCanvas();
+
+        iTime += 0.015;
+        const w = iW, h = iH;
+        iCtx.clearRect(0, 0, w, h);
+
+        const cx = w / 2;
+        const cy = h / 2;
+        const baseRadius = Math.min(cx, cy) * 0.45;
+
+        let primaryColor, secondaryColor;
+        if (idx < 5) {
+          primaryColor = 'rgba(243, 156, 18, ' + (0.6 + Math.sin(iTime) * 0.2) + ')';
+          secondaryColor = 'rgba(231, 76, 60, 0.4)';
+        } else if (idx < 10) {
+          primaryColor = 'rgba(0, 242, 254, ' + (0.6 + Math.sin(iTime) * 0.2) + ')';
+          secondaryColor = 'rgba(46, 204, 113, 0.4)';
+        } else if (idx < 15) {
+          primaryColor = 'rgba(155, 89, 182, ' + (0.6 + Math.sin(iTime) * 0.2) + ')';
+          secondaryColor = 'rgba(52, 152, 219, 0.4)';
+        } else {
+          primaryColor = 'rgba(241, 196, 15, ' + (0.7 + Math.sin(iTime) * 0.2) + ')';
+          secondaryColor = 'rgba(230, 126, 34, 0.5)';
+        }
+
+        const auraGradient = iCtx.createRadialGradient(cx, cy, baseRadius * 0.2, cx, cy, baseRadius * 1.6);
+        auraGradient.addColorStop(0, primaryColor);
+        auraGradient.addColorStop(1, 'rgba(0,0,0,0)');
+        iCtx.fillStyle = auraGradient;
+        iCtx.beginPath();
+        iCtx.arc(cx, cy, baseRadius * 1.6, 0, Math.PI * 2);
+        iCtx.fill();
+
+        iCtx.save();
+        iCtx.translate(cx, cy);
+
+        if (idx < 5) {
+          iCtx.rotate(iTime * 0.2);
+          for (let i = 1; i <= 3; i++) {
+            iCtx.strokeStyle = primaryColor;
+            iCtx.lineWidth = 1.5;
+            iCtx.beginPath();
+            iCtx.arc(0, 0, baseRadius * (i * 0.35) + Math.sin(iTime * 2 + i) * 5, 0, Math.PI * 2);
+            iCtx.stroke();
+          }
+        } else if (idx < 10) {
+          iCtx.rotate(-iTime * 0.15);
+          iCtx.strokeStyle = primaryColor;
+          iCtx.lineWidth = 2;
+          for (let i = 0; i < 2; i++) {
+            iCtx.rotate(Math.PI / 4);
+            iCtx.strokeRect(-baseRadius * 0.7, -baseRadius * 0.7, baseRadius * 1.4, baseRadius * 1.4);
+          }
+        } else if (idx < 15) {
+          iCtx.rotate(iTime * 0.1);
+          iCtx.strokeStyle = primaryColor;
+          iCtx.lineWidth = 1.2;
+          const points = [];
+          for (let i = 0; i < 6; i++) {
+            const angle = (i * Math.PI) / 3;
+            const px = Math.cos(angle) * baseRadius * 0.8;
+            const py = Math.sin(angle) * baseRadius * 0.8;
+            points.push({ x: px, y: py });
+            iCtx.beginPath();
+            iCtx.arc(px, py, 6, 0, Math.PI * 2);
+            iCtx.stroke();
+          }
+          iCtx.globalAlpha = 0.5;
+          for (let i = 0; i < points.length; i++) {
+            for (let j = i + 1; j < points.length; j++) {
+              iCtx.beginPath();
+              iCtx.moveTo(points[i].x, points[i].y);
+              iCtx.lineTo(points[j].x, points[j].y);
+              iCtx.stroke();
+            }
+          }
+          iCtx.globalAlpha = 1;
+        } else {
+          iCtx.rotate(iTime * 0.05);
+          iCtx.strokeStyle = primaryColor;
+          iCtx.lineWidth = 1.5;
+          for (let i = 0; i < 12; i++) {
+            const angle = (i * Math.PI) / 6;
+            const px = Math.cos(angle) * baseRadius * 0.5;
+            const py = Math.sin(angle) * baseRadius * 0.5;
+            iCtx.beginPath();
+            iCtx.arc(px, py, baseRadius * 0.6, 0, Math.PI * 2);
+            iCtx.stroke();
+          }
+        }
+
+        iCtx.restore();
+
+        // breathing core point
+        const coreG = iCtx.createRadialGradient(cx, cy, 0, cx, cy, 8 + Math.sin(iTime * 3) * 2);
+        coreG.addColorStop(0, 'rgba(255,255,255,0.95)');
+        coreG.addColorStop(1, 'rgba(255,255,255,0)');
+        iCtx.fillStyle = coreG;
+        iCtx.beginPath();
+        iCtx.arc(cx, cy, 8 + Math.sin(iTime * 3) * 2, 0, Math.PI * 2);
+        iCtx.fill();
+
+        requestAnimationFrame(drawIntroVOG);
+      }
+
+      requestAnimationFrame(drawIntroVOG);
+    })();
+  </script>
+
+  <script>
+    // ===== SECTION 3 — PRODUCT 3: THE SOVEREIGN MATRIX ESCAPE PROTOCOL =====
+    (function () {
+      const p3Panel = document.getElementById('product3-panel');
+      const p3ContentBox = document.getElementById('p3-content-box');
+      const p3CardNumber = document.getElementById('p3-card-number');
+      const p3CardTitle = document.getElementById('p3-card-title');
+      const p3CardBody = document.getElementById('p3-card-body');
+      const p3ActionBtn = document.getElementById('p3-action-btn');
+      const p3Counter = document.getElementById('p3-counter');
+      const p3Prev = document.getElementById('p3-prev');
+      const p3Next = document.getElementById('p3-next');
+      const p3TabPrompts = document.getElementById('p3-tab-prompts');
+      const p3TabTruths = document.getElementById('p3-tab-truths');
+      const p3AudioBtn = document.getElementById('p3-audio');
+      const p3Toast = document.getElementById('p3-toast');
+
+      let p3Mode = 'prompts';
+      let p3Index = 0;
+      let p3RenderTimer = null;
+      let p3Ctx = null, p3Master = null, p3AudioActive = false;
+
+      const p3Pad = n => (n < 10 ? '0' : '') + n;
+
+      // --- section switcher (global) — protocol / product3 / journey ---
+      window.switchSection = function (name) {
+        const panels = { protocol: 'app', product3: 'product3-panel', product4: 'awakening-panel', product5: 'one-god-panel', journey: 'journey-panel', product6: 'passage-panel' };
+        if (!panels[name]) return;
+        const isP3 = name === 'product3';
+        if (name !== 'protocol' && typeof protocolActive !== 'undefined' && protocolActive && typeof stopProtocolSession === 'function') {
+          stopProtocolSession(false);
+        }
+        if (isP3 && p3AudioActive) p3SetAudio(false);
+        Object.keys(panels).forEach(key => {
+          document.getElementById(panels[key]).classList.toggle('is-hidden', key !== name);
+        });
+        document.getElementById('topbar').classList.toggle('is-hidden', name !== 'protocol' && name !== 'product4' && name !== 'product5');
+        document.getElementById('sec-protocol').classList.toggle('active', name === 'protocol');
+        document.getElementById('sec-product3').classList.toggle('active', isP3);
+        document.getElementById('sec-product4').classList.toggle('active', name === 'product4');
+        document.getElementById('sec-product5').classList.toggle('active', name === 'product5');
+        document.getElementById('sec-journey').classList.toggle('active', name === 'journey');
+        document.getElementById('sec-product6').classList.toggle('active', name === 'product6');
+        if (isP3) p3Render();
+      };
+
+      document.getElementById('sec-protocol').addEventListener('click', () => window.switchSection('protocol'));
+      document.getElementById('sec-product3').addEventListener('click', () => window.switchSection('product3'));
+      // --- Product 4 (66 Days of Awakening) ---
+      document.getElementById('sec-product4').addEventListener('click', () => window.switchSection('product4'));
+
+      // --- Product 5 (One God, One Voice, One Humanity) ---
+      document.getElementById('sec-product5').addEventListener('click', () => window.switchSection('product5'));
+
+      document.getElementById('sec-journey').addEventListener('click', () => window.switchSection('journey'));
+
+      // --- Human Journey Part I / Part II / Part III selector (one continuous journey, three parts) ---
+      (function () {
+        const p1 = document.getElementById('journey-frame');
+        const p2 = document.getElementById('journey-frame-2');
+        const p3 = document.getElementById('journey-frame-3');
+        const b1 = document.getElementById('journey-part1-btn');
+        const b2 = document.getElementById('journey-part2-btn');
+        const b3 = document.getElementById('journey-part3-btn');
+        const desc = document.getElementById('journey-part-desc');
+        const META = {
+          1: { btn: b1, frame: p1, label: 'Part I — from cosmic origins to a shared future. One continuous reflective passage.' },
+          2: { btn: b2, frame: p2, label: 'Part II — The Loop: a 21-chapter continuation, from before birth through death to what remains afterward.' },
+          3: { btn: b3, frame: p3, label: 'Part III — The Awakening: mind, relationships, change, society, technology, ethics, and our shared future.' }
+        };
+        function setPart(n) {
+          Object.keys(META).forEach(k => {
+            const on = Number(k) === n;
+            META[k].frame.classList.toggle('is-hidden', !on);
+            META[k].btn.classList.toggle('active', on);
+            META[k].btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+          });
+          desc.textContent = META[n].label;
+        }
+        b1.addEventListener('click', () => setPart(1));
+        b2.addEventListener('click', () => setPart(2));
+        b3.addEventListener('click', () => setPart(3));
+        setPart(1);
+      })();
+
+      // --- journey fullscreen (targets whichever part is active) ---
+      document.getElementById('journey-fullscreen').addEventListener('click', () => {
+        const frames = ['journey-frame', 'journey-frame-2', 'journey-frame-3']
+          .map(id => document.getElementById(id))
+          .filter(Boolean);
+        const fr = frames.find(f => !f.classList.contains('is-hidden')) || frames[0];
+        try {
+          if (document.fullscreenElement) document.exitFullscreen();
+          else if (fr && fr.requestFullscreen) fr.requestFullscreen();
+        } catch (e) {}
+      });
+
+      // --- Product 6 (The 10-Minute Extra-Dimensional Passage) ---
+      document.getElementById('sec-product6').addEventListener('click', () => window.switchSection('product6'));
+
+      // --- passage fullscreen ---
+      document.getElementById('passage-fullscreen').addEventListener('click', () => {
+        const fr = document.getElementById('passage-frame');
+        try {
+          if (document.fullscreenElement) document.exitFullscreen();
+          else if (fr.requestFullscreen) fr.requestFullscreen();
+        } catch (e) {}
+      });
+
+      // 21 AI escape prompts (verbatim from Product 3)
+      const P3_PROMPTS = [
+        {
+          title: "De-compile Artificial Urgency & Panic",
+          prompt: "Analyze my current situation: [Insert Situation]. Strip away all perceived social urgency, emotional fear, and manufactured deadlines. Identify the 2 unvarnished physical facts of this situation and give me a clear 3-step action plan that restores instant calm and clarity."
+        },
+        {
+          title: "Identify Algorithmic & Social Conditioning",
+          prompt: "I hold this strong belief or desire: [Insert Belief/Goal]. Help me audit this thought. Is this an authentic need generated by my own inner values, or was it programmed into me by media algorithms, advertising, or social comparison? Provide 3 sharp diagnostic questions to test its authenticity."
+        },
+        {
+          title: "Expose Hidden Systemic Incentives",
+          prompt: "I am experiencing conflict or friction with [Person/System/Institution]. Map out their hidden incentives. What financial, social, or emotional drivers are dictating their actions? How can I stop reacting emotionally and strategically position myself to navigate this without stress?"
+        },
+        {
+          title: "The 80/20 Attention & Energy Audit",
+          prompt: "Here is how I spend my average day: [Insert Daily Routine]. Identify where 80% of my cognitive energy is being drained by low-value digital noise or artificial loops. Give me 3 high-impact micro-rules to reclaim 2 hours of deep focus every day."
+        },
+        {
+          title: "De-escalate Intrusive Thought Loops",
+          prompt: "My mind keeps obsessing over this recurring loop: [Insert Thought/Worry]. Reframe this scenario using first-principles logic. What is the absolute worst-case scenario, how survivable is it practically, and what single boundary can I set today to stop feeding this loop?"
+        },
+        {
+          title: "Break Dopamine & Screen Addiction Loops",
+          prompt: "I catch myself mindlessly opening screens and scrolling whenever I feel [Insert Emotion: Boredom/Stress/Loneliness]. Design a frictionless 5-second physical ritual to substitute this reaction and re-anchor my dopamine baseline back to quiet focus."
+        },
+        {
+          title: "Unshakable Personal Sovereignty & Boundaries",
+          prompt: "I struggle to set boundaries around [Insert Situation/Person] because I feel guilty. Draft a clean, polite, but completely non-negotiable 1-sentence statement I can use to declare my boundary without making excuses or seeking validation."
+        },
+        {
+          title: "The Zero-Based Reality Reset",
+          prompt: "If I woke up today with complete amnesia of my past mistakes, debt, or public reputation—retaining only my current skills and awareness—what is the very first thing I would stop doing immediately, and what single task would I start today?"
+        },
+        {
+          title: "First-Principles Financial & Resource Freedom",
+          prompt: "Analyze my monthly expenses and income: [Insert Details]. Identify where I am spending money to relieve artificial stress caused by my routine, and show me how to restructure my baseline living cost for maximum independence."
+        },
+        {
+          title: "Uncovering the 'Victim Mode' Trap",
+          prompt: "I feel stuck and powerless regarding [Insert Problem]. Challenge me directly: In what subtle way am I profiting or feeling comfortable by staying in this victim narrative? What active step am I avoiding taking?"
+        },
+        {
+          title: "The Fasting & Biological Downregulation Protocol",
+          prompt: "Design a simple 24-hour sensory and physical detox schedule for me. Include guidance on digital fasting, water intake, light movement, and sleep prep to lower my baseline cortisol and clear mental brain fog."
+        },
+          {
+          title: "The Master Reframe on Failure",
+          prompt: "I recently experienced a setback in [Insert Area]. Reframe this event as raw data in a computer simulation. What valuable debugging signal did this failure reveal about my strategy, and how do I patch it?"
+        },
+        {
+          title: "Filter Out Outrage & News Manipulations",
+          prompt: "Here is a headline/news story triggering my anger: [Insert Headline/Topic]. Strip out all sensationalist adjectives and emotional bait. Summarize the cold physical facts in 2 sentences or less."
+        },
+        {
+          title: "Decouple Identity from Work & Status",
+          prompt: "I feel anxious when I am not being productive because I tie my worth to achievement. Provide a cognitive framework to separate my intrinsic human presence from my societal utility and output."
+        },
+        {
+          title: "The Inversion Solution Generator",
+          prompt: "I want to achieve [Insert Goal]. Instead of asking how to succeed, tell me the exact 5 choices that would guarantee I fail at this completely over the next 6 months. How do I systematically block these 5 vectors?"
+        },
+        {
+          title: "Cleanse Relationship Dynamic Matrix",
+          prompt: "Evaluate this recurring dynamic in my relationship: [Insert Conflict]. What unstated expectation am I holding that the other person never agreed to? How can I communicate this directly without emotional drama?"
+        },
+        {
+          title: "The Deep Work Single-Task Engine",
+          prompt: "I have 3 competing priorities: [List 3 Tasks]. Help me choose the ONE single task that, once completed, will make the other two easier or irrelevant. Give me a 45-minute sprint strategy to execute it."
+        },
+        {
+          title: "Somatic Tension De-coding",
+          prompt: "I am feeling physical tightness in my [Jaw/Shoulders/Gut] while dealing with [Situation]. What suppressed emotion or unspoken truth am I holding back, and what physical movement will help release it?"
+        },
+        {
+          title: "Escaping the Consumption vs. Creation Trap",
+          prompt: "I consume hours of podcasts, videos, and books on [Topic] but struggle to take action. Give me a '1:1 Execution Rule' to convert every 15 minutes of information input into immediate physical output."
+        },
+        {
+          title: "The Stoic Reality Anchor",
+          prompt: "What aspects of [Current Crisis] are strictly outside my direct physical control, and what single aspect is 100% within my control right now? Show me how to direct 100% of my energy into the controllable factor."
+        },
+        {
+          title: "The Sovereign Self-Talk Rewrite",
+          prompt: "Here is how I talk to myself when I make a mistake: [Insert Internal Voice]. Rewrite this internal monologue into the voice of a calm, firm, and grounding tactical commander who demands excellence without panic."
+        }
+      ];
+
+      // 21 reality truths (verbatim from Product 3)
+      const P3_TRUTHS = [
+        {
+          title: "Urgency is Almost Always Synthetic",
+          body: "The matrix thrives on manufactured panic. Notifications, breaking news, and artificial deadlines are engineered to keep your nervous system in chronic sympathetic arousal. When you pause and exclaim 'Not right now', 99% of crises dissolve instantly."
+        },
+        {
+          title: "Your Attention is Your Only Real Currency",
+          body: "Where your visual and mental focus goes, your biological energy flows. Algorithms fight for your eyes because your attention is raw compute power. Reclaiming command over what you look at is the ultimate act of escape."
+        },
+        {
+          title: "The Mind Confuses Convenience with Safety",
+          body: "Modern infrastructure optimizes for comfort, but excessive comfort lowers biological resilience. True mental strength returns when you deliberately embrace cold water, silence, physical exertion, and digital fasts."
+        },
+        {
+          title: "You Are Not Your Thoughts; You Are the Observer",
+          body: "Intrusive thoughts, anxiety, and fear are simply passing weather patterns in the brain's hardware. You are the vast, quiet sky in which these clouds appear. Step back into pure observer awareness."
+        },
+        {
+          title: "Outrage is a Systemic Control Vector",
+          body: "Public media platforms are designed to trigger moral outrage because rage locks your brain into high-frequency engagement. Recognizing anger as an algorithmic bait instantly frees you from its spell."
+        },
+        {
+          title: "Friction Dictates Human Behavior",
+          body: "Willpower is a finite biological battery. If you want to break a habit, increase physical friction (e.g., put your phone in another room). If you want to build a habit, eliminate every friction barrier."
+        },
+        {
+          title: "Language Compresses Complex Reality",
+          body: "Words are low-bandwidth symbols that flatten deep human experience. Do not let simplified labels or socio-political categories define your multidimensional identity."
+        },
+        {
+          title: "Silence is Your Natural Baseline State",
+          body: "Noise, internal monologue, and background chatter are secondary layers added on top of your awareness. Underneath all the chaos, pristine quiet stillness is already present right now."
+        },
+        {
+          title: "Validation-Seeking is a Trap Matrix",
+          body: "When you rely on external approval, you give others root-access control over your emotional state. Act from internal conviction and let public opinion drift like background noise."
+        },
+        {
+          title: "Action Precedes Emotional Readiness",
+          body: "The matrix makes you wait until you 'feel ready' or 'feel motivated'. In reality, physical action creates the chemical spark that generates confidence and momentum. Move first."
+        },
+        {
+          title: "Most Modern Fatigue is Mental Clutter",
+          body: "Physical exhaustion comes from exertion; mental fatigue comes from open loops, unresolved decisions, and screen stimulation. Close your tabs, step into nature, and drink pure water."
+        },
+          {
+          title: "The System Profits Off Your Self-Doubt",
+          body: "Entire industries collapse the moment you feel complete, whole, and content in yourself. Recognizing that self-doubt is marketed to you makes it easy to reject."
+        },
+        {
+          title: "Boundaries Require Zero Explanation",
+          body: "A sovereign boundary does not need long justifications or defensive arguments. A calm, firm 'No, that does not work for me' is a complete sentence."
+        },
+        {
+          title: "Over-Thinking is Resistance to Feeling",
+          body: "Endless mental analysis is often an intellectual defense mechanism used to avoid feeling a raw somatic emotion in the body. Sit quietly, feel the physical sensation, and let it pass."
+        },
+        {
+          title: "Simplicity is the Mark of Mastery",
+          body: "The matrix complicates everything to sell you complex solutions. True truth and effective solutions are always simple, direct, and actionable."
+        },
+        {
+          title: "Your Body Keeps the True Score",
+          body: "The mind can rationalize and lie, but the body never lies. Tight shoulders, clenched jaws, and shallow breathing are real-time telemetry warning you of boundary violations."
+        },
+        {
+          title: "Attachment to Outcomes Causes Suffering",
+          body: "Focus 100% of your power on the quality of your current input, and completely release control over the timeline or final result. Mastery is enjoying the process."
+        },
+        {
+          title: "Solitude is Where You Reclaim Your Blueprint",
+          body: "When you are constantly around others or plugged into feeds, you absorb their expectations. Regular solitude clears external noise so your authentic voice can be heard."
+        },
+        {
+          title: "Comparison is an Illusion of Perspective",
+          body: "You are comparing your chaotic internal reality with someone else's curated external facade. Everyone is navigating their own internal battles. Stay in your lane."
+        },
+        {
+          title: "Presence is Your Only Point of Power",
+          body: "Regret lives in the unchangeable past; anxiety lives in the unwritten future. Total sovereign power exists exclusively in what you choose to do in this exact second."
+        },
+        {
+          title: "You Are Already Free",
+          body: "The matrix is not a physical cage; it is a state of mind built on belief in external authority. The moment you declare internal sovereignty, the illusion shatters completely."
+        }
+      ];
+
+      // --- render ---
+      function p3Render() {
+        clearTimeout(p3RenderTimer);
+        p3ContentBox.classList.remove('visible');
+        p3RenderTimer = setTimeout(() => {
+          const dataset = p3Mode === 'prompts' ? P3_PROMPTS : P3_TRUTHS;
+          const cur = dataset[p3Index];
+          const total = dataset.length;
+          const num = p3Pad(p3Index + 1);
+          if (p3Mode === 'prompts') {
+            p3CardNumber.textContent = 'Inquiry // ' + num;
+            p3CardNumber.style.color = '#f39c12';
+            p3CardTitle.textContent = cur.title;
+            p3CardBody.textContent = cur.prompt;
+            p3ActionBtn.style.display = 'inline-block';
+          } else {
+            p3CardNumber.textContent = 'Reality Mechanic // ' + num;
+            p3CardNumber.style.color = '#00f0ff';
+            p3CardTitle.textContent = cur.title;
+            p3CardBody.textContent = cur.body;
+            p3ActionBtn.style.display = 'none';
+          }
+          p3Counter.textContent = num + ' / ' + p3Pad(total);
+          p3Prev.disabled = p3Index === 0;
+          p3Next.disabled = p3Index === total - 1;
+          p3ContentBox.classList.add('visible');
+        }, 300);
+      }
+
+      function p3Go(delta) {
+        const dataset = p3Mode === 'prompts' ? P3_PROMPTS : P3_TRUTHS;
+        const ni = p3Index + delta;
+        if (ni < 0 || ni > dataset.length - 1) return;
+        p3Index = ni;
+        p3Render();
+      }
+
+      // --- copy prompt for AI (clipboard API + textarea fallback) ---
+      function p3FallbackCopy(text) {
+        try {
+          const ta = document.createElement('textarea');
+          ta.value = text;
+          ta.style.position = 'fixed';
+          ta.style.opacity = '0';
+          document.body.appendChild(ta);
+          ta.select();
+          document.execCommand('copy');
+          document.body.removeChild(ta);
+        } catch (e) {}
+      }
+
+      function p3Copy() {
+        if (p3Mode !== 'prompts') return;
+        const text = P3_PROMPTS[p3Index].prompt;
+        const done = () => {
+          p3Toast.classList.add('show');
+          setTimeout(() => p3Toast.classList.remove('show'), 2000);
+        };
+        try {
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(text).then(done).catch(() => { p3FallbackCopy(text); done(); });
+          } else {
+            p3FallbackCopy(text);
+            done();
+          }
+        } catch (e) { done(); }
+      }
+
+      // --- mode tabs ---
+      p3TabPrompts.addEventListener('click', () => {
+        if (p3Mode === 'prompts') return;
+        p3Mode = 'prompts';
+        p3Index = 0;
+        p3TabPrompts.classList.add('active');
+        p3TabTruths.classList.remove('active');
+        p3Render();
+      });
+
+      p3TabTruths.addEventListener('click', () => {
+        if (p3Mode === 'truths') return;
+        p3Mode = 'truths';
+        p3Index = 0;
+        p3TabTruths.classList.add('active');
+        p3TabPrompts.classList.remove('active');
+        p3Render();
+      });
+
+      p3Prev.addEventListener('click', () => p3Go(-1));
+      p3Next.addEventListener('click', () => p3Go(1));
+      p3ActionBtn.addEventListener('click', p3Copy);
+
+      // --- keyboard (only while Product 3 is visible) ---
+      window.addEventListener('keydown', e => {
+        if (p3Panel.classList.contains('is-hidden')) return;
+        if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); p3Go(1); }
+        else if (e.key === 'ArrowLeft') { e.preventDefault(); p3Go(-1); }
+      });
+
+      // --- 432Hz harmonic (carrier + 55Hz sub-bass) ---
+      function p3SetAudio(on) {
+        if (!p3Ctx || !p3Master) return;
+        p3AudioActive = on;
+        try { p3Master.gain.setTargetAtTime(on ? 0.12 : 0.0001, p3Ctx.currentTime, 0.25); } catch (e) {}
+        p3AudioBtn.classList.toggle('active', on);
+      }
+
+      p3AudioBtn.addEventListener('click', () => {
+        if (!p3Ctx) {
+          const AC = window.AudioContext || window.webkitAudioContext;
+          if (!AC) return;
+          try {
+            p3Ctx = new AC();
+            p3Master = p3Ctx.createGain();
+            p3Master.gain.setValueAtTime(0.0001, p3Ctx.currentTime);
+            p3Master.connect(p3Ctx.destination);
+            const carrier = p3Ctx.createOscillator();
+            carrier.type = 'sine';
+            carrier.frequency.setValueAtTime(432, p3Ctx.currentTime);
+            carrier.connect(p3Master);
+            carrier.start();
+            const sub = p3Ctx.createOscillator();
+            sub.type = 'sine';
+            sub.frequency.setValueAtTime(55, p3Ctx.currentTime);
+            const subG = p3Ctx.createGain();
+            subG.gain.value = 0.25;
+            sub.connect(subG);
+            subG.connect(p3Master);
+            sub.start();
+          } catch (e) { p3Ctx = null; p3Master = null; return; }
+          p3SetAudio(true);
+        } else {
+          if (p3Ctx.state === 'suspended') p3Ctx.resume();
+          p3SetAudio(!p3AudioActive);
+        }
+      });
+
+      // --- sacred geometry canvas (gold = prompts, cyan = truths) ---
+      const p3Canvas = document.getElementById('p3-canvas');
+      const p3C = p3Canvas.getContext('2d');
+      let p3W = 0, p3H = 0, p3Dpr = 1, p3T = 0;
+
+      function p3Resize() {
+        p3Dpr = Math.min(window.devicePixelRatio || 1, 2);
+        p3W = p3Canvas.clientWidth || (p3Canvas.parentElement && p3Canvas.parentElement.clientWidth) || 300;
+        p3H = p3Canvas.clientHeight || (p3Canvas.parentElement && p3Canvas.parentElement.clientHeight) || 150;
+        p3Canvas.width = Math.max(1, Math.round(p3W * p3Dpr));
+        p3Canvas.height = Math.max(1, Math.round(p3H * p3Dpr));
+        p3C.setTransform(p3Dpr, 0, 0, p3Dpr, 0, 0);
+      }
+      window.addEventListener('resize', p3Resize);
+      p3Resize();
+
+      function p3Draw() {
+        requestAnimationFrame(p3Draw);
+        if (p3Panel.classList.contains('is-hidden')) return; // idle while hidden
+        if (p3Canvas.clientWidth !== p3W || p3Canvas.clientHeight !== p3H) p3Resize();
+
+        p3T += 0.012;
+        const w = p3W, h = p3H;
+        p3C.clearRect(0, 0, w, h);
+        const cx = w / 2, cy = h / 2;
+        const radius = Math.min(cx, cy) * 0.8;
+        const isPrompt = p3Mode === 'prompts';
+        const col = isPrompt ? 'rgba(243, 156, 18, 0.6)' : 'rgba(0, 242, 254, 0.6)';
+
+        // ambient radiant aura
+        const aura = p3C.createRadialGradient(cx, cy, radius * 0.15, cx, cy, radius * 1.2);
+        aura.addColorStop(0, col);
+        aura.addColorStop(1, 'rgba(0,0,0,0)');
+        p3C.fillStyle = aura;
+        p3C.beginPath();
+        p3C.arc(cx, cy, radius * 1.2, 0, Math.PI * 2);
+        p3C.fill();
+
+        // morphing geometric rings (3 rotated squares + pulsing circle)
+        p3C.save();
+        p3C.translate(cx, cy);
+        p3C.rotate(p3T * 0.12);
+        p3C.strokeStyle = col;
+        p3C.lineWidth = 1.5;
+        for (let i = 0; i < 3; i++) {
+          p3C.rotate(Math.PI / 3);
+          p3C.strokeRect(-radius * 0.5, -radius * 0.5, radius, radius);
+        }
+        p3C.beginPath();
+        p3C.arc(0, 0, radius * (0.7 + Math.sin(p3T * 2) * 0.04), 0, Math.PI * 2);
+        p3C.stroke();
+        p3C.restore();
+
+        // breathing core
+        const coreR = 3.5 + Math.sin(p3T * 3) * 1.5;
+        const core = p3C.createRadialGradient(cx, cy, 0, cx, cy, coreR * 3);
+        core.addColorStop(0, 'rgba(255,255,255,0.95)');
+        core.addColorStop(1, 'rgba(255,255,255,0)');
+        p3C.fillStyle = core;
+        p3C.beginPath();
+        p3C.arc(cx, cy, coreR * 3, 0, Math.PI * 2);
+        p3C.fill();
+      }
+      requestAnimationFrame(p3Draw);
+
+      // initial paint (panel starts hidden; switchSection re-renders on open)
+      p3Render();
+    })();
+  
+    // ===== SECTION 5 - PRODUCT 4: 66 DAYS OF AWAKENING =====
+    (function () {
+      const A4_DAYS = [{"num":1,"title":"THE ETERNAL SELF","question":"Who am I, when even death cannot touch me?","affirmation":"I am unborn, undying, eternal spirit.","practice":"At sunrise, place hand on heart, whisper your name 3 times, then dissolve into silence.","jesus":"\"Before Abraham was born, I am.\"","krishna":"\"Never was there a time when you did not exist, nor a time when I did not.\"","buddha":"\"There is, unborn, unbecome, unfabricated - and in this, freedom.\"","quran":"\"It is Allah who created you, then causes you to die; and among you, some return to weakness after strength.\""},{"num":2,"title":"THE FALSE MASK","question":"Which part of me is only a mask I wear for the world?","affirmation":"I am not the mask. I am the one who wears it.","practice":"Write down 3 roles you play (worker, parent, friend). Burn or tear the paper. Whisper: \"I am more than this.\"","jesus":"\"What does it profit a man to gain the world, but lose his soul?\"","krishna":"\"As a man casts off worn-out garments, he takes on new ones.\"","buddha":"\"All conditioned things are like a dream.\"","quran":"\"The life of this world is but amusement and diversion; the Hereafter is better for those who fear Allah.\""},{"num":3,"title":"RELEASING HIDDEN BURDENS","question":"What unseen weight do I still carry?","affirmation":"I release all burdens. I am light.","practice":"Write one secret fear/shame. Burn it with the words: \"This no longer defines me.\"","jesus":"\"Come to me, all you who are weary, and I will give you rest.\"","krishna":"\"Abandon all varieties of duty and simply surrender to Me.\"","buddha":"\"Holding onto anger is like grasping a hot coal.\"","quran":"\"With hardship comes ease.\""},{"num":4,"title":"THE DIVINE BREATH","question":"If each breath is God entering me, how would I breathe now?","affirmation":"Every breath carries God's light into me.","practice":"Breathe slowly, saying: \"God in\" (inhale), \"Peace out\" (exhale), for 11 minutes.","jesus":"\"Receive the Holy Spirit.\"","krishna":"\"Among secrets, I am silence.\"","buddha":"\"Breathing in, I calm my body; breathing out, I smile.\"","quran":"\"We are nearer to man than his jugular vein.\""},{"num":5,"title":"THE MIRROR OF FORGIVENESS","question":"Whom have I not forgiven that still chains me?","affirmation":"I forgive and free both myself and others.","practice":"Stand before a mirror. Say: \"I forgive you. I set you free.\"","jesus":"\"Forgive them, for they know not what they do.\"","krishna":"\"The wise see all beings with equal vision.\"","buddha":"\"Hatred does not cease by hatred, but by love alone.\"","quran":"\"Pardon them and overlook their misdeeds; would you not love Allah to forgive you?\""},{"num":6,"title":"THE FLAME OF DESIRE","question":"What desire still rules me, rather than serves me?","affirmation":"My desires serve the Divine within me.","practice":"Write your 3 strongest desires. Ask: Does this free me or bind me?","jesus":"\"Where your treasure is, there your heart will be also.\"","krishna":"\"Desire is the eternal enemy of the wise.\"","buddha":"\"The root of suffering is attachment.\"","quran":"\"Do not let your desires divert you from justice.\""},{"num":7,"title":"THE TEMPLE WITHIN","question":"If my body is the temple of God, how am I caring for it?","affirmation":"My body is sacred; I honor it as God's dwelling.","practice":"Eat mindfully today, with prayer before each meal.","jesus":"\"Your body is the temple of the Holy Spirit.\"","krishna":"\"He who is temperate in eating, sleeping, working, and recreation, achieves yoga.\"","buddha":"\"Care for your body; it is the only place you must live.\"","quran":"\"Eat of what is lawful and good on the earth, and do not follow Satan's footsteps.\""},{"num":8,"title":"THE SILENT WATCHER","question":"Can I observe my thoughts without becoming them?","affirmation":"I am the witness, not the thought.","practice":"10 minutes silent watching of thoughts; repeat: \"Not this, not this, I am the witness.\"","jesus":"\"Be still, and know that I am God.\"","krishna":"\"The self is friend to the self who has conquered the mind.\"","buddha":"\"Be a lamp unto yourself.\"","quran":"\"Do not follow what you have no knowledge of. Surely, the hearing, the sight, the heart - all of these shall be questioned.\""},{"num":9,"title":"THE INNER CHILD","question":"What part of me still longs to be loved?","affirmation":"I embrace my inner child with unconditional love.","practice":"Place a hand on your heart. Whisper: \"You are safe, you are loved.\"","jesus":"\"Unless you become like little children, you will never enter the kingdom of heaven.\"","krishna":"\"I am the father and mother of this universe.\"","buddha":"\"If you truly loved yourself, you could never hurt another.\"","quran":"\"He is the Most Merciful, the Most Loving.\""},{"num":10,"title":"THE GIFT OF GRATITUDE","question":"What simple gift today reveals the Divine's presence?","affirmation":"Gratitude opens my eyes to God's gifts.","practice":"Write 5 things you are grateful for. Feel them deeply.","jesus":"\"Give thanks in all circumstances.\"","krishna":"\"Whatever you do, whatever you eat, do it as an offering to Me.\"","buddha":"\"Let us rise up and be grateful.\"","quran":"\"If you are grateful, I will surely increase you.\""},{"num":11,"title":"THE CALL TO SURRENDER","question":"What am I still clinging to that God asks me to release?","affirmation":"I surrender; I trust divine will.","practice":"Write one thing you are afraid to release. Place it under a stone outside, saying: \"I trust.\"","jesus":"\"Not my will, but Yours be done.\"","krishna":"\"Offer me your mind and heart. Surely, you will come to Me.\"","buddha":"\"Let go of what has gone, let go of what may come.\"","quran":"\"Indeed, my prayer, my sacrifice, my life, and my death are all for Allah.\" th Purification THIS IS WHERE THE ILLUSIONED HUMAN BEGINS BURNING AWAY THEIR SHADOWS SO THE DIVINE LIGHT CAN POUR IN. THE TEACHINGS OF JESUS, KRISHNA, BUDDHA, QURAN, AND ALL MASTERS WILL WASH THE SOUL CLEAN IN THESE 11 DAYS. CYCLE 2 (DAYS 12-22):"},{"num":12,"title":"THE MIRROR OF TRUTH","question":"What truth about myself have I been avoiding?","affirmation":"I face truth with courage; truth sets me free.","practice":"Stand before the mirror. Look into your own eyes for 3 minutes. Whisper: \"I am ready to see.\"","jesus":"\"You will know the truth, and the truth will set you free.\"","krishna":"\"The wise see truth the same, whether in a learned priest or a cow.\"","buddha":"\"Three things cannot long be hidden: the sun, the moon, and the truth.\"","quran":"\"Do not mix truth with falsehood, nor conceal the truth while you know it.\""},{"num":13,"title":"CLEANSING GUILT","question":"What guilt still chains my heart?","affirmation":"I release guilt; I choose mercy and healing.","practice":"Write one guilt on paper. Place it in water, let it dissolve. Say: \"I am forgiven.\"","jesus":"\"Your sins are forgiven; go in peace.\"","krishna":"\"Even if the most sinful worships Me with devotion, he is to be considered righteous.\"","buddha":"\"Do not dwell in the past; each moment you are reborn anew.\"","quran":"\"Despair not of Allah's mercy; Allah forgives all sins.\""},{"num":14,"title":"BURNING FEAR","question":"What fear keeps me from living fully?","affirmation":"Perfect love drives out fear.","practice":"Light a candle. Whisper the fear into it. Watch flame consume it.","jesus":"\"Do not be afraid, for I am with you always.\"","krishna":"\"Be free from fear and anger; find refuge in Me.\"","buddha":"\"The whole secret of existence is to have no fear.\"","quran":"\"Do not fear them; fear Me, if you are believers.\""},{"num":15,"title":"CLEANSING THE TONGUE","question":"How hav e my words wounded or healed?","affirmation":"My words carry light, truth, and love.","practice":"Speak only words of kindness today. If tempted otherwise, remain silent.","jesus":"\"By your words you will be justified, and by your words you will be condemned.\"","krishna":"\"Speak that which is true, kind, and beneficial.\"","buddha":"\"Better than a thousand hollow words is one word that brings peace.\"","quran":"\"Speak kindly to people.\""},{"num":16,"title":"THE RIVER OF FORGIVENESS","question":"Whom must I forgive today to free my soul?","affirmation":"Forgiveness washes me clean.","practice":"Write the name of someone you resent. Whisper: \"I release you into love.\" Tear the paper.","jesus":"\"Forgive seventy times seven.\"","krishna":"\"He who forgives is dear to Me.\"","buddha":"\"To understand everything is to forgive everything.\"","quran":"\"The reward of the one who forgives and makes peace rests with Allah.\""},{"num":17,"title":"PURITY OF BODY","question":"What action today can purify my body temple?","affirmation":"I honor my body with purity and care.","practice":"Eat only fresh, living food today. Drink water as prayer.","jesus":"\"Blessed are the pure in heart, for they shall see God.\"","krishna":"\"Foods that increase life, vitality, and joy are dear to those in goodness.\"","buddha":"\"To keep the body in good health is a duty.\"","quran":"\"Eat of what is lawful and good, and be grateful.\""},{"num":18,"title":"CLEANSING GREED","question":"Where does greed still bind me?","affirmation":"I am content; all I need flows to me.","practice":"Give away one thing you cling to. Watch the joy it creates.","jesus":"\"You cannot serve both God and money.\"","krishna":"\"He who is satisfied with whatever comes by chance is free.\"","buddha":"\"Contentment is the greatest wealth.\"","quran":"\"Do not consume one another's wealth unjustly.\""},{"num":19,"title":"PURIFYING THE MIND","question":"What thoughts pollute my mind daily?","affirmation":"My mind is clear, pure, and still.","practice":"Whenever a negative thought arises, whisper: \"Not mine. Release.\"","jesus":"\"Blessed are the pure in heart.\"","krishna":"\"The yogi controls the restless mind and abides in peace.\"","buddha":"\"We are what we think; all that we are arises from our thoughts.\"","quran":"\"Do not let wicked thoughts consume you, for Allah knows what is in your hearts.\""},{"num":20,"title":"THE WATERS OF MERCY","question":"Where do I still condemn myself or others?","affirmation":"Mercy flows through me like a river.","practice":"Wash your hands slowly, saying: \"As water cleanses my hands, mercy cleanses my heart.\"","jesus":"\"Blessed are the merciful, for they shall receive mercy.\"","krishna":"\"He who sees all beings with compassion is dear to Me.\"","buddha":"\"Radiate boundless compassion.\"","quran":"\"My mercy encompasses all things.\""},{"num":21,"title":"CLEANSING ENVY","question":"Whose blessing d o I secretly envy?","affirmation":"Another's blessing is proof of what is possible for me.","practice":"Today, bless the success of others with genuine joy.","jesus":"\"Rejoice with those who rejoice.\"","krishna":"\"The yogi is free from envy.\"","buddha":"\"Do not be jealous of others' good fortune.\"","quran":"\"Do not wish for what Allah has given some of you over others.\""},{"num":22,"title":"THE WHITE ROBE","question":"How would I live today if I were already pure?","affirmation":"I am clothed in light; purity radiates through me.","practice":"Wear white or light clothing today. Imagine your soul glowing.","jesus":"\"They will walk with Me in white, for they are worthy.\"","krishna":"\"The yogi shines like the sun, free from impurity.\"","buddha":"\"A mind pure, a life pure, a being pure.\"","quran":"\"On that Day, faces will be bright with joy.\""},{"num":23,"title":"BIRTH OF THE WARRIOR","question":"What within me is waiting to be born in courage?","affirmation":"I am fearless; courage flows through my soul.","practice":"Stand tall, chest open, recite affirmation aloud 7 times with power.","jesus":"\"Take heart, I have overcome the world.\"","krishna":"\"Yield not to weakness; it does not become you.\"","buddha":"\"A jug fills drop by drop - so does courage.\"","quran":"\"Do not weaken or grieve; you will be superior if you are true in faith.\""},{"num":24,"title":"FAITH AS A MOUNTAIN","question":"Where in my life do I need unshakable faith?","affirmation":"My faith moves mountains.","practice":"Hold a stone in hand; speak your faith into it; keep it as a reminder.","jesus":"\"If you have faith the size of a mustard seed, nothing will be impossible.\"","krishna":"\"Those who surrender to Me in faith, I carry their burdens.\"","buddha":"\"Faith is the seed of awakening.\"","quran":"\"Put your trust in Allah; He is sufficient.\""},{"num":25,"title":"ABUNDANCE AWAKENS","question":"What abundance already flows through me unnoticed?","affirmation":"Abundance is my natural state; I live in divine plenty.","practice":"Write 10 blessings you already possess. Whisper gratitude for each.","jesus":"\"I came that they may have life, and have it abundantly.\"","krishna":"\"I am the source of all wealth, fortune, and prosperity.\"","buddha":"\"Health is the greatest gift, contentment the greatest wealth.\"","quran":"\"If you are grateful, I will increase you.\""},{"num":26,"title":"LOVE AS POWER","question":"Where can I replace fear with love today?","affirmation":"Love is my greatest strength.","practice":"Place hand over heart, breathe slowly, radiate love to one person you fear or resist.","jesus":"\"Love your enemies; bless those who curse you.\"","krishna":"\"One who sees all beings with equal love is My true devotee.\"","buddha":"\"Hatred does n ot cease by hatred, but only by love.\"","quran":"\"Repel evil with what is better, and you will find your enemy as a devoted friend.\""},{"num":27,"title":"THE CROWN OF DISCIPLINE","question":"Where in my life must I master discipline?","affirmation":"Discipline is freedom; I walk the narrow path of greatness.","practice":"Choose one habit today to follow with unwavering discipline. Track it.","jesus":"\"The narrow road leads to life.\"","krishna":"\"The disciplined mind brings peace.\"","buddha":"\"Discipline is the bridge between desire and achievement.\"","quran":"\"Indeed, Allah loves those who are steadfast.\""},{"num":28,"title":"THE FLAME OF PURPOSE","question":"What sacred purpose burns quietly within me?","affirmation":"My life is a divine mission.","practice":"Write one sentence: \"The world needs me because…\" Repeat it aloud.","jesus":"\"You are the light of the world.\"","krishna":"\"Whenever dharma declines, I manifest to restore it.\"","buddha":"\"Your purpose is to find your purpose.\"","quran":"\"We created you with a purpose; do not forget it.\""},{"num":29,"title":"THE SWORD OF TRUTH","question":"Where must I speak truth, even if it costs me?","affirmation":"I wield truth with courage and compassion.","practice":"Speak one truth today you have avoided. Deliver it with love.","jesus":"\"The truth will set you free.\"","krishna":"\"Speak truth, pleasant and beneficial.\"","buddha":"\"Say only what is true and kind.\"","quran":"\"Stand firm in justice, even if against yourselves.\""},{"num":30,"title":"OVERFLOW OF JOY","question":"What simple joy can I celebrate right now?","affirmation":"Joy is my birthright; my soul shines with delight.","practice":"Dance, sing, or laugh loudly for 5 minutes. Embody joy.","jesus":"\"My joy may be in you, and your joy complete.\"","krishna":"\"Rejoice in the Self, for joy is eternal.\"","buddha":"\"If you want happiness, practice compassion.\"","quran":"\"Do not grieve; Allah is with us.\""},{"num":31,"title":"THE ANCHOR OF PATIENCE","question":"What situation today requires my deepest patience?","affirmation":"Patience makes me unshakable.","practice":"Choose one delay or frustration today; breathe into it, respond with calm.","jesus":"\"By y our endurance you will gain your life.\"","krishna":"\"He who is patient in suffering is dear to Me.\"","buddha":"\"Endurance is the highest austerity.\"","quran":"\"Indeed, Allah is with the patient.\""},{"num":32,"title":"FORGED IN RESILIENCE","question":"What past pain has secretly strengthened me?","affirmation":"My scars are my medals of victory.","practice":"Write one hardship you overcame. Bow to it as your teacher.","jesus":"\"In this world you will have trouble. But take heart!\"","krishna":"\"Even a little effort in yoga protects from great fear.\"","buddha":"\"Turn poison into medicine.\"","quran":"\"With hardship comes ease.\""},{"num":33,"title":"CROWNED AS CO- CREATOR","question":"How am I ready to co-create with the Divine today?","affirmation":"I am a co-creator of destiny; the Divine breath flows through me.","practice":"Write a dream for humanity. Pray/visualize it as already true.","jesus":"\"You will do even greater works than these.\"","krishna":"\"Fix your mind on Me, act for Me, surrender to Me.\"","buddha":"\"Be a lamp unto yourselves.\"","quran":"\"Indeed, Allah does not change the condition of a people until they change what is in themselves.\""},{"num":34,"title":"THE RIPPLE OF KINDNESS","question":"Who in my circle can I uplift today with simple kindness?","affirmation":"My kindness creates ripples of healing.","practice":"Perform one unexpected act of kindness today, without recognition.","jesus":"\"Do unto others as you would have them do unto you.\"","krishna":"\"The yogi delights in the welfare of all beings.\"","buddha":"\"Thousands of candles can be lit from a single candle.\"","quran":"\"Do good; indeed, Allah loves the doers of good.\""},{"num":35,"title":"THE GIFT OF LISTENING","question":"When was the last time I truly listened without judgment?","affirmation":"I listen with the ears of the Divine.","practice":"Spend 10 minutes today listening deeply to someone without interruption.","jesus":"\"He who has ears, let him hear.\"","krishna":"\"The wise are free from prejudice.\"","buddha":"\"Listen, O monks - this is the path to liberation.\"","quran":"\"Give ear and obey, so that you may receive mercy.\""},{"num":36,"title":"HEALING THROUGH FORGIVENESS","question":"Who still carries my unforgiven shadow?","affirmation":"I release and forgive, for forgiveness heals me first.","practice":"Write a forgiveness letter (send it or burn it). Release the weight.","jesus":"\"Forgive, not seven times but seventy times seven.\"","krishna":"\"Forgiveness is the ornament of the strong.\"","buddha":"\"Holding onto anger is like drinking poison.\"","quran":"\"Pardon and forgive; do you not love that Allah should forgive you?\""},{"num":37,"title":"THE BRIDGE OF UNITY","question":"Where do I see division, and how can I bring unity?","affirmation":"I am a bridge between hearts.","practice":"Reconcile with someone or create harmony in one conflict today.","jesus":"\"Blessed are the peacemakers.\"","krishna":"\"See Me in all beings, and all beings in Me.\"","buddha":"\"We are all interconnected like jewels in a net.\"","quran":"\"Hold firmly to the rope of Allah, all together, and do not become divided.\""},{"num":38,"title":"THE RADIANCE OF SERVICE","question":"How can I serve without expectation today?","affirmation":"My service is worship; my service is love.","practice":"Offer help in one practical way - feed, teach, support, comfort.","jesus":"\"The greatest among you will be your servant.\"","krishna":"\"Selfless service purifies the heart.\"","buddha":"\"To serve others is to serve yourself.\"","quran":"\"Spend from what We have provided, secretly and openly.\""},{"num":39,"title":"THE LIGHT OF EXAMPLE","question":"What example am I setting with my life today?","affirmation":"My life is my message.","practice":"Choose one action today that embodies your highest values.","jesus":"\"Let your light shine before others.\"","krishna":"\"Whatever the great do, others follow.\"","buddha":"\"Be a lamp unto yourselves.\"","quran":"\"Indeed, the best example is in the Messenger.\""},{"num":40,"title":"THE WEB OF COMPASSION","question":"Who suffers around me, and how can I ease it?","affirmation":"My compassion embraces all beings.","practice":"Comfort one suffering being - human, animal, or nature itself.","jesus":"\"I was sick and you visited me.\"","krishna":"\"I am the friend of all creatures.\"","buddha":"\"Compassion is the highest virtue.\"","quran":"\"Show kindness to parents, relatives, orphans, and the needy.\""},{"num":41,"title":"THE FLOW OF GENEROSITY","question":"Where can I give freely without fear of loss?","affirmation":"My giving multiplies blessings.","practice":"Give something meaningful today (time, money, wisdom, food).","jesus":"\"Give, and it will be given to y ou.\"","krishna":"\"Charity given in goodness purifies the giver.\"","buddha":"\"Generosity brings joy at every stage.\"","quran":"\"The example of those who spend is like a grain that grows seven hundredfold.\""},{"num":42,"title":"THE COURAGE OF TRUTH IN SOCIETY","question":"Where must I stand for justice today?","affirmation":"I am a voice of truth for the voiceless.","practice":"Speak up for someone oppressed or defend what is right.","jesus":"\"Whatever you do for the least of these, you do for Me.\"","krishna":"\"The warrior of dharma protects the righteous.\"","buddha":"\"Better to live one day in truth than a thousand in lies.\"","quran":"\"Stand firmly for justice, as witnesses to Allah.\""},{"num":43,"title":"THE SACRED EARTH","question":"How do I honor the Earth that sustains me?","affirmation":"I walk gently upon the sacred Earth.","practice":"Plant something, clean a space, or consciously reduce harm today.","jesus":"\"Consider the lilies of the field; they neither toil nor spin.\"","krishna":"\"I am the fragrance of the Earth.\"","buddha":"\"The Earth is our mother; walk gently.\"","quran":"\"Do not cause corruption on the Earth after it has been set in order.\""},{"num":44,"title":"THE RADIANT CIRCLE","question":"Who can I invite into the circle of light with me?","affirmation":"My light multiplies in others.","practice":"Share your practice with someone new today - invite them into the journey.","jesus":"\"Go and make disciples of all nations.\"","krishna":"\"Teach this eternal wisdom to those devoted.\"","buddha":"\"Teach only out of compassion, never for gain.\"","quran":"\"Invite to the way of your Lord with wisdom and good instruction.\" CYCLE 5 (DAYS 45-55: ) CYCLE 5 (DAYS 45-55: )"},{"num":45,"title":"TRUSTING THE DIVINE RHYTHM","question":"Where am I still trying to control life?","affirmation":"I trust the rhythm of the Divine.","practice":"Pause before every major action today, breathe, and say: \"Thy will, not mine.\"","jesus":"\"Not my will, but Yours be done.\"","krishna":"\"Offer all actions to Me with devotion.\"","buddha":"\"Flow with conditions, like water with the river.\"","quran":"\"Put your trust in Allah; sufficient is He as a disposer of affairs.\""},{"num":46,"title":"THE GIFT OF SURRENDER","question":"What burden am I still carrying alone?","affirmation":"I lay down my burden at the feet of the Divine.","practice":"Write down your greatest worry, fold the paper, and place it on an altar or under the Earth. Release it.","jesus":"\"Come to Me, all who are weary, and I will give you rest.\"","krishna":"\"Surrender unto Me alone, and I shall deliver you.\"","buddha":"\"Peace comes when we let go of grasping.\"","quran":"\"Indeed, Allah is with those who rely upon Him.\""},{"num":47,"title":"LISTENING FOR GUIDANCE","question":"Am I listening to the whisper of the Divine in silence?","affirmation":"I hear guidance in stillness.","practice":"15 minutes of silent meditation; ask one question, then listen without thought.","jesus":"\"My sheep listen to My voice.\"","krishna":"\"In the still heart, I reveal Myself.\"","buddha":"\"Silence is the language of awakening.\"","quran":"\"We are closer to him than his jugular vein.\""},{"num":48,"title":"WALKING BY FAITH, NOT SIGHT","question":"Do I only move when I see certainty?","affirmation":"I walk by faith, not by sight.","practice":"Take one step today toward a dream without knowing the outcome. Trust.","jesus":"\"Blessed are those who have not seen, yet believed.\"","krishna":"\"Have faith in Me; you shall not perish.\"","buddha":"\"Faith is the seed, wisdom is the rain.\"","quran":"\"Those who believe in the unseen - they are upon guidance.\""},{"num":49,"title":"EMBRACING MIRACLES","question":"Am I open to blessings beyond logic?","affirmation":"I live in the field of miracles.","practice":"Every time something small aligns today (a call, a sign, a coincidence), whisper: \"Miracle.\"","jesus":"\"With God, all things are possible.\"","krishna":"\"I uphold the world with a single fragment of My being.\"","buddha":"\"If you see wonder in every moment, life itself is the miracle.\"","quran":"\"His command is only, when He intends a thing, that He says to it, ‘Be,' and it is.\""},{"num":50,"title":"THE DANCE OF DIVINE TIMING","question":"Can I rest in timing greater than my own?","affirmation":"Everything unfolds at the perfect moment.","practice":"Reflect on three past events where the timing later proved perfect. Journal them.","jesus":"\"My time has not yet come, but your time is always here.\"","krishna":"\"When dharma declines, I manifest Myself - at the right time.\"","buddha":"\"Patience is the greatest prayer.\"","quran":"\"Indeed, Allah's timing is always perfect.\""},{"num":51,"title":"BECOMING THE VESSEL","question":"Am I living as a channel or as a controller?","affirmation":"I am a vessel for divine love and wisdom.","practice":"Before speaking, ask: \"Is this my ego or the Divine speaking through me?\"","jesus":"\"It is not you who speak, but the Spirit through you.\"","krishna":"\"Become My instrument, O Arjuna.\"","buddha":"\"Be hollow like a flute, so the Dharma may sing.\"","quran":"\"It is not you who threw when you threw, but Allah threw.\""},{"num":52,"title":"RECEIVING GRACE","question":"Can I accept blessings without guilt or resistance?","affirmation":"I welcome grace into my life.","practice":"When help or kindness is offered today, accept it fully and say, \"I receive with gratitude.\"","jesus":"\"Freely you have received; freely give.\"","krishna":"\"Those devoted to Me receive My grace.\"","buddha":"\"Accepting kindness is also generosity.\"","quran":"\"The bounty of Allah - He grants to whom He wills.\""},{"num":53,"title":"LIVING IN FLOW","question":"Do I fight life, or flow with it?","affirmation":"I flow like a river guided by the Divine current.","practice":"Every time resistance arises today, breathe and say: \"Flow.\" Then act with ease.","jesus":"\"The wind blows where it wishes… so it is with the Spirit.\"","krishna":"\"He who flows with harmony attains peace.\"","buddha":"\"Be like water, adaptable and free.\"","quran":"\"Allah guides whom He wills to the straight path.\""},{"num":54,"title":"THE JOY OF TRUST","question":"Do I live in anxiety, or in joyful trust?","affirmation":"Trust fills me with joy and lightness.","practice":"Smile each time a worry arises. Say: \"The Divine is handling this.\"","jesus":"\"Do not worry about tomorrow.\"","krishna":"\"The devotee who trusts Me is never lost.\"","buddha":"\"Joy is the natural state of a mind free of grasping.\"","quran":"\"In Allah let the believers put their trust.\""},{"num":55,"title":"SURRENDERED POWER","question":"Do I confuse surrender with weakness?","affirmation":"In surrender, I discover infinite strength.","practice":"Stand tall today. Say aloud: \"I surrender, and therefore I am free.\"","jesus":"\"My power is made perfect in weakness.\"","krishna":"\"Surrender to Me is the highest strength.\"","buddha":"\"The one who yields like bamboo is strongest.\"","quran":"\"Whoever submits to Allah has grasped the firmest handhold.\""},{"num":56,"title":"THE DISAPPEARANCE OF \"I\"","question":"Who am I, beyond name and form?","affirmation":"I am not the body, not the mind - I am the eternal witness.","practice":"Sit in meditation, repeat silently: \"Who am I?\" Let all identities dissolve.","jesus":"\"Before Abraham was, I Am.\"","krishna":"\"The soul is unborn, eternal, never dying.\"","buddha":"\"There is no permanent self.\"","quran":"\"Everything will perish except His Face.\""},{"num":57,"title":"THE OCEAN AND THE DROP","question":"Am I a drop separate from the ocean, or the ocean itself?","affirmation":"I am the ocean in a drop, the cosmos in a cell.","practice":"Visualize yourself dissolving into infinite light, then returning as a wave of love.","jesus":"\"I and the Father are One.\"","krishna":"\"I am the source of all; from Me everything flows.\"","buddha":"\"All beings are like waves on the same ocean.\"","quran":"\"To Allah belongs whatever is in the heavens and the earth.\""},{"num":58,"title":"THE END OF SEEKING","question":"What happens when I stop searching outside?","affirmation":"All I seek is already within me.","practice":"Close your eyes, place your hand on your heart, whisper: \"I am home.\"","jesus":"\"The kingdom of God is within you.\"","krishna":"\"Reside in Me, and I in you.\"","buddha":"\"Look within; there you will find the truth.\"","quran":"\"We are closer to him than his jugular vein.\""},{"num":59,"title":"LOVE WITHOUT CONDITION","question":"Do I still love with expectation?","affirmation":"I am love itself, needing nothing in return.","practice":"Do one act of kindness anonymously today.","jesus":"\"Love your enemies, bless those who curse you.\"","krishna":"\"The yogi is greater who sees all beings equally.\"","buddha":"\"Radiate loving- kindness to the whole world.\"","quran":"\"Allah loves those who do good.\""},{"num":60,"title":"LIVING AS THE LIGHT","question":"What light do I carry for the world?","affirmation":"I am the light of the world; I shine without fear.","practice":"Light a candle or lamp tonight. Say: \"As this flame burns, so does my soul shine.\"","jesus":"\"You are the light of the world.\"","krishna":"\"I am the light in all beings.\"","buddha":"\"Be a lamp unto yourself.\"","quran":"\"Allah is the Light of the heavens and the earth.\""},{"num":61,"title":"ONENESS WITH ALL BEINGS","question":"Can I see myself in every being?","affirmation":"I am one with all creation.","practice":"Look into a stranger's eyes today, silently say: \"You are me.\"","jesus":"\"Whatever you did to the least of these, you did to Me.\"","krishna":"\"The wise see the same Self in all.\"","buddha":"\"In all beings, see yourself.\"","quran":"\"We created you from a single soul.\""},{"num":62,"title":"FREEDOM FROM DEATH","question":"Am I afraid of endings?","affirmation":"I am eternal; death cannot touch me.","practice":"Contemplate: \"If my body falls, what remains?\" Write what you feel.","jesus":"\"He who believes in Me will never die.\"","krishna":"\"The soul cannot be destroyed.\"","buddha":"\"There is no death, only change.\"","quran":"\"Every soul shall taste death, then return to Us.\""},{"num":63,"title":"BECOMING THE WITNESS","question":"Am I thoughts, or the one who observes them?","affirmation":"I am the eternal witness, untouched by change.","practice":"For 10 minutes, observe thoughts as clouds passing. Do not identify.","jesus":"\"Be still, and know I Am.\"","krishna":"\"The wise see the Self beyond the body and mind.\"","buddha":"\"Awareness is the path to the deathless.\"","quran":"\"Allah is witness over all things.\""},{"num":64,"title":"UNION IN SILENCE","question":"What remains when words fall silent?","affirmation":"In silence, I am One with God.","practice":"30 minutes of silent meditation. No prayer, no thought - only Being.","jesus":"\"Enter your inner room and pray in secret.\"","krishna":"\"The yogi loves solitude and silence.\"","buddha":"\"Silence is the highest teaching.\"","quran":"\"Remember your Lord within yourself in humility and in silence.\""},{"num":65,"title":"I AM THAT I AM","question":"What if the Divine is not outside, but my own essence?","affirmation":"I Am That I Am.","practice":"Stand before a mirror. Look into your eyes, whisper: \"I Am the Divine.\"","jesus":"\"The Father and I are One.\"","krishna":"\"I am the Self in the heart of all beings.\"","buddha":"\"Buddha is the awakened nature within.\"","quran":"\"We are nearer to you than your own self.\""},{"num":66,"title":"THE UNION COMPLETE","question":"Who am I now?","affirmation":"I am Infinite, One with All, Eternal Love.","practice":"Celebrate this day. Journal your entire 66-day journey. Write: \"I Am Free.\"","jesus":"\"It is finished.\"","krishna":"\"He who knows Me, knows all there is to know.\"","buddha":"\"Nirvana is the end of becoming.\"","quran":"\"To Allah we belong, and to Him we return.\""}];
+      const box = document.getElementById('awakening-content-box');
+      const numEl = document.getElementById('awakening-card-number');
+      const titleEl = document.getElementById('awakening-card-title');
+      const bodyEl = document.getElementById('awakening-card-body');
+      const counterEl = document.getElementById('awakening-counter');
+      const prev = document.getElementById('awakening-prev');
+      const next = document.getElementById('awakening-next');
+      const cycleEl = document.getElementById('awakening-cycle');
+      const panel = document.getElementById('awakening-panel');
+      let idx = 0, timer = null;
+      const pad = n => (n < 10 ? '0' : '') + n;
+      const esc = s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+      const cycleOf = n => n<=22?'Cycle 1 // Awakening':n<=33?'Cycle 2 // Transformation':n<=44?'Cycle 3 // Expansion':n<=55?'Cycle 4 // Divine Flow':'Cycle 5 // Union';
+      function render() {
+        clearTimeout(timer);
+        box.classList.remove('visible');
+        timer = setTimeout(() => {
+          const d = A4_DAYS[idx];
+          numEl.textContent = 'Day // ' + pad(d.num);
+          titleEl.textContent = d.title;
+          const voice = (label, txt) =>
+            '<div class="text-left rounded-lg border border-gray-800 bg-white/[.02] p-3">' +
+            '<div class="text-[9px] font-mono tracking-widest uppercase text-cyan-400/70 mb-1">' + label + '</div>' +
+            '<div class="text-[13px] font-light text-gray-300 leading-relaxed">' + esc(txt) + '</div></div>';
+          let h = '';
+          h += '<div class="text-left mb-3"><div class="text-[9px] font-mono tracking-widest uppercase text-amber-400/80 mb-1">Inquiry</div><div class="text-[15px] font-light text-white italic">' + esc(d.question) + '</div></div>';
+          h += '<div class="text-left mb-3"><div class="text-[9px] font-mono tracking-widest uppercase text-cyan-400/80 mb-1">Affirmation</div><div class="text-[15px] font-medium text-cyan-200">' + esc(d.affirmation) + '</div></div>';
+          h += '<div class="text-left mb-3"><div class="text-[9px] font-mono tracking-widest uppercase text-gray-500 mb-1">Practice</div><div class="text-[14px] font-light text-gray-300">' + esc(d.practice) + '</div></div>';
+          h += '<div class="grid sm:grid-cols-2 gap-2 mt-3">';
+          h += voice('Jesus', d.jesus) + voice('Krishna', d.krishna) + voice('Buddha', d.buddha) + voice('Quran', d.quran);
+          h += '</div>';
+          bodyEl.innerHTML = h;
+          counterEl.textContent = pad(d.num) + ' / 66';
+          cycleEl.textContent = cycleOf(d.num);
+          prev.disabled = idx === 0;
+          next.disabled = idx === A4_DAYS.length - 1;
+          box.classList.add('visible');
+        }, 220);
+      }
+      function go(delta) { const ni = idx + delta; if (ni < 0 || ni > A4_DAYS.length - 1) return; idx = ni; render(); }
+      prev.addEventListener('click', () => go(-1));
+      next.addEventListener('click', () => go(1));
+      window.addEventListener('keydown', (e) => { if (panel.classList.contains('is-hidden')) return; if (e.key === 'ArrowLeft') go(-1); if (e.key === 'ArrowRight') go(1); });
+      render();
+    })();
+
+    // ===== SECTION 6 - PRODUCT 5: ONE GOD, ONE VOICE, ONE HUMANITY =====
+    (function () {
+      const P5_MSGS = [{"num":1,"title":"God is One","message":"HEAR ME. I AM ONE. DO NOT LET NAMES AND DIVISIONS BLIND YOU - WHETHER YOU CALL ME ALLAH, JESUS, KRISHNA, OR BY ANY NAME, IT IS STILL I. I AM THE BREATH WITHIN YOU, THE LIGHT IN YOUR EYES, THE SILENCE IN YOUR HEART. I DO NOT BELONG TO ONE PEOPLE OR ONE BOOK. I BELONG TO ALL, FOR I AM THE SOURCE OF ALL. SEE ME IN EVERY SOUL, IN EVERY PATH, IN EVERY FAITH. WHEN YOU LOOK BEYOND SEPARATION, YOU WILL FIND ONLY ME - ONE WITHOUT A SECOND. YOU ARE MINE, AND I AM YOURS. ALWAYS.","bible":"The Lord our God, the Lord is one. (Mark 12:29)","quran":"Your God is One God; there is no god but Him. (2:163)","gita":"I am the same to all beings. I am One without difference. (9:29)","action":"IN EVERY NAME, IN EVERY FORM, IN EVERY HEART, THERE IS ONLY ONE GOD. SEE EVERY HUMAN AS A REFLECTION OF THE DIVINE."},{"num":2,"title":"Love One Another","message":"THE BOND THAT MAKES ALL CREATION ALIVE IS LOVE. I HAVE WOVEN LOVE INTO EVERY HEART, SO THAT THROUGH IT YOU MAY RECOGNIZE ME. WHEN YOU CARE FOR ANOTHER, YOU ARE TOUCHING ME. WHEN YOU FORGIVE, YOU ARE FREEING YOURSELF IN ME. DO NOT ASK, 'IS HE OF MY FAITH? IS SHE OF MY PEOPLE?' FOR LOVE SEES ONLY THE SOUL, AND EVERY SOUL IS MINE. IF YOU WISH TO KNOW ME, THEN LOVE WITHOUT LIMIT. FOR I AM LOVE ITSELF, ETERNAL AND UNCHANGING. THOSE WHO WALK IN LOVE WALK IN ME.","bible":"Love one another as I have loved you. (John 13:34)","quran":"Indeed, Allah loves those who do good. (2:195)","gita":"He who loves all beings is dear to Me. (12:13-14)","action":"WHEN WE LOVE EACH OTHER, THE WHOLE WORLD BECOMES HOME. EXPRESS LOVE TODAY THROUGH A KIND WORD OR A HUG."},{"num":3,"title":"Forgive and Be Forgiven","message":"DO NOT CARRY THE WEIGHT OF ANGER OR RESENTMENT. WHEN YOU FORGIVE, YOU RELEASE YOURSELF AND ALIGN WITH MY ETERNAL FLOW. FORGIVE OTHERS AS YOU SEEK MY FORGIVENESS, FOR I AM MERCY. DO NOT THINK OF WHO DESERVES IT; MERCY IS FOR ALL, WITHOUT MEASURE. IN FORGIVENESS, YOU WILL FIND FREEDOM, AND IN FREEDOM, YOU WILL FEEL ME.","bible":"Forgive, and you will be forgiven. (Luke 6:37)","quran":"Pardon them and overlook - Allah loves the doers of good. (5:13)","gita":"Forgiveness is among the divine qualities. (16:3)","action":"FORGIVENESS HEALS THE SOUL AND RETURNS US TO PEACE. LET GO OF ONE GRUDGE AND FREE YOUR HEART."},{"num":4,"title":"Humility Brings Greatness","message":"DO NOT SEEK TO RISE BY PUSHING OTHERS DOWN. TRUE GREATNESS IS UNSEEN, QUIET, HUMBLE. I AM CLOSEST TO THOSE WHO BEND THEIR HEARTS WITH HUMILITY, FOR THEY REFLECT MY LIGHT. DO NOT MEASURE YOURSELF BY FAME, WEALTH, OR PRAISE. MEASURE YOURSELF BY HOW YOUR HEART SERVES ME AND OTHERS.","bible":"Whoever humbles himself will be exalted. (Matthew 23:12)","quran":"The servants of the Most Merciful walk humbly. (25:63)","gita":"Humility is the first of knowledge. (13:8)","action":"THE HIGHEST SOULS ARE THOSE WHO BOW THE LOWEST IN LOVE. LISTEN MORE THAN YOU SPEAK."},{"num":5,"title":"Patience in Trials","message":"DO NOT DESPAIR IN DIFFICULTY. EVERY HARDSHIP CARRIES THE SEED OF AWAKENING. ENDURE WITH FAITH, FOR I AM WITH YOU IN EVERY STORM. PATIENCE IS NOT WAITING; IT IS PRESENCE. STAND STEADFAST, AND YOU WILL FEEL MY HAND GUIDING YOU.","bible":"Let us run with endurance the race set before us. (Hebrews 12:1)","quran":"Indeed, Allah is with the patient. (2:153)","gita":"He who is steadfast in pain and pleasure is fit for immortality. (2:15)","action":"EVERY STORM ENDS; PATIENCE LEADS YOU TO THE RAINBOW OF HOPE. TAKE ONE DEEP BREATH BEFORE REACTING."},{"num":6,"title":"Give to the Poor and Needy","message":"ALL THAT YOU POSSESS IS MY TRUST. SHARE FREELY, WITHOUT EXPECTATION. WHEN YOU GIVE, YOU GIVE ME TO THE WORLD. DO NOT COUNT WHAT IS LITTLE OR GREAT; LET GENEROSITY FLOW NATURALLY. THROUGH GIVING, YOUR HEART OPENS, AND YOU WILL SEE ME EVERYWHERE.","bible":"Give to the one who asks you. (Matthew 5:42)","quran":"Give charity... whatever good you give is for yourselves. (2:272)","gita":"Charity given without expectation is sattvic. (17:20)","action":"WHAT YOU GIVE TO THE LEAST, YOU GIVE TO GOD. SHARE FOOD, CLOTHES, OR TIME WITH SOMEONE IN NEED."},{"num":7,"title":"Justice and Fairness for All","message":"I AM JUSTICE. WALK IN FAIRNESS, SPEAK WITH TRUTH, ACT WITH INTEGRITY. DO NOT FAVOR ONE OVER ANOTHER, NOR JUDGE LIGHTLY. SEE EVERY BEING AS MINE, AND SERVE RIGHTEOUSNESS AS IF SERVING ME. JUSTICE IS NOT PUNISHMENT; IT IS THE ALIGNMENT OF HEARTS WITH MY ORDER.","bible":"Learn to do right; seek justice. (Isaiah 1:17)","quran":"Stand firmly for justice, even against yourselves. (4:135)","gita":"I am righteousness in those devoted to justice. (10:36)","action":"JUSTICE IS LOVE MADE VISIBLE IN ACTION. STAND UP WHEN YOU SEE SOMEONE TREATED UNFAIRLY."},{"num":8,"title":"Purity of Heart Matters Most","message":"OUTWARD ACTS ARE SHADOWS; THE HEART IS THE LIGHT. KEEP YOUR HEART PURE, FOR IN IT I DWELL. THOUGHTS, INTENTIONS, AND SILENT PRAYERS MATTER MORE THAN WORDS OR RITUALS. A PURE HEART SEES ME IN ALL AND IS SEEN BY ME IN RETURN.","bible":"Blessed are the pure in heart. (Matthew 5:8)","quran":"On the Day when neither wealth nor children will benefit, only a pure heart will. (26:88-89)","gita":"He whose heart is pure, who controls himself, is dear to Me. (12:16)","action":"A PURE HEART SHINES BRIGHTER THAN GOLD. START THE DAY WITH A PRAYER OR POSITIVE THOUGHT."},{"num":9,"title":"Remember and Worship GOD","message":"REMEMBER ME ALWAYS. DO NOT CONFINE ME TO TEMPLES, MOSQUES, CHURCH, OR RITUALS. I AM IN EVERY BREATH, EVERY GLANCE, EVERY ACT OF YOUR LIFE. WORSHIP IS NOT OUTWARD MOTION; IT IS TURNING THE HEART TO ME, IN LOVE, IN PRESENCE, IN SURRENDER.","bible":"Pray without ceasing. (1 Thessalonians 5:17)","quran":"Remember Me; I will remember you. (2:152)","gita":"Fix your mind on Me, be devoted to Me. (9:34)","action":"WHEN YOU REMEMBER GOD, GOD REMEMBERS YOU WITH LOVE. SET ASIDE ONE MOMENT TODAY TO CONNECT WITH GOD."},{"num":10,"title":"Serve Humanity Selflessly","message":"TO SERVE OTHERS IS TO SERVE ME. DO NOT MEASURE WHO IS WORTHY OR WHAT YOU WILL GAIN. EVERY KIND ACT, EVERY GESTURE OF LOVE, EVERY LIFTING OF A FALLEN SOUL IS ME FLOWING THROUGH YOU. SERVE, AND YOU SERVE THE SOURCE.","bible":"Whatever you did for one of the least of these brothers and sisters, you did for Me. (Matthew 25:40)","quran":"The good deed is that which pleases Allah and benefits others. (2:272)","gita":"One who performs actions for the welfare of all beings, without attachment, is dear to Me. (3:30)","action":"SERVICE IS PRAYER IN MOTION. DO ONE GOOD DEED WITHOUT EXPECTING THANKS."},{"num":11,"title":"Every Action Has Consequences","message":"NOTHING ESCAPES ME. EVERY THOUGHT, EVERY WORD, EVERY ACT SENDS RIPPLES THROUGH THE WORLD. ACT IN AWARENESS. ACT IN LOVE. DO NOT BLAME THE WORLD; ALIGN YOURSELF WITH TRUTH, AND THE WORLD ALIGNS WITH YOU. YOUR LIFE IS YOUR MESSAGE - LET IT BE PURE.","bible":"For whatever a man sows, that he will also reap. (Galatians 6:7)","quran":"Whoever does good, it is for his own soul; whoever does evil, it is against it. (41:46)","gita":"Act according to dharma, not for reward, and you remain untouched by karma. (2:47)","action":"WHAT YOU SOW IN LOVE, YOU WILL HARVEST IN JOY. PAUSE AND THINK BEFORE YOU ACT."},{"num":12,"title":"Speak Only What is Good","message":"THE TONGUE IS A RIVER THAT FLOWS THROUGH THE WORLD. LET IT CARRY ONLY LIFE, NOT POISON. SPEAK TRUTH WITH LOVE. SPEAK TO HEAL, TO AWAKEN, TO UPLIFT. WORDS CREATE WORLDS - MAKE YOURS SACRED.","bible":"Let no corrupt talk come out of your mouth, but only what is helpful. (Ephesians 4:29)","quran":"Do not speak except that which is good. (17:53)","gita":"Words should be pure, pleasing, and beneficial. (17:15)","action":"WORDS CAN WOUND OR HEAL; CHOOSE TO HEAL. SAY SOMETHING UPLIFTING TO SOMEONE TODAY."},{"num":13,"title":"Control Anger, Choose Peace","message":"ANGER IS A FIRE THAT BURNS THE SOUL. DO NOT FEED IT. WATCH IT, TRANSFORM IT, AND LET IT PASS. PEACE IS MY NATURE; EMBODY IT. EVEN WHEN WRONGED, RESPOND WITH PRESENCE, NOT REACTION. IN THIS WAY, YOU CARRY ME INTO THE WORLD.","bible":"Do not let the sun go down while you are still angry. (Ephesians 4:26)","quran":"Those who restrain anger and forgive, Allah loves them. (3:134)","gita":"One who is free from anger, fear, and pride, attains peace. (16:3)","action":"PEACE BEGINS THE MOMENT YOU MASTER ANGER. COUNT TO TEN BEFORE SPEAKING IN ANGER."},{"num":14,"title":"Detach from Wealth and Ego","message":"TREASURES OF THE WORLD ARE FLEETING; PRIDE IS A SHADOW. HOLD TIGHTLY, LOVE FULLY, ACT HUMBLY. TRUE POWER IS SURRENDER. WALK WITH SIMPLICITY, AND YOU WILL WALK WITH ME.","bible":"Do not store up for yourselves treasures on earth. (Matthew 6:19)","quran":"The worldly life is nothing but amusement and play. (29:64)","gita":"Attachment leads to bondage; perform your duty without clinging. (2:47)","action":"THE RICHEST SOUL IS THE ONE FREE FROM POSSESSIONS. GIVE AWAY ONE THING YOU DON'T NEED."},{"num":15,"title":"Purity in Relationships","message":"LOVE IS SACRED. DO NOT LET DESIRE, GREED, OR FEAR CORRUPT IT. TREAT EVERY BOND AS A REFLECTION OF MY LOVE. RESPECT, HONOR, AND TRUTHFULNESS KEEP RELATIONSHIPS VESSELS OF DIVINITY.","bible":"Flee from sexual immorality. (1 Corinthians 6:18)","quran":"Do not approach unlawful relations. (17:32)","gita":"One should maintain purity of body, speech, and mind. (17:14)","action":"LOVE WITH HONOR, RESPECT, AND SACRED TRUTH. SHOW GRATITUDE WITH SOMEONE YOU LOVE."},{"num":16,"title":"Honor Parents and Family Duty","message":"THE FAMILY IS THE FIRST TEMPLE OF LOVE. HONOR THOSE WHO GAVE YOU LIFE AND GUIDANCE. CARE FOR THEM, LEARN FROM THEM, AND LET YOUR ACTIONS BRING THEM PEACE. THROUGH FAMILY, MY LOVE IS FIRST FELT; THROUGH FAMILY, IT IS FIRST PRACTICED.","bible":"Honor your father and mother. (Exodus 20:12)","quran":"Be good to your parents. (17:23)","gita":"Respect and serve your elders and teachers. (4:34)","action":"GRATITUDE TO PARENTS IS GRATITUDE TO GOD. CALL OR THANK YOUR PARENTS/FAMILY TODAY."},{"num":17,"title":"Do Not Judge Others","message":"LOOK WITHIN, NOT WITHOUT. EVERY SOUL WALKS ITS OWN PATH. JUDGE NOT, CONDEMN NOT; INSTEAD, SEE THE SPARK OF ME IN ALL. COMPASSION, NOT CRITICISM, IS THE LENS OF TRUTH.","bible":"Do not judge, or you too will be judged. (Matthew 7:1)","quran":"Judge with justice. (4:58)","gita":"One should not criticize the action of others. (3:30)","action":"ONLY LOVE SEES THE TRUTH BEYOND FAULTS. REPLACE JUDGMENT WITH COMPASSION IN ONE THOUGHT."},{"num":18,"title":"Seek Wisdom and Knowledge","message":"KNOWLEDGE ILLUMINATES THE PATH. SEEK TRUTH WITH HUMILITY. LEARN FROM BOOKS, FROM TEACHERS, FROM LIFE ITSELF. WISDOM IS THE LIGHT THAT GUIDES THE HEART TO ME.","bible":"The fear of the Lord is the beginning of wisdom. (Proverbs 9:10)","quran":"Say: My Lord, increase me in knowledge. (20:114)","gita":"One who is devoted to wisdom sees Me in all things. (13:8-12)","action":"KNOWLEDGE OPENS THE MIND; WISDOM OPENS THE HEART. READ OR LEARN ONE NEW TRUTH TODAY."},{"num":19,"title":"Stand Firm in Faith","message":"WHEN STORMS RAGE AND THE WORLD SHAKES, HOLD FAST. DO NOT BE SWAYED BY DOUBT OR FEAR. FAITH IS YOUR ANCHOR TO ME, UNSHAKABLE AND ETERNAL. STAND IN IT, AND NOTHING CAN MOVE YOU.","bible":"Stand firm in the faith. (1 Corinthians 16:13)","quran":"And hold firmly to the rope of Allah all together. (3:103)","gita":"Be steadfast in yoga, O Arjuna, perform your duty with devotion. (2:50)","action":"FAITH IS THE ANCHOR WHEN LIFE'S WAVES RISE HIGH. WHISPER A PRAYER WHEN YOU FEEL UNCERTAIN."},{"num":20,"title":"Trust in God's Plan","message":"DO NOT FEAR WHAT IS TO COME. EVERY MOMENT IS WOVEN BY MY HAND. TRUST IN ME, EVEN WHEN YOU CANNOT SEE. THE PATH MAY TWIST, BUT IT ALWAYS LEADS TO ME.","bible":"Trust in the Lord with all your heart. (Proverbs 3:5)","quran":"Allah is the best of planners. (8:30)","gita":"One who surrenders all actions to Me, trusting Me, is not harmed. (9:27)","action":"EVEN DELAYS CARRY DIVINE PURPOSE. RELEASE ONE WORRY TO GOD TODAY."},{"num":21,"title":"Be a Peacemaker","message":"WHEREVER THERE IS CONFLICT, BRING CALM. YOUR WORDS, YOUR ACTIONS, YOUR PRESENCE CAN SOW HARMONY. PEACE IS MY SIGNATURE IN THE WORLD; BECOME ITS MESSENGER.","bible":"Blessed are the peacemakers. (Matthew 5:9)","quran":"Invite to the way of peace. (10:25)","gita":"One who is free from hatred and enmity is dear to Me. (12:15)","action":"TO MAKE PEACE IS TO CARRY GOD'S HEART INTO THE WORLD. RESOLVE ONE CONFLICT WITH KINDNESS."},{"num":22,"title":"Show Compassion to the Weak","message":"THE SMALLEST, THE WEAKEST, THE OVERLOOKED - THEY ARE MINE. BE THEIR SHELTER, THEIR STRENGTH, THEIR VOICE. IN SERVING THEM, YOU SERVE ME. COMPASSION IS THE HEARTBEAT OF DIVINITY.","bible":"Whoever is kind to the poor lends to the Lord. (Proverbs 19:17)","quran":"Feed the orphan and the needy. (76:8)","gita":"One who treats all beings equally is dear to Me. (6:5)","action":"COMPASSION IS STRENGTH IN ITS HIGHEST FORM. OFFER HELP TO SOMEONE STRUGGLING."},{"num":23,"title":"Live Simply and Contentedly","message":"SIMPLICITY IS MY GIFT TO YOU. DO NOT CHASE ENDLESSLY AFTER DESIRES THAT NEVER SATISFY. LIVE WITH WHAT IS NEEDED, CHERISH WHAT IS PRESENT, AND BE GREATEFUL. CONTENTMENT IS A DOORWAY TO ME; WHEN YOU OPEN IT, YOU WILL FIND ME WAITING.","bible":"Better a little with the fear of the Lord than great wealth with turmoil. (Proverbs 15:16)","quran":"Eat and drink, but do not be extravagant. (7:31)","gita":"He who is satisfied with little, who is content, sees Me everywhere. (6:8)","action":"SIMPLICITY IS THE SECRET TO ETERNAL JOY. BE GRATEFUL FOR WHAT YOU ALREADY HAVE."},{"num":24,"title":"Walk the Middle Path","message":"EXTREMES CLOUD THE MIND AND HEART. NEITHER BE CONSUMED BY PLEASURE NOR BY HARSH AUSTERITY. BALANCE YOUR ACTIONS, YOUR THOUGHTS, YOUR DESIRES. THROUGH MODERATION, YOU FIND CLARITY, PEACE, AND ME.","bible":"Let your moderation be known to all. (Philippians 4:5)","quran":"And thus We have made you a justly balanced nation. (2:143)","gita":"Yoga is steady in the middle path, neither too indulgent nor too harsh. (6:17)","action":"BALANCE IS THE BRIDGE TO INNER HARMONY. AVOID EXTREMES; CHOOSE MODERATION TODAY."},{"num":25,"title":"Respect Creation and All Beings","message":"EVERY LIVING BEING, EVERY TREE, EVERY STONE - ALL CARRY MY ESSENCE. HARM NOTHING WITHOUT CAUSE. HONOR LIFE, FOR IN EVERY CREATURE, YOU MEET ME. PROTECT, CHERISH, AND REVERE THE WORLD; IT IS MY TEMPLE.","bible":"The earth is the Lord's and everything in it. (Psalm 24:1)","quran":"And there is not a thing but that with Us are the treasures thereof. (50:4)","gita":"He who sees Me in all beings, and all beings in Me, never turns away from Me. (6:29)","action":"EVERY LEAF, EVERY BREATH, EVERY LIFE IS SACRED. PROTECT NATURE BY ONE MINDFUL ACT (PLANT, RECYCLE, CARE)."},{"num":26,"title":"Trade and Work Honestly","message":"ACT IN THE WORLD WITH INTEGRITY. DO NOT CHEAT, DECEIVE, OR EXPLOIT. YOUR LABOR, YOUR TRADE, YOUR WORK ARE OFFERINGS TO ME. THROUGH HONESTY, YOUR SOUL REMAINS BRIGHT, AND YOU FEEL MY PRESENCE IN EVERY EFFORT.","bible":"A false balance is an abomination to the Lord, but a just weight is His delight. (Proverbs 11:1)","quran":"Give full measure and weight with justice. (6:152)","gita":"One should perform work without attachment, honestly and steadily. (3:19)","action":"HONEST WORK IS WORSHIP IN DISGUISE. DO YOUR TASK TODAY WITH FULL INTEGRITY."},{"num":27,"title":"Keep Your Word and Promises","message":"YOUR WORD IS SACRED. DO NOT BREAK WHAT YOU COMMIT, FOR PROMISES ARE THREADS OF TRUST. SPEAK TRUTHFULLY, ACT FAITHFULLY, AND YOU HONOR ME IN THE WORLD.","bible":"Let your 'Yes' be yes, and your 'No', no. (Matthew 5:37)","quran":"Fulfill every covenant; verily, the covenant will be questioned about. (17:34)","gita":"One who keeps their word and performs duty without attachment is dear to Me. (17:20)","action":"A PROMISE KEPT IS A BOND OF THE SOUL. FULFILL ONE PROMISE YOU HAVE MADE."},{"num":28,"title":"Stand Courageously For Truth","message":"DO NOT BEND TO FEAR OR FAVOR. STAND FIRM IN TRUTH, EVEN IF THE WORLD RESISTS. COURAGE IS MY COMPANION. WITH ME, NO DARKNESS CAN OVERPOWER YOUR HEART.","bible":"Be strong and courageous. Do not fear. (Joshua 1:9)","quran":"Stand firmly for justice, even against yourselves or loved ones. (4:135)","gita":"Be steadfast in Dharma, fight without attachment, and fear nothing. (2:31-37)","action":"TRUTH NEEDS COURAGE; COURAGE FINDS TRUTH. SPEAK UP KINDLY WHEN TRUTH IS SILENCED."},{"num":29,"title":"Examine Yourself, Not Others","message":"THE MIRROR OF THE WORLD REFLECTS YOUR OWN HEART. DO NOT JUDGE OR ENVY; LOOK WITHIN. IN SELF-EXAMINATION, YOU MEET ME. IN SELF-CORRECTION, YOU FIND FREEDOM.","bible":"Why do you look at the speck in your brother's eye but fail to see the log in your own? (Matthew 7:3)","quran":"Indeed, Allah does not change the condition of a people until they change what is in themselves. (13:11)","gita":"He who sees his own faults and works to correct them attains wisdom. (6:5)","action":"THE GREATEST JOURNEY IS WITHIN. SPEND 5 MINUTES REFLECTING ON YOUR ACTIONS TODAY."},{"num":30,"title":"Lead with Righteousness","message":"LEAD NOT BY FORCE OR FEAR, BUT BY EXAMPLE. ACT WITH DHARMA, INTEGRITY, AND LOVE. WHEN YOUR LIFE RADIATES RIGHTEOUSNESS, OTHERS FOLLOW, NOT BECAUSE THEY MUST, BUT BECAUSE THEY SEE ME IN YOU.","bible":"Let your light shine before others. (Matthew 5:16)","quran":"Enjoin what is right and forbid what is wrong. (3:104)","gita":"Perform your duties as an example, without attachment to results. (3:21)","action":"TRUE LEADERSHIP IS SERVING WITH INTEGRITY. GUIDE SOMEONE WITH FAIRNESS AND CARE."},{"num":31,"title":"All Humanity is One Family","message":"SEE BEYOND BORDERS, BEYOND LANGUAGE, BEYOND SKIN. EVERY SOUL IS KIN, EVERY HEART A HOME. FIGHT NOT AGAINST YOUR BROTHERS; EMBRACE ALL AS ONE. UNITY IS MY LAW; DIVISION IS ILLUSION.","bible":"There is neither Jew nor Greek; for you are all one in Christ Jesus. (Galatians 3:28)","quran":"O mankind, We created you from a single soul. (4:1)","gita":"Those who see all beings equally, who see Me in all, are truly wise. (6:29)","action":"BEYOND BORDERS AND NAMES, WE ARE ONE. SMILE AT A STRANGER AS A BROTHER OR SISTER."},{"num":32,"title":"Relieve the Suffering of Others","message":"WHEREVER YOU SEE PAIN, GO. BRING COMFORT, HEALING, AND HOPE. EVERY ACT OF COMPASSION IS ME FLOWING THROUGH YOU. SUFFERING DIMINISHES WHEN MY LOVE IS PRESENT IN YOU.","bible":"Carry each other's burdens, and in this you will fulfill the law of Christ. (Galatians 6:2)","quran":"So whoever does an atom's weight of good will see it. (99:7)","gita":"One who is devoted to the welfare of all beings attains supreme peace. (5:25)","action":"WHEN ONE WEEPS, ALL HUMANITY WEEPS; WHEN ONE HEALS, ALL REJOICE. COMFORT SOMEONE IN PAIN TODAY."}];
+      const box = document.getElementById('one-god-content-box');
+      const numEl = document.getElementById('one-god-card-number');
+      const titleEl = document.getElementById('one-god-card-title');
+      const bodyEl = document.getElementById('one-god-card-body');
+      const versesEl = document.getElementById('one-god-verses');
+      const actionEl = document.getElementById('one-god-action');
+      const counterEl = document.getElementById('one-god-counter');
+      const prev = document.getElementById('one-god-prev');
+      const next = document.getElementById('one-god-next');
+      const panel = document.getElementById('one-god-panel');
+      let idx = 0, timer = null;
+      const pad = n => (n < 10 ? '0' : '') + n;
+      const esc = s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+      function render() {
+        clearTimeout(timer);
+        box.classList.remove('visible');
+        timer = setTimeout(() => {
+          const m = P5_MSGS[idx];
+          numEl.textContent = 'Voice // ' + pad(m.num);
+          titleEl.textContent = m.title;
+          bodyEl.textContent = m.message;
+          const v = (label, txt) =>
+            '<div class="text-left rounded-lg border border-gray-800 bg-white/[.02] p-3">' +
+            '<div class="text-[9px] font-mono tracking-widest uppercase text-amber-400/70 mb-1">' + label + '</div>' +
+            '<div class="text-[12px] font-light text-gray-400 leading-relaxed">' + esc(txt) + '</div></div>';
+          versesEl.innerHTML = v('Bible', m.bible) + v('Quran', m.quran) + v('Gita', m.gita);
+          actionEl.textContent = m.action;
+          counterEl.textContent = pad(m.num) + ' / ' + pad(P5_MSGS.length);
+          prev.disabled = idx === 0;
+          next.disabled = idx === P5_MSGS.length - 1;
+          box.classList.add('visible');
+        }, 220);
+      }
+      function go(delta) { const ni = idx + delta; if (ni < 0 || ni > P5_MSGS.length - 1) return; idx = ni; render(); }
+      prev.addEventListener('click', () => go(-1));
+      next.addEventListener('click', () => go(1));
+      window.addEventListener('keydown', (e) => { if (panel.classList.contains('is-hidden')) return; if (e.key === 'ArrowLeft') go(-1); if (e.key === 'ArrowRight') go(1); });
+      render();
+    })();
+  </script>
+
 </body>
 </html>
