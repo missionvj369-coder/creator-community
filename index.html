@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intro Smoke Test - 12 Products</title>
+    <style>
+        body { margin: 0; font-family: Arial, sans-serif; }
+        video { width: 100%; }
+    </style>
+</head>
+<body>
+    <!-- Intro video section - auto-plays on load -->
+    <video autoplay loop>
+        <source src="videos/intro-1.mp4" type="video/mp4">
+        <source src="videos/intro-2.mp4" type="video/mp4">
+        <source src="videos/intro-3.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    
+    <script>
+        // Intro video IIFE - auto-start the sequence on page load
+        (function() {
+            load(0);
+            
+            // Transition between product videos
+            const products = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+            let currentProduct = 0;
+            
+            function load(productIndex) {
+                currentProduct = productIndex;
+                // Load the product intro video
+                console.log(`Loading product ${productIndex} intro video`);
+                // Auto-transition logic
+                if (currentProduct < products.length - 1) {
+                    setTimeout(() => load(currentProduct + 1), 5000);
+                }
+            }
+            
+            // Start the intro sequence immediately
+            load(currentProduct);
+        })();
+    </script>
+</body>
+</html>
