@@ -1,0 +1,274 @@
+— structure —
+  ok  intro-flow overlay exists
+  ok  body starts scroll-locked
+  ok  21 progress dots built (got 21)
+  ok  counter starts at 01 / 21
+  ok  protocol day chips built behind intro (got 21)
+  ok  protocol start button exists
+  ok  auto-flow ON by default
+— stage 0: video introduction —
+  ok  video intro stage exists
+  ok  video element exists
+  ok  video intro visible on load
+  ok  video counter starts at 01 / 03 (got "01 / 03")
+  ok  three clips queued
+  ok  clips 1, 2 and 3 all referenced
+  ok  clips play in requested order 1 → 2 → 3
+  ok  auto-advances to clip 2 (idx=1)
+  ok  counter shows 02 / 03
+  ok  auto-advances to clip 3 (idx=2)
+  ok  counter shows 03 / 03
+  ok  sequence marked done after skip
+  ok  video intro hides → hands off to entry portal
+— manual navigation —
+  ok  entry portal dismissed after ENTER
+  ok  auto-flow toggled off
+  ok  step 1 statement shown: "Stop. You don't have to fix an..."
+  ok  next advances counter to 02 / 21
+  ok  step 2 statement shown
+  ok  prev returns to 01 / 21
+  ok  prev disabled on first statement
+— auto-flow to completion —
+  ok  intro finished → overlay hidden (auto-flow reached the end)
+  ok  body scroll unlocked after intro
+  ok  hand-off toast shown: "INTRO ✓ → DAY 01"
+— protocol integrity after reveal —
+  ok  21 days still present
+  ok  day 01 chip is first: "01 🎯 α"
+  ok  day 01 unlocked
+  ok  day detail shows 01
+— section 3: Product 3 —
+  ok  product3 panel exists
+  ok  product3 starts hidden
+  ok  section switcher tabs exist
+  ok  protocol tab active by default
+  ok  switching to product3 reveals panel
+  ok  protocol app hidden while in product3
+  ok  protocol progress bar hidden while in product3
+  ok  product3 tab active
+  ok  prompt label shown: "Inquiry // 01"
+  ok  prompt 1 title rendered
+  ok  prompt 1 body rendered
+  ok  p3 counter starts at 01 / 21
+  ok  copy button visible in prompts mode
+  ok  p3 next advances to 02 / 21
+  ok  p3 prev enabled after advancing
+  ok  p3 prev returns to 01 / 21
+  ok  copy toast shown after copying prompt
+  ok  truth label shown: "Reality Mechanic // 01"
+  ok  copy button hidden in truths mode
+  ok  truth 1 title rendered
+  ok  truth 1 body rendered
+  ok  product3 hidden after switching back
+  ok  protocol app visible again
+  ok  progress bar visible again
+  ok  protocol tab active again
+  ok  protocol day chips intact after section round-trip
+— section 5: Product 4 (66 Days) —
+  ok  product4 panel exists
+  ok  product4 starts hidden
+  ok  product4 tab exists
+  ok  switching to product4 reveals panel
+  ok  product4 tab active
+  ok  product4 day label: "Day // 01"
+  ok  product4 day 1 title rendered: "THE ETERNAL SELF"
+  ok  product4 day 1 body (affirmation) rendered
+  ok  product4 day 1 voices rendered
+  ok  product4 counter at 01 / 66
+  ok  product4 cycle label: "Cycle 1 // Awakening"
+  ok  product4 next advances to 02 / 66
+  ok  product4 still Cycle 1 on day 2
+  ok  product4 advances to 03 / 66
+  ok  product4 prev returns to 02 / 66
+— section 6: Product 5 (One God, One Voice) —
+  ok  product5 panel exists
+  ok  product5 starts hidden
+  ok  product5 tab exists
+  ok  switching to product5 reveals panel
+  ok  product5 tab active
+  ok  product5 voice label: "Voice // 01"
+  ok  product5 msg 1 title rendered: "God is One"
+  ok  product5 msg 1 body rendered
+  ok  product5 msg 1 verses rendered
+  ok  product5 msg 1 action rendered: "IN EVERY NAME, IN EVERY FORM, IN EVERY HEART, THERE IS ONLY ONE GOD. SEE EVERY HUMAN AS A REFLECTION OF THE DIVINE."
+  ok  product5 counter at 01 / 32
+  ok  product5 next advances to 02 / 32
+  ok  product5 msg 2 title: "Love One Another"
+  ok  product5 prev returns to 01 / 32
+— section 4: Human Journey (Part I + Part II) —
+  ok  journey panel exists
+  ok  journey starts hidden
+  ok  journey tab exists
+  ok  Part I iframe points at human-journey.html
+  ok  human-journey.html file exists in workspace
+  ok  Part II iframe points at human-journey-part2.html
+  ok  human-journey-part2.html file exists in workspace
+  ok  Part III iframe points at human-journey-part3.html
+  ok  human-journey-part3.html file exists in workspace
+  ok  Part I / Part II / Part III selector buttons exist
+  ok  journey panel revealed on tab click
+  ok  product3 hidden while journey open
+  ok  protocol app hidden while journey open
+  ok  journey tab active
+  ok  Part I visible by default
+  ok  Part II hidden by default
+  ok  Part III hidden by default
+  ok  Part I button active by default
+  ok  Part II visible after selecting it
+  ok  Part I hidden while Part II active
+  ok  Part II button active after selecting
+  ok  Part II description shown: "Part II — The Loop: a 21-chapter continuation, from before birth through death to what remains afterward."
+  ok  Part I visible again after switching back
+  ok  Part II hidden after switching back to Part I
+  ok  Part III visible after selecting it
+  ok  Part I hidden while Part III active
+  ok  Part II hidden while Part III active
+  ok  Part III button active after selecting
+  ok  Part III description shown: "Part III — The Awakening: mind, relationships, change, society, technology, ethics, and our shared future."
+  ok  Part III hidden after switching back to Part I
+  ok  journey hidden after switching back
+  ok  protocol app visible again after journey
+  ok  protocol tab active again
+— section 7: Product 6 (Extra-Dimensional Passage) —
+  ok  product6 panel exists
+  ok  product6 starts hidden
+  ok  product6 tab exists
+  ok  iframe points at extra-dimensional-passage.html
+  ok  extra-dimensional-passage.html file exists in workspace
+  ok  product6 fullscreen button exists
+  ok  switching to product6 reveals panel
+  ok  protocol app hidden while in product6
+  ok  journey hidden while product6 open
+  ok  product6 tab active
+  ok  product6 hidden after switching back
+  ok  protocol app visible again after product6
+  ok  protocol tab active again
+— section 8: Product 7 (Twenty Minutes Down: Sleep) —
+  ok  product7 panel exists
+  ok  product7 starts hidden
+  ok  product7 tab exists
+  ok  iframe points at twenty-minutes-down.html
+  ok  twenty-minutes-down.html file exists in workspace
+  ok  product7 fullscreen button exists
+  ok  switching to product7 reveals panel
+  ok  protocol app hidden while in product7
+  ok  product6 hidden while product7 open
+  ok  product7 tab active
+  ok  product7 hidden after switching back
+  ok  protocol app visible again after product7
+  ok  protocol tab active again
+— section 9: Product 8 (The Loop — 21 Days of Greater Choice) —
+  ok  product8 panel exists
+  ok  product8 starts hidden
+  ok  product8 tab exists
+  ok  iframe points at the-loop-complete-app.html
+  ok  the-loop-complete-app.html file exists in workspace
+  ok  product8 fullscreen button exists
+  ok  switching to product8 reveals panel
+  ok  protocol app hidden while in product8
+  ok  product7 hidden while product8 open
+  ok  product8 tab active
+  ok  product8 hidden after switching back
+  ok  protocol app visible again after product8
+  ok  protocol tab active again
+— section 10: Product 9 (Rewire — A Daily Wallpaper Ritual) —
+  ok  product9 panel exists
+  ok  product9 starts hidden
+  ok  product9 tab exists
+  ok  iframe points at rewire-wallpaper-app.html
+  ok  rewire-wallpaper-app.html file exists in workspace
+  ok  product9 fullscreen button exists
+  ok  switching to product9 reveals panel
+  ok  protocol app hidden while in product9
+  ok  product8 hidden while product9 open
+  ok  product9 tab active
+  ok  product9 hidden after switching back
+  ok  protocol app visible again after product9
+  ok  protocol tab active again
+— section 11: Product 10 (Frequency Playground — 99 Moments) —
+  ok  product10 panel exists
+  ok  product10 starts hidden
+  ok  product10 tab exists
+  ok  iframe points at frequency-playground-99-scenarios.html
+  ok  frequency-playground-99-scenarios.html file exists in workspace
+  ok  product10 fullscreen button exists
+  ok  switching to product10 reveals panel
+  ok  protocol app hidden while in product10
+  ok  product9 hidden while product10 open
+  ok  product10 tab active
+  ok  product10 hidden after switching back
+  ok  protocol app visible again after product10
+  ok  protocol tab active again
+— section 12: Product 11 (Clarity / 30 — 30-Day Affirmations) —
+  ok  product11 panel exists
+  ok  product11 starts hidden
+  ok  product11 tab exists
+  ok  iframe points at clarity-30-day-affirmations.html
+  ok  clarity-30-day-affirmations.html file exists in workspace
+  ok  product11 fullscreen button exists
+  ok  switching to product11 reveals panel
+  ok  protocol app hidden while in product11
+  ok  product10 hidden while product11 open
+  ok  product11 tab active
+  ok  product11 hidden after switching back
+  ok  protocol app visible again after product11
+  ok  protocol tab active again
+— section 13: Product 12 (ONE — 99 Thoughts) —
+  ok  product12 panel exists
+  ok  product12 starts hidden
+  ok  product12 tab exists
+  ok  iframe points at ONE_99_Thoughts.html
+  ok  ONE_99_Thoughts.html file exists in workspace
+  ok  product12 fullscreen button exists
+  ok  switching to product12 reveals panel
+  ok  protocol app hidden while in product12
+  ok  product11 hidden while product12 open
+  ok  product12 tab active
+  ok  product12 hidden after switching back
+  ok  protocol app visible again after product12
+  ok  protocol tab active again
+— section 14: Product 13 (Human Mirror — 14 Worlds) —
+  ok  product13 panel exists
+  ok  product13 starts hidden
+  ok  product13 tab exists
+  ok  iframe points at The_Human_Mirror_14_Worlds.html
+  ok  The_Human_Mirror_14_Worlds.html file exists in workspace
+  ok  product13 fullscreen button exists
+  ok  switching to product13 reveals panel
+  ok  protocol app hidden while in product13
+  ok  product12 hidden while product13 open
+  ok  product13 tab active
+  ok  product13 hidden after switching back
+  ok  protocol app visible again after product13
+  ok  protocol tab active again
+— section 15: Product 14 (Human Mirror — Reimagined) —
+  ok  product14 panel exists
+  ok  product14 starts hidden
+  ok  product14 tab exists
+  ok  iframe points at The_Human_Mirror_REIMAGINED.html
+  ok  The_Human_Mirror_REIMAGINED.html file exists in workspace
+  ok  product14 fullscreen button exists
+  ok  switching to product14 reveals panel
+  ok  protocol app hidden while in product14
+  ok  product13 hidden while product14 open
+  ok  product14 tab active
+  ok  product14 hidden after switching back
+  ok  protocol app visible again after product14
+  ok  protocol tab active again
+— section 16: Product 15 (Human Sanctuary — 14 Scenes) —
+  ok  product15 panel exists
+  ok  product15 starts hidden
+  ok  product15 tab exists
+  ok  iframe points at The_Human_Sanctuary_14_Scenes.html
+  ok  The_Human_Sanctuary_14_Scenes.html file exists in workspace
+  ok  product15 fullscreen button exists
+  ok  switching to product15 reveals panel
+  ok  protocol app hidden while in product15
+  ok  product14 hidden while product15 open
+  ok  product15 tab active
+  ok  product15 hidden after switching back
+  ok  protocol app visible again after product15
+  ok  protocol tab active again
+  ok  no uncaught script errors
+
+253 passed, 0 failed
