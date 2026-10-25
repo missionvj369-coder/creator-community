@@ -28,6 +28,7 @@ definition.
 At line:1 char:2
 +  {  name: human-within,  version: 3.0.0,  private: 
 
+
  ...
 +  ~
 Missing closing '}' in statement block or type 
