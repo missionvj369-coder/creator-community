@@ -1,38 +1,17 @@
-At line:1 char:271
-+ ...   dev: node server.js,  test: node 
-scripts/test-engine.mjs && node sc ...
-+                                                      
-          ~~
-The token '&&' is not a valid statement separator in 
-this version.
-At line:1 char:300
-+ ...  node scripts/test-engine.mjs && node 
-scripts/test-api.mjs && node sc ...
-+                                                      
-          ~~
-The token '&&' is not a valid statement separator in 
-this version.
-At line:1 char:405
-+ ... blic/content"   },   engines: {     node: >=18   
-},   license: MIT }  ...
-+                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~~~~~~~~~~~~~~~~~~~
-The string is missing the terminator: ".
-At line:1 char:187
-+ ... eBooks, 30 wallpapers and tools for being 
-human.,  scripts: {  start: ...
-+                                                      
-           ~
-Missing closing '}' in statement block or type 
-definition.
-At line:1 char:2
-+  {  name: human-within,  version: 3.0.0,  private: 
-
- ...
-+  ~
-Missing closing '}' in statement block or type 
-definition.
-    + CategoryInfo          : ParserError: (:) [], Par 
-   entContainsErrorRecordException
-    + FullyQualifiedErrorId : InvalidEndOfLine
- 
+{
+  "name": "human-within",
+  "version": "3.0.0",
+  "private": true,
+  "description": "Human Within -- 15 experiences, six eBooks, 30 wallpapers and tools for being human.",
+  "scripts": {
+    "start": "node server.cjs",
+    "dev": "node server.cjs",
+    "build": "echo Building for Netlify...",
+    "test": "node scripts/test-engine.mjs && node scripts/test-api.mjs && node scripts/test-catalogue.mjs",
+    "extract": "node scripts/extract-content.cjs ../source ./public/content"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "license": "MIT"
+}

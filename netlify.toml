@@ -1,0 +1,12 @@
+[build]
+publish = "public"
+command = "npm run build"
+
+[dev]
+command = "node server.cjs"
+PORT = 3000
+
+[redirects]
+from = "/api/*"
+to = "/.netlify/functions/backend"
+status = 200
