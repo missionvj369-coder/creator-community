@@ -1,0 +1,86 @@
+[
+  {
+    "title": "Think it through: Check the urgency",
+    "prompt": "Help me consider this everyday situation: [describe the situation]. Focus on this principle: check the urgency. Separate what I know from what I am assuming. Suggest one small, realistic next step, and ask for missing context if it changes your answer. Do not treat this as a diagnosis."
+  },
+  {
+    "title": "Think it through: Choose where attention goes",
+    "prompt": "Help me consider this everyday situation: [describe the situation]. Focus on this principle: choose where attention goes. Separate what I know from what I am assuming. Suggest one small, realistic next step, and ask for missing context if it changes your answer. Do not treat this as a diagnosis."
+  },
+  {
+    "title": "Think it through: Practise a manageable challenge",
+    "prompt": "Help me consider this everyday situation: [describe the situation]. Focus on this principle: practise a manageable challenge. Separate what I know from what I am assuming. Suggest one small, realistic next step, and ask for missing context if it changes your answer. Do not treat this as a diagnosis."
+  },
+  {
+    "title": "Think it through: Notice a thought without obeying it",
+    "prompt": "Help me consider this everyday situation: [describe the situation]. Focus on this principle: notice a thought without obeying it. Separate what I know from what I am assuming. Suggest one small, realistic next step, and ask for missing context if it changes your answer. Do not treat this as a diagnosis."
+  },
+  {
+    "title": "Think it through: Pause before joining the outrage",
+    "prompt": "Help me consider this everyday situation: [describe the situation]. Focus on this principle: pause before joining the outrage. Separate what I know from what I am assuming. Suggest one small, realistic next step, and ask for missing context if it changes your answer. Do not treat this as a diagnosis."
+  },
+  {
+    "title": "Think it through: Make the helpful choice easier",
+    "prompt": "Help me consider this everyday situation: [describe the situation]. Focus on this principle: make the helpful choice easier. Separate what I know from what I am assuming. Suggest one small, realistic next step, and ask for missing context if it changes your answer. Do not treat this as a diagnosis."
+  },
+  {
+    "title": "Think it through: Use precise words instead of fixed labels",
+    "prompt": "Help me consider this everyday situation: [describe the situation]. Focus on this principle: use precise words instead of fixed labels. Separate what I know from what I am assuming. Suggest one small, realistic next step, and ask for missing context if it changes your answer. Do not treat this as a diagnosis."
+  },
+  {
+    "title": "Think it through: Make room for quiet",
+    "prompt": "Help me consider this everyday situation: [describe the situation]. Focus on this principle: make room for quiet. Separate what I know from what I am assuming. Suggest one small, realistic next step, and ask for missing context if it changes your answer. Do not treat this as a diagnosis."
+  },
+  {
+    "title": "Think it through: Let approval be information",
+    "prompt": "Help me consider this everyday situation: [describe the situation]. Focus on this principle: let approval be information. Separate what I know from what I am assuming. Suggest one small, realistic next step, and ask for missing context if it changes your answer. Do not treat this as a diagnosis."
+  },
+  {
+    "title": "Think it through: Begin before everything feels ready",
+    "prompt": "Help me consider this everyday situation: [describe the situation]. Focus on this principle: begin before everything feels ready. Separate what I know from what I am assuming. Suggest one small, realistic next step, and ask for missing context if it changes your answer. Do not treat this as a diagnosis."
+  },
+  {
+    "title": "Think it through: Reduce the open loops",
+    "prompt": "Help me consider this everyday situation: [describe the situation]. Focus on this principle: reduce the open loops. Separate what I know from what I am assuming. Suggest one small, realistic next step, and ask for missing context if it changes your answer. Do not treat this as a diagnosis."
+  },
+  {
+    "title": "Think it through: Question the message behind the comparison",
+    "prompt": "Help me consider this everyday situation: [describe the situation]. Focus on this principle: question the message behind the comparison. Separate what I know from what I am assuming. Suggest one small, realistic next step, and ask for missing context if it changes your answer. Do not treat this as a diagnosis."
+  },
+  {
+    "title": "Think it through: State a clear boundary",
+    "prompt": "Help me consider this everyday situation: [describe the situation]. Focus on this principle: state a clear boundary. Separate what I know from what I am assuming. Suggest one small, realistic next step, and ask for missing context if it changes your answer. Do not treat this as a diagnosis."
+  },
+  {
+    "title": "Think it through: Name the feeling and the next decision",
+    "prompt": "Help me consider this everyday situation: [describe the situation]. Focus on this principle: name the feeling and the next decision. Separate what I know from what I am assuming. Suggest one small, realistic next step, and ask for missing context if it changes your answer. Do not treat this as a diagnosis."
+  },
+  {
+    "title": "Think it through: Find the simplest useful next step",
+    "prompt": "Help me consider this everyday situation: [describe the situation]. Focus on this principle: find the simplest useful next step. Separate what I know from what I am assuming. Suggest one small, realistic next step, and ask for missing context if it changes your answer. Do not treat this as a diagnosis."
+  },
+  {
+    "title": "Think it through: Listen to body cues with curiosity",
+    "prompt": "Help me consider this everyday situation: [describe the situation]. Focus on this principle: listen to body cues with curiosity. Separate what I know from what I am assuming. Suggest one small, realistic next step, and ask for missing context if it changes your answer. Do not treat this as a diagnosis."
+  },
+  {
+    "title": "Think it through: Work with the part you can influence",
+    "prompt": "Help me consider this everyday situation: [describe the situation]. Focus on this principle: work with the part you can influence. Separate what I know from what I am assuming. Suggest one small, realistic next step, and ask for missing context if it changes your answer. Do not treat this as a diagnosis."
+  },
+  {
+    "title": "Think it through: Choose some time without an audience",
+    "prompt": "Help me consider this everyday situation: [describe the situation]. Focus on this principle: choose some time without an audience. Separate what I know from what I am assuming. Suggest one small, realistic next step, and ask for missing context if it changes your answer. Do not treat this as a diagnosis."
+  },
+  {
+    "title": "Think it through: Compare with more context",
+    "prompt": "Help me consider this everyday situation: [describe the situation]. Focus on this principle: compare with more context. Separate what I know from what I am assuming. Suggest one small, realistic next step, and ask for missing context if it changes your answer. Do not treat this as a diagnosis."
+  },
+  {
+    "title": "Think it through: Return to what is happening now",
+    "prompt": "Help me consider this everyday situation: [describe the situation]. Focus on this principle: return to what is happening now. Separate what I know from what I am assuming. Suggest one small, realistic next step, and ask for missing context if it changes your answer. Do not treat this as a diagnosis."
+  },
+  {
+    "title": "Think it through: Choose within real circumstances",
+    "prompt": "Help me consider this everyday situation: [describe the situation]. Focus on this principle: choose within real circumstances. Separate what I know from what I am assuming. Suggest one small, realistic next step, and ask for missing context if it changes your answer. Do not treat this as a diagnosis."
+  }
+]

@@ -1,0 +1,842 @@
+[
+  {
+    "id": "escape-01-1",
+    "lesson": 0,
+    "theme": "Check the urgency",
+    "category": "Study",
+    "title": "Three assignments feel equally urgent",
+    "action": "List the due dates. Choose the nearest real deadline and write the first ten-minute step."
+  },
+  {
+    "id": "escape-01-2",
+    "lesson": 0,
+    "theme": "Check the urgency",
+    "category": "Work",
+    "title": "A colleague marks every message urgent",
+    "action": "Ask when the answer is needed and what depends on it. Agree which existing task should move."
+  },
+  {
+    "id": "escape-01-3",
+    "lesson": 0,
+    "theme": "Check the urgency",
+    "category": "Relationships",
+    "title": "A message arrives during an important conversation",
+    "action": "Keep listening. Unless someone needs immediate help, reply after the conversation."
+  },
+  {
+    "id": "escape-01-4",
+    "lesson": 0,
+    "theme": "Check the urgency",
+    "category": "Daily life",
+    "title": "The whole day feels like an emergency",
+    "action": "Separate what must happen today from what can wait. Begin with one concrete need."
+  },
+  {
+    "id": "escape-01-5",
+    "lesson": 0,
+    "theme": "Check the urgency",
+    "category": "Online",
+    "title": "A countdown makes you want to buy now",
+    "action": "Close the offer for ten minutes. Check whether you wanted the item before seeing the countdown."
+  },
+  {
+    "id": "escape-02-1",
+    "lesson": 1,
+    "theme": "Choose where attention goes",
+    "category": "Study",
+    "title": "You reread a page without taking it in",
+    "action": "Read one paragraph, close the book, and explain its main idea in your own words."
+  },
+  {
+    "id": "escape-02-2",
+    "lesson": 1,
+    "theme": "Choose where attention goes",
+    "category": "Work",
+    "title": "Messages interrupt every few minutes",
+    "action": "Choose one short focus period. Mute nonessential alerts and tell teammates when you will check back."
+  },
+  {
+    "id": "escape-02-3",
+    "lesson": 1,
+    "theme": "Choose where attention goes",
+    "category": "Relationships",
+    "title": "You keep checking your phone while someone talks",
+    "action": "Place it face down out of reach. Ask one follow-up question about what they just said."
+  },
+  {
+    "id": "escape-02-4",
+    "lesson": 1,
+    "theme": "Choose where attention goes",
+    "category": "Daily life",
+    "title": "You enter a room and forget why",
+    "action": "Stop moving, recall what you were doing, and retrace the last step if needed."
+  },
+  {
+    "id": "escape-02-5",
+    "lesson": 1,
+    "theme": "Choose where attention goes",
+    "category": "Online",
+    "title": "One short video becomes half an hour",
+    "action": "Close the feed and name what you meant to do when you opened the phone. Start that action or put it away."
+  },
+  {
+    "id": "escape-03-1",
+    "lesson": 2,
+    "theme": "Practise a manageable challenge",
+    "category": "Study",
+    "title": "You avoid a difficult practice question",
+    "action": "Try the first step for three minutes. Mark what you do not understand and ask a specific question."
+  },
+  {
+    "id": "escape-03-2",
+    "lesson": 2,
+    "theme": "Practise a manageable challenge",
+    "category": "Work",
+    "title": "You are nervous about contributing in a meeting",
+    "action": "Prepare one sentence beforehand. Offer it at an appropriate pause, or send it afterward."
+  },
+  {
+    "id": "escape-03-3",
+    "lesson": 2,
+    "theme": "Practise a manageable challenge",
+    "category": "Relationships",
+    "title": "You avoid asking for what you need",
+    "action": "Practise one clear request aloud. Share it when both of you have time to listen."
+  },
+  {
+    "id": "escape-03-4",
+    "lesson": 2,
+    "theme": "Practise a manageable challenge",
+    "category": "Daily life",
+    "title": "An unfamiliar task feels too large",
+    "action": "Choose a low-stakes first attempt. Decide what you will learn from trying it, even if it is imperfect."
+  },
+  {
+    "id": "escape-03-5",
+    "lesson": 2,
+    "theme": "Practise a manageable challenge",
+    "category": "Online",
+    "title": "You want to share work but fear criticism",
+    "action": "Send a small draft to one trusted person and ask for feedback on one specific aspect."
+  },
+  {
+    "id": "escape-04-1",
+    "lesson": 3,
+    "theme": "Notice a thought without obeying it",
+    "category": "Study",
+    "title": "One low mark makes you think you cannot learn",
+    "action": "Write the specific skill the question tested. Practise that skill once before judging your ability."
+  },
+  {
+    "id": "escape-04-2",
+    "lesson": 3,
+    "theme": "Notice a thought without obeying it",
+    "category": "Work",
+    "title": "A slow reply feels like proof you did something wrong",
+    "action": "List one other plausible explanation. Wait for more information before sending another message."
+  },
+  {
+    "id": "escape-04-3",
+    "lesson": 3,
+    "theme": "Notice a thought without obeying it",
+    "category": "Relationships",
+    "title": "You assume a friend is angry with you",
+    "action": "Ask gently whether something is wrong rather than treating your guess as a fact."
+  },
+  {
+    "id": "escape-04-4",
+    "lesson": 3,
+    "theme": "Notice a thought without obeying it",
+    "category": "Daily life",
+    "title": "You predict that tomorrow will go badly",
+    "action": "Name what you actually know. Prepare for one likely difficulty and leave the rest undecided."
+  },
+  {
+    "id": "escape-04-5",
+    "lesson": 3,
+    "theme": "Notice a thought without obeying it",
+    "category": "Online",
+    "title": "A stranger’s comment keeps replaying in your head",
+    "action": "Label it as one person’s comment. Decide whether it contains useful feedback; close it if it does not."
+  },
+  {
+    "id": "escape-05-1",
+    "lesson": 4,
+    "theme": "Pause before joining the outrage",
+    "category": "Study",
+    "title": "A class group is spreading an accusation",
+    "action": "Do not forward it. Ask for a reliable source and avoid naming someone as guilty without evidence."
+  },
+  {
+    "id": "escape-05-2",
+    "lesson": 4,
+    "theme": "Pause before joining the outrage",
+    "category": "Work",
+    "title": "An angry email makes you want to fire back",
+    "action": "Save a draft. Return to the actual problem and ask for the specific change you need."
+  },
+  {
+    "id": "escape-05-3",
+    "lesson": 4,
+    "theme": "Pause before joining the outrage",
+    "category": "Relationships",
+    "title": "A family argument becomes a competition",
+    "action": "Lower your voice, name the point you both care about, and suggest a pause if nobody can listen."
+  },
+  {
+    "id": "escape-05-4",
+    "lesson": 4,
+    "theme": "Pause before joining the outrage",
+    "category": "Daily life",
+    "title": "A rumour in your neighbourhood makes you anxious",
+    "action": "Find the original information through a reliable local source before repeating it."
+  },
+  {
+    "id": "escape-05-5",
+    "lesson": 4,
+    "theme": "Pause before joining the outrage",
+    "category": "Online",
+    "title": "A headline makes you furious before you read it",
+    "action": "Open the full report, check its date and source, and decide whether sharing it would help."
+  },
+  {
+    "id": "escape-06-1",
+    "lesson": 5,
+    "theme": "Make the helpful choice easier",
+    "category": "Study",
+    "title": "You cannot find your notes when you want to study",
+    "action": "Prepare the next page and pen before stopping today. Leave them where you will start tomorrow."
+  },
+  {
+    "id": "escape-06-2",
+    "lesson": 5,
+    "theme": "Make the helpful choice easier",
+    "category": "Work",
+    "title": "Starting a recurring task takes too long",
+    "action": "Make a simple template with the first three steps and keep it beside the task."
+  },
+  {
+    "id": "escape-06-3",
+    "lesson": 5,
+    "theme": "Make the helpful choice easier",
+    "category": "Relationships",
+    "title": "You want more time together but forget to plan it",
+    "action": "Choose a regular small check-in and agree on a reminder both people welcome."
+  },
+  {
+    "id": "escape-06-4",
+    "lesson": 5,
+    "theme": "Make the helpful choice easier",
+    "category": "Daily life",
+    "title": "You keep forgetting an ordinary household task",
+    "action": "Put a visible cue beside an existing routine, without blocking safety or accessibility."
+  },
+  {
+    "id": "escape-06-5",
+    "lesson": 5,
+    "theme": "Make the helpful choice easier",
+    "category": "Online",
+    "title": "You open an app before thinking",
+    "action": "Move it off the home screen and turn off its nonessential notifications."
+  },
+  {
+    "id": "escape-07-1",
+    "lesson": 6,
+    "theme": "Use precise words instead of fixed labels",
+    "category": "Study",
+    "title": "You call yourself lazy after avoiding revision",
+    "action": "Replace the label with a description: I have not started because I do not know which topic comes first. Choose one topic."
+  },
+  {
+    "id": "escape-07-2",
+    "lesson": 6,
+    "theme": "Use precise words instead of fixed labels",
+    "category": "Work",
+    "title": "A teammate gets labelled difficult",
+    "action": "Describe the specific missed agreement and ask what prevented it. Agree the next observable step."
+  },
+  {
+    "id": "escape-07-3",
+    "lesson": 6,
+    "theme": "Use precise words instead of fixed labels",
+    "category": "Relationships",
+    "title": "An argument turns into you always and you never",
+    "action": "Name one recent example and how it affected you. Ask about one change rather than their whole character."
+  },
+  {
+    "id": "escape-07-4",
+    "lesson": 6,
+    "theme": "Use precise words instead of fixed labels",
+    "category": "Daily life",
+    "title": "You describe a whole day as a failure",
+    "action": "Name one thing that did not work and one thing that did. Adjust the next action, not your whole identity."
+  },
+  {
+    "id": "escape-07-5",
+    "lesson": 6,
+    "theme": "Use precise words instead of fixed labels",
+    "category": "Online",
+    "title": "A profile label makes you dismiss someone",
+    "action": "Read the actual statement. Respond to the idea without assuming everything else about the person."
+  },
+  {
+    "id": "escape-08-1",
+    "lesson": 7,
+    "theme": "Make room for quiet",
+    "category": "Study",
+    "title": "You study with several streams playing",
+    "action": "Try one short section with fewer inputs. Compare how easily you can explain what you read."
+  },
+  {
+    "id": "escape-08-2",
+    "lesson": 7,
+    "theme": "Make room for quiet",
+    "category": "Work",
+    "title": "Every gap between tasks fills with messages",
+    "action": "Leave the next two-minute gap empty. Look away from the screen and let your eyes rest."
+  },
+  {
+    "id": "escape-08-3",
+    "lesson": 7,
+    "theme": "Make room for quiet",
+    "category": "Relationships",
+    "title": "You rush to fill every pause in a conversation",
+    "action": "Let the pause last one more breath. Give the other person room to continue."
+  },
+  {
+    "id": "escape-08-4",
+    "lesson": 7,
+    "theme": "Make room for quiet",
+    "category": "Daily life",
+    "title": "You turn on a screen the moment you get home",
+    "action": "Wait a minute. Notice whether you want company, food, rest, or something to do."
+  },
+  {
+    "id": "escape-08-5",
+    "lesson": 7,
+    "theme": "Make room for quiet",
+    "category": "Online",
+    "title": "You play background content even when it feels tiring",
+    "action": "Pause it for a few minutes. Choose deliberately whether you want it back."
+  },
+  {
+    "id": "escape-09-1",
+    "lesson": 8,
+    "theme": "Let approval be information",
+    "category": "Study",
+    "title": "You change an answer just to match classmates",
+    "action": "Check the reasoning and evidence. Keep or revise the answer because of those, rather than the number of people choosing it."
+  },
+  {
+    "id": "escape-09-2",
+    "lesson": 8,
+    "theme": "Let approval be information",
+    "category": "Work",
+    "title": "You say yes to work you cannot reasonably finish",
+    "action": "State your current workload and offer a realistic deadline or ask which priority should move."
+  },
+  {
+    "id": "escape-09-3",
+    "lesson": 8,
+    "theme": "Let approval be information",
+    "category": "Relationships",
+    "title": "You agree with someone to avoid mild disapproval",
+    "action": "Choose a calm, respectful sentence that states what you actually think."
+  },
+  {
+    "id": "escape-09-4",
+    "lesson": 8,
+    "theme": "Let approval be information",
+    "category": "Daily life",
+    "title": "You feel guilty choosing something ordinary for yourself",
+    "action": "Check whether the choice breaks an actual responsibility. If it does not, allow it without seeking extra permission."
+  },
+  {
+    "id": "escape-09-5",
+    "lesson": 8,
+    "theme": "Let approval be information",
+    "category": "Online",
+    "title": "A post feels unsuccessful without enough likes",
+    "action": "Choose a useful measure you control, such as clarity or helping one person, before checking the response."
+  },
+  {
+    "id": "escape-10-1",
+    "lesson": 9,
+    "theme": "Begin before everything feels ready",
+    "category": "Study",
+    "title": "You wait for motivation to start an essay",
+    "action": "Write an imperfect first sentence or a three-point outline. Stop after two minutes if needed."
+  },
+  {
+    "id": "escape-10-2",
+    "lesson": 9,
+    "theme": "Begin before everything feels ready",
+    "category": "Work",
+    "title": "A blank document makes you delay a proposal",
+    "action": "Add the problem, the intended reader, and the desired decision as three rough lines."
+  },
+  {
+    "id": "escape-10-3",
+    "lesson": 9,
+    "theme": "Begin before everything feels ready",
+    "category": "Relationships",
+    "title": "You keep postponing an ordinary apology",
+    "action": "Write a brief acknowledgement of what you did and its impact. Share it without demanding reassurance."
+  },
+  {
+    "id": "escape-10-4",
+    "lesson": 9,
+    "theme": "Begin before everything feels ready",
+    "category": "Daily life",
+    "title": "A small chore has been waiting for days",
+    "action": "Do the first visible step only: open the envelope, put one item away, or gather what you need."
+  },
+  {
+    "id": "escape-10-5",
+    "lesson": 9,
+    "theme": "Begin before everything feels ready",
+    "category": "Online",
+    "title": "You collect tutorials without trying the skill",
+    "action": "Close the next tutorial and practise one step from the one you already watched."
+  },
+  {
+    "id": "escape-11-1",
+    "lesson": 10,
+    "theme": "Reduce the open loops",
+    "category": "Study",
+    "title": "You switch between subjects because you fear forgetting one",
+    "action": "Write a short study list. Choose one topic and a clear stopping point before switching."
+  },
+  {
+    "id": "escape-11-2",
+    "lesson": 10,
+    "theme": "Reduce the open loops",
+    "category": "Work",
+    "title": "Your mind keeps rehearsing unfinished work after hours",
+    "action": "Record the next action and when you will return to it. Use a simple end-of-work routine."
+  },
+  {
+    "id": "escape-11-3",
+    "lesson": 10,
+    "theme": "Reduce the open loops",
+    "category": "Relationships",
+    "title": "A small unresolved disagreement keeps distracting you",
+    "action": "Choose a calm time to talk and note the point you want to understand. You do not have to rehearse the whole conversation."
+  },
+  {
+    "id": "escape-11-4",
+    "lesson": 10,
+    "theme": "Reduce the open loops",
+    "category": "Daily life",
+    "title": "You remember errands only when you cannot do them",
+    "action": "Keep one accessible list and check it at a useful time rather than starting separate lists."
+  },
+  {
+    "id": "escape-11-5",
+    "lesson": 10,
+    "theme": "Reduce the open loops",
+    "category": "Online",
+    "title": "You have dozens of tabs open just in case",
+    "action": "Save the genuinely useful links in one place and close the rest. Reopen only what the current task needs."
+  },
+  {
+    "id": "escape-12-1",
+    "lesson": 11,
+    "theme": "Question the message behind the comparison",
+    "category": "Study",
+    "title": "An advertisement makes your study setup feel inadequate",
+    "action": "Check what the next assignment actually requires. Use what you already have before buying an upgrade."
+  },
+  {
+    "id": "escape-12-2",
+    "lesson": 11,
+    "theme": "Question the message behind the comparison",
+    "category": "Work",
+    "title": "A success story makes your career feel too slow",
+    "action": "Identify one relevant skill you want to develop and one realistic opportunity to practise it."
+  },
+  {
+    "id": "escape-12-3",
+    "lesson": 11,
+    "theme": "Question the message behind the comparison",
+    "category": "Relationships",
+    "title": "An idealised family image makes yours feel wrong",
+    "action": "Name one form of care that matters in your own household. Make room for differences in circumstances."
+  },
+  {
+    "id": "escape-12-4",
+    "lesson": 11,
+    "theme": "Question the message behind the comparison",
+    "category": "Daily life",
+    "title": "A product promises to fix your whole life",
+    "action": "Write the specific problem you want solved. Check whether the product can reasonably do that one thing."
+  },
+  {
+    "id": "escape-12-5",
+    "lesson": 11,
+    "theme": "Question the message behind the comparison",
+    "category": "Online",
+    "title": "An edited image changes how you feel about yourself",
+    "action": "Step away from the account and choose an activity that reconnects you with what your body lets you do."
+  },
+  {
+    "id": "escape-13-1",
+    "lesson": 12,
+    "theme": "State a clear boundary",
+    "category": "Study",
+    "title": "Classmates expect you to do the whole group project",
+    "action": "List the agreed tasks and ask everyone to choose their share. Raise unresolved issues with the course supervisor."
+  },
+  {
+    "id": "escape-13-2",
+    "lesson": 12,
+    "theme": "State a clear boundary",
+    "category": "Work",
+    "title": "You receive nonessential work requests late at night",
+    "action": "State your normal reply hours and clarify the agreed process for actual emergencies."
+  },
+  {
+    "id": "escape-13-3",
+    "lesson": 12,
+    "theme": "State a clear boundary",
+    "category": "Relationships",
+    "title": "Someone keeps pressing after you decline a plan",
+    "action": "Repeat your answer briefly. Offer an alternative only if you want to."
+  },
+  {
+    "id": "escape-13-4",
+    "lesson": 12,
+    "theme": "State a clear boundary",
+    "category": "Daily life",
+    "title": "A visitor stays beyond your available time",
+    "action": "Say when you need to finish and begin the practical goodbye."
+  },
+  {
+    "id": "escape-13-5",
+    "lesson": 12,
+    "theme": "State a clear boundary",
+    "category": "Online",
+    "title": "A group chat expects you to answer constantly",
+    "action": "Mute it and explain your reply availability if useful. Check at a time you choose."
+  },
+  {
+    "id": "escape-14-1",
+    "lesson": 13,
+    "theme": "Name the feeling and the next decision",
+    "category": "Study",
+    "title": "You keep analysing why you cannot start studying",
+    "action": "Name the immediate difficulty: confusion, tiredness, fear, or something else. Choose a response to that difficulty."
+  },
+  {
+    "id": "escape-14-2",
+    "lesson": 13,
+    "theme": "Name the feeling and the next decision",
+    "category": "Work",
+    "title": "You rehearse a meeting long after it ends",
+    "action": "Write one thing to learn and one action if needed. Close the review when neither adds anything new."
+  },
+  {
+    "id": "escape-14-3",
+    "lesson": 13,
+    "theme": "Name the feeling and the next decision",
+    "category": "Relationships",
+    "title": "You replay a disagreement to prove you were right",
+    "action": "Notice the feeling beneath the argument. Decide what you want the next conversation to achieve."
+  },
+  {
+    "id": "escape-14-4",
+    "lesson": 13,
+    "theme": "Name the feeling and the next decision",
+    "category": "Daily life",
+    "title": "You cannot decide between two ordinary options",
+    "action": "Choose the criteria that matter, set a short decision limit, and accept a good-enough choice."
+  },
+  {
+    "id": "escape-14-5",
+    "lesson": 13,
+    "theme": "Name the feeling and the next decision",
+    "category": "Online",
+    "title": "You search the same worry without finding new information",
+    "action": "Stop the search for now. Note the actual unanswered question and where reliable help might answer it."
+  },
+  {
+    "id": "escape-15-1",
+    "lesson": 14,
+    "theme": "Find the simplest useful next step",
+    "category": "Study",
+    "title": "A large syllabus makes you freeze",
+    "action": "Choose one topic and one practice question. Use the result to decide what to revise next."
+  },
+  {
+    "id": "escape-15-2",
+    "lesson": 14,
+    "theme": "Find the simplest useful next step",
+    "category": "Work",
+    "title": "A project plan has become difficult to follow",
+    "action": "State the desired result in one sentence, then list the next three necessary actions."
+  },
+  {
+    "id": "escape-15-3",
+    "lesson": 14,
+    "theme": "Find the simplest useful next step",
+    "category": "Relationships",
+    "title": "You want to repair every issue in a relationship at once",
+    "action": "Choose one recurring problem to discuss calmly. Make one specific request."
+  },
+  {
+    "id": "escape-15-4",
+    "lesson": 14,
+    "theme": "Find the simplest useful next step",
+    "category": "Daily life",
+    "title": "You have too many competing improvement plans",
+    "action": "Keep one useful action for this week and pause the rest without treating them as failures."
+  },
+  {
+    "id": "escape-15-5",
+    "lesson": 14,
+    "theme": "Find the simplest useful next step",
+    "category": "Online",
+    "title": "You spend more time choosing a tool than doing the task",
+    "action": "Use a tool you already know for a small first draft. Reassess only if a specific limitation appears."
+  },
+  {
+    "id": "escape-16-1",
+    "lesson": 15,
+    "theme": "Listen to body cues with curiosity",
+    "category": "Study",
+    "title": "Your shoulders tighten while you revise",
+    "action": "Adjust your position, relax your hands, and take a comfortable movement break."
+  },
+  {
+    "id": "escape-16-2",
+    "lesson": 15,
+    "theme": "Listen to body cues with curiosity",
+    "category": "Work",
+    "title": "You clench your jaw during a difficult call",
+    "action": "Unclench gently, slow your reply, and write down the issue you need to address."
+  },
+  {
+    "id": "escape-16-3",
+    "lesson": 15,
+    "theme": "Listen to body cues with curiosity",
+    "category": "Relationships",
+    "title": "Your chest feels tense before a sensitive conversation",
+    "action": "Pause and check what would make the conversation safer or more manageable. Choose another time or support if needed."
+  },
+  {
+    "id": "escape-16-4",
+    "lesson": 15,
+    "theme": "Listen to body cues with curiosity",
+    "category": "Daily life",
+    "title": "You lose track of meals and breaks while busy",
+    "action": "Check your basic needs and choose one to meet now. Set a helpful reminder for the next break."
+  },
+  {
+    "id": "escape-16-5",
+    "lesson": 15,
+    "theme": "Listen to body cues with curiosity",
+    "category": "Online",
+    "title": "You feel physically restless after a long scroll",
+    "action": "Put the device aside and change position or take a comfortable short walk."
+  },
+  {
+    "id": "escape-17-1",
+    "lesson": 16,
+    "theme": "Work with the part you can influence",
+    "category": "Study",
+    "title": "You keep checking for an exam result",
+    "action": "Choose a reasonable time to check again. Put your next hour toward rest or a task you can influence."
+  },
+  {
+    "id": "escape-17-2",
+    "lesson": 16,
+    "theme": "Work with the part you can influence",
+    "category": "Work",
+    "title": "A client has not decided about your proposal",
+    "action": "Confirm the decision timeline once. Improve the next useful piece of work while you wait."
+  },
+  {
+    "id": "escape-17-3",
+    "lesson": 16,
+    "theme": "Work with the part you can influence",
+    "category": "Relationships",
+    "title": "You want to control how someone receives an apology",
+    "action": "Take responsibility clearly and allow them their response and time."
+  },
+  {
+    "id": "escape-17-4",
+    "lesson": 16,
+    "theme": "Work with the part you can influence",
+    "category": "Daily life",
+    "title": "Uncertainty makes you postpone a reasonable plan",
+    "action": "Choose a small reversible step and a point at which you will reconsider it."
+  },
+  {
+    "id": "escape-17-5",
+    "lesson": 16,
+    "theme": "Work with the part you can influence",
+    "category": "Online",
+    "title": "You refresh the response to your work repeatedly",
+    "action": "Set a later check-in time. Spend the interval on creating, resting, or another real-world task."
+  },
+  {
+    "id": "escape-18-1",
+    "lesson": 17,
+    "theme": "Choose some time without an audience",
+    "category": "Study",
+    "title": "You cannot tell whether you like a subject or just its reputation",
+    "action": "Try one small exercise privately. Notice what interests you about the task itself."
+  },
+  {
+    "id": "escape-18-2",
+    "lesson": 17,
+    "theme": "Choose some time without an audience",
+    "category": "Work",
+    "title": "You lose track of your own priorities in a busy team",
+    "action": "Write what you are responsible for and the next action before opening the group discussion."
+  },
+  {
+    "id": "escape-18-3",
+    "lesson": 17,
+    "theme": "Choose some time without an audience",
+    "category": "Relationships",
+    "title": "You fill every free evening because saying no feels awkward",
+    "action": "Protect a small period for rest or your own interests and communicate your availability clearly."
+  },
+  {
+    "id": "escape-18-4",
+    "lesson": 17,
+    "theme": "Choose some time without an audience",
+    "category": "Daily life",
+    "title": "You do not know what you want to do with a free hour",
+    "action": "Spend five minutes without input. Choose something that meets your actual energy and interest."
+  },
+  {
+    "id": "escape-18-5",
+    "lesson": 17,
+    "theme": "Choose some time without an audience",
+    "category": "Online",
+    "title": "You photograph every pleasant moment before enjoying it",
+    "action": "Keep one moment for yourself. Notice its details before deciding whether you want to share it."
+  },
+  {
+    "id": "escape-19-1",
+    "lesson": 18,
+    "theme": "Compare with more context",
+    "category": "Study",
+    "title": "A classmate seems to learn everything faster",
+    "action": "Ask about one method that helped them. Compare your own understanding before and after trying it."
+  },
+  {
+    "id": "escape-19-2",
+    "lesson": 18,
+    "theme": "Compare with more context",
+    "category": "Work",
+    "title": "A peer’s promotion makes your progress feel invisible",
+    "action": "Review what you have learned and what role you want next. Ask for specific feedback or an opportunity."
+  },
+  {
+    "id": "escape-19-3",
+    "lesson": 18,
+    "theme": "Compare with more context",
+    "category": "Relationships",
+    "title": "Another relationship looks perfect from outside",
+    "action": "Notice what you actually value in yours and one honest conversation that could help it."
+  },
+  {
+    "id": "escape-19-4",
+    "lesson": 18,
+    "theme": "Compare with more context",
+    "category": "Daily life",
+    "title": "Someone else’s routine makes yours seem inadequate",
+    "action": "Adapt one idea to your available time and responsibilities rather than copying their whole routine."
+  },
+  {
+    "id": "escape-19-5",
+    "lesson": 18,
+    "theme": "Compare with more context",
+    "category": "Online",
+    "title": "A feed shows endless achievements",
+    "action": "Remember you are seeing selected moments. Leave the feed and do one thing connected to your own priorities."
+  },
+  {
+    "id": "escape-20-1",
+    "lesson": 19,
+    "theme": "Return to what is happening now",
+    "category": "Study",
+    "title": "You keep thinking about an answer you got wrong",
+    "action": "Write what the error teaches you and solve one similar question. Then return to the current topic."
+  },
+  {
+    "id": "escape-20-2",
+    "lesson": 19,
+    "theme": "Return to what is happening now",
+    "category": "Work",
+    "title": "You worry about next month while today’s task waits",
+    "action": "Give the future issue a planning slot. Write the first step of today’s task and begin it."
+  },
+  {
+    "id": "escape-20-3",
+    "lesson": 19,
+    "theme": "Return to what is happening now",
+    "category": "Relationships",
+    "title": "An old disagreement enters an unrelated conversation",
+    "action": "Name that the older issue needs its own time. Return to the current question or arrange a separate discussion."
+  },
+  {
+    "id": "escape-20-4",
+    "lesson": 19,
+    "theme": "Return to what is happening now",
+    "category": "Daily life",
+    "title": "You rush through a pleasant meal thinking about later",
+    "action": "Notice the taste and texture of one bite. Let the next task wait until you finish."
+  },
+  {
+    "id": "escape-20-5",
+    "lesson": 19,
+    "theme": "Return to what is happening now",
+    "category": "Online",
+    "title": "You read tomorrow’s problems late into the night",
+    "action": "Save one reliable update for a chosen time. Close the feed and return to your evening routine."
+  },
+  {
+    "id": "escape-21-1",
+    "lesson": 20,
+    "theme": "Choose within real circumstances",
+    "category": "Study",
+    "title": "A difficult timetable makes learning feel impossible",
+    "action": "Identify one controllable study window and one person who could help you adjust the workload."
+  },
+  {
+    "id": "escape-21-2",
+    "lesson": 20,
+    "theme": "Choose within real circumstances",
+    "category": "Work",
+    "title": "An unhelpful process keeps blocking progress",
+    "action": "Document the specific problem and suggest one feasible change through the appropriate channel."
+  },
+  {
+    "id": "escape-21-3",
+    "lesson": 20,
+    "theme": "Choose within real circumstances",
+    "category": "Relationships",
+    "title": "A long-standing expectation no longer fits you",
+    "action": "Clarify what matters to you now. Choose a safe, respectful first conversation or seek support."
+  },
+  {
+    "id": "escape-21-4",
+    "lesson": 20,
+    "theme": "Choose within real circumstances",
+    "category": "Daily life",
+    "title": "You feel you must change everything to begin",
+    "action": "Choose one small decision available today. Let that be a beginning rather than a promise to fix your whole life."
+  },
+  {
+    "id": "escape-21-5",
+    "lesson": 20,
+    "theme": "Choose within real circumstances",
+    "category": "Online",
+    "title": "You feel unable to leave a draining online space",
+    "action": "Mute or leave one channel you do not need. Replace the next visit with a chosen activity or connection."
+  }
+]

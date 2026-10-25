@@ -1,0 +1,15 @@
+Human Within Server running at http://0.0.0.0:3000
+(node:7776) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+<anonymous_script>:1
+'{ pin:1234}'
+^
+
+SyntaxError: Unexpected token ''', "'{ pin:1234}'" is not valid JSON
+    at JSON.parse (<anonymous>)
+    at IncomingMessage.<anonymous> (d:\ninty nine\server.cjs:57:28)
+    at IncomingMessage.emit (node:events:508:28)
+    at endReadableNT (node:internal/streams/readable:1701:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:89:21)
+
+Node.js v24.11.1

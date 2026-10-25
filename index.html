@@ -1,20 +1,4 @@
 <!DOCTYPE html>
-<<<<<<< HEAD
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Intro Smoke Test - 12 Products</title>
-    <style>
-        body { margin: 0; font-family: Arial, sans-serif; }
-        video { width: 100%; }
-    </style>
-</head>
-<body>
-    
-</body>
-</html>
-=======
 <html lang="en" class="dark">
 <head>
   <meta charset="UTF-8">
@@ -89,38 +73,6 @@
     #intro-flow.intro-hidden { opacity: 0; visibility: hidden; pointer-events: none; }
 
     /* Entry portal — the very first screen of the flow */
-    /* Video intro stage */
-    #intro-video-stage {
-      position: absolute; inset: 0; z-index: 20;
-      background: #000;
-      display: flex; flex-direction: column; justify-content: center; align-items: center;
-      transition: opacity 1s ease, visibility 1s ease;
-    }
-    #intro-video-stage.intro-hidden { opacity: 0; visibility: hidden; pointer-events: none; }
-    #intro-video-stage video {
-      width: 100%; height: 100%; object-fit: cover; display: block;
-    }
-    #video-counter {
-      position: absolute; top: 22px; right: 24px; z-index: 2;
-      font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 3px;
-      color: rgba(255,255,255,.7); text-transform: uppercase;
-      background: rgba(0,0,0,.45); padding: 6px 12px; border-radius: 20px;
-      border: 1px solid rgba(255,255,255,.15);
-    }
-    #video-skip {
-      position: absolute; bottom: 24px; right: 24px; z-index: 2;
-      background: rgba(0,0,0,.45); border: 1px solid rgba(255,255,255,.25);
-      color: rgba(255,255,255,.7); font-family: 'JetBrains Mono', monospace;
-      font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
-      padding: 8px 16px; border-radius: 20px; cursor: pointer;
-    }
-    #video-skip:hover { color: #fff; border-color: rgba(255,255,255,.6); }
-    #video-label {
-      position: absolute; top: 22px; left: 24px; z-index: 2;
-      font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 4px;
-      color: rgba(0,240,255,.6); text-transform: uppercase;
-    }
-
     #intro-entry {
       position: absolute; inset: 0; z-index: 12;
       background: radial-gradient(circle at center, #0a0d16 0%, #010204 100%);
@@ -284,7 +236,6 @@
     .is-hidden { display: none !important; }
 
     .section-tab {
-      white-space: nowrap;
       background: rgba(255,255,255,.03);
       border: 1px solid rgba(255,255,255,.1);
       color: rgba(255,255,255,.55);
@@ -409,16 +360,8 @@
 
   <!-- ============ STEP 1 — INTRO FLOW: runs first, then opens the 21-day protocol ============ -->
   <div id="intro-flow">
-  <!-- Video intro stage (plays 3 clips, then hands off to entry portal) -->
-  <div id="intro-video-stage">
-    <video id="introVideo" autoplay muted playsinline></video>
-    <div id="video-label">UGT // Intro</div>
-    <div id="video-counter">01 / 03</div>
-    <button id="video-skip">Skip →</button>
-  </div>
-
     <!-- Entry portal -->
-    <div id="intro-entry" class="intro-hidden">
+    <div id="intro-entry">
       <div class="intro-kicker">UGT // Sovereignty</div>
       <div class="intro-title">The Matrix Escape Manual</div>
       <div class="intro-sub">Breathe · 21 statements · one flow<br>Day 01 opens when it completes</div>
@@ -453,62 +396,6 @@
     </div>
   </div>
 
-  <script>
-  (function () {
-    const clips = ['videos/intro-1.mp4', 'videos/intro-2.mp4', 'videos/intro-3.mp4'];
-    const pad = n => (n < 10 ? '0' : '') + n;
-    const stage = document.getElementById('intro-video-stage');
-    const video = document.getElementById('introVideo');
-    const counter = document.getElementById('video-counter');
-    const skipBtn = document.getElementById('video-skip');
-    const entry = document.getElementById('intro-entry');
-    if (!stage || !video) return;
-
-    let idx = 0;
-    let done = false;
-    let timer = null;
-
-    function finish() {
-      if (done) return;
-      done = true;
-      if (timer) { clearTimeout(timer); timer = null; }
-      try { video.pause(); } catch (e) {}
-      stage.classList.add('intro-hidden');
-      if (entry) entry.classList.remove('intro-hidden');
-    }
-
-    function advance() {
-      if (done) return;
-      if (idx < clips.length - 1) {
-        load(idx + 1);
-      } else {
-        finish();
-      }
-    }
-
-    function load(i) {
-      idx = i;
-      if (counter) counter.textContent = pad(i + 1) + ' / ' + pad(clips.length);
-      const src = clips[i];
-      video.src = src;
-      video.load();
-      const p = video.play();
-      if (p && typeof p.catch === 'function') p.catch(function () {});
-      if (timer) clearTimeout(timer);
-      timer = setTimeout(advance, 3500);
-    }
-
-    video.addEventListener('ended', function () {
-      if (timer) { clearTimeout(timer); timer = null; }
-      advance();
-    });
-
-    if (skipBtn) skipBtn.addEventListener('click', finish);
-
-    load(0);
-  })();
-  </script>
-
   <header id="topbar" class="w-full border-b border-gray-800/80 bg-cyber-900/90 backdrop-blur-md sticky top-0 z-50 px-4 py-3 sm:px-8 flex items-center gap-3 sess-hide">
     <div class="w-full h-1.5 rounded-full bg-gray-800 overflow-hidden">
       <div id="progressBar" class="h-full rounded-full transition-all duration-500" style="width:0%;background:linear-gradient(90deg,#818cf8,#60a5fa,#00f0ff,#fbbf24,#f472b6)"></div>
@@ -518,7 +405,7 @@
 
   <main class="flex-1 max-w-5xl w-full mx-auto p-4 sm:p-6 lg:p-8 flex flex-col gap-6">
     <!-- ============ SECTION SWITCHER (hides during immersive sessions) ============ -->
-    <div class="flex gap-2 sess-hide overflow-x-auto pb-2" id="section-tabs">
+    <div class="flex gap-2 sess-hide" id="section-tabs">
       <button class="section-tab active" id="sec-protocol">21-Day Protocol</button>
       <button class="section-tab" id="sec-product3">Product 3 // Escape</button>
       <button class="section-tab" id="sec-product4">Product 4 // 66 Days of Awakening</button>
@@ -531,9 +418,6 @@
       <button class="section-tab" id="sec-product10">Product 10 // Frequencies</button>
       <button class="section-tab" id="sec-product11">Product 11 // Clarity</button>
       <button class="section-tab" id="sec-product12">Product 12 // ONE 99 Thoughts</button>
-      <button class="section-tab" id="sec-product13">Product 13 // Human Mirror 14 Worlds</button>
-      <button class="section-tab" id="sec-product14">Product 14 // Human Mirror Reimagined</button>
-      <button class="section-tab" id="sec-product15">Product 15 // Human Sanctuary 14 Scenes</button>
     </div>
   </main>\"\"\"
     </div>
@@ -1987,7 +1871,7 @@
 
       // --- section switcher (global) — protocol / product3 / journey ---
       window.switchSection = function (name) {
-        const panels = { protocol: 'app', product3: 'product3-panel', product4: 'awakening-panel', product5: 'one-god-panel', journey: 'journey-panel', product6: 'passage-panel', product7: 'sleep-panel', product8: 'loop-panel', product9: 'rewire-panel', product10: 'frequency-panel', product11: 'clarity-panel', product12: 'thoughts-panel', product13: 'mirror14-panel', product14: 'mirrorre-panel', product15: 'sanctuary-panel' };
+        const panels = { protocol: 'app', product3: 'product3-panel', product4: 'awakening-panel', product5: 'one-god-panel', journey: 'journey-panel', product6: 'passage-panel', product7: 'sleep-panel', product8: 'loop-panel', product9: 'rewire-panel', product10: 'frequency-panel', product11: 'clarity-panel', product12: 'thoughts-panel' };
         if (!panels[name]) return;
         const isP3 = name === 'product3';
         if (name !== 'protocol' && typeof protocolActive !== 'undefined' && protocolActive && typeof stopProtocolSession === 'function') {
@@ -2010,9 +1894,6 @@
         document.getElementById('sec-product10').classList.toggle('active', name === 'product10');
         document.getElementById('sec-product11').classList.toggle('active', name === 'product11');
         document.getElementById('sec-product12').classList.toggle('active', name === 'product12');
-        document.getElementById('sec-product13').classList.toggle('active', name === 'product13');
-        document.getElementById('sec-product14').classList.toggle('active', name === 'product14');
-        document.getElementById('sec-product15').classList.toggle('active', name === 'product15');
         
         if (isP3) p3Render();
       };
@@ -2160,38 +2041,10 @@
 
       // --- Product 12 (ONE — 99 Thoughts) ---
       document.getElementById('sec-product12').addEventListener('click', () => window.switchSection('product12'));
-document.getElementById('sec-product13').addEventListener('click', () => window.switchSection('product13'));
-document.getElementById('sec-product14').addEventListener('click', () => window.switchSection('product14'));
-document.getElementById('sec-product15').addEventListener('click', () => window.switchSection('product15'));
 
       // --- thoughts fullscreen ---
       document.getElementById('thoughts-fullscreen').addEventListener('click', () => {
         const fr = document.getElementById('thoughts-frame');
-        try {
-          if (document.fullscreenElement) document.exitFullscreen();
-          else if (fr.requestFullscreen) fr.requestFullscreen();
-        } catch (e) {}
-      });
-
-      // --- mirror14 fullscreen ---
-      document.getElementById('mirror14-fullscreen').addEventListener('click', () => {
-        const fr = document.getElementById('mirror14-frame');
-        try {
-          if (document.fullscreenElement) document.exitFullscreen();
-          else if (fr.requestFullscreen) fr.requestFullscreen();
-        } catch (e) {}
-      });
-      // --- mirrorre fullscreen ---
-      document.getElementById('mirrorre-fullscreen').addEventListener('click', () => {
-        const fr = document.getElementById('mirrorre-frame');
-        try {
-          if (document.fullscreenElement) document.exitFullscreen();
-          else if (fr.requestFullscreen) fr.requestFullscreen();
-        } catch (e) {}
-      });
-      // --- sanctuary fullscreen ---
-      document.getElementById('sanctuary-fullscreen').addEventListener('click', () => {
-        const fr = document.getElementById('sanctuary-frame');
         try {
           if (document.fullscreenElement) document.exitFullscreen();
           else if (fr.requestFullscreen) fr.requestFullscreen();
@@ -2674,4 +2527,3 @@ document.getElementById('sec-product15').addEventListener('click', () => window.
 
 </body>
 </html>
->>>>>>> eb500e4a407c4ed10e80e203a6efb595e1fc22cc
