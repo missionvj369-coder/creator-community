@@ -1,0 +1,339 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#030712"><meta name="description" content="The Human Mirror: a living visual journey through the universe, body, mind, nature and shared humanity.">
+<title>THE HUMAN MIRROR — THE THREAD</title>
+<style>
+:root{--bg:#030711;--white:#f4f5f6;--muted:#a6b7c5;--cyan:#79f6e7;--gold:#ffdba3;--pink:#ff8cc7;--violet:#b4a6ff}
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:var(--bg);color:var(--white);font-family:Inter,"Segoe UI",-apple-system,BlinkMacSystemFont,system-ui,sans-serif}button,input{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible,a:focus-visible{outline:2px solid var(--cyan);outline-offset:4px}button{touch-action:manipulation}a{color:#9cf9e9}
+#world{position:fixed;inset:0;width:100%;height:100%;display:block;touch-action:pan-y;cursor:grab}#world:active{cursor:grabbing}
+#lightVignette{position:fixed;inset:0;pointer-events:none;background:radial-gradient(ellipse 43% 42% at 68% 51%,transparent 12%,#02040b2d 85%),linear-gradient(90deg,#030711 0%,#030711ed 22%,#03071172 39%,transparent 61%);z-index:1;opacity:1}
+.noise{position:fixed;inset:0;pointer-events:none;z-index:2;opacity:.09;background-image:url('data:image/svg+xml,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="n"%3E%3CfeTurbulence type="fractalNoise" baseFrequency=".7" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" opacity=".28" filter="url(%23n)"/%3E%3C/svg%3E')}
+#app{position:relative;z-index:3;pointer-events:none;min-height:100svh;padding:27px clamp(21px,4.5vw,78px);display:flex;flex-direction:column;justify-content:space-between}#app button,#app input,#app a{pointer-events:auto}
+header{display:flex;align-items:center;justify-content:space-between;gap:15px}.brand{display:flex;align-items:center;gap:14px;letter-spacing:.19em;font-size:10px;font-weight:850;white-space:nowrap}.sigil{height:40px;width:40px;position:relative;border:1px solid #b7fff7ab;border-radius:50%;display:grid;place-items:center;box-shadow:0 0 22px #61f8ed24,inset 0 0 18px #61f8ed13}.sigil:before,.sigil:after{content:"";position:absolute;border:1px solid #9cfff0;width:17px;height:27px;border-radius:50%;transform:rotate(58deg)}.sigil:after{transform:rotate(-58deg)}.sigil i{display:block;width:5px;height:5px;border-radius:50%;background:#bafff8;box-shadow:0 0 16px #80ffff}.brand small{display:block;font-size:9px;letter-spacing:.23em;font-weight:550;color:#9eafc1;margin-top:5px}.header-actions{display:flex;gap:9px}.round{width:42px;height:42px;border:1px solid #b4d7df36;border-radius:50%;color:#e4f4f6;background:#0c1722ad;backdrop-filter:blur(15px);display:grid;place-items:center;font-size:18px}.round:hover{border-color:#bbfff3a0;background:#1a3542c2}.round.active{color:#9dfff6;border-color:#9dfff6}
+main{display:flex;align-items:center;flex:1;min-height:0;position:relative}.story{max-width:570px;transition:opacity .26s,transform .26s;pointer-events:none}.story.dimming{opacity:0;transform:translateY(15px)}.index{color:var(--cyan);font-size:10px;font-weight:850;letter-spacing:.29em;text-transform:uppercase;display:flex;align-items:center;gap:12px;margin-bottom:22px}.index:before{content:"";width:29px;height:1px;background:var(--cyan)}.title{font-size:clamp(57px,7.4vw,116px);font-weight:540;line-height:.94;letter-spacing:-.085em;margin:0;max-width:680px;font-family:Georgia,"Iowan Old Style", "Times New Roman",serif;text-wrap:balance}.title em{font-weight:400;color:var(--cyan);font-style:italic}#subtitle{color:#f3f5f7;font-size:clamp(17px,1.6vw,23px);font-weight:450;letter-spacing:-.024em;line-height:1.35;max-width:440px;margin:24px 0 13px}#explain{font-size:clamp(13px,1.06vw,15px);line-height:1.72;max-width:410px;color:#a6b7c6;margin:0}.story-foot{margin-top:28px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;pointer-events:auto}.pill{border:1px solid #bdfff454;border-radius:100px;background:#14282cc4;color:#d1fffa;text-transform:uppercase;font-size:10px;letter-spacing:.13em;padding:12px 19px;min-height:44px;font-weight:850}.pill:hover{background:#234c52}.info-tag{color:#8da8b5;font-size:11px;letter-spacing:.02em;line-height:1.5;max-width:260px}#action-note{color:#ffddb1;font-size:12px;line-height:1.65;margin-top:13px;max-width:425px;min-height:18px}
+#progress-wrap{position:relative;margin-top:10px;pointer-events:auto;max-width:1100px;width:100%;align-self:center;padding:21px 18px 5px;background:linear-gradient(180deg,#0b1824d5,#08121ebd);border:1px solid #98c9d32f;border-radius:21px;backdrop-filter:blur(20px);box-shadow:0 22px 70px #0005}
+#progress-header{display:flex;align-items:center;justify-content:space-between;gap:20px;margin-bottom:12px}.progress-title{font-size:10px;text-transform:uppercase;letter-spacing:.22em;font-weight:800;color:#d9e8e8}.progress-desc{font-size:11px;color:#98acb9}#control-row{display:flex;align-items:center;gap:16px}.nav{width:40px;height:40px;border-radius:50%;background:#162432aa;border:1px solid #b4c7d53b;color:#e8fdfa;font-size:21px;flex:none}.nav:hover{background:#27565a;color:#fff}.nav:disabled{opacity:.25;cursor:default}.track{min-width:0;flex:1;position:relative}.track input{width:100%;display:block;-webkit-appearance:none;appearance:none;height:3px;border-radius:4px;background:linear-gradient(90deg,#75fbe7 0%,#75fbe7 var(--fill,0%),#3b525d var(--fill,0%),#3b525d 100%);outline:none;margin:18px 0 16px;cursor:pointer}.track input::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;border:3px solid #092a30;height:22px;width:22px;border-radius:50%;background:#baffef;box-shadow:0 0 0 1px #8effed,0 0 23px #49fff48c}.track input::-moz-range-thumb{border:3px solid #092a30;height:18px;width:18px;border-radius:50%;background:#baffef;box-shadow:0 0 0 1px #8effed,0 0 23px #49fff48c}.track-labels{display:flex;justify-content:space-between;padding:0 2px}.track-labels button{background:none;border:0;color:#8fa7b6;font-size:10px;letter-spacing:.12em;text-transform:uppercase;padding:0 3px 4px}.track-labels button.current{color:#c7fff7;font-weight:900}#step-label{color:#b5c3c8;min-width:46px;text-align:right;font-variant-numeric:tabular-nums;font-size:11px}footer{display:flex;justify-content:space-between;align-items:center;gap:12px;min-height:36px;padding-top:17px}.micro{font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:#8ca5b1;line-height:1.5}.footactions{display:flex;align-items:center;gap:20px}.textbtn{background:transparent;border:0;color:#b1c4cd;font-size:10px;text-transform:uppercase;letter-spacing:.14em;font-weight:800}.textbtn:hover{color:#b1fff6}
+.overlay{position:fixed;inset:0;z-index:8;background:#030916ed;backdrop-filter:blur(22px);display:flex;align-items:center;justify-content:center;padding:22px}.overlay[hidden]{display:none}.intro-card{width:min(700px,100%);max-height:90svh;overflow:auto;border:1px solid #c8e5ee35;background:radial-gradient(circle at 70% 20%,#17526b4d,transparent 49%),linear-gradient(145deg,#0e1b2a,#060d16);border-radius:27px;padding:clamp(25px,5vw,59px);box-shadow:0 25px 100px #0009;position:relative}.intro-kicker{font-size:11px;color:#9dfbee;letter-spacing:.26em;text-transform:uppercase;font-weight:800}.intro-title{font-family:Georgia,"Iowan Old Style",serif;font-weight:400;font-size:clamp(46px,6vw,82px);line-height:1;letter-spacing:-.064em;margin:16px 0 22px}.intro-title em{color:#9affed}.intro-desc{max-width:555px;line-height:1.75;color:#b9c8d6;font-size:15px}.intro-bar{display:flex;align-items:center;gap:15px;flex-wrap:wrap;margin-top:29px}.primary{background:#adfff0;color:#06282c;border:0;padding:17px 29px;border-radius:999px;text-transform:uppercase;font-size:11px;font-weight:900;letter-spacing:.16em;box-shadow:0 0 40px #5cffe642}.primary:hover{background:white}.mutedcaption{color:#809aa6;font-size:11px;line-height:1.5}.intro-note{border-top:1px solid #9cd3d12a;margin-top:35px;padding-top:18px;color:#99afba;font-size:12px;line-height:1.7}
+#sourceOverlay .intro-card{max-width:700px}#sourceOverlay h2{font:normal 46px Georgia,serif;letter-spacing:-.05em;margin:15px 0}#sourceOverlay li{line-height:1.6;font-size:14px;color:#bac8d1;margin:14px 0}#sourceOverlay li strong{color:#f4fbfc}#sourceOverlay p{color:#95abb7;line-height:1.7;font-size:13px}.close{position:absolute;right:19px;top:17px;width:37px;height:37px;border-radius:50%;border:1px solid #9bbac044;background:#152638;color:#d9f5f4;font-size:21px}
+#toast{position:fixed;bottom:160px;left:50%;transform:translateX(-50%) translateY(15px);background:#122d32dd;color:#d5fff6;padding:10px 16px;border:1px solid #b4fff456;border-radius:100px;opacity:0;z-index:6;transition:opacity .22s,transform .22s;pointer-events:none;font-size:11px;letter-spacing:.02em;white-space:nowrap}#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+@media(max-width:850px){#app{padding:15px 18px max(14px,env(safe-area-inset-bottom))}.brand{font-size:9px;letter-spacing:.12em}.sigil{width:35px;height:35px}.header-actions{gap:7px}.round{width:35px;height:35px;font-size:15px}#lightVignette{background:linear-gradient(180deg,#030711b5 0%,#030711a2 22%,transparent 40%,transparent 68%,#030711a8 91%,#030711 100%),radial-gradient(ellipse 65% 70% at 50% 55%,transparent 8%,#02040b3a 100%)}main{align-items:flex-start}.story{margin-top:clamp(17px,4svh,34px);max-width:100%}.index{font-size:9px;margin-bottom:10px}.title{font-size:clamp(48px,10.7vw,75px);max-width:550px}.story #subtitle{font-size:16px;margin:10px 0 6px;max-width:480px}.story #explain{font-size:12px;line-height:1.43;max-width:460px;color:#c0ccd6}.story-foot{margin-top:12px;gap:8px}.pill{padding:9px 14px;min-height:36px;font-size:9px}.info-tag{font-size:10px;max-width:190px}#action-note{margin-top:6px;font-size:10px}#progress-wrap{padding:10px 9px 3px;border-radius:16px}#progress-header{margin:3px 7px 1px}.progress-title{font-size:9px}.progress-desc{display:none}#control-row{gap:8px}.nav{width:32px;height:32px;font-size:17px}.track-labels button{font-size:9px;letter-spacing:0}.track input{margin:14px 0 10px}#step-label{min-width:29px;font-size:9px}footer{padding-top:9px;min-height:34px}.micro{font-size:8px;letter-spacing:.07em}.footactions{gap:9px}.textbtn{font-size:9px;letter-spacing:0}#toast{bottom:120px;max-width:90%;white-space:normal;text-align:center}}
+@media(max-width:380px){.brand small{display:none}.title{font-size:48px}.story #explain{font-size:11px}.track-labels button{font-size:8px}.micro{font-size:7px}}
+@media(prefers-reduced-motion:reduce){.story,.round,#toast{transition:none!important}}
+
+/* Keep underlying scene labels invisible until the opening cinematic is entered. */
+#app{opacity:0;transition:opacity .65s ease}
+#app.revealed{opacity:1}
+/* Cinematic opening: animated particles remain visible behind a translucent editorial stage. */
+#intro.overlay{background:linear-gradient(90deg,#020610f6 0%,#020610e0 26%,#0206106c 51%,#02061019 78%),radial-gradient(circle at 69% 48%,#072d4524,transparent 55%);backdrop-filter:none;justify-content:flex-start;overflow:hidden;isolation:isolate;transition:opacity .7s ease,visibility .7s ease}
+#intro.depart{opacity:0;visibility:hidden;pointer-events:none}
+#intro .intro-card{z-index:4;position:relative;width:min(760px,100%);padding:clamp(20px,5vw,76px);border:0;border-radius:0;background:transparent;box-shadow:none;max-height:none;overflow:visible;margin-left:max(0px,2vw)}
+#intro .intro-kicker{font-size:clamp(9px,1vw,12px);letter-spacing:.33em;color:#a7fff3;font-weight:800;display:flex;align-items:center;gap:13px}
+.signal-dot{width:7px;height:7px;border-radius:50%;background:#adfff4;box-shadow:0 0 0 5px #7ffff210,0 0 18px #96ffee;animation:pulse-dot 2.5s infinite}
+@keyframes pulse-dot{0%,100%{opacity:.55;box-shadow:0 0 0 3px #8fffe90c,0 0 15px #96ffee}50%{opacity:1;box-shadow:0 0 0 10px #8fffe918,0 0 27px #96ffee}}
+#intro .intro-title{font-size:clamp(66px,9.6vw,160px);font-weight:400;line-height:.86;letter-spacing:-.092em;margin:28px 0 29px;text-shadow:0 12px 70px #0008;animation:title-enter 1.4s cubic-bezier(.19,.9,.2,1) both}
+#intro .intro-title em{font-style:italic;color:#c4fff5;text-shadow:0 0 45px #6cffe82a}
+#intro .intro-title .mark{color:var(--gold)}
+#intro .intro-desc{font-size:clamp(15px,2vw,22px);line-height:1.38;letter-spacing:-.02em;color:#a5bdca;margin:0;animation:title-enter 1.6s .16s both}
+#intro .intro-desc strong{color:#f2fbff;font-weight:510}
+.launch-index{margin-top:clamp(36px,8vh,88px);color:#99ffec;font:600 12px ui-monospace,monospace;letter-spacing:.28em;display:flex;gap:16px;align-items:center}
+.launch-index span{opacity:.4;color:#c7fdf4}
+#intro .intro-bar{margin-top:38px;gap:20px;animation:title-enter 1.8s .24s both}
+#intro .primary{background:linear-gradient(105deg,#c7fff5,#8deee3);border:1px solid #f4fffc9c;border-radius:100px;padding:19px 30px;letter-spacing:.17em;font-size:11px;box-shadow:0 0 42px #5cffe637,0 14px 45px #0a2a3255;transition:transform .25s,box-shadow .25s}
+#intro .primary:hover{transform:translateY(-3px);box-shadow:0 0 65px #5cffe66c}
+#intro .primary span{margin-left:12px;font-size:17px}
+#intro .mutedcaption{max-width:160px;line-height:1.5;text-transform:uppercase;letter-spacing:.12em;font-size:9px}
+.intro-bottom{display:flex;align-items:center;gap:19px;margin-top:clamp(30px,8vh,100px);white-space:nowrap;font-size:9px;color:#90afb7;letter-spacing:.26em}
+.fine-rule{height:1px;width:48px;background:linear-gradient(90deg,transparent,#8edbd0ad)}.fine-rule:last-child{transform:rotate(180deg)}
+.launch-grid{position:absolute;inset:0;pointer-events:none;background:linear-gradient(#89fff305 1px,transparent 1px),linear-gradient(90deg,#89fff305 1px,transparent 1px);background-size:70px 70px;mask-image:linear-gradient(90deg,transparent 34%,black 100%);animation:grid-shift 22s linear infinite}
+@keyframes grid-shift{to{background-position:70px -70px}}
+.launch-orbit{position:absolute;left:67.5%;top:50%;width:min(52vw,640px);height:min(52vw,640px);transform:translate(-50%,-50%);pointer-events:none;z-index:2;mix-blend-mode:screen;animation:orbit-arrive 2.2s ease both}
+.launch-ring{position:absolute;inset:0;border:1px solid #a9fff02f;border-radius:50%;box-shadow:inset 0 0 26px #78ead30d,0 0 22px #67e5ca12;transform-style:preserve-3d}
+.launch-ring-one{inset:5%;border-right-color:#b9ffe5a3;border-top-color:#a7dbffb3;transform:rotateX(66deg) rotateZ(-29deg);animation:orbit-one 18s linear infinite}
+.launch-ring-two{inset:16%;border-left-color:#fdcba077;border-bottom-color:#abfff274;transform:rotateY(62deg) rotateZ(21deg);animation:orbit-two 15s linear infinite reverse}
+.launch-ring-three{inset:-10%;border-color:#f4e7d71c;border-bottom-color:#72fff84f;transform:rotate(-23deg);animation:orbit-three 32s linear infinite}
+.launch-core{position:absolute;inset:40%;border-radius:50%;background:#7bfae908;filter:blur(25px);box-shadow:0 0 100px 50px #7bfae911;animation:glowing 3s ease-in-out infinite}
+@keyframes orbit-one{to{transform:rotateX(66deg) rotateZ(331deg)}}
+@keyframes orbit-two{to{transform:rotateY(62deg) rotateZ(381deg)}}
+@keyframes orbit-three{to{transform:rotate(337deg)}}
+@keyframes glowing{50%{opacity:.45;transform:scale(1.4)}}
+@keyframes orbit-arrive{from{opacity:0;scale:.75}to{opacity:1;scale:1}}
+@keyframes title-enter{from{opacity:0;transform:translateY(35px);filter:blur(13px)}to{opacity:1;transform:translateY(0);filter:blur(0)}}
+.launch-vertical{position:absolute;right:26px;top:50%;transform:translateY(-50%);writing-mode:vertical-rl;color:#b3e3e559;font-size:10px;letter-spacing:.39em;font-weight:600}
+/* Existing exhibition typography retained, with less on-screen copy. */
+.story #explain,#action-note{display:none}
+#hint{color:#91b6bf;letter-spacing:.03em}
+#progress-wrap{box-shadow:0 20px 65px #0008,0 0 32px #81ffee07}
+.track-labels{justify-content:flex-start;gap:14px;overflow-x:auto;scrollbar-width:none;scroll-behavior:smooth;padding:0 4px 4px;mask-image:linear-gradient(90deg,transparent,black 4%,black 96%,transparent)}
+.track-labels::-webkit-scrollbar{display:none}
+.track-labels button{flex:0 0 auto;white-space:nowrap;letter-spacing:.1em;padding:4px 7px 7px;min-height:28px}
+.track-labels button.current{text-shadow:0 0 20px #90fff77e}
+@media(max-width:850px){
+  #intro.overlay{background:linear-gradient(180deg,#020712cb 0%,#02071279 32%,#02071222 63%,#020712ed 100%);align-items:flex-start;justify-content:flex-start}
+  #intro .intro-card{padding:clamp(26px,7vw,42px) 7px;margin:0;width:100%}
+  .launch-orbit{left:51%;top:57%;width:94vw;height:94vw;opacity:.68}
+  #intro .intro-title{font-size:clamp(62px,15vw,98px);margin:24px 0 16px}
+  #intro .intro-kicker{font-size:9px;letter-spacing:.2em}
+  .launch-index{margin-top:4svh}
+  #intro .intro-desc{font-size:15px}
+  #intro .intro-bar{margin-top:24px}
+  .intro-bottom{position:fixed;left:22px;bottom:max(20px,env(safe-area-inset-bottom));margin:0;font-size:8px}
+  .launch-vertical{display:none}
+  .story #subtitle{max-width:320px}
+  #progress-wrap{width:100%}
+  .track-labels{gap:10px}
+  .track-labels button{font-size:9px;min-width:45px}
+}
+@media(max-width:380px){#intro .intro-title{font-size:clamp(45px,14.3vw,57px)}.intro-bottom{letter-spacing:.1em}}
+@media(prefers-reduced-motion:reduce){.launch-ring,.signal-dot,.launch-grid,.launch-core{animation:none!important}#intro .intro-title,#intro .intro-desc,#intro .intro-bar{animation:none!important}}
+</style>
+</head>
+<body>
+<canvas id="world" role="img" aria-label="Interactive luminous particle sculpture evolving through fourteen forms of human existence"></canvas>
+<div id="lightVignette" aria-hidden="true"></div><div class="noise" aria-hidden="true"></div>
+<div id="app">
+<header>
+ <div class="brand"><div class="sigil" aria-hidden="true"><i></i></div><div>THE HUMAN MIRROR<small>A LIVING CONTINUUM</small></div></div>
+ <div class="header-actions"><button class="round" id="flow" aria-label="Play or pause automatic journey" title="Auto journey">▶</button><button class="round" id="sound" aria-label="Turn on generative ambient sound" title="Sound off / on">♫</button><button class="round" id="capture" aria-label="Save artwork image" title="Capture a still image">↧</button><button class="round" id="openInfo" aria-label="Read scientific notes" title="Science notes">i</button></div>
+</header>
+<main><section class="story" id="story" aria-live="polite">
+ <div class="index" id="eyebrow">01 / 14 · THE BEGINNING</div>
+ <h1 class="title" id="headline">You are <em>cosmic.</em></h1>
+ <p id="subtitle">Your atoms carry an extraordinary history.</p>
+ <p id="explain" class="sr-only">The hydrogen in your body originated early in the universe.</p>
+ <div class="story-foot"><button class="pill" id="action">↗ MOVE YOUR POINTER</button><span class="info-tag" id="hint">Drag the living sculpture to rotate it.</span></div><div id="action-note" aria-live="polite"></div>
+ </section></main>
+<div id="progress-wrap"><div id="progress-header"><span class="progress-title">PULL THE THREAD</span><span class="progress-desc">14 connected worlds · Drag · Discover</span></div>
+ <div id="control-row"><button class="nav" id="prev" aria-label="Previous world">‹</button><div class="track"><input type="range" min="0" max="13" step="0.001" value="0" id="journey" aria-label="Move continuously through fourteen luminous forms"><div class="track-labels" id="track-labels"><button data-go="0">STARS</button><button data-go="1">DNA</button><button data-go="2">BODY</button><button data-go="3">MIND</button><button data-go="4">US</button><button data-go="5">CELL</button><button data-go="6">HEART</button><button data-go="7">BREATH</button><button data-go="8">SENSES</button><button data-go="9">MEMORY</button><button data-go="10">BONDS</button><button data-go="11">CULTURE</button><button data-go="12">NATURE</button><button data-go="13">ONENESS</button></div></div><button class="nav" id="next" aria-label="Next world">›</button><span id="step-label">01 / 14</span></div>
+</div>
+<footer><span class="micro">14 WORLDS · ONE CONTINUOUS THREAD</span><div class="footactions"><button class="textbtn" id="restart">RESTART</button><button class="textbtn" id="sources">THE SCIENCE ↗</button></div></footer>
+</div>
+<div id="intro" class="overlay" role="dialog" aria-modal="true" aria-label="Enter The Human Mirror">
+ <div class="launch-grid" aria-hidden="true"></div>
+ <div class="launch-orbit" aria-hidden="true"><div class="launch-ring launch-ring-one"></div><div class="launch-ring launch-ring-two"></div><div class="launch-ring launch-ring-three"></div><div class="launch-core"></div></div>
+ <section class="intro-card"><div class="intro-kicker"><span class="signal-dot"></span> AN EXPERIENCE BEYOND THE SCREEN</div>
+ <div class="launch-index">01 <span>——</span> 14</div>
+ <h2 class="intro-title">THE HUMAN<br><em>MIRROR<span class="mark">.</span></em></h2>
+ <p class="intro-desc">Fourteen forms.<br><strong>One extraordinary existence.</strong></p>
+ <div class="intro-bar"><button id="begin" class="primary">ENTER THE MIRROR <span aria-hidden="true">↗</span></button><span class="mutedcaption">A living journey through everything you are</span></div>
+ <div class="intro-bottom"><span class="fine-rule"></span><span>SCIENCE × ART × WONDER</span><span class="fine-rule"></span></div>
+ </section>
+ <div class="launch-vertical" aria-hidden="true">THE THREAD / INFINITE HUMAN POSSIBILITIES</div>
+</div>
+<div id="sourceOverlay" class="overlay" hidden role="dialog" aria-modal="true" aria-label="Science and artistic interpretation"><section class="intro-card"><button id="closeInfo" class="close" aria-label="Close science notes">×</button><div class="intro-kicker">BEHIND THE LIGHT</div><h2>Science and symbolism</h2><p>Each animated sculpture illustrates an established idea or a human experience. These are poetic visual models, not laboratory measurements, medical simulations, or scans. The original five forms and their particle-motion style are retained.</p>
+ <ul><li><strong>STARS.</strong> Hydrogen formed early in the universe; many heavier elements were formed through stellar processes. <a href="https://science.nasa.gov/universe/stars/" target="_blank" rel="noopener">NASA</a>.</li><li><strong>DNA.</strong> DNA stores hereditary information. Development also depends on environment and cellular processes. <a href="https://www.genome.gov/genetics-glossary/Deoxyribonucleic-Acid" target="_blank" rel="noopener">NHGRI</a>.</li><li><strong>BODY, HEART & BREATH.</strong> Circulation and gas exchange help sustain life. Rhythms shown are illustrative, not medical feedback. <a href="https://medlineplus.gov/heartandvascular.html" target="_blank" rel="noopener">MedlinePlus</a>.</li><li><strong>MIND, SENSES & MEMORY.</strong> Perception and learning involve dynamic networks in the nervous system. <a href="https://www.ninds.nih.gov/health-information/disorders/brain-basics-know-your-brain" target="_blank" rel="noopener">NINDS</a>.</li><li><strong>CELL.</strong> Cells maintain boundaries and regulate processes essential to life. <a href="https://www.genome.gov/genetics-glossary/Cell" target="_blank" rel="noopener">NHGRI</a>.</li><li><strong>BONDS & CULTURE.</strong> Social connection, communication and learning link human lives across generations. Connections in the sculpture are symbolic.</li><li><strong>NATURE & ONENESS.</strong> Human survival depends on living ecosystems. Our shared biological heritage does not erase the richness of human differences.</li></ul><p>No diagnostic, psychological, medical or health claims are made. The artwork is designed for exploration and reflection.</p></section></div>
+<div id="toast" role="status" aria-live="polite"></div>
+<script>
+(()=>{'use strict';
+const el=id=>document.getElementById(id),c=el('world'),ctx=c.getContext('2d',{alpha:false}),intro=el('intro'),slider=el('journey');
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+let width=0,height=0,dpr=1,mobile=false,active=0,prog=0,targetProg=0,userInteracted=false,started=false,clock=0,last=0;
+let angleY=.18,angleX=-.1,velY=0,velX=0,pointer={x:0,y:0,down:false,px:0,py:0},pulse=0, tempo=72, signal=0,cascade=-1,soundOn=false,audio=null,osc=null,gain=null;
+let toastTimer,flowing=false;
+function notice(s){let t=el('toast');t.textContent=s;t.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.classList.remove('show'),2500)}
+function rand(seed){let x=Math.sin(seed*129.213+78.233)*43758.5453;return x-Math.floor(x)}
+function rr(i,s=0){return rand(i*31.17+s*71.03)}
+const N=3600;const COUNT=14;const shapes=Array.from({length:COUNT},()=>new Float32Array(N*3));const colors=Array.from({length:COUNT},()=>new Uint8Array(N*3));
+const palette=[[[119,241,231],[255,213,154],[166,170,255]],[[102,240,227],[250,141,201],[200,184,255]],[[116,246,230],[255,132,170],[157,183,255]],[[130,250,232],[178,149,255],[245,195,255]],[[124,251,230],[149,196,255],[254,215,169]],[[113,249,226],[255,185,207],[179,184,255]],[[255,114,160],[255,210,166],[157,191,255]],[[114,237,245],[178,168,255],[255,206,173]],[[122,247,235],[243,202,140],[172,177,255]],[[143,235,255],[188,165,255],[255,198,233]],[[120,246,224],[255,190,181],[182,202,255]],[[133,242,235],[255,213,168],[157,196,255]],[[140,244,193],[255,219,166],[130,186,251]],[[118,253,228],[254,216,172],[192,177,255]]];
+function place(k,i,x,y,z,shade=0){const j=i*3;shapes[k][j]=x;shapes[k][j+1]=y;shapes[k][j+2]=z;const p=palette[k][shade%3];colors[k][j]=p[0];colors[k][j+1]=p[1];colors[k][j+2]=p[2]}
+function buildGalaxy(){for(let i=0;i<N;i++){let arm=Math.floor(rr(i,1)*4), r=Math.pow(rr(i,2),.66)*2.07, theta=arm*Math.PI/2+r*2.23+(rr(i,3)-.5)*(.21+r*.22);let z=(rr(i,4)-.5)*(.18+.10*r),x=Math.cos(theta)*r,y=Math.sin(theta)*r;if(i%27===0){x*=.28;y*=.28;z*=.8}place(0,i,x,y,z,r<.45?1:i%7===0?2:0)}}
+function buildDNA(){for(let i=0;i<N;i++){let y=(rr(i,1)-.5)*3.45, theta=y*3.95+Math.PI*.15, r=.71, type=i%12;let x,z;if(type<=4){x=Math.cos(theta)*r;z=Math.sin(theta)*r}else if(type<=9){x=Math.cos(theta+Math.PI)*r;z=Math.sin(theta+Math.PI)*r}else{let a=rr(i,2);x=Math.cos(theta)*r*(1-2*a);z=Math.sin(theta)*r*(1-2*a)}let jitter=(rr(i,5)-.5)*.13;place(1,i,x+jitter,y,z+(rr(i,6)-.5)*.11,type<=4?0:type<=9?2:1)}}
+function ellipsoid(i,cx,cy,cz,rx,ry,rz){let theta=2*Math.PI*rr(i,2),h=rr(i,3)*2-1,f=Math.sqrt(Math.max(0,1-h*h));let radial=.78+.24*rr(i,4);return [cx+Math.cos(theta)*f*rx*radial,cy+h*ry*radial,cz+Math.sin(theta)*f*rz*radial]}
+function buildBody(){for(let i=0;i<N;i++){const r=rr(i,1),m=rr(i,7);let p,shade=0;if(r<.18){p=ellipsoid(i,0,1.24,0,.30,.39,.29);shade=2}else if(r<.45){p=ellipsoid(i,0,.24,0,.55,.77,.34);shade=0}else if(r<.52){p=ellipsoid(i,0,-.46,0,.39,.30,.31);shade=1}else if(r<.68){let side=m>.5?1:-1;p=ellipsoid(i,side*.66,.10,0,.20,.70,.19);shade=0}else if(r<.94){let side=m>.5?1:-1;p=ellipsoid(i,side*.22,-1.14,0,.21,.7,.22);shade=2}else{p=ellipsoid(i,0,.77,0,.17,.18,.18);shade=1}place(2,i,p[0],p[1],p[2],shade)}}
+// Fractal-like branching neuron: a visual analogy, not neural tissue geometry.
+const segs=[];function branch(x,y,z,dx,dy,dz,len,depth,seed){const nx=x+dx*len,ny=y+dy*len,nz=z+dz*len;segs.push([x,y,z,nx,ny,nz,depth]);if(depth===0)return;for(let k=0;k<2;k++){let a=rr(seed*4+k,4)*6.283,b=.29+rr(seed*4+k,5)*.59,s=(k?1:-1);const vx=dx*.81+Math.cos(a)*b*s,vy=dy*.83+Math.sin(a)*b*s,vz=dz*.79+(rr(seed*9+k,6)-.5)*b*2;const mag=Math.hypot(vx,vy,vz);branch(nx,ny,nz,vx/mag,vy/mag,vz/mag,len*(.65+rr(seed+k,8)*.08),depth-1,seed*3+k+1)}}
+function buildNeuron(){segs.length=0;for(let a=0;a<11;a++){let t=a*2*Math.PI/11,b=(a%3-1)*.40;branch(0,0,0,Math.cos(t)*Math.cos(b),Math.sin(b),Math.sin(t)*Math.cos(b),.55,4,a+2)}let total=segs.reduce((s,x)=>s+Math.hypot(x[3]-x[0],x[4]-x[1],x[5]-x[2]),0);for(let i=0;i<N;i++){let pick=rr(i,9)*total,chosen=segs[0];for(const s of segs){pick-=Math.hypot(s[3]-s[0],s[4]-s[1],s[5]-s[2]);if(pick<=0){chosen=s;break}}const t=rr(i,10),a=(rr(i,11)-.5)*.08;place(3,i,chosen[0]+(chosen[3]-chosen[0])*t+a,chosen[1]+(chosen[4]-chosen[1])*t+(rr(i,12)-.5)*.08,chosen[2]+(chosen[5]-chosen[2])*t+(rr(i,13)-.5)*.08,i%5===0?2:i%3===0?1:0)}}
+function buildEarth(){for(let i=0;i<N;i++){const v=1-(i+.5)/N*2,phi=i*2.39996322973,r=Math.sqrt(1-v*v);const x=Math.cos(phi)*r*1.58,y=v*1.58,z=Math.sin(phi)*r*1.58;place(4,i,x,y,z,i%13===0?2:i%7===0?1:0)}}
+buildGalaxy();buildDNA();buildBody();buildNeuron();buildEarth();
+
+// The original five sculptures above are deliberately unchanged.
+function cellForm(){for(let i=0;i<N;i++){
+ const t=rr(i,41)*Math.PI*2,v=rr(i,42)*2-1,q=Math.sqrt(1-v*v),outer=i<N*.76;
+ let r=outer?1.29+.045*(rr(i,43)-.5):.46+.08*(rr(i,44)-.5);
+ let x=Math.cos(t)*q*r,y=v*r,z=Math.sin(t)*q*r;
+ if(!outer){x+=.12;y+=.1} place(5,i,x,y,z,outer?(i%10===0?1:0):2);
+}}
+function heartForm(){for(let i=0;i<N;i++){
+ const t=rr(i,47)*Math.PI*2,r=Math.sqrt(rr(i,48))*(.76+.24*rr(i,49));
+ const x=16*Math.pow(Math.sin(t),3)*.080*r,y=(13*Math.cos(t)-5*Math.cos(2*t)-2*Math.cos(3*t)-Math.cos(4*t))*.087*r-.05;
+ const z=(rr(i,51)-.5)*.9*Math.sqrt(Math.max(.04,1-r*r*.64));place(6,i,x,y,z,i%7===0?2:i%2?0:1);
+}}
+function lungsForm(){for(let i=0;i<N;i++){
+ const u=rr(i,54),side=i%2?-1:1;let p,shade;if(u<.82){p=ellipsoid(i,side*.53,.18,0,.48,.91,.53);p[0]+=side*(p[1]*.085);shade=i%7===0?2:0}else{
+ const theta=(rr(i,56)-.5)*2.2,pY=(rr(i,57)-.5)*1.85;
+ p=[side*.13+Math.sin(theta)*(.12+Math.abs(pY)*.14),pY,.20*Math.cos(theta)];shade=1;
+ } place(7,i,p[0],p[1],p[2],shade)
+}}
+function irisForm(){for(let i=0;i<N;i++){
+ const theta=rr(i,61)*Math.PI*2,ring=rr(i,62),r=ring<.08?.20*Math.sqrt(rr(i,63)):ring<.87?.28+1.18*rr(i,64):1.35+rr(i,65)*.3;
+ const z=.22*Math.cos(r*2.3)+(.1-r*.06)*(rr(i,66)-.5);
+ place(8,i,Math.cos(theta)*r,Math.sin(theta)*r*.78,z,ring<.08?2:ring<.87?0:1);
+}}
+function memoryForm(){const centers=[];for(let m=0;m<18;m++){centers.push([(rr(m,70)-.5)*2.35,(rr(m,71)-.5)*2,(rr(m,72)-.5)*1.35])}
+ for(let i=0;i<N;i++){
+ const a=Math.floor(rr(i,73)*18),b=(a+1+Math.floor(rr(i,74)*9))%18,t=rr(i,75);
+ let x=centers[a][0]*(1-t)+centers[b][0]*t,y=centers[a][1]*(1-t)+centers[b][1]*t,z=centers[a][2]*(1-t)+centers[b][2]*t;
+ place(9,i,x+(rr(i,76)-.5)*.05,y+(rr(i,77)-.5)*.05,z+(rr(i,78)-.5)*.05,i%11===0?1:i%7===0?2:0);
+ }}
+function bondsForm(){for(let i=0;i<N;i++){
+ const left=i%2===0,seed=Math.floor(i/2),u=rr(seed,81),side=left?-1:1,shade=left?0:1;let p;
+ if(u<.17) p=ellipsoid(seed,side*.67,.93,0,.28,.36,.28);
+ else if(u<.55) p=ellipsoid(seed,side*.67,.05,0,.37,.73,.29);
+ else if(u<.74) p=ellipsoid(seed,side*.93,-.06,0,.15,.62,.14);
+ else p=ellipsoid(seed,side*.77,-.98,0,.14,.64,.13);
+ if(i%23===0){const t=rr(i,83);p=[(t-.5)*1.4,.22+.08*Math.sin(t*9),(rr(i,84)-.5)*.15];}
+ place(10,i,p[0],p[1],p[2],i%23===0?2:shade);
+}}
+function cultureForm(){const pts=[];for(let j=0;j<44;j++){
+ const ang=rr(j,87)*Math.PI*2,v=rr(j,88)*2-1,f=Math.sqrt(1-v*v),rad=.75+rr(j,89)*1.06;pts.push([Math.cos(ang)*f*rad,v*rad,Math.sin(ang)*f*rad]);}
+ for(let i=0;i<N;i++){
+ const a=Math.floor(rr(i,91)*44),b=(a+1+Math.floor(rr(i,92)*14))%44,t=rr(i,93);
+ const x=pts[a][0]*(1-t)+pts[b][0]*t,y=pts[a][1]*(1-t)+pts[b][1]*t,z=pts[a][2]*(1-t)+pts[b][2]*t;
+ place(11,i,x+(rr(i,94)-.5)*.03,y+(rr(i,95)-.5)*.03,z+(rr(i,96)-.5)*.03,i%11===0?2:i%4===0?1:0);
+}}
+function natureForm(){const branches=[];
+ function makeBranch(x,y,z,ang,len,depth,seed){const nx=x+Math.cos(ang)*len,ny=y+Math.sin(ang)*len,nz=z+(rr(seed,98)-.5)*len*.6;branches.push([x,y,z,nx,ny,nz,depth]);if(depth<=0)return;
+ makeBranch(nx,ny,nz,ang+.48+(rr(seed,99)-.5)*.2,len*.7,depth-1,seed*2+1);
+ makeBranch(nx,ny,nz,ang-.48+(rr(seed,100)-.5)*.2,len*.7,depth-1,seed*2+2);
+ }
+ makeBranch(0,-1.55,0,Math.PI/2,1.1,5,1);
+ const lengths=branches.map(v=>Math.hypot(v[3]-v[0],v[4]-v[1],v[5]-v[2]));const total=lengths.reduce((a,b)=>a+b,0);
+ for(let i=0;i<N;i++){
+ if(i<N*.83){let pick=rr(i,104)*total,idx=0;for(;idx<lengths.length-1;idx++){pick-=lengths[idx];if(pick<0)break}; const seg=branches[idx],t=rr(i,105);
+ place(12,i,seg[0]+(seg[3]-seg[0])*t+(rr(i,106)-.5)*.035,seg[1]+(seg[4]-seg[1])*t+(rr(i,107)-.5)*.035,seg[2]+(seg[5]-seg[2])*t+(rr(i,108)-.5)*.08,seg[6]===0?1:0);
+ }else{const a=rr(i,109)*Math.PI*2,r=.32+rr(i,110)*.82,y=.15+rr(i,111)*1.65;
+ place(12,i,Math.cos(a)*r,y,Math.sin(a)*r*.7,i%3===0?2:1)
+ }}
+}
+function onenessForm(){for(let i=0;i<N;i++){
+ const v=(i+.5)/N,phi=i*2.39996323,h=1-2*v,f=Math.sqrt(1-h*h);
+ if(i<N*.52){let shell=1.28;let x=Math.cos(phi)*f*shell,y=h*shell,z=Math.sin(phi)*f*shell;place(13,i,x,y,z,i%8===0?1:0)}
+ else if(i<N*.84){const theta=rr(i,114)*6.283,r=.86+rr(i,115)*.95;
+ place(13,i,Math.cos(theta)*r,Math.sin(theta)*r*.60,(rr(i,116)-.5)*.14,i%9===0?2:0)
+ }else{const t=rr(i,117),theta=rr(i,118)*6.283,inner=.26+Math.sin(t*6.283)*.08;
+ place(13,i,Math.cos(theta)*inner,1.22-t*2.44,Math.sin(theta)*inner*.85,i%3===0?2:1)
+ }}
+}
+cellForm();heartForm();lungsForm();irisForm();memoryForm();bondsForm();cultureForm();natureForm();onenessForm();
+
+const scenes=[
+{eyebrow:'01 / 14 · THE BEGINNING',title:'You are <em>cosmic.</em>',sub:'Your atoms carry an extraordinary history.',text:'Hydrogen originated early in the universe. Much of the carbon, oxygen, and other heavier elements in your body were forged through stellar and related cosmic processes.',action:'↗ TOUCH THE GALAXY',hint:'Drag the universe and watch its arms move.',note:'The galaxy is an artistic model, not a literal map of where your atoms came from.'},
+{eyebrow:'02 / 14 · THE INSTRUCTIONS',title:'Life has a <em>code.</em>',sub:'A molecule can carry instructions across generations.',text:'DNA stores hereditary information in an ordered sequence of chemical building blocks. It is not a destiny script: development also involves cells, environments, and chance.',action:'⟲ TWIST THE HELIX',hint:'Drag to rotate the molecule; inspect it from any side.',note:'The double helix is stylized. DNA is not a tiny glowing ladder.'},
+{eyebrow:'03 / 14 · THE MACHINE',title:'Matter became <em>you.</em>',sub:'A living body is an astonishing coordinated system.',text:'Your heart moves blood, your lungs exchange gases, and your cells continuously use energy. The figure is built entirely from the same points you saw as a galaxy.',action:'♥ CHANGE THE HEARTBEAT',hint:'Touch the button to adjust the illustrated pulse.',note:'Illustrated pulse · 72 beats/min. Not medical measurement.'},
+{eyebrow:'04 / 14 · THE SIGNAL',title:'Your mind <em>emerges.</em>',sub:'Billions of cells participate in a remarkable network.',text:'Neurons communicate using electrical and chemical signals. Their collective activity is essential to sensation, movement, memory, and thought. This sculpture is a metaphor, not a scan.',action:'✦ FIRE A SIGNAL',hint:'Activate a wave along the illustrated neural branches.',note:'Neural propagation here is artistic, not a simulation of actual brain wiring.'},
+{eyebrow:'05 / 14 · THE CONNECTION',title:'You are <em>not alone.</em>',sub:'No life unfolds completely on its own.',text:'Language, knowledge, agriculture, care, and technology are products of many lives interacting. Human connection can create consequences far beyond any single person.',action:'◎ SEND A RIPPLE',hint:'Touch the sculpture to send a visual ripple around the world.',note:'This network is symbolic; it does not depict real relationships or people.'},
+{eyebrow:'06 / 14 · THE FIRST LIVING UNIT',title:'Life begins <em>small.</em>',sub:'Every human life depends on cells.',text:'Cells maintain boundaries, exchange matter and use energy. Complex bodies are made of communicating cells.',action:'◉ AWAKEN THE CELL',hint:'Watch a living boundary shimmer.',note:'Artistic cell membrane and nucleus; not a microscope image.'},
+{eyebrow:'07 / 14 · THE RHYTHM',title:'Life has a <em>heartbeat.</em>',sub:'A living rhythm adapts, second by second.',text:'The heart pumps blood around the body, supplying tissues with oxygen and nutrients.',action:'♥ FEEL THE RHYTHM',hint:'Touch to send another illustrated pulse.',note:'Pulse is purely illustrative; not a medical measurement.'},
+{eyebrow:'08 / 14 · THE BREATH',title:'Life moves through <em>breath.</em>',sub:'With every breath, the outside becomes part of you.',text:'Your lungs exchange oxygen and carbon dioxide with circulating blood.',action:'∞ INHALE / EXHALE',hint:'Watch the luminous lungs expand and soften.',note:'This animated breathing is artistic, not a breathing exercise or measurement.'},
+{eyebrow:'09 / 14 · THE SENSES',title:'You create a <em>world.</em>',sub:'Perception is an active construction.',text:'Your brain combines sensory information with context and expectation.',action:'◌ FOCUS THE IRIS',hint:'Follow light as it gathers at the center.',note:'The eye is symbolic, not anatomical or optical simulation.'},
+{eyebrow:'10 / 14 · THE MEMORY',title:'Experience leaves <em>traces.</em>',sub:'Learning changes the nervous system.',text:'Memory depends on interacting brain systems and changes in patterns of activity.',action:'✧ IGNITE A MEMORY',hint:'Send light across a constellation of connections.',note:'This network represents learning metaphorically, not literal memory traces.'},
+{eyebrow:'11 / 14 · THE BOND',title:'We become <em>together.</em>',sub:'Connection shapes a human life.',text:'Relationships, care, language and trust influence how humans develop and flourish.',action:'∞ BRIDGE THE DISTANCE',hint:'Two forms move within one field.',note:'The figures are artistic human silhouettes, not real people.'},
+{eyebrow:'12 / 14 · THE INHERITANCE',title:'Ideas outlive <em>us.</em>',sub:'Knowledge travels farther than one lifetime.',text:'Shared language, tools and culture allow discoveries to accumulate across generations.',action:'✦ SPREAD AN IDEA',hint:'Follow one spark through an expanding network.',note:'Connections represent information sharing, not actual individuals.'},
+{eyebrow:'13 / 14 · THE LIVING EARTH',title:'We belong to <em>life.</em>',sub:'Every breath connects you to the living planet.',text:'Humans depend on ecosystems, water cycles, food webs and biodiversity.',action:'❋ GROW THE BRANCHES',hint:'Watch the branches breathe and sway.',note:'The tree is a symbolic illustration of ecological interdependence.'},
+{eyebrow:'14 / 14 · THE POSSIBILITY',title:'One world. <em>One humanity.</em>',sub:'Your next action becomes part of a shared future.',text:'Our common biological heritage connects all people. Choices and cooperation shape what we leave to those who follow.',action:'✺ LIGHT THE FUTURE',hint:'Send a wave across the final constellation.',note:'Oneness is a moral invitation to solidarity, not a claim that all humans are identical.'}
+
+];
+function resize(){width=innerWidth;height=innerHeight;dpr=Math.min(devicePixelRatio||1,mobile?1.25:1.7);mobile=width<850;c.width=Math.round(width*dpr);c.height=Math.round(height*dpr);c.style.width=width+'px';c.style.height=height+'px';ctx.setTransform(dpr,0,0,dpr,0,0)}
+addEventListener('resize',resize);resize();
+function setContent(n){n=Math.max(0,Math.min(COUNT-1,n));if(n===active&&el('headline').innerHTML===scenes[n].title)return;active=n;const s=scenes[n],st=el('story');st.classList.add('dimming');clearTimeout(contentTimer);contentTimer=setTimeout(()=>{el('eyebrow').textContent=s.eyebrow;el('headline').innerHTML=s.title;el('subtitle').textContent=s.sub;el('explain').textContent=s.text;el('action').textContent=s.action;el('hint').textContent=s.hint;el('action-note').textContent=s.note;st.classList.remove('dimming')},reduce?0:135);[...document.querySelectorAll('[data-go]')].forEach(b=>b.classList.toggle('current',Number(b.dataset.go)===n));el('step-label').textContent=String(n+1).padStart(2,'0')+' / 14';el('prev').disabled=n===0;el('next').disabled=n===COUNT-1;const tab=document.querySelector(`[data-go="${n}"]`);if(tab&&started)tab.scrollIntoView({block:'nearest',inline:'center',behavior:reduce?'instant':'smooth'})}
+let contentTimer=0;function go(n){flowing=false;el('flow').classList.remove('active');el('flow').textContent='▶';n=Math.max(0,Math.min(COUNT-1,n));if(reduce){targetProg=n;prog=n;sync()}else{targetProg=n}setContent(n);userInteracted=true}
+function sync(){slider.value=prog;slider.style.setProperty('--fill',String(prog/(COUNT-1)*100)+'%');const near=Math.round(prog);if(near!==active&&Math.abs(targetProg-prog)<.25)setContent(near)}
+slider.addEventListener('input',()=>{flowing=false;el('flow').classList.remove('active');el('flow').textContent='▶';targetProg=Number(slider.value);prog=targetProg;sync();userInteracted=true});el('next').addEventListener('click',()=>go(Math.min(COUNT-1,Math.round(targetProg)+1)));el('prev').addEventListener('click',()=>go(Math.max(0,Math.round(targetProg)-1)));[...document.querySelectorAll('[data-go]')].forEach(b=>b.addEventListener('click',()=>go(Number(b.dataset.go))));el('restart').addEventListener('click',()=>{go(0);pulse=0;notice('Returned to the beginning')});
+function action(){const a=Math.round(targetProg);
+if(a===0){pulse=1.5;velY+=.028;notice('A spiral set into motion')}
+else if(a===1){velY+=.12;velX+=.06;notice('Exploring the two intertwined strands')}
+else if(a===2){tempo=tempo===72?105:tempo===105?48:72;pulse=1.5;notice('Illustrative pulse · '+tempo+' beats/min')}
+else if(a===3){signal=1.6;notice('Neural light activated')}
+else if(a===4){cascade=0;pulse=1.5;notice('A ripple through connection')}
+else if(a===5){pulse=1.8;notice('The cell responds to a wave')}
+else if(a===6){pulse=2.2;notice('A new heartbeat')}
+else if(a===7){pulse=2;notice('An illustrated breath')}
+else if(a===8){signal=1.5;notice('Light gathered at the center')}
+else if(a===9){signal=2;cascade=0;notice('A spark of memory')}
+else if(a===10){pulse=1.7;notice('A bridge between lives')}
+else if(a===11){cascade=0;signal=1.8;notice('An idea is spreading')}
+else if(a===12){pulse=2.2;notice('Branches moving with life')}
+else{cascade=0;signal=2.2;pulse=1.4;notice('One world · one humanity')}
+}
+el('action').addEventListener('click',action);el('flow').addEventListener('click',()=>{if(Math.round(targetProg)>=COUNT-1){targetProg=0;prog=0;setContent(0)}flowing=!flowing;el('flow').classList.toggle('active',flowing);el('flow').textContent=flowing?'Ⅱ':'▶';notice(flowing?'Auto journey playing':'Journey paused')});
+let downX=0,downY=0;function pointerDown(e){if(!started)return;pointer.down=true;pointer.px=e.clientX;pointer.py=e.clientY;downX=e.clientX;downY=e.clientY;c.setPointerCapture?.(e.pointerId)}
+function pointerMove(e){pointer.x=(e.clientX/width-.5)*2;pointer.y=(e.clientY/height-.5)*2;if(pointer.down){let dx=e.clientX-pointer.px,dy=e.clientY-pointer.py;angleY+=dx*.006;angleX=Math.max(-1.1,Math.min(1.1,angleX+dy*.004));velY=dx*.0009;velX=dy*.0005;pointer.px=e.clientX;pointer.py=e.clientY}}
+function pointerUp(e){if(!pointer.down)return;pointer.down=false;if(Math.hypot(e.clientX-downX,e.clientY-downY)<12){let a=Math.round(targetProg);if(a===3||a===4)action()}}
+c.addEventListener('pointerdown',pointerDown);c.addEventListener('pointermove',pointerMove);c.addEventListener('pointerup',pointerUp);c.addEventListener('pointercancel',()=>pointer.down=false);
+addEventListener('keydown',e=>{if(intro.hidden&&el('sourceOverlay').hidden){if(e.key==='ArrowRight')go(Math.round(targetProg)+1);if(e.key==='ArrowLeft')go(Math.round(targetProg)-1);if(e.key.toLowerCase()===' '&&e.target===document.body){e.preventDefault();action()}}if(e.key==='Escape'){el('sourceOverlay').hidden=true}});
+let startTouch=null;c.addEventListener('touchstart',e=>{if(e.touches.length===1)startTouch={x:e.touches[0].clientX,y:e.touches[0].clientY}},{passive:true});c.addEventListener('touchend',e=>{if(!startTouch||!e.changedTouches.length)return;let dx=e.changedTouches[0].clientX-startTouch.x,dy=e.changedTouches[0].clientY-startTouch.y;if(Math.abs(dx)>95&&Math.abs(dx)>Math.abs(dy)*1.6)go(Math.round(targetProg)+(dx<0?1:-1));startTouch=null},{passive:true});
+function start(){started=true;intro.classList.add('depart');setTimeout(()=>{intro.hidden=true},700);el('app').classList.add('revealed');setContent(0)}el('begin').addEventListener('click',start);
+function sources(open){el('sourceOverlay').hidden=!open}el('sources').addEventListener('click',()=>sources(true));el('openInfo').addEventListener('click',()=>sources(true));el('closeInfo').addEventListener('click',()=>sources(false));el('sourceOverlay').addEventListener('click',e=>{if(e.target===el('sourceOverlay'))sources(false)});
+function audioToggle(){try{if(!audio){audio=new (window.AudioContext||window.webkitAudioContext)();osc=audio.createOscillator();osc.type='sine';gain=audio.createGain();gain.gain.value=0;osc.connect(gain).connect(audio.destination);osc.start()}audio.resume();soundOn=!soundOn;gain.gain.setTargetAtTime(soundOn?.032:0,audio.currentTime,.3);el('sound').classList.toggle('active',soundOn);el('sound').setAttribute('aria-label',soundOn?'Mute ambient tone':'Turn on generative ambient sound');notice(soundOn?'Ambient tone on':'Sound off')}catch(e){notice('Sound unavailable in this browser')}}el('sound').addEventListener('click',audioToggle);
+function capture(){const o=document.createElement('canvas');o.width=width*2;o.height=height*2;const g=o.getContext('2d');g.fillStyle='#030711';g.fillRect(0,0,o.width,o.height);g.drawImage(c,0,0,o.width,o.height);g.fillStyle='#f0f8fa';g.font=`600 ${Math.max(24,Math.round(o.width*.024))}px Georgia`;g.fillText('THE HUMAN MIRROR',Math.round(o.width*.055),Math.round(o.height*.083));g.fillStyle='#c9fbee';g.font=`${Math.max(15,Math.round(o.width*.013))}px sans-serif`;g.fillText('THE THREAD  ·  '+['STARS','DNA','BODY','MIND','US','CELL','HEART','BREATH','SENSES','MEMORY','BONDS','CULTURE','NATURE','ONENESS'][active],Math.round(o.width*.055),Math.round(o.height*.12));let a=document.createElement('a');a.download='The_Human_Mirror_'+['Stars','DNA','Body','Mind','Us','Cell','Heart','Breath','Senses','Memory','Bonds','Culture','Nature','Oneness'][active]+'.png';a.href=o.toDataURL('image/png');a.click();notice('Artwork saved as PNG')}el('capture').addEventListener('click',capture);
+function glow(x,y,r,col,alpha=1){if(r<=0)return;const g=ctx.createRadialGradient(x,y,0,x,y,r);g.addColorStop(0,col.replace('ALPHA',(.28*alpha).toString()));g.addColorStop(.3,col.replace('ALPHA',(.10*alpha).toString()));g.addColorStop(1,col.replace('ALPHA','0'));ctx.fillStyle=g;ctx.fillRect(x-r,y-r,2*r,2*r)}
+function frame(ms){let dt=Math.min((ms-last)/1000||.016,.05);last=ms;clock+=dt;
+if(!pointer.down){angleY+=velY;angleX+=velX;velY*=Math.pow(.91,dt*60);velX*=Math.pow(.91,dt*60);if(!reduce)angleY+=dt*.055}
+if(flowing&&started&&intro.hidden&&el('sourceOverlay').hidden){targetProg=Math.min(COUNT-1,targetProg+dt*.155);if(targetProg>=COUNT-1){flowing=false;el('flow').classList.remove('active');el('flow').textContent='▶'}}
+if(Math.abs(targetProg-prog)>.0005){prog+= (targetProg-prog)*Math.min(1,dt*(reduce?40:3.8));if(Math.abs(targetProg-prog)<.002)prog=targetProg;sync()}
+pulse=Math.max(0,pulse-dt*.85);signal=Math.max(0,signal-dt*.42);if(cascade>=0){cascade+=dt*.35;if(cascade>1.8)cascade=-1}
+if(soundOn&&audio&&osc){osc.frequency.setTargetAtTime(82+prog*19+Math.sin(clock*.23)*4,audio.currentTime,.4)}
+ctx.setTransform(dpr,0,0,dpr,0,0);ctx.fillStyle='#020711';ctx.fillRect(0,0,width,height);
+const isMob=mobile, cx=width*(isMob?.5:.675),cy=height*(isMob?.59:.50),unit=Math.min(height*(isMob?.19:.235),width*(isMob?.38:.22));
+const baseColors=[[18,80,96],[48,34,92],[24,92,103],[66,40,103],[22,80,94],[21,99,97],[105,32,73],[25,85,96],[54,67,105],[64,43,121],[32,94,97],[36,87,111],[38,88,72],[42,91,112]];const k=Math.min(COUNT-2,Math.floor(prog)), f=prog-k;
+const bgR=ctx.createRadialGradient(cx,cy,0,cx,cy,Math.max(width,height)*.65);bgR.addColorStop(0,`rgba(${Math.round(baseColors[k][0]*(1-f)+baseColors[k+1][0]*f)},${Math.round(baseColors[k][1]*(1-f)+baseColors[k+1][1]*f)},${Math.round(baseColors[k][2]*(1-f)+baseColors[k+1][2]*f)},.23)`);bgR.addColorStop(1,'rgba(0,0,0,0)');ctx.fillStyle=bgR;ctx.fillRect(0,0,width,height);
+// Sparse distant stars for depth
+for(let s=0;s<140;s++){let x=(rr(s,71)*width+clock*(s%7===0?.5:0))%width,y=rr(s,72)*height,size=.35+rr(s,73)*1.0;ctx.fillStyle=`rgba(174,215,241,${.07+rr(s,74)*.23})`;ctx.fillRect(x,y,size,size)}
+// Atmospheric concentric arcs; motion is an aesthetic device
+ctx.save();ctx.translate(cx,cy);ctx.rotate(clock*.008);for(let i=0;i<4;i++){let r=unit*(1.55+i*.31);ctx.beginPath();ctx.ellipse(0,0,r,r*.81,.08,Math.PI*(.07+i*.22),Math.PI*(.47+i*.21));ctx.lineWidth=.6;ctx.strokeStyle=`rgba(133,224,230,${.08-i*.012})`;ctx.stroke()}ctx.restore();
+const sinY=Math.sin(angleY),cosY=Math.cos(angleY),sinX=Math.sin(angleX),cosX=Math.cos(angleX);
+const aa=k,bb=k+1;let spin=0;
+// soft light cores
+const glows=['rgba(99,233,237,ALPHA)','rgba(250,143,208,ALPHA)','rgba(115,246,228,ALPHA)','rgba(169,147,255,ALPHA)','rgba(123,233,241,ALPHA)','rgba(91,252,225,ALPHA)','rgba(255,108,156,ALPHA)','rgba(100,217,240,ALPHA)','rgba(195,173,255,ALPHA)','rgba(181,142,251,ALPHA)','rgba(112,246,211,ALPHA)','rgba(105,221,242,ALPHA)','rgba(152,250,191,ALPHA)','rgba(150,253,233,ALPHA)'];glow(cx,cy,unit*2.7,glows[Math.round(prog)],.8);
+if(Math.abs(prog-2)<.37){let a=1-Math.abs(prog-2)/.37;let h=1+.15*pulse*Math.pow(Math.max(0,Math.sin(clock*tempo/60*Math.PI*2)),14);glow(cx-unit*.22,cy-unit*.02,unit*.66*h,'rgba(255,94,130,ALPHA)',a*1.8)}
+if(Math.abs(prog-3)<.44){glow(cx,cy,unit*.56*(1+signal*.2),'rgba(193,126,255,ALPHA)',1.8)}
+// Render all points with depth-aware size and blend. Each particle has a target across all 5 worlds.
+ctx.globalCompositeOperation='lighter';
+for(let i=0;i<N;i++){
+const j=i*3;let x=shapes[aa][j]*(1-f)+shapes[bb][j]*f,y=shapes[aa][j+1]*(1-f)+shapes[bb][j+1]*f,z=shapes[aa][j+2]*(1-f)+shapes[bb][j+2]*f;
+// After the original five, each new scene gains its own living movement.
+const stage=Math.round(prog), intensity=Math.max(0,1-Math.abs(prog-stage)*1.7);
+if(stage>=5 && intensity>0){let motion=0;
+if(stage===5){motion=Math.sin(clock*1.5+i*.018)*.045+pulse*.05;}
+else if(stage===6){const beat=Math.pow(Math.max(0,Math.sin(clock*tempo/60*Math.PI*2)),11);motion=beat*.13+pulse*.08;}
+else if(stage===7){motion=Math.sin(clock*1.8)*.075+pulse*.10;}
+else if(stage===8){motion=Math.sin(clock*2.2)*.023+signal*.1;}
+else if(stage===9){motion=Math.sin(clock*1.3+i*.03)*.022+signal*Math.sin(i*.12-clock*5)*.06;}
+else if(stage===10){motion=Math.sin(clock*.75)*.018+pulse*.08;}
+else if(stage===11){motion=Math.sin(clock*.8+i*.015)*.025+signal*.06;}
+else if(stage===12){motion=Math.sin(clock*.9+y*3.2)*.025+pulse*.04;}
+else{motion=Math.sin(clock*.55+i*.004)*.03+signal*.07;}
+const scale=1+motion*intensity;x*=scale;y*=scale;z*=scale;
+if(stage===12){x+=Math.sin(clock*.7+y*2.4)*.045*intensity;}
+if(stage===11 && cascade>=0){x+=Math.sin((i*.07-cascade*12))*cascade*.018*intensity;}
+if(stage===13 && cascade>=0){const r=Math.hypot(x,y,z)||1;let wavefront=Math.exp(-Math.pow(r-cascade*1.9,2)/.08);x*=1+.14*wavefront;y*=1+.14*wavefront;z*=1+.14*wavefront;}
+}
+// a gentle breath & physics gesture flows through the same continuous geometry
+const wave=1+.015*Math.sin(clock*1.1+i*.04)+pulse*.08;
+x*=wave;y*=wave;z*=wave;
+let xx=x*cosY-z*sinY,zz=x*sinY+z*cosY,yy=y*cosX-zz*sinX;zz=y*sinX+zz*cosX;
+const persp=4.8/(5.4+zz*.33),px=cx+xx*unit*persp,py=cy-yy*unit*persp;
+if(px<0||px>width||py<0||py>height)continue;
+const brightness=Math.max(.4,Math.min(1.35,(1.2-zz*.14)));
+let alpha=(.55+.45*rr(i,12))*brightness;
+const twinkle=.8+.2*Math.sin(clock*1.2+i*3.23);
+let r=(.85+rr(i,35)*1.70)*(isMob?.78:1)*persp*(1+.1*pulse);
+let red=colors[aa][j]*(1-f)+colors[bb][j]*f,green=colors[aa][j+1]*(1-f)+colors[bb][j+1]*f,blue=colors[aa][j+2]*(1-f)+colors[bb][j+2]*f;
+if(prog>2.65&&prog<3.55&&signal>0&&rr(i,44)<signal*.23){r*=1.9;red=222;green=250;blue=255}
+if(prog>3.6&&cascade>=0){let norm=(y+1.6)/3.2;if(Math.abs(norm-cascade)<.12){r*=1.85;red=245;green=255;blue=228}}
+ctx.fillStyle=`rgba(${red|0},${green|0},${blue|0},${Math.min(1,alpha*twinkle).toFixed(2)})`;
+ctx.fillRect(px-r*.5,py-r*.5,r,r);
+if(i%32===0){ctx.beginPath();ctx.arc(px,py,r*1.4,0,6.283);ctx.fill()}
+}
+ctx.globalCompositeOperation='source-over';
+// Large, soft foreground highlights layered above particle points
+if(Math.abs(prog-2)<.2){const beat=Math.pow(Math.max(0,Math.sin(clock*tempo/60*Math.PI*2)),15);glow(cx-unit*.21,cy-unit*.025,unit*(.25+beat*.06),'rgba(255,99,146,ALPHA)',1.8)}
+if(Math.abs(prog-4)<.32&&cascade>=0){ctx.beginPath();ctx.arc(cx,cy,unit*(cascade*2.4),0,Math.PI*2);ctx.strokeStyle=`rgba(174,255,230,${Math.max(0,.7-cascade*.42)})`;ctx.lineWidth=2;ctx.stroke()}
+// Canvas-only hints, presented as exhibition labels
+ctx.font='10px ui-monospace,Menlo,Consolas,monospace';ctx.textAlign='center';ctx.fillStyle='rgba(174,215,227,.40)';ctx.letterSpacing='1px';const label=['FORM 01 · STELLAR MATTER','FORM 02 · MOLECULAR INSTRUCTIONS','FORM 03 · LIVING SYSTEM','FORM 04 · NEURAL SIGNAL','FORM 05 · COLLECTIVE LIFE','FORM 06 · CELLULAR LIFE','FORM 07 · HEART RHYTHM','FORM 08 · RESPIRATION','FORM 09 · HUMAN PERCEPTION','FORM 10 · MEMORY NETWORK','FORM 11 · HUMAN BONDS','FORM 12 · CULTURAL KNOWLEDGE','FORM 13 · LIVING BIOSPHERE','FORM 14 · HUMAN POSSIBILITY'][Math.round(prog)];ctx.fillText(label,cx,cy+unit*(isMob?2.35:2.16));ctx.letterSpacing='0px';
+requestAnimationFrame(frame)}
+setContent(0);requestAnimationFrame(frame);
+})();
+</script>
+</body></html>

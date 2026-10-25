@@ -1,0 +1,17 @@
+{
+  "name": "Human Within",
+  "short_name": "Human Within",
+  "description": "A little space to be human.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f8f8f2",
+  "theme_color": "#f8f8f2",
+  "icons": [
+    {
+      "src": "/assets/mark.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

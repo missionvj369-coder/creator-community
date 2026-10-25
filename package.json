@@ -1,38 +1,38 @@
-{
-  "name": "living-creation-intelligence",
-  "version": "0.1.0",
-  "private": true,
-  "description": "A living, open, continuously evolving Creation Intelligence that helps humans turn intentions into meaningful projects",
-  "author": "LCI Community",
-  "license": "MIT",
-  "scripts": {
-    "build": "tsc",
-    "dev": "tsx src/demo-world-intelligence.ts",
-    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
-    "demo": "tsx src/demo.ts",
-    "demo:universal": "tsx src/demo-universal.ts",
-    "typecheck": "tsc --noEmit"
-  },
-  "devDependencies": {
-    "@types/jest": "^30.0.0",
-    "@types/node": "^20.11.0",
-    "jest": "^29.7.0",
-    "ts-jest": "^29.1.2",
-    "tsx": "^4.7.0",
-    "typescript": "^5.3.3"
-  },
-  "engines": {
-    "node": ">=18.0.0"
-  },
-  "keywords": [
-    "ai",
-    "creation-intelligence",
-    "capability-composition",
-    "project-generation",
-    "open-source"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/living-creation-intelligence/lci.git"
-  }
-}
+At line:1 char:271
++ ...   dev: node server.js,  test: node 
+scripts/test-engine.mjs && node sc ...
++                                                      
+          ~~
+The token '&&' is not a valid statement separator in 
+this version.
+At line:1 char:300
++ ...  node scripts/test-engine.mjs && node 
+scripts/test-api.mjs && node sc ...
++                                                      
+          ~~
+The token '&&' is not a valid statement separator in 
+this version.
+At line:1 char:405
++ ... blic/content"   },   engines: {     node: >=18   
+},   license: MIT }  ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~
+The string is missing the terminator: ".
+At line:1 char:187
++ ... eBooks, 30 wallpapers and tools for being 
+human.,  scripts: {  start: ...
++                                                      
+           ~
+Missing closing '}' in statement block or type 
+definition.
+At line:1 char:2
++  {  name: human-within,  version: 3.0.0,  private: 
+
+ ...
++  ~
+Missing closing '}' in statement block or type 
+definition.
+    + CategoryInfo          : ParserError: (:) [], Par 
+   entContainsErrorRecordException
+    + FullyQualifiedErrorId : InvalidEndOfLine
+ 

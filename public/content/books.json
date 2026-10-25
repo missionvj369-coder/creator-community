@@ -1,0 +1,68 @@
+[
+  {
+    "id": "human-journey",
+    "title": "The Human Journey",
+    "description": "From our origins to a shared future.",
+    "author": "Shanmugam Vijay Balakrishnan",
+    "category": "Life & meaning",
+    "color": "#c5944c",
+    "cover": "/assets/covers/human-journey.webp",
+    "file": "/books/human-journey.html",
+    "bytes": 401249
+  },
+  {
+    "id": "how-to-work-with-me",
+    "title": "How to Work With Me",
+    "description": "A practical guide to better AI prompting.",
+    "author": "Astralyon",
+    "category": "Learning & AI",
+    "color": "#4d6fc5",
+    "cover": "/assets/covers/how-to-work-with-me.webp",
+    "file": "/books/how-to-work-with-me.html",
+    "bytes": 9500516
+  },
+  {
+    "id": "why-am-i-like-this",
+    "title": "Why Am I Like This?",
+    "description": "30 discoveries about the mind you live with.",
+    "author": "The Human Within",
+    "category": "Mind & attention",
+    "color": "#8166c0",
+    "cover": null,
+    "file": "/books/why-am-i-like-this.html",
+    "bytes": 120988
+  },
+  {
+    "id": "growing-mind",
+    "title": "Your Child’s Growing Mind",
+    "description": "25 illustrated discoveries for parents.",
+    "author": "neoXhuman",
+    "category": "Parenting",
+    "color": "#2a8078",
+    "cover": "/assets/covers/growing-mind.webp",
+    "file": "/books/growing-mind.html",
+    "bytes": 9928946
+  },
+  {
+    "id": "switch-off",
+    "title": "Why Can’t I Switch Off?",
+    "description": "An illustrated companion for the mind still awake.",
+    "author": "Vijay Balakrishnan",
+    "category": "Rest & attention",
+    "color": "#69785c",
+    "cover": "/assets/covers/switch-off.webp",
+    "file": "/books/switch-off.html",
+    "bytes": 29008939
+  },
+  {
+    "id": "body-you-live-in",
+    "title": "The Body You Live In",
+    "description": "An illustrated journey through being human.",
+    "author": "neoXhuman",
+    "category": "Body & discovery",
+    "color": "#d96041",
+    "cover": "/assets/covers/body-you-live-in.webp",
+    "file": "/books/body-you-live-in.html",
+    "bytes": 47156531
+  }
+]

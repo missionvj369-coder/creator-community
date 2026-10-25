@@ -1,0 +1,59 @@
+import { h, mount, icon, $ } from './ui.js';
+import * as S from './store.js';
+import { setAura } from './aura.js';
+import { drone, silence } from './audio.js';
+import { renderToday } from './views/today.js';
+import { renderPath } from './views/path.js';
+import { renderYou } from './views/you.js';
+import { renderReader } from './views/reader.js';
+import { renderSession } from './views/session.js';
+import { renderWorld } from './views/world.js';
+import { renderOnboarding, renderRitual, renderWelcomeVideos } from './views/onboarding.js';
+import { renderHome, renderProducts, renderProduct, renderSituations, renderSituation } from './views/hub.js';
+import { renderBooks, renderTools, renderBook, renderTool, renderEmbed } from './views/library.js';
+import { renderWallpapers } from './views/wallpapers.js';
+import { productById } from './catalogue.js';
+
+const TABS=[['home','Home','home'],['products','Explore','realms'],['ebooks','eBooks','book'],['wallpapers','Wallpapers','wallpaper'],['you','You','you']];
+let lastTab='#/home',token=0;
+const main=()=>$('#main'),overlay=()=>$('#overlay'),chrome=()=>$('#chrome');
+const ctx={sky:'day',go:to=>{if(location.hash===to)route();else location.hash=to;},close:()=>{leaveOverlay();location.hash=lastTab;},render:()=>route(),refresh:async()=>{try{await S.refresh();}catch{}route();},setHue:hue=>setAura(hue,0),toggleSound(){if(drone.on)drone.stop();else drone.start();paintHeader();}};
+function leaveOverlay(){overlay()?.firstElementChild?.dispatchEvent(new Event('ugt:leave'));silence();}
+function paintHeader(){
+  const seg=location.hash.split('/')[1]||'home',act=seg==='product'?'products':seg==='situation'?'situations':seg;
+  mount($('#nav'),TABS.map(([id,label,ic])=>h('a',{href:`#/${id}`,class:`nav-i ${act===id?'on':''}`,'aria-current':act===id?'page':null},icon(ic,22),h('span',{},label))));
+  mount($('#extra-nav'),[['situations','Find my moment','sparkle'],['today','My daily flow','today'],['path','My journey','path'],['tools','More tools','realms']].map(([id,label,ic])=>h('a',{href:`#/${id}`,class:`nav-i ${act===id?'on':''}`,'aria-current':act===id?'page':null},icon(ic,20),h('span',{},label))));
+  const label={home:'A little space for you',products:'The experience collection',ebooks:'The reading room',wallpapers:'The pocket gallery',you:'Your space',today:'Your daily flow',path:'Your journey',tools:'More ways to explore',situations:'Meet your moment',product:'The experience collection',situation:'Meet your moment'}[seg]||'Human Within';$('#top-label').textContent=label;
+  const v=S.state.view;mount($('#top-actions'),v?.stats.streak>0&&h('span',{class:'streak',title:'Current daily streak'},icon('flame',16),String(v.stats.streak)),h('a',{href:'#/situations',class:'icon-btn','aria-label':'Find something for my situation'},icon('search',20)),h('button',{class:'icon-btn','aria-label':drone.on?'Turn ambient sound off':'Turn ambient sound on','aria-pressed':String(drone.on),onclick:()=>ctx.toggleSound()},icon(drone.on?'sound':'mute',20)));
+}
+async function route(){
+  const my=++token,[,seg,a,b]=location.hash.split('/'),root=overlay();leaveOverlay();if(!S.state.ready)return;const c={...ctx,isCurrent:()=>my===token};
+  const showOverlay=on=>{root.hidden=!on;main().inert=on;chrome().hidden=on;document.body.classList.toggle('in-experience',on);if(!on)mount(root);};
+  try{
+    if(!S.state.doc){showOverlay(true);return renderOnboarding(root,c);}
+    ctx.sky='day';document.body.dataset.sky='day';
+    if(seg==='welcome'){showOverlay(true);return renderWelcomeVideos(root,c);}
+    if(seg==='arrive'){showOverlay(true);return renderRitual(root,c);}
+    if(seg==='onboarding'){showOverlay(true);return renderOnboarding(root,c);}
+    if(seg==='read'||seg==='browse'){showOverlay(true);mount(root,loading());await renderReader(root,{realm:a,idx:+b,browse:seg==='browse'},c);return;}
+    if(seg==='session'||seg==='listen'){showOverlay(true);mount(root,loading());await renderSession(root,{idx:+a,browse:seg==='listen'},c);return;}
+    if(seg==='world'){showOverlay(true);return renderWorld(root,{realm:a},c);}
+    if(seg==='book'){showOverlay(true);mount(root,loading());await renderBook(root,{id:a},c);return;}
+    if(seg==='tool'){showOverlay(true);return renderTool(root,{id:a},c);}
+    if(seg==='experience'){
+      const r=productById(a);if(!r||r.kind!=='experience')throw Error('Experience not found');showOverlay(true);drone.stop();return renderEmbed(root,{title:r.title,file:`/realms/${r.file}?embedded=1`,download:r.file,route:`#/experience/${r.id}`,kind:'Experience',back:'#/products'},c);
+    }
+    showOverlay(false);const tab=seg==='realms'?'products':seg||'home';lastTab=`#/${tab}${a?'/'+a:''}`;paintHeader();window.scrollTo(0,0);
+    if(tab==='product')return await renderProduct(main(),{id:a},c);
+    if(tab==='situation')return renderSituation(main(),{id:a},c);
+    const views={home:renderHome,products:renderProducts,ebooks:renderBooks,wallpapers:renderWallpapers,tools:renderTools,situations:renderSituations,today:renderToday,path:renderPath,you:renderYou};await(views[tab]||renderHome)(main(),c);
+  }catch(e){console.error(e);if(my!==token)return;showOverlay(true);mount(root,h('div',{class:'reader celebrate'},h('div',{class:'center blocked'},h('h1',{class:'display'},'Let’s try that again.'),h('p',{class:'lede'},'This page could not load. Your saved progress is still here.'),h('button',{class:'btn primary',onclick:()=>{location.hash='#/home';route();}},'Back to home'))));}
+}
+function loading(){return h('div',{class:'reader celebrate'},h('div',{class:'center blocked',role:'status'},h('i',{class:'loading-orbit'}),h('p',{class:'fine'},'Opening your space…')));}
+async function start(){
+  try{
+    await S.boot();if(!S.state.doc)await S.start({name:'Friend',intents:[],length:'quick'});$('#boot')?.remove();addEventListener('hashchange',route);if(!location.hash||location.hash==='#')location.hash='#/home';await route();
+    document.addEventListener('visibilitychange',async()=>{if(!document.hidden&&S.state.doc){try{await S.refresh();}catch{}}});addEventListener('keydown',e=>{if(e.key==='Escape'&&!document.querySelector('.sheet-back')&&!overlay().hidden)ctx.close();});
+  }catch(e){$('#boot')?.remove();mount(main(),h('div',{class:'empty-state'},h('h1',{class:'display'},'Your space is taking a moment.'),h('p',{},'Refresh to try again.'),h('button',{class:'btn primary',onclick:()=>location.reload()},'Refresh')));console.error(e);}
+}
+start();
