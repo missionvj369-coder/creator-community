@@ -1,6 +1,6 @@
 # Human Within
 
-A little space to be human. A premium, responsive app with a guided journey from one situation to a useful action and personal learning, supported by 15 experiences, six eBooks, and 30 original wallpapers.
+A little space to be human. A premium, responsive app with 15 experiences, six eBooks, 30 individually drawn wallpapers, and a simple guided moment.
 
 ## Run
 
@@ -19,15 +19,13 @@ PORT=8080 npm start
 
 You can also deploy the contents of `public/` to the root of any static host. Open the app over HTTP; JavaScript modules require a web server rather than double-clicking its index.html.
 
-## The core process
+## The simpler flow
 
-**Understand → Make space → Choose a step → Try it in life → Notice & learn.**
+**Choose a need → Arrive → Try one useful action → Carry one thing into your day.**
 
-Home offers one clear next action. Signal Map suggests a suitable approach. Untangle, Choice Lab, and Conversation Studio guide a person through short prompts. Small Step turns their words into an action, a recognisable cue, and an easier fallback. The plan stays open while they try it in daily life. Their reflection determines whether to reuse, shrink, or change the next approach.
+The main button opens a short moment. The suggested timer follows the profile preference of 2, 5, or 10 minutes, and never blocks a person's next step. A completed moment is kept in their space. They can stop, return to the day, or explore a relevant experience. The Home page keeps four useful entry points up front; profile goals bring matching moments to the front.
 
-Pattern Lens uses actual reported outcomes. Drafts, plans, and the exact exercise prompt are saved as the person goes. A blocked attempt is kept as useful feedback and never counted as a completed action. Copy or download the personal pocket plan. Read PRODUCT_SYSTEM.md for the implemented product model.
-
-Main navigation is Home, My journey, Library, and You. All fifteen experiences, 375 content units, 105 everyday situations, six books, wallpapers, and extra creations remain in the supporting library. Brief guided pauses remain available.
+All 15 products, 375 guided content units, 105 Matrix Escape situations, 99 frequency scenarios, the original immersive worlds, six eBooks, and the added affirmation tool remain available through Explore, eBooks, Wallpapers, and More tools.
 
 ## A profile that works on this device
 
@@ -40,7 +38,7 @@ Working profile features:
 - Saved experiences and books, with remove controls.
 - Notes with dates and individual removal.
 - Gentle interface motion and an actual ambient sound control.
-- JSON backup export and validated restore, including all journey drafts, plans, reflections, and the original readers' stored reading preferences.
+- JSON backup export and validated restore, including the original readers' stored reading preferences.
 - A confirmed reset that clears only this app's keys in this browser.
 
 No personal data is included in the package. The profile clearly states that data is saved in this browser. If browser storage is unavailable, it identifies the session as temporary.

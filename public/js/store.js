@@ -12,7 +12,7 @@ const tzNow = () => { try { return Intl.DateTimeFormat().resolvedOptions().timeZ
 
 function fail(code, message, status) { return Object.assign(new Error(message), { code, status }); }
 const mem = {};
-const ls = { get: k => { if(Object.hasOwn(mem,k))return mem[k];try { return localStorage.getItem(k); } catch { return null; } }, set: (k, v) => { try { localStorage.setItem(k, v);delete mem[k]; } catch { mem[k] = v; state.persistent=false; } }, del: k => { delete mem[k];try { localStorage.removeItem(k); } catch {} } };
+const ls = { get: k => { try { return localStorage.getItem(k); } catch { return mem[k] ?? null; } }, set: (k, v) => { try { localStorage.setItem(k, v); } catch { mem[k] = v; state.persistent=false; } }, del: k => { try { localStorage.removeItem(k); } catch { delete mem[k]; } } };
 
 /* ───────── API backend ───────── */
 async function call(method, path, body) {

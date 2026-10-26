@@ -1,13 +1,14 @@
 {
   "name": "human-within",
-  "version": "4.0.0",
+  "version": "3.1.0",
   "private": true,
   "type": "module",
-  "description": "Human Within \u2014 a guided journey from one situation to a useful action and personal learning.",
+  "description": "Human Within \u2014 15 experiences, six eBooks, 30 wallpapers and tools for being human.",
   "scripts": {
     "start": "node server.js",
     "dev": "node server.js",
-    "test": "node scripts/test-engine.mjs && node scripts/test-api.mjs && node scripts/test-catalogue.mjs && node scripts/test-personal.mjs && node scripts/test-journey.mjs",
+    "build": "echo Building for Netlify...",
+    "test": "node scripts/test-engine.mjs && node scripts/test-api.mjs && node scripts/test-catalogue.mjs && node scripts/test-personal.mjs",
     "extract": "node scripts/extract-content.cjs ../source ./public/content"
   },
   "engines": {

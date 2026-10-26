@@ -1,0 +1,182 @@
+ M .gitignore
+ D ARCHITECTURE.md
+ D CONSTITUTION.md
+ D ECOSYSTEM.md
+ D IMPLEMENTATION_PLAN.md
+ D ONE_99_Thoughts.html
+ D PHILOSOPHY.md
+ D README.md
+ D ROADMAP.md
+ D STEP_1_SYSTEM_DIAGNOSTICS.md
+ D STEP_2_TOOL_DISCOVERY.md
+ D STEP_3_SUMMARY.md
+ D STEP_4_SUMMARY.md
+ D STEP_5_GITHUB_INTEGRATION.md
+ D STEP_7_MEMORY_LEARNING.md
+ D The_Human_Mirror_14_Worlds.html
+ D The_Human_Mirror_REIMAGINED.html
+ D The_Human_Sanctuary_14_Scenes.html
+ D _add_product12.py
+ D _extract_rewire_assets.cjs
+ D _fix_add_products.py
+ D _fix_products.py
+ D _intro_smoke.cjs
+ D _preview_server.cjs
+ D _t2.txt
+ D _verify_rewire.cjs
+ D build_decoder.py
+ D build_final.py
+ D build_full.py
+ D build_master.py
+ D build_new.py
+ D build_payload.py
+ D build_run.py
+ D build_runner.py
+ D build_temp.txt
+ D clarity-30-day-affirmations.html
+ D create_html.ps1
+ D create_mp4.py
+ D decode_payload.py
+ D extra-dimensional-passage.html
+ D frequency-playground-99-scenarios.html
+ D gen_html.py
+ D gen_html_script.py
+ D gen_master.py
+ D generate_videos.py
+ M git_status.txt
+ D human-journey-part2.html
+ D human-journey-part3.html
+ M index.html
+ D index.patched.html
+ D jest.config.js
+ D local_preview.txt
+ D original_backup.html
+M  package-lock.json
+M  package.json
+ D patch_css.py
+ D patch_step1.py
+ D patch_step2.py
+ D patch_step3.py
+ D patch_switchtab.py
+ D payload.b64
+ D payload.html
+ D preview-server.js
+ M public/index.html
+ D rewire-wallpaper-app.html
+ D setup_intro_files.py
+ D smoke_output.txt
+ D src/api/server.ts
+ D src/brain/orchestrator.ts
+ D src/capabilities/combiner.ts
+ D src/capabilities/index.ts
+ D src/capabilities/matcher.ts
+ D src/capabilities/registry.ts
+ D src/cli/index.ts
+ D src/demo-step4-loop.ts
+ D src/demo-universal.ts
+ D src/demo-world-intelligence.ts
+ D src/demo.ts
+ D src/device/index.ts
+ D src/device/profiler.ts
+ D src/device/system-diagnostics.ts
+ D src/discovery/index.ts
+ D src/github/index.ts
+ D src/github/project-scaffolder.ts
+ D src/github/service.ts
+ D src/guardian/guardian.ts
+ D src/guardian/index.ts
+ D src/guardian/types.ts
+ D src/human/index.ts
+ D src/human/profiler.ts
+ D src/index.ts
+ D src/ingestion/index.ts
+ D src/ingestion/pipeline.ts
+ D src/intelligence/challenge.ts
+ D src/intelligence/creator.ts
+ D src/intelligence/empathy.ts
+ D src/intelligence/evolution.ts
+ D src/intelligence/impact.ts
+ D src/intelligence/observer.ts
+ D src/intelligence/orchestrator.ts
+ D src/intelligence/possibility.ts
+ D src/intelligence/systems.ts
+ D src/intelligence/types.ts
+ D src/intelligence/understanding.ts
+ D src/matcher/engine.ts
+ D src/matcher/index.ts
+ D src/memory/index.ts
+ D src/memory/manager.ts
+ D src/memory/store.ts
+ D src/memory/types.ts
+ D src/reality/capability-analyzer.ts
+ D src/reality/detector.ts
+ D src/reality/e2e-test.ts
+ D src/reality/recovery.ts
+ D src/reality/types.ts
+ D src/reality/verifier.ts
+ D src/types.ts
+ D src/world/cache.ts
+ D src/world/capability.ts
+ D src/world/discovery.ts
+ D src/world/github-discovery.ts
+ D src/world/index.ts
+ D src/world/mock-data.ts
+ D src/world/possibility.ts
+ D src/world/tool-matrix.ts
+ D start-preview.bat
+ D test-github-integration.ts
+ D test-system-diagnostics.js
+ D test-tool-discovery.js
+ D test-tool-discovery.ts
+ D test.txt
+ D tests/guardian.test.d.ts
+ D tests/guardian.test.d.ts.map
+ D tests/guardian.test.js
+ D tests/guardian.test.js.map
+ D tests/guardian.test.ts
+ D tests/memory.test.ts
+ D the-loop-complete-app.html
+ D tsconfig.json
+ D twenty-minutes-down.html
+ D videos/intro-1.mp4
+ D videos/intro-10.mp4
+ D videos/intro-11.mp4
+ D videos/intro-12.mp4
+ D videos/intro-2.mp4
+ D videos/intro-3.mp4
+ D videos/intro-4.mp4
+ D videos/intro-5.mp4
+ D videos/intro-6.mp4
+ D videos/intro-7.mp4
+ D videos/intro-8.mp4
+ D videos/intro-9.mp4
+?? fix_package.ps1
+?? public/ONE_99_Thoughts.html
+?? public/The_Human_Mirror_14_Worlds.html
+?? public/The_Human_Mirror_REIMAGINED.html
+?? public/The_Human_Sanctuary_14_Scenes.html
+?? public/assets/
+?? public/books/
+?? public/clarity-30-day-affirmations.html
+?? public/content/
+?? public/css/
+?? public/extra-dimensional-passage.html
+?? public/frequency-playground-99-scenarios.html
+?? public/human-journey-part2.html
+?? public/human-journey-part3.html
+?? public/human-journey.html
+?? public/js/
+?? public/manifest.webmanifest
+?? public/realms/
+?? public/rewire-wallpaper-app.html
+?? public/the-loop-complete-app.html
+?? public/tools/
+?? public/videos/
+?? public/wallpapers/
+?? scripts/
+?? server.cjs
+?? server_out.txt
+?? server_output.txt
+?? test_api_out.txt
+?? test_result.txt
+?? test_run.txt
