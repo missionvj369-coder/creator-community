@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="2340" viewBox="0 0 1080 2340"><defs>
+ <linearGradient id="paper" x2=".4" y2="1"><stop stop-color="#e2ecdb"/><stop offset="1" stop-color="#f2f1df"/></linearGradient>
+ <linearGradient id="sculpt" x2=".9" y2="1"><stop stop-color="white" stop-opacity=".86"/><stop offset=".4" stop-color="#a2bb90"/><stop offset="1" stop-color="#4e7055" stop-opacity=".72"/></linearGradient>
+ <linearGradient id="glass" x2="1" y2="1"><stop stop-color="#fff" stop-opacity=".92"/><stop offset=".52" stop-color="#fff" stop-opacity=".45"/><stop offset="1" stop-color="#a2bb90" stop-opacity=".46"/></linearGradient>
+ <linearGradient id="warm" x2=".9" y2="1"><stop stop-color="#fff7de"/><stop offset=".52" stop-color="#e2bb7d"/><stop offset="1" stop-color="#c19459"/></linearGradient>
+ <linearGradient id="deep" x2=".8" y2="1"><stop stop-color="#a2bb90"/><stop offset="1" stop-color="#4e7055"/></linearGradient>
+ <linearGradient id="beam"><stop stop-color="#fff9df" stop-opacity=".85"/><stop offset="1" stop-color="#fff9df" stop-opacity="0"/></linearGradient>
+ <radialGradient id="halo"><stop stop-color="#fff" stop-opacity=".56"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>
+ </defs><rect width="1080" height="2340" fill="url(#paper)"/><circle cx="550" cy="1030" r="530" fill="url(#halo)"/>
+ <text x="540" y="375" text-anchor="middle" font-family="DejaVu Sans,sans-serif" font-size="19" letter-spacing="6" fill="#4e7055" opacity=".58">A LITTLE SPACE TO BE HUMAN</text>
+ <g transform="translate(75 670) scale(1.55)"><path d="M159 389V210a141 141 0 0 1 282 0v179Z" fill="url(#glass)"/><ellipse cx="300" cy="394" rx="158" ry="27" fill="url(#sculpt)"/><rect x="267" y="236" width="68" height="135" rx="8" fill="url(#sculpt)"/><path d="M300 235C253 207 294 168 300 145C331 182 346 210 300 235Z" fill="url(#warm)"/><circle cx="300" cy="108" r="10" fill="url(#sculpt)"/><path d="M169 219L169 340" fill="none" stroke="#ffffffb0" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></g>
+ <text x="540" y="1485" text-anchor="middle" font-family="DejaVu Sans,sans-serif" font-size="23" letter-spacing="6" fill="#4e7055" opacity=".7">ATTENTION</text><text x="540" y="1640" text-anchor="middle" font-family="P052,Georgia,serif" font-size="83" fill="#4e7055">Silence one distraction</text><text x="540" y="1745" text-anchor="middle" font-family="P052,Georgia,serif" font-size="83" fill="#4e7055">before you begin.</text>
+ <path d="M480 2060H600" stroke="#4e7055" stroke-opacity=".25" stroke-width="2"/><text x="540" y="2140" text-anchor="middle" font-family="P052,Georgia,serif" font-style="italic" font-size="36" fill="#4e7055" opacity=".68">human within</text></svg>

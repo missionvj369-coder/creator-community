@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#030711">
+<meta name="description" content="The Human Mirror: The Thread. An 18-minute journey through 36 living worlds, with science, perspective, and small ways to care for our shared world.">
+<title>The Human Mirror — The Thread</title>
+<style>:root{color-scheme:dark;--bg:#030711;--ink:#eff8fa;--muted:#a4b6c4;--mint:#9cffe9;--line:#b9f7ee35;--gold:#ffe0a5}
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:var(--bg);color:var(--ink);font-family:Inter,Segoe UI,system-ui,sans-serif}button,input,a{font:inherit}button{cursor:pointer;touch-action:manipulation}button,a,input{ -webkit-tap-highlight-color:transparent}button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid var(--mint);outline-offset:4px}button:disabled{cursor:default;opacity:.3}a{color:var(--mint)}[hidden]{display:none!important}
+#world{position:fixed;inset:0;width:100%;height:100%;display:block;touch-action:none;cursor:grab}#world:active{cursor:grabbing}#veil{position:fixed;inset:0;pointer-events:none;background:linear-gradient(90deg,#030711e8,#03071177 30%,transparent 59%),linear-gradient(0deg,#030711f2,transparent 24%,transparent 85%,#03071155);z-index:1}
+#app{position:relative;z-index:2;pointer-events:none;height:100svh;padding:25px clamp(22px,4.4vw,76px) max(15px,env(safe-area-inset-bottom));display:flex;flex-direction:column;justify-content:space-between;gap:12px}#app button,#app input,#app a{pointer-events:auto}header{display:flex;justify-content:space-between;align-items:center;gap:12px}.brand{font-size:10px;letter-spacing:.18em;font-weight:800;display:flex;align-items:center;gap:13px;white-space:nowrap}.brand small{display:block;color:#93aebc;font-size:9px;font-weight:450;letter-spacing:.22em;margin-top:5px}.sigil{position:relative;display:grid;place-items:center;width:39px;height:39px;border:1px solid #b7fff796;border-radius:50%;box-shadow:0 0 25px #58edda19}.sigil:before,.sigil:after{content:'';position:absolute;width:16px;height:27px;border:1px solid #bcfff1;border-radius:50%;transform:rotate(55deg)}.sigil:after{transform:rotate(-55deg)}.sigil i{width:4px;height:4px;border-radius:50%;background:#e6fff5}.tools{display:flex;gap:8px}.icon,.nav{width:41px;height:41px;border-radius:50%;border:1px solid var(--line);background:#101d2cb0;backdrop-filter:blur(14px);color:#def9f6;display:grid;place-items:center;font-size:17px}.icon:hover,.nav:hover{background:#254347}.icon[aria-pressed=true]{border-color:var(--mint);color:var(--mint)}svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+main{flex:1;display:flex;align-items:center;min-height:0}#story{max-width:440px;transition:opacity .25s,transform .25s}#story.changing{opacity:0;transform:translateY(9px)}.eyebrow{font-size:10px;letter-spacing:.23em;text-transform:uppercase;color:var(--mint);margin:0 0 21px;display:flex;gap:12px;align-items:center}.eyebrow:before{content:'';width:28px;height:1px;background:var(--mint)}h1{font:normal clamp(65px,7.4vw,112px)/.96 Georgia,'Times New Roman',serif;letter-spacing:-.067em;margin:0;text-wrap:balance}#caption{font-size:clamp(16px,1.5vw,21px);line-height:1.55;max-width:360px;color:#c1d2dc;margin:22px 0 27px;letter-spacing:-.025em}.story-actions{display:flex;gap:9px;flex-wrap:wrap}.pill{min-height:42px;border-radius:100px;border:1px solid var(--line);background:#132d35a8;padding:11px 17px;color:#cbfff1;font-size:11px;font-weight:600;letter-spacing:.015em}.pill:hover{background:#244c50}.pill.quiet{background:transparent;color:#b4c5ce;border-color:#a6d2d127}
+#journeyBar{align-self:center;width:min(1180px,100%);padding:16px 19px 12px;border:1px solid #a6d9d52c;border-radius:20px;background:#0a1722a8;backdrop-filter:blur(22px)}.bar-top{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:0 3px}.group-label{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#b9d0d9}.time{font:10px ui-monospace,monospace;color:#a1b7c5;font-variant-numeric:tabular-nums}#controls{display:flex;align-items:center;gap:12px;margin-top:3px}.nav{width:35px;height:35px;font-size:21px;flex:none}.track{flex:1;min-width:0}input[type=range]{display:block;width:100%;height:4px;appearance:none;-webkit-appearance:none;border-radius:5px;margin:17px 0;background:linear-gradient(90deg,#8df5da var(--fill,0%),#304952 var(--fill,0%));cursor:pointer}input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:18px;height:18px;background:#baffed;border:3px solid #143d3e;border-radius:50%;box-shadow:0 0 0 1px #baffed,0 0 20px #73ffe866}input[type=range]::-moz-range-thumb{width:13px;height:13px;background:#baffed;border:3px solid #143d3e;border-radius:50%}.acts{display:flex;justify-content:space-between;gap:8px;padding:0 50px 0 85px}.acts button{padding:0;background:none;border:0;font-size:9px;letter-spacing:.06em;color:#819da9}.acts button.current{color:#c9fff1}.bar-foot{display:flex;justify-content:space-between;align-items:center;margin-top:12px;gap:12px}.textbtn{background:none;border:0;color:#aec4cd;font-size:10px;padding:5px 3px;letter-spacing:.035em}.textbtn:hover{color:var(--mint)}#stageCount{color:#8fa9b4;font-size:10px;font-variant-numeric:tabular-nums}.footlinks{display:flex;gap:16px}
+.overlay{position:fixed;inset:0;z-index:10;display:flex;align-items:center;justify-content:center;background:#020712d9;backdrop-filter:blur(22px);padding:24px}.panel{position:relative;width:min(700px,100%);max-height:90svh;overflow:auto;padding:clamp(25px,5vw,56px);border:1px solid var(--line);border-radius:25px;background:radial-gradient(circle at 85% 5%,#184b5b5c,transparent 45%),#09131f;box-shadow:0 30px 100px #0008}.close{position:absolute;right:16px;top:15px;width:36px;height:36px;background:#18303c;border:1px solid var(--line);border-radius:50%;color:#d5f9ef;font-size:23px}.kicker{font-size:10px;text-transform:uppercase;letter-spacing:.22em;color:var(--mint);margin:0 0 17px}.panel h2{font:normal clamp(36px,5vw,67px)/1.02 Georgia,serif;letter-spacing:-.055em;margin:0 0 21px}.panel h2 em{color:var(--mint);font-weight:400}.panel p{line-height:1.7;font-size:14px;color:#b9cbd5}.primary{min-height:47px;border:0;border-radius:99px;background:#adffe9;color:#06262b;font-size:11px;font-weight:800;letter-spacing:.08em;padding:15px 24px}.primary:hover{background:white}.intro-footer{display:flex;align-items:center;gap:20px;margin-top:29px;flex-wrap:wrap}.small{font-size:11px;color:#8daab9;line-height:1.65}.fine{font-size:11px!important;color:#829eac!important;margin-top:26px}.takeaway{border-left:2px solid #9bf1d4;background:#183a3c5e;padding:16px 19px;margin:25px 0}.takeaway b{color:#b6ffe8;font-size:10px;letter-spacing:.18em;text-transform:uppercase;font-weight:650}.takeaway p{margin:9px 0 0;color:#e1f4ef}#detailSource{font-size:12px;line-height:1.6}#detailKind{color:#90b8c4;font-size:11px}#mapPanel{width:min(1040px,100%);padding:35px}.map-groups{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:25px}.map-group h3{font-size:10px;letter-spacing:.15em;color:#9cdacb;text-transform:uppercase;font-weight:600;margin:0 0 11px}.map-group button{width:100%;display:flex;align-items:center;text-align:left;gap:11px;background:transparent;border:1px solid transparent;border-radius:9px;padding:10px 8px;color:#c1d6df;font-size:13px}.map-group button span{color:#678c9b;font-size:10px;font-variant-numeric:tabular-nums}.map-group button:hover{background:#2242476b}.map-group button[aria-current=true]{border-color:#84eac268;color:#c8ffeb;background:#183f3f63}#notes p{font-size:13px}.source-links{display:grid;gap:11px;margin-top:24px}.source-links a{font-size:12px}
+#quietDock{position:fixed;z-index:4;bottom:max(23px,env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:14px;padding:8px;border:1px solid #b2e8dc25;background:#0a192496;backdrop-filter:blur(12px);border-radius:40px}#quietDock .textbtn{padding:10px 14px}.quiet-label{position:fixed;z-index:3;bottom:107px;left:0;width:100%;text-align:center;color:#b9d4d4;font:italic 18px Georgia,serif;letter-spacing:.02em;pointer-events:none}.quiet-mode #app,.quiet-mode #veil{opacity:0;visibility:hidden}.quiet-mode #world{cursor:grab}.quiet-mode #quietDock,.quiet-mode .quiet-label{display:flex}.quiet-mode .quiet-label{display:block}#quietDock,.quiet-label{display:none}.quiet-mode #veil{transition:none}#toast{position:fixed;z-index:20;bottom:190px;left:50%;transform:translateX(-50%);max-width:90vw;padding:11px 18px;border:1px solid #a4ffdc50;background:#102b32ed;border-radius:30px;color:#dafff0;font-size:12px;text-align:center;pointer-events:none;opacity:0;transition:opacity .2s}#toast.show{opacity:1}
+#soundMobile{display:none}
+@media(max-width:850px){#app{padding:16px 19px max(12px,env(safe-area-inset-bottom));gap:7px}.brand{font-size:9px;letter-spacing:.1em;gap:10px}.brand small{font-size:8px}.sigil{width:33px;height:33px}.tools{gap:6px}.icon{width:35px;height:35px}.tools svg{width:17px;height:17px}#sound{display:none}#soundMobile{display:block}#veil{background:linear-gradient(180deg,#03071199,transparent 54%,#030711d9 91%)}main{align-items:flex-start}#story{max-width:100%;margin-top:clamp(16px,3vh,27px)}.eyebrow{margin-bottom:11px;font-size:9px}h1{font-size:clamp(49px,11.9vw,80px);line-height:.98;max-width:620px}#caption{font-size:15px;line-height:1.45;max-width:330px;margin:13px 0 15px}.pill{min-height:37px;padding:9px 14px;font-size:10px}#journeyBar{padding:10px 10px 7px;border-radius:16px}.group-label{font-size:9px;letter-spacing:.09em}.time{font-size:9px}#controls{gap:8px}.nav{width:31px;height:31px}.acts{padding:0 0 0 0;gap:8px;overflow-x:auto}.acts button{font-size:8px;white-space:nowrap;min-height:24px}.bar-foot{margin-top:4px}.textbtn{font-size:10px}.footlinks{gap:9px}#stageCount{font-size:9px}#toast{bottom:174px}.map-groups{grid-template-columns:repeat(2,minmax(0,1fr));gap:22px 15px}#mapPanel{padding:31px 20px}.panel p{font-size:13px}.overlay{padding:15px}.panel{max-height:92svh}.intro-footer{gap:13px}.quiet-label{font-size:16px}}
+@media(max-width:370px){.brand small{display:none}.brand{font-size:8px}.icon{width:32px;height:32px}.tools{gap:4px}h1{font-size:48px}#caption{font-size:14px}.acts button{font-size:7px}.footlinks{gap:6px}#stageCount{font-size:8px}}
+@media(max-height:580px) and (min-width:650px){#app{padding-top:12px;padding-bottom:10px}h1{font-size:58px}.eyebrow{margin-bottom:12px}#caption{font-size:15px;margin:12px 0 14px}#journeyBar{padding:8px 15px}.bar-foot{margin-top:4px}.acts button{font-size:8px}header .sigil{width:32px;height:32px}#story{max-width:370px}.icon{width:33px;height:33px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{transition:none!important}}
+</style>
+</head>
+<body>
+<canvas id="world" role="img" aria-label="A living particle sculpture, continuously transforming through 36 worlds. Use the chapter map and insight button for a text alternative."></canvas>
+<div id="veil" aria-hidden="true"></div>
+<div id="app">
+ <header><div class="brand"><span class="sigil" aria-hidden="true"><i></i></span><div>THE HUMAN MIRROR<small>THE THREAD</small></div></div><div class="tools">
+ <button class="icon" id="sound" aria-label="Turn on ambient sound" aria-pressed="false" title="Sound"><svg viewBox="0 0 24 24"><path d="M10 5 5 9H2v6h3l5 4V5Z M14 8q5 4 0 8 M17 5q8 7 0 14"/></svg></button>
+ <button class="icon" id="quiet" aria-label="Enter quiet view" title="Quiet view"><svg viewBox="0 0 24 24"><path d="M8 3H3v5 M16 3h5v5 M3 16v5h5 M21 16v5h-5"/></svg></button>
+ <button class="icon" id="download" aria-label="Download this entire experience as an HTML file" title="Download experience"><svg viewBox="0 0 24 24"><path d="M12 3v12 m-5-5 5 5 5-5 M4 17v4h16v-4"/></svg></button>
+ <button class="icon" id="info" aria-label="About this experience and sources" title="About and sources"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6 M12 7v.2"/></svg></button>
+ </div></header>
+ <main><section id="story" aria-live="polite" aria-atomic="true"><p class="eyebrow" id="eyebrow">01 · Origins</p><h1 id="headline">Stars</h1><p id="caption">Your story reaches beyond you.</p><div class="story-actions"><button class="pill" id="action">Stir the stars</button><button class="pill quiet" id="insight">A thought to carry →</button></div></section></main>
+ <div id="journeyBar"><div class="bar-top"><span class="group-label" id="actLabel">Origins</span><span class="time" id="timeLabel">00:00 / 18:00</span></div><div id="controls"><button class="nav" id="play" aria-label="Pause journey" title="Pause journey">Ⅱ</button><button class="nav" id="prev" aria-label="Previous world" title="Previous world">‹</button><div class="track"><input id="journey" type="range" min="0" max="1080" value="0" step=".1" aria-label="Position in the eighteen-minute journey"></div><button class="nav" id="next" aria-label="Next world" title="Next world">›</button></div><nav class="acts" id="acts" aria-label="Journey sections"></nav><div class="bar-foot"><span id="stageCount">01 / 36</span><div class="footlinks"><button class="textbtn" id="map">All worlds</button><button class="textbtn" id="restart">Start again</button><button class="textbtn" id="soundMobile">Sound off</button></div></div></div>
+</div>
+<div class="quiet-label" id="quietLabel">Stars</div><div id="quietDock"><button class="nav" id="quietPlay" aria-label="Pause journey">Ⅱ</button><button class="textbtn" id="quietExit">Return to controls</button></div>
+<div class="overlay" id="intro" role="dialog" aria-modal="true" aria-labelledby="introTitle"><section class="panel"><p class="kicker">THE HUMAN MIRROR · THE THREAD</p><h2 id="introTitle">Many worlds.<br>One <em>shared life.</em></h2><p>Follow one living sculpture through the universe, life, the mind, and the world we make together.</p><div class="intro-footer"><button class="primary" id="begin">Begin the journey →</button><span class="small">36 worlds · 18 minutes<br>Drag to turn. Pause anywhere.</span></div></section></div>
+<div class="overlay" id="details" hidden role="dialog" aria-modal="true" aria-labelledby="detailTitle"><section class="panel"><button class="close" data-close aria-label="Close insight">×</button><p class="kicker" id="detailKind"></p><h2 id="detailTitle"></h2><p id="detailText"></p><div class="takeaway"><b>Take it into the world</b><p id="takeaway"></p></div><div id="detailSource"></div><button class="textbtn" id="nextThought">Next thought →</button></section></div>
+<div class="overlay" id="chapterMap" hidden role="dialog" aria-modal="true" aria-labelledby="mapTitle"><section class="panel" id="mapPanel"><button class="close" data-close aria-label="Close chapter map">×</button><p class="kicker">36 CONNECTED WORLDS</p><h2 id="mapTitle">Follow your curiosity.</h2><div class="map-groups" id="mapGroups"></div></section></div>
+<div class="overlay" id="notes" hidden role="dialog" aria-modal="true" aria-labelledby="notesTitle"><section class="panel"><button class="close" data-close aria-label="Close about and sources">×</button><p class="kicker">SCIENCE · ART · EVERYDAY CARE</p><h2 id="notesTitle">A thread, not a test.</h2><p>This is an original work of interactive art and visual learning. Scientific observations, mathematical forms, and reflective metaphors are identified in each world’s insight.</p><p>Shapes, colors, timescales, and transitions are illustrative. They are not scans, medical measurements, a model of evolution, or predictions about you. Suggested actions are invitations to think and help; no health effect is promised.</p><p>Sound is optional. The ambient tones have no claimed therapeutic frequency. Nothing is sent or recorded by this experience. Source links open external websites only when selected.</p><p>Controls: ←/→ previous or next world · Space pause · Q quiet view · Escape close. Reduced-motion settings begin in manual mode. The chapter map provides text access to every insight.</p><div class="source-links" id="sourceLinks"></div><p class="fine">For a group: explore a world, read its insight, and discuss one practical action. Different reactions are welcome; this experience gives no score or personality assessment.</p></section></div>
+<div class="overlay" id="ending" hidden role="dialog" aria-modal="true" aria-labelledby="endTitle"><section class="panel"><button class="close" data-close aria-label="Return to the final world">×</button><p class="kicker">THE THREAD CONTINUES</p><h2 id="endTitle">One useful action.<br><em>Start there.</em></h2><p>Return to a thought that stayed with you. Choose something small enough to do today.</p><div class="intro-footer"><button class="primary" id="endMap">Choose a thought →</button><button class="textbtn" id="endRestart">Journey again</button></div></section></div>
+<div id="toast" role="status" aria-live="polite"></div>
+<script>(()=>{
+'use strict';
+const ACTS = ['Origins','Living systems','Inner world','Together','Living planet','What we leave'];
+const SOURCES = {
+  stars:{label:'NASA · Stars',url:'https://science.nasa.gov/universe/stars/'},
+  solar:{label:'NASA · Solar system formation',url:'https://science.nasa.gov/astrobiology/learning-resources/alp/how-did-our-solar-system-form/'},
+  water:{label:'USGS · The water cycle',url:'https://www.usgs.gov/water-science-school/water-cycle'},
+  dna:{label:'NHGRI · DNA',url:'https://www.genome.gov/about-genomics/fact-sheets/Deoxyribonucleic-Acid-Fact-Sheet'},
+  cell:{label:'NHGRI · Cells',url:'https://www.genome.gov/genetics-glossary/Cell'},
+  energy:{label:'NHGRI · Mitochondria',url:'https://www.genome.gov/genetics-glossary/Mitochondria'},
+  brain:{label:'NINDS · Know your brain',url:'https://www.ninds.nih.gov/health-information/public-education/brain-basics/brain-basics-know-your-brain'},
+  neuron:{label:'NINDS · The life of a neuron',url:'https://www.ninds.nih.gov/health-information/public-education/brain-basics/brain-basics-life-and-death-neuron'},
+  attention:{label:'Simons & Chabris · Original research',url:'https://www.chabris.com/Simons1999.pdf'},
+  context:{label:'MIT · Lightness and context',url:'https://persci.mit.edu/gallery/checkershadow/description/'},
+  pollination:{label:'US Forest Service · Pollinators',url:'https://www.fs.usda.gov/managing-land/wildflowers/pollinators'},
+  reef:{label:'NOAA · Coral reef ecosystems',url:'https://www.noaa.gov/education/resource-collections/marine-life/coral-reef-ecosystems'}
+};
+// Scientific observations are separated from interpretive art and suggested actions.
+// Each row: name, form, short caption, explanation, real-world action, gesture, kind, source.
+const ROWS = [
+ ['Stars','galaxy','Your story reaches beyond you.','The early universe supplied hydrogen and helium. Stars and other cosmic processes produced many heavier elements. This spiral is an artistic galaxy, not a map of the origins of any individual person.','Look up tonight. Learn the name of one visible star.','Stir the stars','Science','stars'],
+ ['Elements','forge','Old stars. New possibilities.','Stellar processes formed much of the carbon and oxygen in living things. This slowly unfolding shell represents material returning to space; it does not reproduce an observed supernova.','Choose an everyday material and discover where it comes from.','Unfold the shell','Science','stars'],
+ ['Orbits','orbits','A world is a moving relationship.','The solar system formed from a rotating cloud of gas and dust. These rings suggest orbital motion. Sizes, distances, speeds, and the number of rings are artistic.','Follow one question about space to a reliable source.','Tilt the orbits','Science','solar'],
+ ['Earth','earth','One home. Many lives.','This stylized planet introduces the shared setting of the rest of the journey. Its luminous surface is procedural geometry, not a map or a dataset.','Name one place near you that you would like to care for.','Send a ripple','Reflection',null],
+ ['Water','drop','A drop belongs to a larger story.','Water moves among air, land, living things, rivers, and oceans. Sunlight and gravity help drive the water cycle. The moving drop is a visual symbol of that connected system.','Find out where your local tap water comes from.','Release a ripple','Science','water'],
+ ['Waves','waves','Patterns can meet without becoming enemies.','The sculpture combines mathematical waves. Peaks and troughs add together in a pattern called superposition. The social meaning suggested by the caption is a metaphor.','When two ideas meet, describe each fairly before choosing.','Shift the waves','Mathematics',null],
+ ['DNA','dna','Life carries information.','DNA stores hereditary information in a sequence of chemical bases. The luminous double helix is stylized. Genes participate in development alongside cells, environments, and chance.','Replace a simple label about a person with a question about their story.','Turn the helix','Science','dna'],
+ ['A cell','cell','Small does not mean simple.','Cells are basic units of living organisms. The membrane, nucleus, and moving internal forms here are an illustration, not a microscope recording or a scale model.','Take a familiar small thing and look closely enough to notice a new detail.','Open the cell','Science','cell'],
+ ['Energy','mitochondrion','Living takes constant work.','Mitochondria generate much of the chemical energy used by human cells. Their folded inner membranes inspired this sculpture; its flow is symbolic, not a biochemical simulation.','Notice a hidden system that makes an ordinary part of your day possible.','Trace the folds','Science','energy'],
+ ['The body','body','An ordinary moment is extraordinary coordination.','A body depends on many interacting systems. The same points that formed the galaxy now form this figure. The transformation is artistic, not a literal sequence of biological development.','Acknowledge one ordinary ability you tend to overlook.','Illuminate the figure','Reflection',null],
+ ['The heart','heart','A quiet kind of persistence.','The heart circulates blood. This familiar heart-shaped sculpture is a symbol rather than an anatomical model. Its pulse is an animation, not a measurement or recommended pace.','Thank someone whose steady effort rarely gets noticed.','Send a pulse','Reflection',null],
+ ['Signals','neuron','A signal can become a possibility.','Neurons communicate through electrical and chemical processes. Branches and travelling lights represent that idea. Their timing and arrangement are not a scan or a neural simulation.','Ask one question before assuming you understand.','Send a signal','Science','neuron'],
+ ['Attention','attention','Notice what the spotlight leaves out.','Research shows that demanding attention tasks can lead people to miss unexpected visible events. This moving spotlight is an illustration, not a reproduction of that experiment or a test of your ability.','Before an important decision, ask: what have I not looked at?','Widen the spotlight','Science','attention'],
+ ['Context','context','The surroundings change the impression.','The two small central discs use exactly the same RGB value. Their different surrounds can change how they appear. Remove the surrounds to compare them. This is related to, but is not a reproduction of, the MIT checker-shadow display.','Ask what background information could change your first impression.','Remove surrounds','Demonstration','context'],
+ ['Perspective','perspective','Turn the view before you settle the story.','A single three-dimensional structure projects differently as it rotates. That geometry is real; applying it to disagreement is a reflection, not proof that every account is equally accurate.','Describe a disagreement from the other person’s point of view.','Turn the view','Reflection',null],
+ ['Learning','learning','A path is made by returning.','Learning involves changes in the brain. These gradually illuminated paths are an artistic analogy, not a model of how a particular skill is stored. They do not measure your learning.','Spend five focused minutes practicing one useful skill.','Trace a pathway','Science','brain'],
+ ['Memory','memory','Leave room for what you may have missed.','Memory depends on brain activity. This ribbon of fading constellations is a metaphor for a recollection, not a test or a model of a memory trace.','Write down an important detail instead of relying only on recall.','Relight the ribbon','Reflection',null],
+ ['Room to pause','night','You do not have to fill every moment.','The moon and drifting light make a quiet interval in the journey. No breathing instruction, sleep treatment, or mental-health effect is implied.','Put one unnecessary notification on mute for a while.','Move the moonlight','Reflection',null],
+ ['Listening','listening','Make room for another signal.','Two distinct ribbons meet and continue. They represent listening without erasing either voice. This is a social metaphor, not an acoustic or psychological experiment.','Ask someone a question, then let them finish their answer.','Bring the ribbons together','Reflection',null],
+ ['Care','hands','Useful kindness begins with noticing.','Two open hands hold a light. The image is a prompt to notice a concrete need rather than assume what another person wants.','Ask: is there one practical thing I can help with? Respect the answer.','Share the light','Reflection',null],
+ ['Language','language','Understanding is something we build.','Different written marks emerge from one continuous ribbon. They are invented marks, not a real language or a claim about the origins of speech.','Explain a useful idea in plain words someone new to it can understand.','Unfurl the ribbon','Reflection',null],
+ ['Cooperation','braid','Different strengths. A shared direction.','Three moving strands form one braid while retaining their colors. It is a metaphor for cooperating without needing everyone to be the same.','In a shared task, ask which part another person would like to own.','Weave the strands','Reflection',null],
+ ['Access','bridge','A path is better when more people can use it.','This bridge opens into a broad, gentle approach. It invites a design question: who might be excluded by the way something is built? The geometry is symbolic, not an engineering specification.','Make one thing easier to use: add captions, clearer words, or an accessible route.','Open the approach','Reflection',null],
+ ['Community','community','No life is made entirely alone.','Light passes between distinct points on a sphere. It represents interdependence; it is not a graph of actual people, relationships, or live activity.','Thank one person whose work supports your everyday life.','Pass the light','Reflection',null],
+ ['A seed','seed','Possibility needs conditions.','A seed-shaped form opens into a shoot. Growth here is an artistic time-lapse, not a simulation of a particular plant species.','Choose one manageable thing to care for consistently this week.','Open the seed','Reflection',null],
+ ['A tree','tree','Growth reaches outward and downward.','A branching crown and roots share one structure. This drawing is a stylized tree, not a model of forest ecology.','Learn about a native tree where you live before choosing what to plant.','Light the branches','Reflection',null],
+ ['Pollination','flower','Small visits can matter.','Pollinating animals help many flowering plants reproduce. The travelling butterfly and luminous flower illustrate that relationship without modelling a particular species.','Learn which native flowering plants support local pollinators.','Follow the visitor','Science','pollination'],
+ ['A river','river','What happens upstream travels.','Rivers are part of the water cycle. Human activity can affect water quality and flow. This flowing ribbon is illustrative, not a map or a water-quality model.','Learn the name of your local watershed and one way people protect it.','Follow the current','Science','water'],
+ ['A reef','reef','A home can be a living community.','Coral reefs support diverse marine life. The colored branches are a stylized reef, not a biological survey or a restoration forecast.','When you learn about an ecosystem, include the people who depend on it.','Wake the reef','Science','reef'],
+ ['Shared systems','climate','Care extends beyond the edge of the frame.','This globe and its moving layers symbolize connected environmental systems. They are not temperature data, a climate model, or a prediction.','Choose a local environmental question and look for evidence about it.','Trace the connections','Reflection',null],
+ ['Evidence','lens','A beautiful idea still needs checking.','A moving lens separates a sharp shape from a scattered background. This is a metaphor for examining a claim; it is not a dataset or a test of truth.','Before sharing a surprising claim, open its original source.','Move the lens','Reflection',null],
+ ['Repair','repair','A break can become a place to begin.','A separated ring moves together and its seam becomes visible in gold. The scene celebrates practical repair. It does not imply that every loss or relationship can or should be fixed.','Repair one small, safe thing—or help it reach someone who can.','Reconnect the ring','Reflection',null],
+ ['Ingenuity','turbine','Good ideas earn their place by helping.','Sunlight and a turning turbine represent human ingenuity. Their motion is artistic, not a calculation of energy yield or environmental impact.','Look for a small improvement that saves effort without shifting the burden to someone else.','Turn the blades','Reflection',null],
+ ['Shared knowledge','book','Knowledge grows when it can be reached.','An open book continuously unfolds into new pages. It symbolizes learning that is made easier to access, not any particular institution or archive.','Share a useful explanation, with its source and any uncertainty.','Turn a page','Reflection',null],
+ ['The long view','mobius','Your choices continue beyond this moment.','The sculpture is a Möbius strip, a mathematical surface with one side and one boundary. It stands here for continuity, not a new physical dimension.','Ask what a decision makes easier or harder for the next person.','Follow the surface','Mathematics',null],
+ ['Humanity','humanity','Leave something a little better.','The journey returns to a shared world, with space for many lives. Its connections are symbolic. The contribution begins outside the screen, in one useful action you choose.','Choose one small action from this journey and do it today.','Send it onward','Reflection',null]
+];
+const SCENES = ROWS.map((r,i)=>({id:i,name:r[0],form:r[1],caption:r[2],explain:r[3],takeaway:r[4],action:r[5],kind:r[6],source:r[7],act:Math.floor(i/6)}));
+const SCENE_SECONDS=30, DURATION=SCENES.length*SCENE_SECONDS;
+
+const TAU=Math.PI*2;
+const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
+const mix=(a,b,t)=>a+(b-a)*t;
+const smooth=t=>t*t*(3-2*t);
+function hash(n){const x=Math.sin(n*127.127+78.233)*43758.5453;return x-Math.floor(x)}
+const PALETTES=[
+ [[113,246,231],[255,209,150],[174,169,255]],
+ [[108,244,222],[255,139,192],[173,184,255]],
+ [[154,168,255],[124,250,232],[248,179,235]],
+ [[119,248,225],[255,211,163],[202,167,255]],
+ [[125,245,193],[255,167,190],[133,202,255]],
+ [[131,250,226],[255,218,158],[195,176,255]]
+];
+function sphere(u,v,r=1){const y=v*2-1,f=Math.sqrt(Math.max(0,1-y*y)),a=u*TAU;return [Math.cos(a)*f*r,y*r,Math.sin(a)*f*r]}
+function ellipsoid(u,v,cx,cy,cz,rx,ry,rz){const p=sphere(u,v);return [cx+p[0]*rx,cy+p[1]*ry,cz+p[2]*rz]}
+function linePoint(a,b,t,jitter=0,v=.5,w=.5){return [mix(a[0],b[0],t)+(v-.5)*jitter,mix(a[1],b[1],t)+(w-.5)*jitter,mix(a[2],b[2],t)+(v+w-1)*jitter*.6]}
+function makeBranches(tree=false,reef=false){
+ const lines=[];
+ function b(x,y,z,dx,dy,dz,len,depth,seed){const end=[x+dx*len,y+dy*len,z+dz*len];lines.push([x,y,z,...end,depth]);if(depth<=0)return;const count=tree?3:2;for(let k=0;k<count;k++){const a=hash(seed*15+k)*TAU,spread=tree?.6:.72;let vx=dx*.68+Math.cos(a)*spread,vy=dy*.68+(tree?.38:Math.sin(a)*.4),vz=dz*.65+Math.sin(a)*spread;const m=Math.hypot(vx,vy,vz);b(...end,vx/m,vy/m,vz/m,len*(tree?.63:.66),depth-1,seed*5+k+1)}}
+ if(tree){b(0,-1.55,0,0,1,0,1.12,4,7);for(let k=0;k<8;k++){const a=k*TAU/8;b(0,-1.55,0,Math.cos(a)*.7,-.4,Math.sin(a)*.7,.5,2,k+35)}}
+ else if(reef){for(let k=0;k<6;k++){const a=k*TAU/6;b(Math.cos(a)*.8,-1.4,Math.sin(a)*.4,Math.cos(a)*.2,1,Math.sin(a)*.2,.75,4,k+20)}}
+ else for(let k=0;k<10;k++){const a=k*TAU/10;b(0,0,0,Math.cos(a),Math.sin(a),Math.sin(a*3)*.4,.55,4,k+1)}
+ const weights=lines.map(s=>Math.hypot(s[3]-s[0],s[4]-s[1],s[5]-s[2]));let total=0;const cumulative=weights.map(w=>total+=w);
+ return {lines,cumulative,total};
+}
+const BRANCHES={neuron:makeBranches(),learning:makeBranches(),tree:makeBranches(true),reef:makeBranches(false,true)};
+function branchPoint(form,u,v,w){const b=BRANCHES[form];let x=u*b.total,lo=0,hi=b.cumulative.length-1;while(lo<hi){const m=(lo+hi)>>1;if(b.cumulative[m]<x)lo=m+1;else hi=m}const s=b.lines[lo];return linePoint(s.slice(0,3),s.slice(3,6),v,.047,w,u)}
+function figure(u,v,w,scale=1,cx=0,cy=0){let p;if(w<.17)p=ellipsoid(u,v,0,1.24,0,.3,.38,.28);else if(w<.47)p=ellipsoid(u,v,0,.22,0,.49,.76,.29);else if(w<.65)p=ellipsoid(u,v,w<.56?-.64:.64,.05,0,.18,.69,.18);else p=ellipsoid(u,v,w<.82?-.22:.22,-1.13,0,.2,.72,.2);return [p[0]*scale+cx,p[1]*scale+cy,p[2]*scale]}
+function torus(u,v,major=1.3,minor=.22){let a=u*TAU,b=v*TAU;return [(major+minor*Math.cos(b))*Math.cos(a),(major+minor*Math.cos(b))*Math.sin(a),minor*Math.sin(b)]}
+function hand(u,v,w,side){const baseX=side*.78,baseY=-.28;if(w<.5)return ellipsoid(u,v,baseX,baseY,0,.51,.24,.35);const finger=Math.min(4,Math.floor((w-.5)*10)),t=u;const x=baseX+side*(.16-finger*.13)+side*.12*Math.sin(t*Math.PI);return [x,baseY+.12+t*(.55+(.2-Math.abs(finger-2)*.08)),(finger-2)*.13+(v-.5)*.085]}
+function pointFor(form,i,u,v,w){
+ const a=u*TAU,b=v*TAU;
+ switch(form){
+ case 'galaxy':{const r=Math.pow(v,.66)*2.08,t=(i%4)*Math.PI/2+r*2.3+(u-.5)*(.15+r*.26);return [Math.cos(t)*r,Math.sin(t)*r,(w-.5)*(.11+r*.1)]}
+ case 'forge':{const p=sphere(u,v,1.5+(w-.5)*.2),k=1+.13*Math.sin(a*7+v*18);return [p[0]*k,p[1]*k,p[2]*k]}
+ case 'orbits':{if(w<.18)return sphere(u,v,.35);const ring=i%6,r=.65+ring*.27;return [r*Math.cos(a),r*Math.sin(a)*.58,(v-.5)*.04+r*Math.sin(a)*.5]}
+ case 'earth':case 'climate':case 'community':case 'humanity':{if(form==='humanity'&&w<.2)return figure(u,v,hash(i*23),.72,0,0);let r=1.5;if(form==='climate'&&w>.76){r=1.8;return [r*Math.cos(a),r*Math.sin(a)*.55,r*Math.sin(a)*.65]}return sphere(u,v,r)}
+ case 'drop':{const t=Math.acos(v*2-1),r=Math.sin(t)*(.85-.35*Math.cos(t));return [r*Math.cos(a),Math.cos(t)*1.6,r*Math.sin(a)]}
+ case 'waves':{const x=(u-.5)*3.8,y=(v-.5)*2.7;return [x,y,.3*Math.sin(x*3)+.2*Math.cos(y*4)]}
+ case 'dna':{let y=(u-.5)*3.5,t=y*4,r=.69;const strand=i%12;if(strand<5)return [Math.cos(t)*r+(v-.5)*.07,y,Math.sin(t)*r];if(strand<10)return [Math.cos(t+Math.PI)*r,y,Math.sin(t+Math.PI)*r+(v-.5)*.07];y=(Math.floor(u*23)/23-.5)*3.5;t=y*4;return [Math.cos(t)*r*(v*2-1),y,Math.sin(t)*r*(v*2-1)]}
+ case 'cell':{if(w<.68){const p=sphere(u,v,1.48);return [p[0]*(1+.07*Math.sin(a*4)),p[1]*.94,p[2]]}if(w<.89)return ellipsoid(u,v,-.25,.1,.15,.59,.57,.59);const j=i%5;return ellipsoid(u,v,Math.cos(j*1.26),Math.sin(j*1.26)*.85,-.25,.22,.15,.3)}
+ case 'mitochondrion':{if(w<.33)return ellipsoid(u,v,0,0,0,.8,1.6,.55);return [Math.sin(u*Math.PI*13)*.64,(u-.5)*3,.45*Math.cos(v*TAU)]}
+ case 'body':return figure(u,v,w);
+ case 'heart':{const r=.45+.55*Math.sqrt(v);return [1.5*Math.pow(Math.sin(a),3)*r,(13*Math.cos(a)-5*Math.cos(2*a)-2*Math.cos(3*a)-Math.cos(4*a))/10*r,.32*Math.sin(b)*Math.sqrt(1-r*r+.1)]}
+ case 'neuron':case 'learning':case 'tree':case 'reef':return branchPoint(form,u,v,w);
+ case 'attention':{const p=sphere(u,v,1.45);return [p[0],p[1]*.72,p[2]*.63]}
+ case 'context':{const side=i%2?1:-1,r=w<.42?.29:1.0;return [side*.95+Math.cos(a)*r*Math.sqrt(v),Math.sin(a)*r*Math.sqrt(v),0]}
+ case 'perspective':{const edge=i%12,t=(u-.5)*2.8,axis=edge%3,p=[t,t,t],s=edge<6?-1:1,q=(Math.floor(edge/3)%2)?-1:1;if(axis===0)return [t,s*1.4,q*1.4];if(axis===1)return [s*1.4,t,q*1.4];return [s*1.4,q*1.4,t]}
+ case 'memory':{const t=u*TAU*2.5,r=.65+u*.9;return [Math.cos(t)*r,(u-.5)*3,Math.sin(t)*r+(v-.5)*.13]}
+ case 'night':{const t=u*TAU,p=sphere(u,v);if(w>.25)return [(Math.cos(t)*.84+.43)*1.55,p[1]*1.5,Math.sin(t)*.19];return sphere(u,v,.45).map((x,j)=>x+(j===0?-.65:j===1?.8:0))}
+ case 'listening':{const s=i%2?1:-1,x=(u-.5)*3.7;return [x,s*.45+Math.sin(x*2.6+s)*.38,(v-.5)*.17+s*.2]}
+ case 'hands':{if(w>.9)return sphere(u,v,.36).map((x,j)=>x+(j===1?.7:0));return hand(u,v,hash(i*57),i%2?1:-1)}
+ case 'language':{const t=u*TAU*2;let x=(u-.5)*3.5,y=Math.sin(t)*.7;if(i%7===0)y+=.35;return [x,y+(v-.5)*.17,Math.cos(t)*.35]}
+ case 'braid':{const strand=i%3,t=u*TAU*1.4+strand*TAU/3;return [Math.cos(t)*.7,(u-.5)*3.4,Math.sin(t)*.7+(v-.5)*.08]}
+ case 'bridge':{const x=(u-.5)*3.7,z=(v-.5)*1.15;if(w>.66)return [x,.55-Math.pow(x/1.85,2)*.9,z>0?.6:-.6];return [x,-.25+Math.sin(u*Math.PI)*.65,z]}
+ case 'seed':{if(w>.32)return ellipsoid(u,v,0,-.65,0,.55,.7,.4);const t=u;return [.3*Math.sin(t*2.1),(t*2)-.45,Math.cos(t*3)*.1+(v-.5)*.05]}
+ case 'flower':{if(w<.08)return [0,(u-.5)*3,(v-.5)*.08];const petal=i%7,t=v*Math.PI,r=.35+Math.sin(t)*1.12,theta=petal*TAU/7+(u-.5)*.49;return [r*Math.cos(theta),r*Math.sin(theta)+.25,Math.sin(t)*.42+(u-.5)*.15]}
+ case 'river':{const y=(u-.5)*3.3;return [Math.sin(y*1.9)*.75+(v-.5)*.7,y,Math.sin(u*8)*.15+(w-.5)*.06]}
+ case 'lens':{if(w<.73)return torus(u,v,1.07,.12);return linePoint([.73,-.75,0],[1.65,-1.72,0],u,.19,v,w)}
+ case 'repair':{const p=torus(u,v,1.3,.22);p[0]+=Math.cos(a)>0?.3:-.3;return p}
+ case 'turbine':{if(w<.22)return linePoint([0,-1.6,0],[0,.55,0],u,.12,v,w);if(w<.3)return sphere(u,v,.21).map((x,j)=>x+(j===1?.55:0));const t=u*1.22,theta=(i%3)*TAU/3;return [Math.sin(theta)*t+(v-.5)*(.22-.15*u),.55+Math.cos(theta)*t,(w-.5)*.08]}
+ case 'book':{const side=i%2?1:-1,x=u*1.6*side,page=i%11/11;return [x,-.75+Math.sin(u*Math.PI*.7)*.34+page*.13,(v-.5)*2.1+page*.08]}
+ case 'mobius':{const t=u*TAU,ww=(v-.5)*.75;return [(1.25+ww*Math.cos(t/2))*Math.cos(t),(1.25+ww*Math.cos(t/2))*Math.sin(t),ww*Math.sin(t/2)]}
+ default:throw Error('Unknown form '+form);
+ }
+}
+function positionAt(seconds){const bounded=clamp(seconds,0,DURATION);if(bounded>=DURATION)return SCENES.length-1;const scene=Math.floor(bounded/SCENE_SECONDS),within=bounded%SCENE_SECONDS;return Math.min(SCENES.length-1,scene+smooth(clamp((within-25)/5,0,1)))}
+class ParticleWorld{
+ constructor(canvas,count=4200){this.canvas=canvas;this.ctx=canvas.getContext('2d',{alpha:false});this.count=count;this.width=1280;this.height=720;this.dpr=1;this.angleY=.18;this.angleX=-.13;this.effect=0;this.contextRemoved=false;this.reduced=false;
+ this.seeds=new Float32Array(count*4);for(let i=0;i<count;i++){this.seeds[i*4]=hash(i*31+2);this.seeds[i*4+1]=hash(i*31+3);this.seeds[i*4+2]=hash(i*31+4);this.seeds[i*4+3]=hash(i*31+5)}
+ this.models=SCENES.map((s,k)=>{const pts=new Float32Array(count*3),tint=new Uint8Array(count),pal=PALETTES[s.act];for(let i=0;i<count;i++){const u=this.seeds[i*4],v=this.seeds[i*4+1],w=this.seeds[i*4+2],p=pointFor(s.form,i,u,v,w);for(let j=0;j<3;j++)pts[i*3+j]=p[j];let shade=p[1]>.6?1:p[1]<-.55?2:0;if(s.form==='galaxy')shade=Math.hypot(p[0],p[1])<.5?1:i%4===0?2:0;if(s.form==='orbits')shade=i%3;if(s.form==='dna')shade=i%12<5?0:i%12<10?2:1;if(s.form==='heart')shade=w>.22?1:2;if(s.form==='tree'||s.form==='reef')shade=p[1]>.2?(i%3===0?1:2):0;if(s.form==='flower')shade=w<.08?0:i%7<3?1:2;tint[i]=shade}return {pts,tint,pal}});
+ this.projected=new Float32Array(count*3);this.paintCache=[];
+ }
+ resize(width,height,dpr=1){this.width=width;this.height=height;this.dpr=Math.min(dpr,width<850?1.35:1.8);this.canvas.width=Math.round(width*this.dpr);this.canvas.height=Math.round(height*this.dpr);if(this.canvas.style){this.canvas.style.width=width+'px';this.canvas.style.height=height+'px'}}
+ pointMotion(form,i,x,y,z,t,e){const u=this.seeds[i*4],v=this.seeds[i*4+1];
+  switch(form){
+  case 'galaxy':{const a=t*.033*(1+1/(.5+Math.hypot(x,y)))*(1+e*.4),c=Math.cos(a),s=Math.sin(a);return [x*c-y*s,x*s+y*c,z+.018*Math.sin(t*.7+i)]}
+  case 'forge':{const r=1+.045*Math.sin(t*.3+i*.006)+e*.08;return [x*r,y*r,z*r]}
+  case 'orbits':{if(Math.hypot(x,y)>.4){const a=t*.10/(.4+Math.hypot(x,y)),c=Math.cos(a),s=Math.sin(a);return [x*c-y*s,x*s+y*c,z]}break}
+  case 'waves':return [x,y,.25*Math.sin(x*3-t*.65)+.24*Math.cos(y*3+t*.4)+e*.16*Math.sin(x*5+y*3-t)];
+  case 'drop':return [x*(1+.03*Math.sin(t*.5+y*3)),y,z+.03*Math.sin(t+y*4)];
+  case 'dna':{const a=t*.12,c=Math.cos(a),s=Math.sin(a);return [x*c-z*s,y,z*c+x*s]}
+  case 'cell':return [x+.035*Math.sin(t*.6+i*.12)+(this.seeds[i*4+2]<.68?Math.sign(x)*e*.2:0),y+.027*Math.cos(t*.5+i*.09),z+.03*Math.sin(t*.7+i*.1)];
+  case 'mitochondrion':return [x+.03*Math.sin(y*5+t),y,z];
+  case 'heart':{const pulse=Math.pow(Math.max(0,Math.sin(t*TAU*1.05)),12),s=1+pulse*.045+e*.025;return [x*s,y*s,z*s]}
+  case 'neuron':case 'learning':return [x,y,z+.018*Math.sin(t*.8+i*.04)];
+  case 'body':return [x+.015*Math.sin(y*3+t*.4),y,z];
+  case 'perspective':{const a=t*.045,c=Math.cos(a),s=Math.sin(a);return [x*c-z*s,y,z*c+x*s]}
+  case 'memory':return [x+.07*Math.sin(t*.3+y),y,z+.07*Math.cos(t*.3+y)];
+  case 'night':return [x+e*.16,y+.02*Math.sin(t*.3+x),z];
+  case 'listening':return [x,y+.14*Math.sin(t*.6+x*2+i%2)-(i%2?1:-1)*e*.3,z];
+  case 'hands':return [x,y+.025*Math.sin(t*.45)+(this.seeds[i*4+2]>.9?e*.4:0),z];
+  case 'language':return [x,y*(1+e*.17)+.12*Math.sin(t*.5+x*2),z+.05*Math.cos(t*.4+x)];
+  case 'braid':{const a=t*.2,c=Math.cos(a),s=Math.sin(a);return [x*c-z*s,y,z*c+x*s]}
+  case 'bridge':return [x,y+.015*Math.sin(t*.6+x),z*(1+e*.7)];
+  case 'seed':{if(this.seeds[i*4+2]<.32){const s=.75+.25*(.5+.5*Math.sin(t*.22))+e*.5;return [x,y*s,z]}return [x+Math.sign(x)*e*.23,y,z]}
+  case 'tree':case 'reef':return [x+.04*Math.sin(t*.45+y*2)*Math.max(0,(y+1)/3),y,z+.025*Math.sin(t*.5+x)];
+  case 'flower':{const a=.025*Math.sin(t*.35),c=Math.cos(a),s=Math.sin(a);return [x*c-y*s,x*s+y*c,z+.02*Math.sin(t*.5+x*3)]}
+  case 'river':return [x+.04*Math.sin(y*5-t),y,z+.04*Math.sin(t+y*4)];
+  case 'repair':{const inward=.14+.14*Math.sin(t*.3)+e*.12;return [x-Math.sign(x)*inward,y,z]}
+  case 'turbine':{if(this.seeds[i*4+2]>=.3){const a=t*.45+e*.7,c=Math.cos(a),s=Math.sin(a),dy=y-.55;return [x*c-dy*s,.55+x*s+dy*c,z]}break}
+  case 'book':return [x,y+.045*Math.sin(t*.5+u*4+i%11*.25)+(i%11===7?e*Math.sin(u*Math.PI)*.85:0),z];
+  case 'mobius':return [x,y,z+.025*Math.sin(t*.5+u*TAU)];
+  default:break;
+  }return [x,y,z];
+ }
+ render(position,time,{quiet=false,reduced=false,effect=0}={}){
+  const ctx=this.ctx,w=this.width,h=this.height,mobile=w<850,unit=Math.min(h*(mobile?.18:.225),w*(mobile?.37:.22)),cx=w*(quiet?.5:mobile?.5:.675),cy=h*(quiet?.47:mobile?.565:.485);this.layout={cx,cy,unit};
+  ctx.setTransform(this.dpr,0,0,this.dpr,0,0);ctx.globalAlpha=1;ctx.globalCompositeOperation='source-over';ctx.fillStyle='#030711';ctx.fillRect(0,0,w,h);
+  const p=clamp(position,0,SCENES.length-1),aa=Math.floor(p),bb=Math.min(aa+1,SCENES.length-1),f=p-aa,A=this.models[aa],B=this.models[bb],near=Math.round(p),scene=SCENES[near],pal=PALETTES[scene.act];
+  const halo=ctx.createRadialGradient(cx,cy,0,cx,cy,unit*3.2);halo.addColorStop(0,'rgba('+pal[0].join(',')+',.095)');halo.addColorStop(.45,'rgba('+pal[2].join(',')+',.025)');halo.addColorStop(1,'rgba(0,0,0,0)');ctx.fillStyle=halo;ctx.fillRect(0,0,w,h);
+  for(let i=0;i<120;i++){const speed=.3+(i%5)*.13,x=(hash(i+801)*w+time*speed)%w,y=(hash(i+802)*h+Math.sin(time*.04+i)*2)%h;ctx.fillStyle='rgba(170,218,240,'+(.07+hash(i+803)*.18)+')';ctx.fillRect(x,y,.5+hash(i+804),.5+hash(i+804))}
+  // Slow arcs and parallax make the environment itself move.
+  ctx.save();ctx.translate(cx,cy);ctx.rotate(time*.009);ctx.lineWidth=.6;for(let j=0;j<4;j++){ctx.beginPath();ctx.ellipse(0,0,unit*(1.82+j*.28),unit*(1.5+j*.2),j*.21,j*.7,j*.7+.95);ctx.strokeStyle='rgba('+pal[j%3].join(',')+',.09)';ctx.stroke()}ctx.restore();
+  const cameraTilt=form=>form==='book'?-.58:form==='waves'?-.15:0;
+  const angle=this.angleY+(reduced?0:time*.034),tilt=this.angleX+mix(cameraTilt(SCENES[aa].form),cameraTilt(SCENES[bb].form),f),sx=Math.sin(tilt),cxr=Math.cos(tilt),sy=Math.sin(angle),cyr=Math.cos(angle),points=this.projected;
+  const colors=[];for(let j=0;j<9;j++){const ca=A.pal[Math.floor(j/3)],cb=B.pal[j%3];colors[j]=[mix(ca[0],cb[0],f)|0,mix(ca[1],cb[1],f)|0,mix(ca[2],cb[2],f)|0].join(',')}
+  ctx.globalCompositeOperation='lighter';
+  const stationary=reduced?0:time;
+  for(let i=0;i<this.count;i++){
+   const j=i*3,seed=i*4;let av=this.pointMotion(SCENES[aa].form,i,A.pts[j],A.pts[j+1],A.pts[j+2],stationary,effect),bv=f?this.pointMotion(SCENES[bb].form,i,B.pts[j],B.pts[j+1],B.pts[j+2],stationary,effect):av;
+   let x=mix(av[0],bv[0],f),y=mix(av[1],bv[1],f),z=mix(av[2],bv[2],f);
+   // A shared curling path carries every point through each transformation.
+   const morph=Math.sin(f*Math.PI);x+=morph*.28*Math.sin(this.seeds[seed]*TAU+time*.28);y+=morph*.18*Math.cos(this.seeds[seed+1]*TAU+time*.25);z+=morph*.38*Math.sin(this.seeds[seed+2]*TAU+time*.21);
+   const xx=x*cyr-z*sy,zz0=x*sy+z*cyr,yy=y*cxr-zz0*sx,zz=y*sx+zz0*cxr,depth=5/(5.5+zz*.35),px=cx+xx*unit*depth,py=cy-yy*unit*depth;
+   points[j]=px;points[j+1]=py;points[j+2]=depth;
+   let alpha=.46+this.seeds[seed+2]*.4+effect*.12,r=(.9+this.seeds[seed+3]*1.65)*depth*(mobile?.83:1)*(1+effect*.12),shade=-1;
+   if(scene.form==='neuron'||scene.form==='learning'||scene.form==='tree'||scene.form==='reef'){const wave=(stationary*.23+effect*.2)%3.4-1.7;if(Math.abs(y-wave)<.12){shade=1;r*=1.65;alpha=.95}if(scene.form==='learning')alpha*=.35+.65*(.5+.5*Math.sin(y*2-stationary*.35))}
+   if(scene.form==='attention'){const spot=Math.sin(stationary*.19)*.9,spread=.25+effect*.8;alpha*=.13+.87*Math.exp(-Math.pow((x-spot)/spread,2))}
+   if(scene.form==='memory')alpha*=Math.min(1,.25+.75*Math.pow(.5+.5*Math.sin(stationary*.4+y*1.8),2)+effect*.5);
+   if(scene.form==='river'){const wave=(stationary*.4+effect*2)%3.5-1.75;if(Math.abs(y-wave)<.12){shade=1;r*=1.65}}
+   if(scene.form==='mobius'&&effect>0&&Math.abs(this.seeds[seed]-(1-effect))<.055){shade=1;r*=2;alpha=1}
+   if(['earth','community','climate','humanity'].includes(scene.form)){alpha*=.63+.37*Math.sin(x*4+y*6+z*3)**2;if(effect>0&&Math.abs(y-((1-effect)*3-1.5))<.18){shade=1;r*=1.6}}
+   if(scene.form==='repair'&&Math.abs(x)<.16){shade=1;alpha=.95}
+   if(scene.form==='context')alpha*=Math.min(1,Math.abs(p-13)*3);
+   if(px<0||py<0||px>w||py>h)continue;
+   ctx.fillStyle='rgba('+colors[shade<0?A.tint[i]*3+B.tint[i]:shade*3+shade]+','+clamp(alpha*(1-zz*.09),.04,1).toFixed(2)+')';ctx.fillRect(px-r*.5,py-r*.5,r,r);
+   if(i%38===0&&alpha>.2){ctx.globalAlpha=.28;ctx.beginPath();ctx.arc(px,py,r*2.7,0,TAU);ctx.fill();ctx.globalAlpha=1}
+  }
+  // Fine connections reveal local structure instead of drawing a solid cloud.
+  ctx.lineWidth=.45;ctx.strokeStyle='rgba('+pal[0].join(',')+',.11)';ctx.beginPath();for(let i=0;i<this.count-1;i+=8){const a=i*3,b=(i+1)*3,dx=points[a]-points[b],dy=points[a+1]-points[b+1];if(dx*dx+dy*dy<unit*unit*.045){ctx.moveTo(points[a],points[a+1]);ctx.lineTo(points[b],points[b+1])}}ctx.stroke();
+  if(['community','humanity','climate'].includes(scene.form)){ctx.lineWidth=.65;ctx.strokeStyle='rgba('+pal[1].join(',')+',.14)';ctx.beginPath();for(let i=0;i<28;i++){const a=(i*131%this.count)*3,b=((i*131+227)%this.count)*3;ctx.moveTo(points[a],points[a+1]);ctx.quadraticCurveTo(cx,cy-unit*.45,points[b],points[b+1])}ctx.stroke()}
+  ctx.globalCompositeOperation='source-over';
+  if(Math.abs(p-13)<.9)this.drawContext(time,1-clamp(Math.abs(p-13)/.9,0,1),cx,cy,unit);
+  if(scene.form==='flower')this.drawButterfly(stationary,cx,cy,unit,pal);
+  if(effect>0&&scene.form!=='context'){ctx.beginPath();ctx.ellipse(cx,cy,unit*(2-effect*1.7),unit*(2-effect*1.7)*.7,-.15,0,TAU);ctx.strokeStyle='rgba('+pal[1].join(',')+','+(effect*.4)+')';ctx.lineWidth=1;ctx.stroke()}
+ }
+ drawContext(time,opacity,cx,cy,unit){const ctx=this.ctx,drift=this.reduced?0:Math.sin(time*.12)*unit*.04,r=unit*.73;ctx.save();ctx.globalAlpha=opacity;
+  for(let side=-1;side<=1;side+=2){const x=cx+side*unit*.85,y=cy+drift*side;if(!this.contextRemoved){ctx.fillStyle=side<0?'#e5e5eb':'#242435';ctx.beginPath();ctx.arc(x,y,r,0,TAU);ctx.fill()}ctx.fillStyle='#9999a5';ctx.beginPath();ctx.arc(x,y,unit*.23,0,TAU);ctx.fill()}
+  ctx.restore();this.contextCenters=[{x:cx-unit*.85,y:cy-drift},{x:cx+unit*.85,y:cy+drift}];
+ }
+ drawButterfly(t,cx,cy,unit,pal){const ctx=this.ctx,x=cx+Math.cos(t*.24)*unit*1.42,y=cy-Math.sin(t*.35)*unit*.7,flap=.25+.75*Math.abs(Math.sin(t*5));ctx.save();ctx.translate(x,y);ctx.rotate(Math.sin(t*.25)*.35);for(let s=-1;s<=1;s+=2){ctx.fillStyle='rgba('+pal[s<0?1:2].join(',')+',.82)';ctx.beginPath();ctx.ellipse(s*10*flap,-4,12*flap,10,s*.4,0,TAU);ctx.ellipse(s*7*flap,7,9*flap,7,-s*.4,0,TAU);ctx.fill()}ctx.strokeStyle='#dffff0';ctx.lineWidth=1.5;ctx.beginPath();ctx.moveTo(0,-10);ctx.lineTo(0,13);ctx.stroke();ctx.restore()}
+}
+
+// Capture the complete initial document so downloaded copies always start cleanly.
+const offlineHTML='<!doctype html>\n'+document.documentElement.outerHTML;
+const $=id=>document.getElementById(id);
+const motionPreference=matchMedia('(prefers-reduced-motion: reduce)');
+let reduced=motionPreference.matches;
+const canvas=$('world'),world=new ParticleWorld(canvas,innerWidth<600?3000:4200);
+let elapsed=0,clock=0,active=-1,started=false,playing=!reduced,quiet=false,finished=false,last=performance.now(),effect=0;
+let overlay=$('intro'),returnFocus=null,contentTimer=0,toastTimer=0,dragging=false,px=0,py=0,downX=0,downY=0,velY=0,velX=0;
+let soundOn=false,audio=null,master=null,oscillators=[];
+const durationLabel='18:00';
+function formatTime(s){const n=Math.floor(clamp(s,0,DURATION));return String(Math.floor(n/60)).padStart(2,'0')+':'+String(n%60).padStart(2,'0')}
+function notice(text){$('toast').textContent=text;$('toast').classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('toast').classList.remove('show'),2600)}
+function resize(){world.resize(innerWidth,innerHeight,devicePixelRatio||1)}
+addEventListener('resize',resize);resize();
+function syncButtons(){const running=started&&playing;for(const id of ['play','quietPlay']){$(id).textContent=running?'Ⅱ':'▶';$(id).setAttribute('aria-label',running?'Pause journey':'Play journey');$(id).title=running?'Pause journey':'Play journey'}$('prev').disabled=active<=0;$('next').disabled=active>=SCENES.length-1;}
+function syncTimeline(){const input=$('journey');input.value=elapsed;input.style.setProperty('--fill',(elapsed/DURATION*100)+'%');input.setAttribute('aria-valuetext',formatTime(elapsed)+' of '+durationLabel+', '+SCENES[Math.max(0,active)].name);$('timeLabel').textContent=formatTime(elapsed)+' / '+durationLabel;}
+function setScene(n,immediate=false){n=clamp(n,0,SCENES.length-1);if(n===active)return;active=n;const s=SCENES[n],story=$('story');clearTimeout(contentTimer);if(!immediate&&!reduced)story.classList.add('changing');const update=()=>{$('eyebrow').textContent=String(n+1).padStart(2,'0')+' · '+ACTS[s.act];$('headline').textContent=s.name;$('caption').textContent=s.caption;$('action').textContent=s.action;$('actLabel').textContent=ACTS[s.act];$('stageCount').textContent=String(n+1).padStart(2,'0')+' / '+SCENES.length;$('quietLabel').textContent=s.name;canvas.setAttribute('aria-label',s.name+'. '+s.caption+' Open “A thought to carry” for the text explanation.');story.classList.remove('changing');};if(immediate||reduced)update();else contentTimer=setTimeout(update,140);
+ for(const b of document.querySelectorAll('[data-act]'))b.classList.toggle('current',Number(b.dataset.act)===s.act);
+ for(const b of document.querySelectorAll('[data-scene]'))b.setAttribute('aria-current',Number(b.dataset.scene)===n?'true':'false');
+ if(s.form!=='context')world.contextRemoved=false;
+ syncButtons();
+}
+function seek(seconds,{pause=false}={}){elapsed=clamp(Number(seconds)||0,0,DURATION);if(pause)playing=false;finished=false;setScene(Math.round(positionAt(elapsed)),true);syncTimeline();syncButtons();last=performance.now()}
+function go(n){n=clamp(n,0,SCENES.length-1);seek(n*SCENE_SECONDS);effect=0;}
+function togglePlay(){if(!started)return;if(elapsed>=DURATION){elapsed=0;finished=false;setScene(0,true)}playing=!playing;last=performance.now();syncButtons();}
+function begin(){overlay.hidden=true;overlay=null;started=true;playing=!reduced;last=performance.now();$('app').inert=false;setScene(0,true);syncButtons();$('play').focus({preventScroll:true});if(reduced)notice('Reduced motion · explore with the arrows or All worlds')}
+function focusable(parent){return [...parent.querySelectorAll('button:not(:disabled),a[href],input')].filter(x=>!x.hidden)}
+function showOverlay(id){if(overlay)overlay.hidden=true;else returnFocus=document.activeElement;overlay=$(id);overlay.hidden=false;$('app').inert=true;$('quietDock').inert=true;canvas.inert=true;const first=focusable(overlay)[0];first?.focus({preventScroll:true});last=performance.now()}
+function closeOverlay(){if(!overlay||overlay.id==='intro')return;overlay.hidden=true;overlay=null;$('app').inert=quiet;$('quietDock').inert=false;canvas.inert=false;last=performance.now();if(returnFocus?.isConnected&&!returnFocus.inert)returnFocus.focus({preventScroll:true});else (quiet?$('quietExit'):$('insight')).focus({preventScroll:true})}
+function populateDetail(){const s=SCENES[active];$('detailKind').textContent=String(active+1).padStart(2,'0')+' / '+SCENES.length+' · '+s.kind;$('detailTitle').textContent=s.name;$('detailText').textContent=s.explain;$('takeaway').textContent=s.takeaway;const area=$('detailSource');area.replaceChildren();if(s.source){const source=SOURCES[s.source],a=document.createElement('a');a.href=source.url;a.target='_blank';a.rel='noopener noreferrer';a.textContent=source.label+' ↗';area.append(a)}else{area.textContent=s.kind==='Mathematics'?'A mathematical form, paired with a reflective prompt.':'An artistic metaphor, paired with a practical invitation.'}$('nextThought').disabled=active===SCENES.length-1;}
+function details(){populateDetail();showOverlay('details')}
+function setQuiet(value){quiet=value;document.body.classList.toggle('quiet-mode',quiet);$('app').inert=quiet;$('quietDock').inert=false;$(quiet?'quietExit':'quiet').focus({preventScroll:true})}
+function gesture(){const s=SCENES[active];if(s.form==='context'){world.contextRemoved=!world.contextRemoved;$('action').textContent=world.contextRemoved?'Restore surrounds':'Remove surrounds';notice(world.contextRemoved?'Both central discs: RGB 153, 153, 165':'Same pixels. Different surroundings.');return}effect=1;if(['galaxy','orbits','dna','perspective','mobius'].includes(s.form))velY+=.025;else if(s.form==='lens')world.angleY+=.18;}
+function download(){try{const blob=new Blob([offlineHTML],{type:'text/html;charset=utf-8'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='The_Human_Mirror_REIMAGINED.html';document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),10000);notice('The complete HTML download is ready')}catch{notice('Use the attached HTML file to keep this experience')}}
+function syncSound(){for(const id of ['sound','soundMobile']){$(id).setAttribute('aria-pressed',String(soundOn));$(id).setAttribute('aria-label',soundOn?'Turn off ambient sound':'Turn on ambient sound')}$('soundMobile').textContent=soundOn?'Sound on':'Sound off'}
+async function toggleSound(){try{if(!audio){audio=new (window.AudioContext||window.webkitAudioContext)();master=audio.createGain();master.gain.value=0;master.connect(audio.destination);for(const hz of [98,146.832,196]){const osc=audio.createOscillator(),gain=audio.createGain();osc.type='sine';osc.frequency.value=hz;gain.gain.value=.25;osc.connect(gain).connect(master);osc.start();oscillators.push(osc)}}await audio.resume();soundOn=!soundOn;master.gain.setTargetAtTime(soundOn?.045:0,audio.currentTime,.5);syncSound()}catch{soundOn=false;syncSound();notice('Sound is unavailable in this browser')}}
+function makeNavigation(){
+ const acts=$('acts'),groups=$('mapGroups');for(let a=0;a<ACTS.length;a++){const b=document.createElement('button');b.textContent=ACTS[a];b.dataset.act=a;b.addEventListener('click',()=>go(a*6));acts.append(b);const section=document.createElement('section');section.className='map-group';const h=document.createElement('h3');h.textContent=String(a+1).padStart(2,'0')+' · '+ACTS[a];section.append(h);for(const s of SCENES.filter(s=>s.act===a)){const entry=document.createElement('button'),num=document.createElement('span');entry.dataset.scene=s.id;num.textContent=String(s.id+1).padStart(2,'0');entry.append(num,document.createTextNode(s.name));entry.addEventListener('click',()=>{go(s.id);closeOverlay();});section.append(entry)}groups.append(section)}
+ for(const source of Object.values(SOURCES)){const a=document.createElement('a');a.href=source.url;a.target='_blank';a.rel='noopener noreferrer';a.textContent=source.label+' ↗';$('sourceLinks').append(a)}
+}
+makeNavigation();
+$('begin').addEventListener('click',begin);$('play').addEventListener('click',togglePlay);$('quietPlay').addEventListener('click',togglePlay);$('prev').addEventListener('click',()=>go(active-1));$('next').addEventListener('click',()=>go(active+1));$('journey').addEventListener('input',e=>seek(e.target.value));$('action').addEventListener('click',gesture);$('insight').addEventListener('click',details);$('map').addEventListener('click',()=>showOverlay('chapterMap'));$('info').addEventListener('click',()=>showOverlay('notes'));$('quiet').addEventListener('click',()=>setQuiet(true));$('quietExit').addEventListener('click',()=>setQuiet(false));$('download').addEventListener('click',download);$('sound').addEventListener('click',toggleSound);$('soundMobile').addEventListener('click',toggleSound);
+function restart(){closeOverlay();go(0);playing=!reduced;syncButtons();}
+$('restart').addEventListener('click',restart);$('endRestart').addEventListener('click',restart);$('endMap').addEventListener('click',()=>showOverlay('chapterMap'));$('nextThought').addEventListener('click',()=>{go(active+1);populateDetail();$('details').querySelector('.panel').scrollTop=0});
+for(const b of document.querySelectorAll('[data-close]'))b.addEventListener('click',closeOverlay);
+for(const p of document.querySelectorAll('.overlay'))p.addEventListener('click',e=>{if(e.target===p)closeOverlay()});
+canvas.addEventListener('pointerdown',e=>{if(!started||overlay)return;dragging=true;px=downX=e.clientX;py=downY=e.clientY;velY=velX=0;canvas.setPointerCapture?.(e.pointerId)});
+canvas.addEventListener('pointermove',e=>{if(!dragging)return;const dx=e.clientX-px,dy=e.clientY-py;world.angleY+=dx*.006;world.angleX=clamp(world.angleX+dy*.004,-1.1,1.1);velY=dx*.00035;velX=dy*.0002;px=e.clientX;py=e.clientY});
+function release(e){if(!dragging)return;dragging=false;if(Math.hypot(e.clientX-downX,e.clientY-downY)<9)gesture()}
+canvas.addEventListener('pointerup',release);canvas.addEventListener('pointercancel',()=>{dragging=false});
+addEventListener('keydown',e=>{
+ if(overlay){if(e.key==='Escape'){e.preventDefault();closeOverlay()}else if(e.key==='Tab'){const list=focusable(overlay),first=list[0],lastItem=list[list.length-1];if(e.shiftKey&&document.activeElement===first){e.preventDefault();lastItem?.focus()}else if(!e.shiftKey&&document.activeElement===lastItem){e.preventDefault();first?.focus()}}return}
+ if(!started||e.ctrlKey||e.metaKey||e.altKey||['INPUT','TEXTAREA','SELECT'].includes(e.target.tagName))return;
+ if(e.key==='ArrowRight'){e.preventDefault();go(active+1)}else if(e.key==='ArrowLeft'){e.preventDefault();go(active-1)}else if(e.code==='Space'&&!['BUTTON','A'].includes(e.target.tagName)){e.preventDefault();togglePlay()}else if(e.key.toLowerCase()==='q'){setQuiet(!quiet)}else if(e.key==='Escape'&&quiet)setQuiet(false);
+});
+document.addEventListener('visibilitychange',()=>{last=performance.now();if(master&&audio)master.gain.setTargetAtTime(soundOn&&!document.hidden?.045:0,audio.currentTime,.3)});
+motionPreference.addEventListener?.('change',e=>{reduced=e.matches;if(reduced){playing=false;velY=velX=0;}last=performance.now();syncButtons()});
+function frame(now){const realDt=Math.max(0,(now-last)/1000);last=now;const dt=Math.min(realDt,.05),running=started&&playing&&!overlay&&!document.hidden;
+ if(running){elapsed=Math.min(DURATION,elapsed+realDt);if(!reduced)clock+=dt;effect=Math.max(0,effect-dt*.27);if(!dragging&&!reduced){world.angleY+=velY*dt*60;world.angleX=clamp(world.angleX+velX*dt*60,-1.1,1.1);velY*=Math.pow(.9,dt*60);velX*=Math.pow(.9,dt*60)}}
+ const pos=positionAt(elapsed),shown=reduced?Math.floor(pos+.5):pos;setScene(Math.round(pos));syncTimeline();world.reduced=reduced;world.render(shown,clock,{quiet,reduced,effect});
+ if(running&&elapsed>=DURATION&&!finished){finished=true;playing=false;syncButtons();showOverlay('ending')}
+ requestAnimationFrame(frame);
+}
+$('app').inert=true;setScene(0,true);syncTimeline();syncButtons();$('begin').focus({preventScroll:true});requestAnimationFrame(frame);
+
+})();</script>
+</body>
+</html>
