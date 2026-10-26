@@ -40,6 +40,8 @@ export const wordCount = s => String(s || '').trim().split(/\s+/).filter(Boolean
 
 /* ───────── icons (inline, currentColor) ───────── */
 const P = {
+  upload:'<path d="M12 17V3M7 8l5-5 5 5M4 16v5h16v-5"/>',
+  bookmark:'<path d="M6 3h12v18l-6-4-6 4z"/>',
   home:'<path d="m3 10 9-7 9 7v10H3z"/><path d="M9 20v-7h6v7"/>',
   book:'<path d="M12 6c-3-2-7-2-10-1v15c3-1 7-1 10 1 3-2 7-2 10-1V5c-3-1-7-1-10 1v15"/>',
   wallpaper:'<rect x="6" y="2" width="12" height="20" rx="3"/><path d="m7 16 4-5 3 3 3-4M10 5h4"/>',

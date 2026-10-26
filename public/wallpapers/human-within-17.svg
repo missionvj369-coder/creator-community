@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="2340" viewBox="0 0 1080 2340"><defs>
+ <linearGradient id="paper" x2=".4" y2="1"><stop stop-color="#f0dfe7"/><stop offset="1" stop-color="#f5eadf"/></linearGradient>
+ <linearGradient id="sculpt" x2=".9" y2="1"><stop stop-color="white" stop-opacity=".86"/><stop offset=".4" stop-color="#c89dac"/><stop offset="1" stop-color="#935e75" stop-opacity=".72"/></linearGradient>
+ <linearGradient id="glass" x2="1" y2="1"><stop stop-color="#fff" stop-opacity=".92"/><stop offset=".52" stop-color="#fff" stop-opacity=".45"/><stop offset="1" stop-color="#c89dac" stop-opacity=".46"/></linearGradient>
+ <linearGradient id="warm" x2=".9" y2="1"><stop stop-color="#fff7de"/><stop offset=".52" stop-color="#e2bb7d"/><stop offset="1" stop-color="#c19459"/></linearGradient>
+ <linearGradient id="deep" x2=".8" y2="1"><stop stop-color="#c89dac"/><stop offset="1" stop-color="#935e75"/></linearGradient>
+ <linearGradient id="beam"><stop stop-color="#fff9df" stop-opacity=".85"/><stop offset="1" stop-color="#fff9df" stop-opacity="0"/></linearGradient>
+ <radialGradient id="halo"><stop stop-color="#fff" stop-opacity=".56"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>
+ </defs><rect width="1080" height="2340" fill="url(#paper)"/><circle cx="550" cy="1030" r="530" fill="url(#halo)"/>
+ <text x="540" y="375" text-anchor="middle" font-family="DejaVu Sans,sans-serif" font-size="19" letter-spacing="6" fill="#935e75" opacity=".58">A LITTLE SPACE TO BE HUMAN</text>
+ <g transform="translate(75 670) scale(1.55)"><path d="M299 238C234 185 204 116 259 101C283 94 298 110 300 126C310 98 343 87 363 110C397 151 346 204 299 238Z" fill="url(#warm)"/><path d="M100 345C103 268 133 231 173 234C204 231 196 279 217 286L287 317Q314 344 288 362L235 346L204 357L235 398L177 430Z" fill="url(#sculpt)"/><path d="M500 345C497 268 467 231 427 234C396 231 404 279 383 286L313 317Q286 344 312 362L365 346L396 357L365 398L423 430Z" fill="url(#glass)"/></g>
+ <text x="540" y="1485" text-anchor="middle" font-family="DejaVu Sans,sans-serif" font-size="23" letter-spacing="6" fill="#935e75" opacity=".7">SELF-TALK</text><text x="540" y="1640" text-anchor="middle" font-family="P052,Georgia,serif" font-size="83" fill="#935e75">Speak to yourself as</text><text x="540" y="1745" text-anchor="middle" font-family="P052,Georgia,serif" font-size="83" fill="#935e75">you would to a friend.</text>
+ <path d="M480 2060H600" stroke="#935e75" stroke-opacity=".25" stroke-width="2"/><text x="540" y="2140" text-anchor="middle" font-family="P052,Georgia,serif" font-style="italic" font-size="36" fill="#935e75" opacity=".68">human within</text></svg>

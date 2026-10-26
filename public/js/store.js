@@ -1,17 +1,18 @@
 // The store speaks to the Node server when it is there, and falls back to the very same engine
 // running in the browser (localStorage) when the app is opened as static files or the server is away.
 import * as E from './engine.js';
+import { normaliseSpace, validateBackup } from './space-model.js';
 
 const TOKEN_KEY = 'ugt.token.v2', LOCAL_KEY = 'ugt.local.v2';
 const listeners = new Set();
-export const state = { mode: 'api', ready: false, dev: false, id: null, hasPin: false, doc: null, view: null, offline: false };
+export const state = { persistent: true, mode: 'local', ready: false, dev: false, id: null, hasPin: false, doc: null, view: null, offline: false };
 export const subscribe = fn => (listeners.add(fn), () => listeners.delete(fn));
 const emit = () => listeners.forEach(fn => fn(state));
 const tzNow = () => { try { return Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC'; } catch { return 'UTC'; } };
 
 function fail(code, message, status) { return Object.assign(new Error(message), { code, status }); }
 const mem = {};
-const ls = { get: k => { try { return localStorage.getItem(k); } catch { return mem[k] ?? null; } }, set: (k, v) => { try { localStorage.setItem(k, v); } catch { mem[k] = v; } }, del: k => { try { localStorage.removeItem(k); } catch { delete mem[k]; } } };
+const ls = { get: k => { try { return localStorage.getItem(k); } catch { return mem[k] ?? null; } }, set: (k, v) => { try { localStorage.setItem(k, v); } catch { mem[k] = v; state.persistent=false; } }, del: k => { try { localStorage.removeItem(k); } catch { delete mem[k]; } } };
 
 /* ───────── API backend ───────── */
 async function call(method, path, body) {
@@ -53,20 +54,16 @@ function apply(data) { state.id = data.id; state.hasPin = !!data.hasPin; state.d
 
 /** Boot: find out if a server is there, resume a session if we have one. */
 export async function boot() {
-  try {
-    const cfg = await fetch('/api/config').then(r => (r.ok ? r.json() : Promise.reject())); state.mode = 'api'; state.dev = !!cfg.dev;
-    if (ls.get(TOKEN_KEY)) { try { apply(await call('GET', '/api/me')); } catch (e) { if (e.code === 'unauthorized') ls.del(TOKEN_KEY); else throw e; } }
-  } catch {
-    state.mode = 'local'; state.dev = /^(localhost|127\.|\[::1\]|)$/.test(location.hostname);
-    const doc = local.load(); if (doc) apply(local.reply(doc));
-  }
-  state.ready = true; emit(); return state;
+  state.mode='local';state.dev=false;
+  const doc=local.load();
+  if(doc){doc.space=normaliseSpace(doc.space);local.save(doc);apply(local.reply(doc));}
+  state.ready=true;emit();return state;
 }
 
 export async function start({ name, intents, length }) {
   if (state.mode === 'api') { const d = await call('POST', '/api/auth/start', { name, intents, length, tz: tzNow() }); ls.set(TOKEN_KEY, d.token); return apply(d); }
   const id = `UGT-${Math.random().toString(36).slice(2, 6).toUpperCase()}-${Math.random().toString(36).slice(2, 6).toUpperCase()}`;
-  const doc = E.newDoc({ id, name, tz: tzNow(), intents, length }); doc.onboarded = true; local.save(doc); return apply(local.reply(doc));
+  const doc = E.newDoc({ id, name, tz: tzNow(), intents, length }); doc.space=normaliseSpace();doc.onboarded = true; local.save(doc); return apply(local.reply(doc));
 }
 export async function restore(id, pin) {
   if (state.mode !== 'api') throw fail('offline', 'Restoring from another device needs the server.');
@@ -81,7 +78,28 @@ export async function act(name, body = {}) {
   }
 }
 export async function setPin(pin) { const d = await call('POST', '/api/pin', { pin }); return apply(d); }
-export async function exportData() { return state.mode === 'api' ? (await call('GET', '/api/export')).export : state.doc; }
+export async function exportData() {
+  const readerState={};
+  try{for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(['neoXhuman.body.illustrated.v2','neoxhuman.growingmind.reader.2026.v1','switch-off-flipbook-2026-page','human-simple-v3'].includes(k)||k.startsWith('ugt.how-to-work-with-me.')||k.startsWith('astralyon.how-to-work-with-me.')||k.startsWith('hj-single-')||k.startsWith('human-journey'))readerState[k]=localStorage.getItem(k);}}catch{}
+  return {app:'human-within',version:1,exportedAt:new Date().toISOString(),profile:{name:state.doc?.name||'',intents:state.doc?.intents||[]},progress:normaliseSpace(state.doc?.space),readerState};
+}
+export function mutateSpace(transform){
+  const doc=local.load();if(!doc)return;
+  doc.space=normaliseSpace(transform(normaliseSpace(doc.space)));local.save(doc);apply(local.reply(doc));return doc.space;
+}
+export async function importData(input){
+  const imported=validateBackup(input);
+  const doc=E.newDoc({id:state.doc?.id||`HW-${Date.now()}`,name:imported.name||'Friend',tz:tzNow(),intents:imported.intents,length:'quick'});
+  doc.space=imported.space;doc.onboarded=true;local.save(doc);
+  for(const [k,v]of Object.entries(imported.readerState))ls.set(k,v);
+  return apply(local.reply(doc));
+}
+export function resetDevice(){
+  const keyPrefixes=['human.within.','ugt.','neoXhuman.body.','neoxhuman.growingmind.','switch-off-flipbook-','human-simple-','human-journey','hj-single-','astralyon.how-to-work-with-me.'];
+  try{const keys=[];for(let i=0;i<localStorage.length;i++)keys.push(localStorage.key(i));for(const k of keys)if(keyPrefixes.some(p=>k.startsWith(p)))localStorage.removeItem(k);}catch{}
+  state.doc=null;state.view=null;state.id=null;
+}
+
 export async function signOut(deleteAll) {
   if (deleteAll) { try { if (state.mode === 'api') await call('DELETE', '/api/me'); } catch { /* already gone */ } ls.del(LOCAL_KEY); }
   ls.del(TOKEN_KEY); state.doc = null; state.view = null; state.id = null; emit();

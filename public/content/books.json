@@ -8,7 +8,11 @@
     "color": "#c5944c",
     "cover": "/assets/covers/human-journey.webp",
     "file": "/books/human-journey.html",
-    "bytes": 401249
+    "bytes": 385823,
+    "downloadType": "reader-pack",
+    "download": "/books/downloads/human-journey.zip",
+    "optimised": true,
+    "downloadBytes": 141001
   },
   {
     "id": "how-to-work-with-me",
@@ -19,7 +23,11 @@
     "color": "#4d6fc5",
     "cover": "/assets/covers/how-to-work-with-me.webp",
     "file": "/books/how-to-work-with-me.html",
-    "bytes": 9500516
+    "bytes": 173650,
+    "downloadType": "reader-pack",
+    "download": "/books/downloads/how-to-work-with-me.zip",
+    "optimised": true,
+    "downloadBytes": 5609226
   },
   {
     "id": "why-am-i-like-this",
@@ -30,7 +38,11 @@
     "color": "#8166c0",
     "cover": null,
     "file": "/books/why-am-i-like-this.html",
-    "bytes": 120988
+    "bytes": 121036,
+    "downloadType": "reader-pack",
+    "download": "/books/downloads/why-am-i-like-this.zip",
+    "optimised": true,
+    "downloadBytes": 42104
   },
   {
     "id": "growing-mind",
@@ -41,7 +53,11 @@
     "color": "#2a8078",
     "cover": "/assets/covers/growing-mind.webp",
     "file": "/books/growing-mind.html",
-    "bytes": 9928946
+    "bytes": 1351696,
+    "downloadType": "reader-pack",
+    "download": "/books/downloads/growing-mind.zip",
+    "optimised": true,
+    "downloadBytes": 6083797
   },
   {
     "id": "switch-off",
@@ -52,7 +68,11 @@
     "color": "#69785c",
     "cover": "/assets/covers/switch-off.webp",
     "file": "/books/switch-off.html",
-    "bytes": 29008939
+    "bytes": 112159,
+    "downloadType": "reader-pack",
+    "download": "/books/downloads/switch-off.zip",
+    "optimised": true,
+    "downloadBytes": 20305383
   },
   {
     "id": "body-you-live-in",
@@ -63,6 +83,10 @@
     "color": "#d96041",
     "cover": "/assets/covers/body-you-live-in.webp",
     "file": "/books/body-you-live-in.html",
-    "bytes": 47156531
+    "bytes": 181657,
+    "downloadType": "reader-pack",
+    "download": "/books/downloads/body-you-live-in.zip",
+    "optimised": true,
+    "downloadBytes": 35657468
   }
 ]

@@ -28,3 +28,12 @@ for(const w of wallpapers){
 }
 assert.ok(fs.statSync(path.join(root,'wallpapers/human-within-all-30.zip')).size>100000);
 console.log(`catalogue: 15 products, ${units} content units, 105 situations, 6 eBooks, and all 30 wallpaper originals passed`);
+// The performance fix must retain every referenced asset and all offline downloads.
+for(const b of books){
+ const reader=fs.readFileSync(path.join(root,b.file),'utf8');assert.ok(reader.length<1500000,`${b.id} reader must not contain every bitmap`);
+ assert.ok(!/data:image\/[a-z+]+;base64,/.test(reader),`${b.id} must load picture assets as needed`);
+ for(const m of reader.matchAll(/\/assets\/books\/([a-f0-9]{20}\.[a-zA-Z0-9]+)/g))assert.ok(fs.statSync(path.join(root,'assets/books',m[1])).size>0,`${b.id}: missing ${m[1]}`);
+ assert.ok(fs.statSync(path.join(root,b.download)).size>1000,`${b.id}: missing offline reader`);
+}
+assert.equal(new Set(wallpapers.map(w=>w.design)).size,30,'each wallpaper must have its own artwork concept');
+console.log('assets: lightweight readers, every artwork/font, all offline book packs, and 30 individual wallpaper designs passed');

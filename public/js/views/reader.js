@@ -6,6 +6,7 @@ import { unit, journeyPart } from '../content.js';
 import { unitLabel, humanError } from './today.js';
 import { speak, silence } from '../audio.js';
 import { remember } from './library.js';
+import { trackActivity } from '../personal.js';
 
 /** Where does the flow lead after finishing something? */
 export function nextStep() {
@@ -27,6 +28,7 @@ export async function renderReader(root, { realm, idx, browse = false }, ctx) {
   }
   const u = await unit(realm, idx); if(ctx.isCurrent&&!ctx.isCurrent())return; ctx.setHue(u.hue);
   if(browse) remember(`#/browse/${realm}/${idx}`,u.title,'Practice');
+  const activity=browse?trackActivity({route:`#/browse/${realm}/${idx}`,title:u.title,kind:'Practice'}):null;
   const doneRec = state.doc.units[`${realm}:${idx}`];
   const scroller = h('div', { class: 'reader-scroll' }); const bar = h('div', { class: 'reader-progress' }, h('i'));
   const top = h('header', { class: 'reader-top' }, h('button', { class: 'icon-btn', 'aria-label': 'Close', onclick: () => ctx.close() }, icon('close', 22)), h('div', { class: 'reader-kick' }, u.kicker.split(' — ')[0]), listenBtn(u), bar);
@@ -37,7 +39,8 @@ export async function renderReader(root, { realm, idx, browse = false }, ctx) {
   const need = Math.max(r.minSeconds, Math.min(90, Math.round(u.est * 0.5)));
   const note = h('textarea', { rows: 2, maxlength: 600, placeholder: 'One line to carry from this (optional)…', 'aria-label': 'Your reflection' });
   const ring = h('div', { class: 'dwell-ring' }); const hint = h('span', { class: 'dwell-hint' }); const finish = h('button', { class: 'btn primary', disabled: true }, mode === 'review' ? 'Done' : `Seal this ${r.unit.toLowerCase()}`);
-  const dock = browse ? h('div',{class:'browse-dock'},h('a',{class:'btn ghost',href:`#/product/${realm}`},icon('back',17),'Collection'),h('span',{class:'fine'},`${idx+1} / ${r.count}`),idx+1<r.count&&h('a',{class:'btn primary',href:`#/browse/${realm}/${idx+1}`},'Next',icon('arrow',17))) : h('div', { class: 'dock' }, ring, hint, finish);
+  const dock = browse ? h('div',{class:'browse-dock'},h('a',{class:'icon-btn','aria-label':'Back to collection',href:`#/product/${realm}`},icon('back',19)),h('span',{class:'fine'},`${idx+1} / ${r.count}`),h('button',{class:'btn primary',onclick:()=>{activity?.finish(true);remember(idx+1<r.count?`#/browse/${realm}/${idx+1}`:`#/product/${realm}`,r.title,'Practice');toast('A little moment, kept in your space.');ctx.close(`#/product/${realm}`);}},'Done for now',icon('check',16)),idx+1<r.count&&h('a',{class:'icon-btn','aria-label':'Next practice',href:`#/browse/${realm}/${idx+1}`,onclick:()=>activity?.finish(true)},icon('arrow',19))) : h('div', { class: 'dock' }, ring, hint, finish);
+
 
   const body = h('article', { class: 'reader-body' },
     h('div', { class: 'reader-art' }, emblem(u.motif, u.hue, `${realm}${idx}`, 156)),
@@ -55,7 +58,7 @@ export async function renderReader(root, { realm, idx, browse = false }, ctx) {
   }
   scroller.addEventListener('scroll', measure, { passive: true });
   const startDwell = () => { if (revealed && mode === 'open') { setTimeout(measure, 80); timer = setInterval(() => { if (!wrap.isConnected) return stop(); if (!document.hidden) { seconds++; update(); } }, 1000); } };
-  const stop = () => { clearInterval(timer); silence(); if (!done && mode === 'open' && seconds >= 5) beacon(realm, seconds); wrap.dispatchEvent(new Event('x')); };
+  const stop = () => { activity?.finish(false);clearInterval(timer); silence(); if (!done && mode === 'open' && seconds >= 5) beacon(realm, seconds); wrap.dispatchEvent(new Event('x')); };
   wrap.addEventListener('ugt:leave', stop);
 
   finish.addEventListener('click', async () => {

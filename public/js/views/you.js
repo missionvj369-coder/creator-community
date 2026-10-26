@@ -1,47 +1,50 @@
-import { h, mount, icon, emblem, sheet, toast, prettyDate, svgEl } from '../ui.js';
-import * as E from '../engine.js';
-import * as S from '../store.js';
-import { state, act } from '../store.js';
+import { h, mount, icon, sheet, toast } from '../ui.js';
+import { state, resetDevice } from '../store.js';
+import { INTENTS } from '../engine.js';
+import { space, summary, saveProfile, setPreferences, toggleSaved, addNote, removeNote, downloadBackup, importData } from '../personal.js';
 import { drone } from '../audio.js';
-import { humanError } from './today.js';
-
-let showAll = false;
-
-function bars(data) {
-  const W = 340, H = 110, max = Math.max(5, ...data.map(d => d.minutes)); const bw = W / data.length;
-  const s = data.map((d, i) => { const bh = Math.max(d.minutes ? 4 : 2, (d.minutes / max) * (H - 24)); return `<g><rect x="${(i * bw + 4).toFixed(1)}" y="${(H - 16 - bh).toFixed(1)}" width="${(bw - 8).toFixed(1)}" height="${bh.toFixed(1)}" rx="4" fill="${d.minutes ? 'hsl(var(--hue) 85% 70%)' : 'rgba(255,255,255,.12)'}"><title>${prettyDate(d.date)} — ${d.minutes} min</title></rect><text x="${(i * bw + bw / 2).toFixed(1)}" y="${H - 3}" text-anchor="middle" font-size="9" fill="#f5f1ea" opacity=".5">${d.date.slice(8)}</text></g>`; }).join('');
-  return svgEl(`<svg viewBox="0 0 ${W} ${H}" class="barsvg" role="img" aria-label="Minutes per day, last 14 days">${s}</svg>`);
+const fmt=at=>new Date(at).toLocaleDateString(undefined,{day:'numeric',month:'short'});
+export function renderYou(root,ctx){
+  ctx.setHue(160);const s=space(),stats=summary(),doc=state.doc;
+  let selected=[...doc.intents],minutes=s.minutes,tone=s.tone;
+  const actualName=doc.name==='Friend'?'':doc.name;
+  const name=h('input',{type:'text',value:actualName,maxlength:40,placeholder:'Your name','aria-label':'Your name',autocomplete:'given-name'});
+  const error=h('p',{class:'field-message',role:'status'});
+  const avatar=h('div',{class:'profile-monogram','data-tone':tone,'aria-hidden':'true'},initials(actualName));
+  const greeting=h('h1',{class:'display'},actualName?`${actualName}’s space`:'Your space');
+  const selectMinutes=h('div',{class:'profile-choice-row'});
+  const selectTones=h('div',{class:'tone-choices',role:'group','aria-label':'Profile colour'});
+  const goals=h('div',{class:'chips',role:'group','aria-label':'What matters to you'});
+  const paintMinutes=()=>mount(selectMinutes,[2,5,10].map(n=>h('button',{type:'button',class:`chip ${minutes===n?'on':''}`,'aria-pressed':String(minutes===n),onclick:()=>{minutes=n;paintMinutes();}},`${n} minutes`)));
+  const paintTones=()=>mount(selectTones,['sage','lilac','clay','sky','rose'].map(t=>h('button',{type:'button',class:`tone-choice ${tone===t?'on':''}`,'data-tone':t,'aria-label':`${t} profile colour`,'aria-pressed':String(tone===t),onclick:()=>{tone=t;avatar.dataset.tone=t;paintTones();}},tone===t&&icon('check',17))));
+  const paintGoals=()=>mount(goals,INTENTS.map(i=>h('button',{type:'button',class:`chip ${selected.includes(i.id)?'on':''}`,'aria-pressed':String(selected.includes(i.id)),onclick:()=>{if(selected.includes(i.id))selected=selected.filter(x=>x!==i.id);else if(selected.length<3)selected.push(i.id);else toast('Choose up to three things that matter to you.');paintGoals();}},i.label)));
+  paintMinutes();paintTones();paintGoals();
+  const save=h('button',{class:'btn primary',type:'submit'},'Save my preferences',icon('check',17));
+  const form=h('form',{class:'profile-form',onsubmit:async e=>{e.preventDefault();const value=name.value.trim();if(!value){error.textContent='Add a name before saving. A first name or nickname is enough.';name.focus();return;}save.disabled=true;try{await saveProfile(value,selected,minutes,tone);error.textContent='Your preferences are saved on this device.';avatar.textContent=initials(value);greeting.textContent=`${value}’s space`;toast('Saved. Your next moment will use these preferences.');}catch{error.textContent='Your preferences could not be saved. Please try again.';}finally{save.disabled=false;}}},
+    h('h2',{},'Make yourself at home.'),h('label',{class:'profile-field'},h('span',{},'What shall we call you?'),name),h('div',{class:'profile-field'},h('span',{},'Your usual moment'),selectMinutes,h('p',{class:'fine'},'This sets the suggested timer. You can finish whenever you are ready.')),
+    h('div',{class:'profile-field'},h('span',{},'What would you like more of?'),goals,h('p',{class:'fine'},'Matching moments move to the front of your choices.')),h('div',{class:'profile-field'},h('span',{},'Your colour'),selectTones),error,save);
+  const stat=(n,label)=>h('div',{class:'honest-stat'},h('strong',{},String(n)),h('span',{},label));
+  const activity=h('div',{class:'activity-list'});
+  const sessions=[...s.sessions].filter(x=>x.seconds>0||x.completed).reverse().slice(0,7);
+  mount(activity,sessions.length?sessions.map(x=>h('a',{class:'activity-row',href:x.route},h('span',{class:'activity-glyph'},icon(x.kind==='eBook'?'book':x.kind==='Moment'?'sparkle':'play',19)),h('div',{},h('strong',{},x.title),h('p',{},`${fmt(x.at)} · ${x.completed?'Completed':'Visited'}${x.seconds>=60?' · '+Math.floor(x.seconds/60)+' min':x.seconds>0?' · '+Math.round(x.seconds)+' sec':''}`)),icon('arrow',17))):h('div',{class:'gentle-empty'},h('p',{},'Your first small moment belongs here.'),h('a',{class:'text-link',href:'#/moment'},'Take a moment',icon('arrow',16))));
+  const savedList=h('div',{class:'saved-list'});
+  function paintSaved(){const saved=space().saved;mount(savedList,saved.length?saved.map(item=>h('div',{class:'saved-row'},h('a',{href:item.route},h('small',{},item.kind),h('strong',{},item.title)),h('button',{class:'icon-btn','aria-label':`Remove ${item.title} from saved`,onclick:()=>{toggleSaved(item);paintSaved();}},icon('close',16)))):h('p',{class:'fine'},'Save an experience or book with its bookmark button. Your favourites will be here.'));}paintSaved();
+  const notesList=h('div',{class:'notes-list'}),note=h('textarea',{rows:2,maxlength:800,placeholder:'A thought you want to keep…','aria-label':'A note to yourself'});
+  function paintNotes(){const notes=[...space().notes].reverse();mount(notesList,notes.length?notes.map(n=>h('div',{class:'personal-note'},h('div',{},h('small',{},fmt(n.at)),h('p',{},n.text)),h('button',{class:'icon-btn','aria-label':'Delete this note',onclick:()=>{removeNote(n.id);paintNotes();}},icon('close',16)))):h('p',{class:'fine'},'Keep an idea, a reminder, or a moment that mattered. Writing is optional.'));}paintNotes();
+  const upload=h('input',{type:'file',accept:'.json,application/json',hidden:true,'aria-label':'Choose a Human Within backup',onchange:async()=>{
+    const f=upload.files?.[0];if(!f)return;try{if(f.size>5000000)throw Error('Choose a backup smaller than 5 MB.');const data=JSON.parse(await f.text());
+      const sh=sheet(h('div',{class:'restore-review'},h('h2',{class:'display sm'},'Restore this backup?'),h('p',{class:'lede'},'This replaces the profile and progress on this device with the selected backup.'),h('div',{class:'row-center'},h('button',{class:'btn ghost',onclick:()=>sh.close()},'Keep this device as it is'),h('button',{class:'btn primary',onclick:async()=>{try{await importData(data);sh.close();setPreferences({motion:space().motion});ctx.render();toast('Your backup has been restored.');}catch(e){toast(e.message||'This backup could not be restored.');}}},'Restore backup'))),{label:'Restore backup'});
+    }catch(e){toast(e.message||'That file could not be read. Choose a Human Within JSON backup.');}upload.value='';
+  }});
+  const sound=h('button',{class:'preference-toggle','aria-pressed':String(drone.on),onclick:()=>{ctx.toggleSound();sound.setAttribute('aria-pressed',String(drone.on));sound.lastElementChild.textContent=drone.on?'On':'Off';}},h('span',{},'Ambient sound'),h('strong',{},drone.on?'On':'Off'));
+  const motion=h('button',{class:'preference-toggle','aria-pressed':String(s.motion==='reduced'),onclick:()=>{setPreferences({motion:space().motion==='reduced'?'full':'reduced'});motion.setAttribute('aria-pressed',String(space().motion==='reduced'));motion.lastElementChild.textContent=space().motion==='reduced'?'Gentle':'Full';}},h('span',{},'Interface motion'),h('strong',{},s.motion==='reduced'?'Gentle':'Full'));
+  mount(root,h('section',{class:'page hub-page profile-page rise'},h('div',{class:'profile-welcome'},avatar,h('div',{},h('p',{class:'eyebrow'},'A LITTLE SPACE THAT IS YOURS'),greeting,h('p',{class:'lede'},'Your moments, reading, and things worth keeping.'))),
+    h('div',{class:'device-label'},icon('check',15),state.persistent?'Saved in this browser · no account needed':'Temporary session · export a backup before closing'),
+    h('div',{class:'honest-stats'},stat(stats.completed,'moments completed'),stat(stats.minutes,'minutes here'),stat(stats.days,'days you made space'),stat(stats.books,'books explored')),
+    h('div',{class:'profile-columns'},h('div',{class:'profile-column'},form,h('section',{class:'profile-panel'},h('h2',{},'Comfort, your way.'),motion,sound)),h('div',{class:'profile-column'},h('section',{class:'profile-panel'},h('h2',{},'Your recent moments.'),activity),h('section',{class:'profile-panel'},h('h2',{},'Saved for another day.'),savedList))),
+    h('section',{class:'profile-panel'},h('h2',{},'A note to yourself.'),note,h('button',{class:'btn ghost small',onclick:()=>{if(!note.value.trim()){note.focus();return;}addNote(note.value);note.value='';paintNotes();toast('Note saved.');}},'Keep this thought',icon('check',16)),notesList),
+    h('section',{class:'profile-panel backup-panel'},h('div',{},h('h2',{},'Keep your space with you.'),h('p',{class:'fine'},'Your profile, moments, saved items, and reading positions stay on this device. Export a backup to move them to another browser.')),h('div',{class:'chips'},h('button',{class:'btn ghost small',onclick:()=>downloadBackup().catch(()=>toast('The backup could not be created.'))},icon('download',17),'Export backup'),h('button',{class:'btn ghost small',onclick:()=>upload.click()},icon('upload',17),'Restore backup'),upload)),
+    h('button',{class:'quiet-link reset-link',onclick:()=>confirmReset(ctx)},'Reset this device’s space')));
 }
-
-export function renderYou(root, ctx) {
-  const v = state.view, doc = state.doc, st = v.stats; ctx.setHue(280);
-  const stat = (n, l) => h('div', { class: 'stat' }, h('b', {}, String(n)), h('span', {}, l));
-  const nameIn = h('input', { type: 'text', value: doc.name, maxlength: 40, 'aria-label': 'Your name', autocomplete: 'given-name' });
-  const reflections = [...doc.reflections].reverse(); const list = showAll ? reflections : reflections.slice(0, 5);
-  const seg = Object.entries(E.GATE_LENGTHS).map(([id, g]) => h('button', { class: `seg ${doc.length === id ? 'on' : ''}`, 'aria-pressed': String(doc.length === id), onclick: async () => { try { await act('profile', { length: id }); toast(`Gate length: ${g.label}`); ctx.render(); } catch (e) { toast(humanError(e)); } } }, h('b', {}, g.label), h('span', {}, `~${g.mins} min`)));
-  const intents = E.INTENTS.map(i => { const on = doc.intents.includes(i.id); return h('button', { class: `chip ${on ? 'on' : ''}`, 'aria-pressed': String(on), onclick: async () => { let next = on ? doc.intents.filter(x => x !== i.id) : [...doc.intents, i.id].slice(-3); try { await act('profile', { intents: next }); ctx.render(); } catch (e) { toast(humanError(e)); } } }, i.label); });
-  const pin = h('input', { type: 'password', placeholder: 'Choose a passphrase (4+ characters)', 'aria-label': 'Passphrase', autocomplete: 'new-password', minlength: 4 });
-  mount(root, h('section', { class: 'page rise' },
-    h('div', { class: 'profile' }, emblem('mirror', 280, doc.name, 96), h('div', {}, h('p', { class: 'eyebrow' }, 'You'), h('h1', { class: 'display sm' }, doc.name), h('button', { class: 'idchip', onclick: async () => { try { await navigator.clipboard.writeText(S.state.id); toast('ID copied'); } catch { toast(S.state.id); } }, 'aria-label': 'Copy your app ID' }, h('span', { class: 'mono' }, S.state.id), icon('copy', 15)))),
-    h('div', { class: 'stats' }, stat(st.daysDone, 'days sealed'), stat(`${st.streak}`, `streak · best ${st.best}`), stat(st.totalMinutes, 'minutes'), stat(st.reflections, 'reflections')),
-    h('div', { class: 'card' }, h('h3', {}, 'Last 14 days'), bars(st.bars), st.liftRate != null && h('p', { class: 'fine' }, `You left lighter, clearer or moved on ${st.liftRate}% of the days you sealed.`)),
-    h('div', { class: 'card' }, h('h3', {}, 'Reflections'), list.length ? h('ul', { class: 'reflist' }, list.map(r => h('li', {}, h('span', { class: 'fine' }, prettyDate(r.date), r.realm && E.realmById(r.realm) ? ` · ${E.realmById(r.realm).title}` : ''), h('p', {}, r.text)))) : h('p', { class: 'fine' }, 'The one-line notes you write when you seal a step or a day will gather here.'), reflections.length > 5 && h('button', { class: 'btn ghost small', onclick: () => { showAll = !showAll; ctx.render(); } }, showAll ? 'Show fewer' : `Show all ${reflections.length}`)),
-    h('div', { class: 'card' }, h('h3', {}, 'Make it yours'),
-      h('label', { class: 'field' }, h('span', {}, 'Name'), h('div', { class: 'inline' }, nameIn, h('button', { class: 'btn ghost small', onclick: async () => { try { await act('profile', { name: nameIn.value }); toast('Saved'); ctx.render(); } catch (e) { toast(humanError(e)); } } }, 'Save'))),
-      h('div', { class: 'field' }, h('span', {}, 'Daily gate length'), h('div', { class: 'segs' }, seg)), h('div', { class: 'field' }, h('span', {}, 'What are you here for? (up to three)'), h('div', { class: 'chips' }, intents)),
-      h('div', { class: 'field' }, h('span', {}, 'Sound & voice'), h('div', { class: 'chips' },
-        h('button', { class: `chip ${drone.on ? 'on' : ''}`, 'aria-pressed': String(drone.on), onclick: () => { ctx.toggleSound(); ctx.render(); } }, icon(drone.on ? 'sound' : 'mute', 16), drone.on ? 'Ambient sound on' : 'Ambient sound off'),
-        h('button', { class: 'chip', onclick: () => ctx.go('#/arrive') }, 'Replay the arrival ritual'), h('button', { class: 'chip', onclick: () => ctx.go('#/welcome') }, 'Welcome messages')))),
-    state.mode === 'api' && h('div', { class: 'card' }, h('h3', {}, 'Take your path to another device'), h('p', { class: 'fine' }, `Your app ID is ${S.state.id}. ${S.state.hasPin ? 'A passphrase is set — use ID + passphrase on any device to continue.' : 'Set a passphrase, then sign in anywhere with your ID.'}`),
-      h('div', { class: 'inline' }, pin, h('button', { class: 'btn ghost small', onclick: async () => { try { await S.setPin(pin.value); pin.value = ''; toast('Passphrase saved'); ctx.render(); } catch (e) { toast(humanError(e)); } } }, S.state.hasPin ? 'Change' : 'Set'))),
-    state.mode === 'local' && h('div', { class: 'card' }, h('h3', {}, 'Saved on this device'), h('p', { class: 'fine' }, 'Your progress stays in this browser. Export a backup before switching devices.')),
-    h('div', { class: 'card' }, h('h3', {}, 'Your data'), h('div', { class: 'chips' },
-      h('button', { class: 'chip', onclick: async () => { try { const data = await S.exportData(); const a = h('a', { href: URL.createObjectURL(new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' })), download: 'human-within-progress.json' }); document.body.append(a); a.click(); a.remove(); } catch (e) { toast(humanError(e)); } } }, icon('download', 16), 'Export'),
-      h('button', { class: 'chip', onclick: async () => { await S.signOut(false); location.hash = '#/welcome'; location.reload(); } }, 'Sign out of this device'),
-      h('button', { class: 'chip danger', onclick: () => confirmDelete(ctx) }, 'Delete everything'))),
-    state.dev && h('div', { class: 'card dev' }, h('h3', {}, 'Preview tomorrow'), h('p', { class: 'fine' }, `Time travel to see how the next day reveals. Clock offset: ${Math.round(((doc.dev || {}).offsetMs || 0) / 86400000)} day(s).`), h('div', { class: 'chips' },
-      h('button', { class: 'chip', onclick: async () => { await act('dev/advance', { days: 1 }); toast('It is now the next day'); ctx.go('#/today'); } }, 'Jump one day ahead'), h('button', { class: 'chip', onclick: async () => { await act('dev/reset-time'); ctx.render(); toast('Clock reset'); } }, 'Reset clock')))));
-}
-function confirmDelete(ctx) {
-  const sh = sheet(h('div', { class: 'center' }, h('h2', { class: 'display sm' }, 'Delete everything?'), h('p', { class: 'lede' }, 'This erases your path, reflections and ID — on this device and the server. It cannot be undone.'), h('div', { class: 'row-center' }, h('button', { class: 'btn ghost', onclick: () => sh.close(), autofocus: true }, 'Keep my path'), h('button', { class: 'btn danger', onclick: async () => { await S.signOut(true); sh.close(); location.hash = '#/welcome'; location.reload(); } }, 'Delete'))), { label: 'Confirm deletion' });
-}
+const initials=name=>name.trim()?name.trim().split(/\s+/).slice(0,2).map(x=>x[0]).join('').toUpperCase():'you';
+function confirmReset(ctx){const sh=sheet(h('div',{class:'center'},h('h2',{class:'display sm'},'Begin a fresh space?'),h('p',{class:'lede'},'This clears this app’s profile, notes, saved items, and reading positions from this browser. Export a backup first if you want to keep them.'),h('div',{class:'row-center'},h('button',{class:'btn ghost',onclick:()=>sh.close(),autofocus:true},'Keep my space'),h('button',{class:'btn danger',onclick:()=>{resetDevice();sh.close();location.hash='#/home';location.reload();}},'Clear this device'))),{label:'Reset this device'});}

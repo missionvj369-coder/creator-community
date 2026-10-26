@@ -1,3 +1,4 @@
+import { illustration } from './product-art.js';
 import { REALMS } from './engine.js';
 
 export const BRAND = 'Human Within';
@@ -41,15 +42,4 @@ export const SITUATIONS = [
 
 export const productById = id => PRODUCTS.find(r => r.id === id);
 export const situationById = id => SITUATIONS.find(r => r.id === id);
-export function art(kind='orbit', color='#dce8e2', ink='#568577', key='art') {
-  const id = `art-${String(key).replace(/[^a-z0-9]/gi,'')}`;
-  let body='';
-  if(kind==='bloom') for(let i=0;i<8;i++) body+=`<ellipse cx="300" cy="142" rx="46" ry="92" fill="url(#${id})" transform="rotate(${i*45} 300 220)"/>`;
-  else if(kind==='ripple') for(let i=0;i<7;i++) body+=`<ellipse cx="300" cy="220" rx="${38+i*29}" ry="${24+i*20}" fill="none" stroke="${ink}" stroke-width="${16-i*1.7}" opacity="${.88-i*.10}"/>`;
-  else if(kind==='arch') for(let i=0;i<6;i++) body+=`<path d="M ${126+i*27} 386 V 204 A ${174-i*27} ${174-i*27} 0 0 1 ${474-i*27} 204 V386" fill="none" stroke="${ink}" stroke-width="15" opacity="${.25+i*.12}"/>`;
-  else if(kind==='sun') {for(let i=0;i<18;i++)body+=`<path d="M300 69V110" stroke="${ink}" stroke-width="12" stroke-linecap="round" transform="rotate(${i*20} 300 220)" opacity=".55"/>`;body+=`<circle cx="300" cy="220" r="82" fill="url(#${id})"/>`;}
-  else if(kind==='moon') body=`<circle cx="300" cy="220" r="140" fill="${ink}" opacity=".14"/><circle cx="300" cy="220" r="107" fill="url(#${id})"/><circle cx="350" cy="178" r="91" fill="${color}"/><circle cx="170" cy="108" r="8" fill="${ink}" opacity=".6"/><path d="M445 255v32m-16-16h32" stroke="${ink}" stroke-width="3"/>`;
-  else if(kind==='ribbon') {for(let i=0;i<6;i++)body+=`<path d="M70 ${150+i*28} C180 ${-80+i*35} 350 ${500-i*16} 530 ${90+i*32}" fill="none" stroke="${ink}" stroke-width="18" stroke-linecap="round" opacity="${.25+i*.12}"/>`;}
-  else {body=`<circle cx="300" cy="220" r="74" fill="url(#${id})"/>`;for(let i=0;i<3;i++)body+=`<ellipse cx="300" cy="220" rx="195" ry="70" fill="none" stroke="${ink}" stroke-width="2.5" opacity=".55" transform="rotate(${i*60+20} 300 220)"/>`;body+=`<circle cx="435" cy="151" r="18" fill="${ink}"/>`;}
-  return `<svg viewBox="0 0 600 440" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><linearGradient id="${id}" x1="0" y1="0" x2="1" y2="1"><stop stop-color="white" stop-opacity=".9"/><stop offset=".48" stop-color="${ink}"/><stop offset="1" stop-color="${ink}" stop-opacity=".4"/></linearGradient></defs>${body}</svg>`;
-}
+export function art(kind='orbit', color='#dce8e2', ink='#568577', key='art') { return illustration(key,kind,color,ink); }
