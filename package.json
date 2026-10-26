@@ -7,6 +7,7 @@
   "scripts": {
     "start": "node server.js",
     "dev": "node server.js",
+    "build": "echo Building for Netlify...",
     "test": "node scripts/test-engine.mjs && node scripts/test-api.mjs && node scripts/test-catalogue.mjs && node scripts/test-personal.mjs",
     "extract": "node scripts/extract-content.cjs ../source ./public/content"
   },
