@@ -1,10 +1,10 @@
 [build]
-publish = "public"
-command = "node server.js"
+  publish = "public"
+  command = "echo \"Deploying static files\""
 
 [dev]
-command = "node server.js"
-PORT = 3000
+  command = "node server.js"
+  port = 3000
 
 [[redirects]]
   from = "/api/*"
