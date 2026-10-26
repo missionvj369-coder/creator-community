@@ -1,9 +1,10 @@
 import { h, mount, icon, sheet, toast } from '../ui.js';
 
+import { space, downloaded } from '../personal.js';
 let wallpaperPromise;
 const collection=()=>wallpaperPromise||(wallpaperPromise=fetch('/content/wallpapers.json').then(r=>{if(!r.ok)throw Error('Wallpapers could not load');return r.json();}).catch(e=>{wallpaperPromise=null;throw e;}));
-const saved=()=>{try{return JSON.parse(localStorage.getItem('human.within.wallpapers')||'[]');}catch{return [];}};
-function mark(id){try{const s=new Set(saved());s.add(id);localStorage.setItem('human.within.wallpapers',JSON.stringify([...s]));}catch{}}
+const saved=()=>space().wallpapers;
+const mark=id=>downloaded(id);
 export function wallpaperPath(day){return `/wallpapers/human-within-${String(day).padStart(2,'0')}.png`;}
 export async function saveWallpaper(w){
   const a=h('a',{href:w.file||wallpaperPath(w.day),download:`human-within-day-${String(w.day).padStart(2,'0')}.png`});document.body.append(a);a.click();a.remove();mark(w.day);
@@ -11,7 +12,7 @@ export async function saveWallpaper(w){
 export async function renderWallpapers(root,ctx){
   ctx.setHue(290);let filter='All colours',query='';const grid=h('div',{class:'wallpaper-grid'}),chips=h('div',{class:'chips scroll'}),count=h('p',{class:'results-count',role:'status'});
   const input=h('input',{class:'catalogue-search',type:'search',placeholder:'Find a reminder: focus, pause, connection…','aria-label':'Search wallpapers',oninput:e=>{query=e.target.value;paint();}});
-  const hero=h('div',{class:'wallpaper-studio-hero'},h('div',{},h('p',{class:'eyebrow'},'THE POCKET GALLERY'),h('h1',{class:'display'},'A kinder kind',h('br'),h('em',{},'of screen time.')),h('p',{class:'lede'},'Colour for your phone. A small reminder for your day. All 30 wallpapers, ready whenever you are.'),h('a',{class:'btn primary',href:'/wallpapers/human-within-all-30.zip',download:'human-within-all-30.zip'},icon('download',18),'Download all 30'),h('p',{class:'wallpaper-spec'},'1080 × 2340 px · PNG · no sign-up')),
+  const hero=h('div',{class:'wallpaper-studio-hero'},h('div',{},h('p',{class:'eyebrow'},'THE POCKET GALLERY'),h('h1',{class:'display'},'A kinder kind',h('br'),h('em',{},'of screen time.')),h('p',{class:'lede'},'Thirty individual artworks. Thirty useful reminders. Choose the one you want to carry with you today.'),h('a',{class:'btn primary',href:'/wallpapers/human-within-all-30.zip',download:'human-within-all-30.zip'},icon('download',18),'Download all 30'),h('p',{class:'wallpaper-spec'},'1080 × 2340 px · PNG · no sign-up')),
     h('div',{class:'studio-phones','aria-hidden':'true'},h('img',{src:'/wallpapers/thumb-01.webp',alt:''}),h('img',{src:'/wallpapers/thumb-03.webp',alt:''}),h('img',{src:'/wallpapers/thumb-08.webp',alt:''})));
   const page=h('section',{class:'page hub-page rise'},hero,h('div',{class:'download-tip'},icon('download',20),h('p',{},'Download your favourite, then set it from your phone’s Photos or wallpaper settings. On iPhone, open the full-size image and use Share or Save to Photos.')),h('div',{class:'search-wrap'},icon('search',20),input),chips,count,grid);mount(root,page);let all=[];
   const colours=['All colours','Lavender','Sage','Apricot','Sky','Rose','Midnight'];
@@ -27,7 +28,7 @@ export async function renderWallpapers(root,ctx){
       const image = h('button', { class:'wallpaper-preview', onclick:()=>preview(w,paint), 'aria-label':`Preview day ${w.day}: ${w.title}`, style:{background:w.background} },
         h('img', {src:w.thumb,alt:`Day ${w.day}: ${w.cue}`,loading:'lazy',decoding:'async'}),
         h('span', {class:'wallpaper-day'}, `DAY ${String(w.day).padStart(2,'0')}`),
-        downloaded.includes(w.day) && h('span', {class:'wallpaper-saved'},icon('check',15),'Downloaded'));
+        downloaded.includes(w.day) && h('span', {class:'wallpaper-saved'},icon('check',15),'Chosen'));
       const download = h('button', {class:'icon-btn','aria-label':`Download wallpaper ${w.day}`,onclick:()=>{saveWallpaper(w);toast('Download started · choose Open image if your phone shows a preview.');paint();}},icon('download',20));
       const caption = h('div', {class:'wallpaper-caption'}, h('div',{},h('p',{class:'product-group'},w.palette+' · '+w.category),h('h3',{},w.title)),download);
       return h('article',{class:'wallpaper-card'},image,caption);

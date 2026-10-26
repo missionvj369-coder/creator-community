@@ -6,6 +6,7 @@ import { BinauralSession, drone } from '../audio.js';
 import { humanError, unitLabel } from './today.js';
 import { nextStep } from './reader.js';
 import { remember } from './library.js';
+import { trackActivity } from '../personal.js';
 
 const BAND_HUE = { delta: 236, theta: 214, alpha: 188, beta: 44, gamma: 326 };
 const reduce = matchMedia('(prefers-reduced-motion: reduce)');
@@ -21,6 +22,7 @@ export async function renderSession(root, { idx, browse = false }, ctx) {
   }
   const u = await unit('protocol', idx); if(ctx.isCurrent&&!ctx.isCurrent())return; const d = u.session; const hue = BAND_HUE[d.b]; ctx.setHue(hue);
   if(browse)remember(`#/listen/${idx}`,u.title,'Sound session');
+  let activity=null;
   const total = r.seconds; let elapsed = 0, running = false, timer = null, raf = 0, done = false, sess = null;
   const canvas = h('canvas', { class: 'orb', 'aria-hidden': 'true' }); const phase = h('div', { class: 'phase', 'aria-live': 'polite' }, 'Ready'); const clock = h('div', { class: 'clock mono' }, mmss(total));
   const startBtn = h('button', { class: 'btn primary big', onclick: begin }, icon('play', 20), mode === 'review' ? 'Replay (no credit)' : 'Begin · 3 minutes');
@@ -30,10 +32,11 @@ export async function renderSession(root, { idx, browse = false }, ctx) {
   const stage = h('div', { class: 'session-stage' }, canvas, h('div', { class: 'session-over' }, phase, clock), h('div', { class: 'row-center' }, pauseBtn, endBtn));
   const wrap = h('div', { class: 'reader session', style: { '--h': hue } }, h('header', { class: 'reader-top' }, back, h('div', { class: 'reader-kick' }, u.title)), h('div', { class: 'session-body' }, intro, stage, h('div', { class: 'row-center' }, startBtn)));
   stage.hidden = true; mount(root, wrap);
-  wrap.addEventListener('ugt:leave', () => { cleanup(); if (!done && mode === 'open' && elapsed >= 5) beacon('protocol', elapsed); });
+  wrap.addEventListener('ugt:leave', () => { activity?.finish(false);cleanup(); if (!done && mode === 'open' && elapsed >= 5) beacon('protocol', elapsed); });
 
   function begin() {
     drone.stop();
+    activity=trackActivity({route:`#/listen/${idx}`,title:u.title,kind:'Sound session'});
     intro.hidden = true; stage.hidden = false; startBtn.hidden = true; pauseBtn.hidden = false; endBtn.hidden = false; running = true;
     sess = new BinauralSession(d); sess.start(); phase.textContent = 'Breathe in'; draw(); timer = setInterval(tick, 1000);
   }
@@ -42,12 +45,12 @@ export async function renderSession(root, { idx, browse = false }, ctx) {
   function cleanup() { clearInterval(timer); cancelAnimationFrame(raf); sess && sess.stop(); }
   async function endEarly() { if (mode === 'open' && elapsed >= r.minSeconds) return finish(); cleanup(); if (mode === 'open') beacon('protocol', elapsed); done = true; ctx.close(); }
   async function finish() {
-    if (done) return; done = true; cleanup(); let ok = true;
+    if (done) return; done = true; activity?.finish(true);remember(idx+1<r.count?`#/listen/${idx+1}`:'#/product/protocol',r.title,'Sound session');cleanup(); let ok = true;
     if (mode === 'open') { try { await act('unit/complete', { realm: 'protocol', idx, seconds: elapsed }); } catch (e) { ok = false; toast(humanError(e)); } }
     const n = ok && mode === 'open' ? nextStep() : null;
-    mount(root, h('div', { class: 'reader celebrate', style: { '--h': hue } }, h('div', { class: 'center rise' }, h('div', { class: 'bigstar' }, emblem('protocol', hue, `s${idx}`, 190), h('div', { class: 'pulse' })), h('p', { class: 'eyebrow' }, mode === 'open' ? 'Session complete' : 'Replay complete'), h('h1', { class: 'display' }, 'Stay here a breath longer.'),
+    mount(root, h('div', { class: 'reader celebrate', style: { '--h': hue } }, h('div', { class: 'center rise' }, h('div', { class: 'bigstar' }, emblem('protocol', hue, `s${idx}`, 190), h('div', { class: 'pulse' })), h('p', { class: 'eyebrow' }, 'Session complete'), h('h1', { class: 'display' }, 'Stay here a breath longer.'),
       h('p', { class: 'lede' }, mode === 'open' ? idx+1<r.count ? `Session ${idx + 2} of ${r.count} opens tomorrow.` : 'You have completed every sound session.' : browse ? 'Come back to these sessions whenever you like.' : 'Revisiting never uses up a day.'),
-      h('div', { class: 'row-center' }, n ? h('button', { class: 'btn primary', onclick: () => ctx.go(n.to) }, n.label, icon('arrow', 18)) : h('button', { class: 'btn primary', onclick: () => ctx.close() }, 'Back to today'), n && h('button', { class: 'btn ghost', onclick: () => ctx.close() }, 'Back to today')))));
+      h('div', { class: 'row-center' }, n ? h('button', { class: 'btn primary', onclick: () => ctx.go(n.to) }, n.label, icon('arrow', 18)) : h('button', { class: 'btn primary', onclick: () => ctx.close('#/product/protocol') }, 'Back to collection'), n && h('button', { class: 'btn ghost', onclick: () => ctx.close('#/product/protocol') }, 'Back to collection')))));
   }
   function draw() {
     const c = canvas.getContext('2d'); const dpr = Math.min(devicePixelRatio || 1, 2); const t0 = performance.now();

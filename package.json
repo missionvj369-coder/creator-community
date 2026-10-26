@@ -1,13 +1,13 @@
 {
   "name": "human-within",
-  "version": "3.0.0",
+  "version": "3.1.0",
   "private": true,
-  "description": "Human Within -- 15 experiences, six eBooks, 30 wallpapers and tools for being human.",
+  "type": "module",
+  "description": "Human Within \u2014 15 experiences, six eBooks, 30 wallpapers and tools for being human.",
   "scripts": {
-    "start": "node server.cjs",
-    "dev": "node server.cjs",
-    "build": "echo Building for Netlify...",
-    "test": "node scripts/test-engine.mjs && node scripts/test-api.mjs && node scripts/test-catalogue.mjs",
+    "start": "node server.js",
+    "dev": "node server.js",
+    "test": "node scripts/test-engine.mjs && node scripts/test-api.mjs && node scripts/test-catalogue.mjs && node scripts/test-personal.mjs",
     "extract": "node scripts/extract-content.cjs ../source ./public/content"
   },
   "engines": {
