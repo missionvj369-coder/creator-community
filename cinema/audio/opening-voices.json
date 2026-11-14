@@ -1,0 +1,83 @@
+{
+  "opening-reveal-2200": {
+    "file": "/cinema/audio/opening-reveal-2200-voice.m4a",
+    "text": "Human Within. A quieter world begins within.",
+    "duration": 3.629,
+    "bytes": 66153,
+    "sha256": "25db5db4dd0b07f4fd585c65457d018139ee97630de9dd422e0fe7184a1f9a98",
+    "voice": "af_heart",
+    "sourceSampleRate": 24000
+  },
+  "opening-welcome-500": {
+    "file": "/cinema/audio/opening-welcome-500-voice.m4a",
+    "text": "Welcome to Human Within. For the next little while, nothing needs to be solved. Just let this moment be here.",
+    "duration": 7.503,
+    "bytes": 140838,
+    "sha256": "de26c1d5c03e92f7497d3e1327f31a5d9584822f83b3e051c532fc363e8cdfd5",
+    "voice": "af_heart",
+    "sourceSampleRate": 24000
+  },
+  "opening-settle-0": {
+    "file": "/cinema/audio/opening-settle-0-voice.m4a",
+    "text": "Let your hands soften. If it feels comfortable, let your shoulders settle.",
+    "duration": 4.826,
+    "bytes": 94530,
+    "sha256": "94bcd7c294124a7f6a3461c50030819cdf1f23a70cac48c151f51dc6b48b1fcb",
+    "voice": "af_heart",
+    "sourceSampleRate": 24000
+  },
+  "opening-settle-14500": {
+    "file": "/cinema/audio/opening-settle-14500-voice.m4a",
+    "text": "Notice where your body meets the chair, the bed, or the ground.",
+    "duration": 4.127,
+    "bytes": 78948,
+    "sha256": "99d4b15ef3e4b03181ca6eb3efe420517f1c7d20ea207b20ef486708193282a9",
+    "voice": "af_heart",
+    "sourceSampleRate": 24000
+  },
+  "opening-follow-0": {
+    "file": "/cinema/audio/opening-follow-0-voice.m4a",
+    "text": "Rest your eyes wherever they feel comfortable. Follow the little light, or let your gaze be still.",
+    "duration": 6.306,
+    "bytes": 125161,
+    "sha256": "05643ecf8e8d1065497497f5160fa901c332f05c0a73b5ef1c1d2b68ce7454f6",
+    "voice": "af_heart",
+    "sourceSampleRate": 24000
+  },
+  "opening-follow-16000": {
+    "file": "/cinema/audio/opening-follow-16000-voice.m4a",
+    "text": "Let your breathing find its own pace. No counting. No holding. Simply notice one breath.",
+    "duration": 7.205,
+    "bytes": 131361,
+    "sha256": "66ceb967c236b423f9b305511712d020d8a8d7525c49c643343519ca8f661383",
+    "voice": "af_heart",
+    "sourceSampleRate": 24000
+  },
+  "opening-notice-0": {
+    "file": "/cinema/audio/opening-notice-0-voice.m4a",
+    "text": "Notice one ordinary thing around you. A colour. A texture. A quiet sound.",
+    "duration": 6.56,
+    "bytes": 117100,
+    "sha256": "b33bbddf13dbef85c461cf297fd6ef4c86cdbd4a6fc5191656510fb6e920e2f0",
+    "voice": "af_heart",
+    "sourceSampleRate": 24000
+  },
+  "opening-notice-15500": {
+    "file": "/cinema/audio/opening-notice-15500-voice.m4a",
+    "text": "You do not need to make this moment feel any particular way. Let it be as it is.",
+    "duration": 5.39,
+    "bytes": 103543,
+    "sha256": "458069d4c4043598df9b6c37046793acd7891e181da88486bd514640092b3153",
+    "voice": "af_heart",
+    "sourceSampleRate": 24000
+  },
+  "opening-return-0": {
+    "file": "/cinema/audio/opening-return-0-voice.m4a",
+    "text": "You can carry this pace with you. A little more room. A little less rush. Welcome inside.",
+    "duration": 6.722,
+    "bytes": 116799,
+    "sha256": "47008c720ff31634f85541fdc059c20615f22135d5c501ec0b01b474499f3d53",
+    "voice": "af_heart",
+    "sourceSampleRate": 24000
+  }
+}
