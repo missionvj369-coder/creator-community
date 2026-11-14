@@ -1,0 +1,377 @@
+{
+  "version": 1,
+  "title": "The Still Room",
+  "description": "An original guided rest practice. Five minutes is an accessible beginning, not a promise of sleep.",
+  "voice": {
+    "model": "Kokoro v1.0",
+    "voice": "af_heart",
+    "synthetic": true,
+    "speed": 0.68
+  },
+  "sessions": {
+    "arrival": {
+      "duration": 300,
+      "audio": "/meditation/arrival-5.mp3",
+      "cues": [
+        {
+          "at": 0,
+          "id": "cue-01",
+          "phase": "settle",
+          "title": "Welcome to the Still Room",
+          "text": "Welcome to the Still Room. Find a position you can stay in comfortably. For these few minutes, nothing needs to be finished.",
+          "audioEnd": 10.614
+        },
+        {
+          "at": 24,
+          "id": "cue-02",
+          "phase": "settle",
+          "title": "Let the surface hold you",
+          "text": "Notice the support beneath you. The chair, the bed, or the ground can take some of your weight. You can keep your eyes open.",
+          "audioEnd": 34.744
+        },
+        {
+          "at": 45,
+          "id": "cue-03",
+          "phase": "breathe",
+          "title": "An ordinary breath",
+          "text": "Notice one ordinary breath. Let it arrive without pulling it deeper. Let it leave without pushing. There is no breath to hold.",
+          "audioEnd": 56.874
+        },
+        {
+          "at": 65,
+          "id": "cue-04",
+          "phase": "breathe",
+          "title": "A rhythm that fits you",
+          "text": "If it feels easy, let the breath become a little slower. Keep it small and comfortable. Your own rhythm is always enough.",
+          "audioEnd": 75.662
+        },
+        {
+          "at": 88,
+          "id": "cue-05",
+          "phase": "breathe",
+          "title": "Nothing to force",
+          "text": "You do not need to follow the light or any count. If you feel uncomfortable, return to your usual breathing, or pause whenever you wish.",
+          "audioEnd": 99.727
+        },
+        {
+          "at": 117,
+          "id": "cue-06",
+          "phase": "eyes",
+          "title": "You can let the view go",
+          "text": "Let your breathing keep its own rhythm now. If it feels comfortable, soften your gaze, or close your eyes. There is nothing more you need to watch.",
+          "audioEnd": 129.313
+        },
+        {
+          "at": 143,
+          "id": "cue-07",
+          "phase": "body",
+          "title": "Begin with the feet",
+          "text": "Bring a little attention to your feet. Perhaps there is warmth, pressure, or very little to notice. There is no special feeling to find.",
+          "audioEnd": 154.898
+        },
+        {
+          "at": 162,
+          "id": "cue-08",
+          "phase": "body",
+          "title": "Let the legs rest",
+          "text": "Notice your lower legs and your thighs. You can leave them as they are. If it is comfortable, let the surface beneath take their weight.",
+          "audioEnd": 173.739
+        },
+        {
+          "at": 181,
+          "id": "cue-09",
+          "phase": "body",
+          "title": "Support beneath your body",
+          "text": "Notice the hips and the back. There may be points of contact with the surface beneath you. Nothing needs to be pressed down or held still.",
+          "audioEnd": 192.799
+        },
+        {
+          "at": 200,
+          "id": "cue-10",
+          "phase": "body",
+          "title": "Hands with nothing to carry",
+          "text": "Let attention reach the hands and arms. They can rest wherever they are comfortable. For this moment, there is nothing they need to carry.",
+          "audioEnd": 211.883
+        },
+        {
+          "at": 218,
+          "id": "cue-11",
+          "phase": "body",
+          "title": "A little less effort",
+          "text": "Notice the shoulders, the jaw, and the space around the eyes. Perhaps a little effort can soften. If it cannot, that is all right too.",
+          "audioEnd": 230.038
+        },
+        {
+          "at": 238,
+          "id": "cue-12",
+          "phase": "rest",
+          "title": "The body as a whole",
+          "text": "You may notice the body as a whole, breathing in its own rhythm. Rest with a sound, a point of contact, or simply this moment.",
+          "audioEnd": 249.499
+        },
+        {
+          "at": 258,
+          "id": "cue-13",
+          "phase": "rest",
+          "title": "Thoughts can come and go",
+          "text": "If thoughts arrive, you have not done anything wrong. Let them come and go. You can return gently to the feeling of support beneath you.",
+          "audioEnd": 269.568
+        },
+        {
+          "at": 280,
+          "id": "cue-14",
+          "phase": "return",
+          "title": "Come back gently",
+          "text": "If you are ready, notice the room around you. Feel your hands and feet. Open your eyes whenever you wish. Take this pace with you.",
+          "audioEnd": 291.924
+        }
+      ]
+    },
+    "night": {
+      "duration": 1200,
+      "audio": "/meditation/night-20.mp3",
+      "cues": [
+        {
+          "at": 0,
+          "id": "cue-01",
+          "phase": "settle",
+          "title": "Welcome to the Still Room",
+          "text": "Welcome to the Still Room. Find a position you can stay in comfortably. For these few minutes, nothing needs to be finished.",
+          "audioEnd": 10.614
+        },
+        {
+          "at": 24,
+          "id": "cue-02",
+          "phase": "settle",
+          "title": "Let the surface hold you",
+          "text": "Notice the support beneath you. The chair, the bed, or the ground can take some of your weight. You can keep your eyes open.",
+          "audioEnd": 34.744
+        },
+        {
+          "at": 45,
+          "id": "cue-03",
+          "phase": "breathe",
+          "title": "An ordinary breath",
+          "text": "Notice one ordinary breath. Let it arrive without pulling it deeper. Let it leave without pushing. There is no breath to hold.",
+          "audioEnd": 56.874
+        },
+        {
+          "at": 65,
+          "id": "cue-04",
+          "phase": "breathe",
+          "title": "A rhythm that fits you",
+          "text": "If it feels easy, let the breath become a little slower. Keep it small and comfortable. Your own rhythm is always enough.",
+          "audioEnd": 75.662
+        },
+        {
+          "at": 88,
+          "id": "cue-05",
+          "phase": "breathe",
+          "title": "Nothing to force",
+          "text": "You do not need to follow the light or any count. If you feel uncomfortable, return to your usual breathing, or pause whenever you wish.",
+          "audioEnd": 99.727
+        },
+        {
+          "at": 117,
+          "id": "cue-06",
+          "phase": "eyes",
+          "title": "You can let the view go",
+          "text": "Let your breathing keep its own rhythm now. If it feels comfortable, soften your gaze, or close your eyes. There is nothing more you need to watch.",
+          "audioEnd": 129.313
+        },
+        {
+          "at": 143,
+          "id": "cue-07",
+          "phase": "body",
+          "title": "Begin with the feet",
+          "text": "Bring a little attention to your feet. Perhaps there is warmth, pressure, or very little to notice. There is no special feeling to find.",
+          "audioEnd": 154.898
+        },
+        {
+          "at": 162,
+          "id": "cue-08",
+          "phase": "body",
+          "title": "Let the legs rest",
+          "text": "Notice your lower legs and your thighs. You can leave them as they are. If it is comfortable, let the surface beneath take their weight.",
+          "audioEnd": 173.739
+        },
+        {
+          "at": 181,
+          "id": "cue-09",
+          "phase": "body",
+          "title": "Support beneath your body",
+          "text": "Notice the hips and the back. There may be points of contact with the surface beneath you. Nothing needs to be pressed down or held still.",
+          "audioEnd": 192.799
+        },
+        {
+          "at": 200,
+          "id": "cue-10",
+          "phase": "body",
+          "title": "Hands with nothing to carry",
+          "text": "Let attention reach the hands and arms. They can rest wherever they are comfortable. For this moment, there is nothing they need to carry.",
+          "audioEnd": 211.883
+        },
+        {
+          "at": 218,
+          "id": "cue-11",
+          "phase": "body",
+          "title": "A little less effort",
+          "text": "Notice the shoulders, the jaw, and the space around the eyes. Perhaps a little effort can soften. If it cannot, that is all right too.",
+          "audioEnd": 230.038
+        },
+        {
+          "at": 238,
+          "id": "cue-12",
+          "phase": "rest",
+          "title": "The body as a whole",
+          "text": "You may notice the body as a whole, breathing in its own rhythm. Rest with a sound, a point of contact, or simply this moment.",
+          "audioEnd": 249.499
+        },
+        {
+          "at": 258,
+          "id": "cue-13",
+          "phase": "rest",
+          "title": "Thoughts can come and go",
+          "text": "If thoughts arrive, you have not done anything wrong. Let them come and go. You can return gently to the feeling of support beneath you.",
+          "audioEnd": 269.568
+        },
+        {
+          "at": 280,
+          "id": "cue-14",
+          "phase": "rest",
+          "title": "You can stay at rest",
+          "text": "You can stay at rest. There is no need to open your eyes or check the screen. Sleep may come, or this can simply be a quiet pause.",
+          "audioEnd": 292.479
+        },
+        {
+          "at": 320,
+          "id": "rest-01",
+          "title": "A little more time",
+          "text": "There is a little more time here. Nothing new needs to happen. You may notice the support beneath you, with no need to change anything.",
+          "phase": "rest",
+          "audioEnd": 331.398
+        },
+        {
+          "at": 350,
+          "id": "rest-02",
+          "title": "A rhythm of your own",
+          "text": "Your breathing can keep its own rhythm. There is no count to follow now, and no particular size of breath that you need to make.",
+          "phase": "rest",
+          "audioEnd": 360.793
+        },
+        {
+          "at": 382,
+          "id": "rest-03",
+          "title": "Room for wandering",
+          "text": "If attention has wandered, that is part of being here. A thought can be present while the feeling of support is present too.",
+          "phase": "rest",
+          "audioEnd": 392.241
+        },
+        {
+          "at": 416,
+          "id": "rest-04",
+          "title": "Whatever is here",
+          "text": "There may be warmth, coolness, pressure, or very little to notice. Any of these is enough. Your experience does not need to match the words.",
+          "phase": "rest",
+          "audioEnd": 428.529
+        },
+        {
+          "at": 452,
+          "id": "rest-05",
+          "title": "Hands at rest",
+          "text": "Perhaps your hands are resting somewhere comfortable. They do not need a special position. There may be a little less work for them to do.",
+          "phase": "rest",
+          "audioEnd": 462.846
+        },
+        {
+          "at": 490,
+          "id": "rest-06",
+          "title": "Sounds around you",
+          "text": "Sounds may come and go around you. They need not become another task. If one catches your attention, returning to the body remains an option.",
+          "phase": "rest",
+          "audioEnd": 502.658
+        },
+        {
+          "at": 530,
+          "id": "rest-07",
+          "title": "An ordinary breath",
+          "text": "A comfortable exhalation may finish by itself. The next breath can arrive in its own time. Nothing needs holding, stretching, or making deliberately slower.",
+          "phase": "rest",
+          "audioEnd": 544.818
+        },
+        {
+          "at": 572,
+          "id": "rest-08",
+          "title": "The body as a whole",
+          "text": "You may be aware of the body as a whole, rather than finding each part. There is no need to search for a special sensation.",
+          "phase": "rest",
+          "audioEnd": 582.653
+        },
+        {
+          "at": 616,
+          "id": "rest-09",
+          "title": "A thought can wait",
+          "text": "If a thought asks for an answer, you do not have to solve it in this moment. Noticing that it arrived can be enough.",
+          "phase": "rest",
+          "audioEnd": 625.596
+        },
+        {
+          "at": 662,
+          "id": "rest-10",
+          "title": "Support remains",
+          "text": "The surface beneath you continues to be there. Some weight may already be resting on it. There is no need to test whether you feel relaxed.",
+          "phase": "rest",
+          "audioEnd": 673.763
+        },
+        {
+          "at": 710,
+          "id": "rest-11",
+          "title": "An imperfect pause",
+          "text": "Your face may feel as it does. Your shoulders may feel as they do. Comfort does not have to be complete for a pause to be allowed.",
+          "phase": "rest",
+          "audioEnd": 721.543
+        },
+        {
+          "at": 760,
+          "id": "rest-12",
+          "title": "No test to pass",
+          "text": "There may be moments of quiet and moments with many thoughts. Neither one decides how well you are doing. There is nothing here to pass.",
+          "phase": "rest",
+          "audioEnd": 771.609
+        },
+        {
+          "at": 812,
+          "id": "rest-13",
+          "title": "Your choices remain",
+          "text": "If any part of this is uncomfortable, changing position, opening your eyes, or stopping remains available. Rest can include making a small adjustment for yourself.",
+          "phase": "rest",
+          "audioEnd": 827.709
+        },
+        {
+          "at": 866,
+          "id": "rest-14",
+          "title": "Fewer words",
+          "text": "The words will become less frequent now. You may stay with an ordinary sound, the support beneath you, or simply the feeling of being here.",
+          "phase": "rest",
+          "audioEnd": 878.085
+        },
+        {
+          "at": 922,
+          "id": "rest-15",
+          "title": "A quiet pause",
+          "text": "Sleep may come, or this may remain a quiet pause. There is no need to wait for a sign, and no need to make either happen.",
+          "phase": "rest",
+          "audioEnd": 932.738
+        },
+        {
+          "at": 990,
+          "id": "rest-16",
+          "title": "Nothing more to follow",
+          "text": "There is nothing more to follow. The sound will soften on its own. If you wish, this can simply be a little time without another task.",
+          "phase": "rest",
+          "audioEnd": 1001.92
+        }
+      ]
+    }
+  }
+}

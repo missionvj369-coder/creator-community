@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="2340" viewBox="0 0 1080 2340"><defs>
+ <linearGradient id="paper" x2=".4" y2="1"><stop stop-color="#e8e1f1"/><stop offset="1" stop-color="#f7edf1"/></linearGradient>
+ <linearGradient id="sculpt" x2=".9" y2="1"><stop stop-color="white" stop-opacity=".86"/><stop offset=".4" stop-color="#b298c4"/><stop offset="1" stop-color="#67517f" stop-opacity=".72"/></linearGradient>
+ <linearGradient id="glass" x2="1" y2="1"><stop stop-color="#fff" stop-opacity=".92"/><stop offset=".52" stop-color="#fff" stop-opacity=".45"/><stop offset="1" stop-color="#b298c4" stop-opacity=".46"/></linearGradient>
+ <linearGradient id="warm" x2=".9" y2="1"><stop stop-color="#fff7de"/><stop offset=".52" stop-color="#e2bb7d"/><stop offset="1" stop-color="#c19459"/></linearGradient>
+ <linearGradient id="deep" x2=".8" y2="1"><stop stop-color="#b298c4"/><stop offset="1" stop-color="#67517f"/></linearGradient>
+ <linearGradient id="beam"><stop stop-color="#fff9df" stop-opacity=".85"/><stop offset="1" stop-color="#fff9df" stop-opacity="0"/></linearGradient>
+ <radialGradient id="halo"><stop stop-color="#fff" stop-opacity=".56"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>
+ </defs><rect width="1080" height="2340" fill="url(#paper)"/><circle cx="550" cy="1030" r="530" fill="url(#halo)"/>
+ <text x="540" y="375" text-anchor="middle" font-family="DejaVu Sans,sans-serif" font-size="19" letter-spacing="6" fill="#67517f" opacity=".58">A LITTLE SPACE TO BE HUMAN</text>
+ <g transform="translate(75 670) scale(1.55)"><path d="M300 67L462 185L405 365L300 426L196 365L139 185Z" fill="url(#sculpt)"/><path d="M300 67L238 210L300 426L363 210Z" fill="url(#glass)"/><path d="M139 185L238 210L196 365M462 185L363 210L405 365M238 210H363" fill="none" stroke="#e8e1f1" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><path d="M300 67V426" fill="none" stroke="#67517f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></g>
+ <text x="540" y="1485" text-anchor="middle" font-family="DejaVu Sans,sans-serif" font-size="23" letter-spacing="6" fill="#67517f" opacity=".7">EMOTION</text><text x="540" y="1640" text-anchor="middle" font-family="P052,Georgia,serif" font-size="83" fill="#67517f">Name it before you</text><text x="540" y="1745" text-anchor="middle" font-family="P052,Georgia,serif" font-size="83" fill="#67517f">act.</text>
+ <path d="M480 2060H600" stroke="#67517f" stroke-opacity=".25" stroke-width="2"/><text x="540" y="2140" text-anchor="middle" font-family="P052,Georgia,serif" font-style="italic" font-size="36" fill="#67517f" opacity=".68">human within</text></svg>

@@ -1,0 +1,54 @@
+/* A distinct entrance to every native world; the reception stays light. */
+.product-flow-page .experience-portal{--portal-ink:#eeeede;position:relative;isolation:isolate;overflow:hidden;display:grid;grid-template-columns:1.12fr 1fr;gap:0;min-height:540px;padding:40px 43px 43px;border-radius:26px;border:1px solid rgba(var(--portal-rgb),.19);background:radial-gradient(ellipse at 79% 43%,rgba(var(--portal-rgb),.075),transparent 58%),var(--portal-page);color:var(--portal-ink)}
+.experience-portal::after{content:'';position:absolute;inset:11px;border:1px solid rgba(var(--portal-rgb),.06);border-radius:17px;pointer-events:none;z-index:-1}
+.experience-portal .portal-copy{position:relative;z-index:1;min-width:0}
+.experience-portal .back-link{color:var(--portal-accent);font-size:10px;opacity:.85;margin:0 0 37px;min-height:30px}
+.experience-portal .eyebrow{color:var(--portal-accent);font-size:8px;letter-spacing:.14em;line-height:1.9;margin-bottom:19px;opacity:.8}
+.product-flow-page .experience-portal h1{font-size:clamp(39px,4.3vw,65px);line-height:1.03;letter-spacing:-.045em;max-width:13ch;color:var(--portal-ink);font-weight:400}
+.portal-line{font:italic 24px/1.4 var(--fd);letter-spacing:-.015em;color:var(--portal-accent);margin:19px 0 18px;max-width:24ch}
+.product-flow-page .experience-portal .lede{font-size:12px;line-height:1.95;color:#d9dfd0b5;max-width:40ch;margin:0}
+.experience-portal .hero-actions{margin-top:28px;gap:14px}
+.experience-portal .btn.primary{background:var(--portal-accent);color:var(--portal-page);border-color:transparent;min-height:49px;padding:15px 21px;font-size:11px;gap:25px;border-radius:99px;box-shadow:0 7px 30px #0002}
+.experience-portal .btn.primary:hover{filter:brightness(1.08);transform:translateY(-1px)}
+.product-flow-page .experience-portal .detail-meta{display:block;color:var(--portal-accent);opacity:.7;font-size:8px;line-height:1.8;margin-top:17px;letter-spacing:.035em}
+.product-flow-page .experience-portal .portal-art{position:relative;align-self:stretch;display:flex;flex-direction:column;justify-content:center;align-items:center;width:100%;height:auto;min-width:0;margin:30px -17px 0 0;pointer-events:none}
+.product-flow-page .experience-portal .portal-art>svg{position:relative;width:126%;height:auto;max-width:none;min-width:0;max-height:360px;filter:drop-shadow(0 0 19px rgba(var(--portal-rgb),.13));animation:portalFloat 18s ease-in-out infinite}
+.portal-caption{display:block;position:absolute;bottom:21px;left:0;right:0;text-align:center;color:var(--portal-accent);opacity:.6;font-size:6px;letter-spacing:.2em;line-height:2}
+.portal-flow-page .product-detail-tabs{position:sticky;top:var(--top-h);z-index:4;background:#f8f8f2ed;backdrop-filter:blur(15px);border-bottom:1px solid #dce2d2;padding:7px 0 10px;margin-top:-10px;gap:24px;border-radius:0}
+.portal-flow-page .product-detail-tabs button{position:relative;border-radius:0;padding:10px 4px;min-height:45px;font-size:11px;color:#7f8b73;background:transparent}
+.portal-flow-page .product-detail-tabs button.active{background:transparent;color:#3e5b3d}
+.portal-flow-page .product-detail-tabs button.active::after{content:'';height:2px;position:absolute;left:4px;right:4px;bottom:-11px;background:#72925f}
+.portal-flow-page .product-detail-tabs button:hover{background:transparent;color:#3e5b3d}
+.portal-flow-page .product-content{display:flex;flex-direction:column;gap:27px;scroll-margin-top:calc(var(--top-h) + 88px)}
+.portal-orientation{padding:7px 4px 24px;border-bottom:1px solid #dde4d4}
+.portal-orientation-heading .eyebrow{font-size:8px;letter-spacing:.13em;color:#86957a;margin-bottom:14px}
+.portal-orientation-heading h2{font:400 clamp(25px,2.8vw,36px)/1.2 var(--fd);letter-spacing:-.03em;max-width:28ch;color:#4e6847}
+.portal-steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:25px;list-style:none;padding:0;margin:28px 0 0}
+.portal-steps li{display:flex;gap:14px;align-items:flex-start;min-width:0}
+.portal-step-number{font:italic 23px/1.2 var(--fd);color:#a3b393;flex:none}
+.portal-steps h3{font:400 19px/1.3 var(--fd);letter-spacing:-.02em;color:#56704d;margin:0 0 10px}
+.portal-steps p{font-size:11px;line-height:1.9;color:#7c8971;max-width:32ch;margin:0}
+.portal-inside-actions{display:flex;align-items:center;gap:23px;flex-wrap:wrap;padding:0 4px}
+.portal-inside-actions .btn{font-size:11px;min-height:47px}
+.portal-inside-actions .fine{font-size:10px;max-width:35ch;line-height:1.8;color:#8b977e}
+.portal-flow-page .unit-row{border-radius:0;border-bottom:1px solid #dce3d2;background:transparent;padding:20px 8px;gap:20px}
+.portal-flow-page .unit-row:hover{background:#eaf0e357;translate:0}
+.portal-flow-page .unit-row .unit-n{font:italic 23px var(--fd);color:#a5b696}
+.portal-flow-page .unit-row h3{font:400 21px/1.3 var(--fd);letter-spacing:-.02em}
+.portal-flow-page .unit-row .fine{font-size:9px;line-height:1.8;margin-top:5px}
+.portal-flow-page .unit-row>.ic{width:17px;color:#849a70}
+.native-world{--world-page:#091b18;--world-accent:#c4d8b0;background:var(--world-page)}
+.native-world .embed-bar{background:var(--world-page);color:var(--world-accent);border-bottom:1px solid color-mix(in srgb,var(--world-accent) 14%,transparent)}
+.native-world .embed-title strong{color:#e8e8db;font-weight:400}
+.native-world .embed-title small{color:var(--world-accent);opacity:.6}
+.native-world .embed-bar .icon-btn{color:var(--world-accent)}
+.native-world .embed-bar .btn.primary{background:transparent;color:var(--world-accent);border:1px solid color-mix(in srgb,var(--world-accent) 25%,transparent);font-size:10px}
+.native-world .embed-loading{background:var(--world-page);color:var(--world-accent)}
+.premium-rest .rest-art>svg[data-world-art]{width:100%;height:100%}
+.bridge-art:has([data-world-art]){background:var(--bridge-page,#091b18)}
+@keyframes portalFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+@media(max-width:1100px){.product-flow-page .experience-portal{padding:32px;min-height:510px}.product-flow-page .experience-portal h1{font-size:clamp(38px,4.4vw,58px)}.portal-line{font-size:22px}.portal-steps{gap:18px}.portal-steps li{gap:10px}.portal-steps h3{font-size:18px}}
+@media(max-width:700px){.product-flow-page .experience-portal{padding:26px 25px 22px;display:flex;flex-direction:column-reverse;gap:8px;min-height:0;border-radius:23px}.product-flow-page .experience-portal .portal-art{height:179px;margin:0;min-height:0;flex:none}.product-flow-page .experience-portal .portal-art>svg{width:280px;height:210px;max-height:none}.portal-caption{bottom:-1px;font-size:5px;letter-spacing:.15em}.experience-portal .back-link{margin:0 0 17px;min-height:30px;font-size:9px}.experience-portal .eyebrow{font-size:7px;margin-bottom:13px;letter-spacing:.12em}.product-flow-page .experience-portal h1{font-size:clamp(37px,10.2vw,51px);max-width:14ch}.portal-line{font-size:22px;line-height:1.3;margin:15px 0 14px}.product-flow-page .experience-portal .lede{font-size:12px;line-height:1.9;max-width:40ch}.experience-portal .hero-actions{margin-top:21px}.experience-portal .btn.primary{font-size:10px;min-height:46px;padding:13px 18px;gap:18px;max-width:100%;white-space:normal}.product-flow-page .experience-portal .detail-meta{font-size:7px;margin-top:13px}.portal-flow-page .product-detail-tabs{gap:23px;padding-top:5px;margin-top:-9px;justify-content:flex-start}.portal-flow-page .product-detail-tabs button{font-size:10px;min-height:42px}.portal-steps{grid-template-columns:1fr;gap:23px;margin-top:25px}.portal-steps li{gap:17px}.portal-step-number{font-size:25px;min-width:29px}.portal-steps h3{font-size:21px;margin-bottom:7px}.portal-steps p{font-size:12px;max-width:38ch;line-height:1.85}.portal-orientation{padding:2px 2px 23px}.portal-orientation-heading .eyebrow{font-size:7px}.portal-orientation-heading h2{font-size:29px}.portal-inside-actions{padding:0 2px;gap:14px}.portal-inside-actions .btn{font-size:10px}.portal-inside-actions .fine{font-size:9px}.portal-flow-page .unit-row{padding:19px 5px;gap:16px}.portal-flow-page .unit-row h3{font-size:22px}.portal-flow-page .unit-row .fine{font-size:9px}.portal-flow-page .unit-row .unit-n{font-size:23px}.native-world .embed-bar .btn.primary{font-size:9px}.native-world .embed-title strong{font-size:10px}}
+@media(max-width:359px){.product-flow-page .experience-portal{padding:22px 20px}.product-flow-page .experience-portal .portal-art{height:151px}.product-flow-page .experience-portal .portal-art>svg{width:245px;height:184px}.product-flow-page .experience-portal h1{font-size:37px}.portal-line{font-size:20px}.product-flow-page .experience-portal .lede{font-size:11px}.portal-flow-page .product-detail-tabs{gap:19px}.portal-flow-page .product-detail-tabs button{font-size:9px}.experience-portal .btn.primary{font-size:9px;gap:13px;padding-inline:17px}.portal-orientation-heading h2{font-size:27px}}
+@media(prefers-reduced-motion:reduce){.experience-portal .portal-art>svg{animation:none!important}.experience-portal .btn.primary{transition:none;transform:none}}
+html[data-motion=reduced] .experience-portal .portal-art>svg{animation:none!important}

@@ -1,0 +1,13 @@
+HUMAN WITHIN — ORIGINAL SOUND LIBRARY
+
+Twenty-two original instrumental arrangements, stereo sound design, four soft transition cues, twenty original spoken welcomes and nine recorded opening/grounding cues created for Human Within, 2026. A twenty-minute night score fades gradually to silence after the existing twenty-minute narration. The compositional source and reproducible rendering scripts are included with the app source.
+
+Scores: sampled piano, harp, strings, cello, marimba and related instruments rendered through FluidSynth, with original MIDI note arrangements, humanised timing, stereo positioning, room reflections and equal-power loop joins. Intermediate masters: 48 kHz stereo, 24-bit PCM. App scores: 48 kHz stereo AAC at 256 kb/s, matched to a -23 LUFS target and -2 dBTP limit. These are production settings, not a promise about the listener's device or hearing experience.
+
+Instrument samples: Fluid (R3) SoundFont, Copyright (c) 2000–2002, 2008 Frank Wen and contributors, MIT licence. The full upstream copyright/licence is in FluidR3-COPYRIGHT.txt. Distribution source: https://deb.debian.org/debian/pool/main/f/fluid-soundfont/
+
+Spoken welcomes: original text, rendered locally with Kokoro-82M / kokoro-onnx, preset af_heart, also used in the existing Still Room. Original model: https://huggingface.co/hexgrad/Kokoro-82M (Apache 2.0). Runtime: https://github.com/thewh1teagle/kokoro-onnx (MIT). The model's original voice sample rate is 24 kHz; app files use 48 kHz AAC for compatible playback. No voice cloning or user recordings are used.
+
+The existing Still Room narration and original welcome films retain their original authorship. Their content and timing are preserved. The welcome film soundtrack has matched dialogue loudness, gentle compression and a low-frequency rumble filter; its video stream is unchanged. The app reuses the continuous film for its three messages; individual source films are retained with the app source. Music is optional, volume is adjustable, and the frequency/tone tools retain their own tone parameters. No track is a clinical treatment or a validated healing frequency.
+
+Discovery rooms: Curiosity (Wonder Engine), Invisible (The Unseen), and Atelier (The Creation Field) are three additional original compositions using sample-free additive instruments, shaped envelopes and stereo room reflections. Reproduce with scripts/render-discovery-scores.py. Optional touch notes use the same global mute and effects settings. Exported artwork loops are silent.

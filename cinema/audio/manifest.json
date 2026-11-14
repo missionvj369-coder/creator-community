@@ -1,0 +1,219 @@
+{
+  "version": 1,
+  "sampleRate": 48000,
+  "channels": 2,
+  "scores": {
+    "arrival": {
+      "file": "/cinema/audio/arrival.m4a",
+      "duration": 62.5,
+      "bytes": 1979622,
+      "sha256": "208efe604fef3b8509f4c2f27d98a3808dbcb8787ffd85c5e9f8e5f458205c71",
+      "targetLUFS": -23,
+      "truePeakLimitDBTP": -2
+    },
+    "reading": {
+      "file": "/cinema/audio/reading.m4a",
+      "duration": 62.5,
+      "bytes": 1998233,
+      "sha256": "aebeeb0469785ad1ce4c28b16c4a4ac520b7b1656e5bc2b98afa03c59cf7ed3e",
+      "targetLUFS": -23,
+      "truePeakLimitDBTP": -2
+    },
+    "homeward": {
+      "file": "/cinema/audio/homeward.m4a",
+      "duration": 62.5,
+      "bytes": 1988256,
+      "sha256": "496182d9af252bf7530724f50e29220175ac00a92d9d1eef124ec1feba941e58",
+      "targetLUFS": -23,
+      "truePeakLimitDBTP": -2
+    },
+    "stillness": {
+      "file": "/cinema/audio/stillness.m4a",
+      "duration": 62.5,
+      "bytes": 1968666,
+      "sha256": "e7b118dc042b8a781941b0c869a7c9b3fe83267ca3f5eadbdc4dcf26d651e03b",
+      "targetLUFS": -23,
+      "truePeakLimitDBTP": -2
+    },
+    "resonance": {
+      "file": "/cinema/audio/resonance.m4a",
+      "duration": 62.5,
+      "bytes": 2008596,
+      "sha256": "a74b4311b5b39111f4e48cc165499c1ba725fb9201c5f92e02a9c32372e7e45e",
+      "targetLUFS": -23,
+      "truePeakLimitDBTP": -2
+    },
+    "sanctuary": {
+      "file": "/cinema/audio/sanctuary.m4a",
+      "duration": 62.5,
+      "bytes": 2014788,
+      "sha256": "d6cc4beb7049f1a2acc157fbf61a82e98c6a82e8fe615097ffe552bbe8494d55",
+      "targetLUFS": -23,
+      "truePeakLimitDBTP": -2
+    },
+    "origins": {
+      "file": "/cinema/audio/origins.m4a",
+      "duration": 62.5,
+      "bytes": 2017898,
+      "sha256": "724cd087173d1e47d5c229cf3a62e8138b17e36a31310a8f7998f80b9d42c9f3",
+      "targetLUFS": -23,
+      "truePeakLimitDBTP": -2
+    },
+    "reflection": {
+      "file": "/cinema/audio/reflection.m4a",
+      "duration": 62.5,
+      "bytes": 1995524,
+      "sha256": "dd8a1d9a6ca202e52afdd785f46666acd7f1e921c66c2516fe3705ba1931ff15",
+      "targetLUFS": -23,
+      "truePeakLimitDBTP": -2
+    },
+    "wonder": {
+      "file": "/cinema/audio/wonder.m4a",
+      "duration": 62.5,
+      "bytes": 2004853,
+      "sha256": "3e62996672191db5b075677cbadf4303eb8952d2096d21d9a87501b012c22cca",
+      "targetLUFS": -23,
+      "truePeakLimitDBTP": -2
+    },
+    "patterns": {
+      "file": "/cinema/audio/patterns.m4a",
+      "duration": 62.5,
+      "bytes": 1981649,
+      "sha256": "f4d53b0fc4926c86d505c7cd69060c76030f2ba9d6da0839f756a73123eccfbc",
+      "targetLUFS": -23,
+      "truePeakLimitDBTP": -2
+    },
+    "opening": {
+      "file": "/cinema/audio/opening.m4a",
+      "duration": 62.5,
+      "bytes": 1967483,
+      "sha256": "096cee217dd7608de9e9de09872782198e878f1e5228d6e8f5622b84b10da871",
+      "targetLUFS": -23,
+      "truePeakLimitDBTP": -2
+    },
+    "connection": {
+      "file": "/cinema/audio/connection.m4a",
+      "duration": 62.5,
+      "bytes": 2003326,
+      "sha256": "30afea548b171e46b2f2085f8b94d781951dc1ddb48bd9a430de0e4b926b87ef",
+      "targetLUFS": -23,
+      "truePeakLimitDBTP": -2
+    },
+    "unfolding": {
+      "file": "/cinema/audio/unfolding.m4a",
+      "duration": 62.5,
+      "bytes": 2019871,
+      "sha256": "17b21ad1d1b3e1f1349afa686eaee98c4fe0a031ce728362e6a58c6fab081dce",
+      "targetLUFS": -23,
+      "truePeakLimitDBTP": -2
+    },
+    "belonging": {
+      "file": "/cinema/audio/belonging.m4a",
+      "duration": 62.5,
+      "bytes": 1995468,
+      "sha256": "a7056232c756b277bdc08ea84eb488c51ed29a50ad9d57ab521b445aee7190c3",
+      "targetLUFS": -23,
+      "truePeakLimitDBTP": -2
+    },
+    "passage": {
+      "file": "/cinema/audio/passage.m4a",
+      "duration": 62.5,
+      "bytes": 2012684,
+      "sha256": "434507279b3aad16e26176779ca2a789e3f8820b06626cec570acde646077b2d",
+      "targetLUFS": -23,
+      "truePeakLimitDBTP": -2
+    },
+    "firstlight": {
+      "file": "/cinema/audio/firstlight.m4a",
+      "duration": 62.5,
+      "bytes": 1977864,
+      "sha256": "79bfe59ade7773d320978ee9e6ca8cfd90bc31a5538217d128508c866a0838fa",
+      "targetLUFS": -23,
+      "truePeakLimitDBTP": -2
+    },
+    "perspective": {
+      "file": "/cinema/audio/perspective.m4a",
+      "duration": 62.5,
+      "bytes": 2001690,
+      "sha256": "dee38d07e42438df74d282f2a35900645c21d2784d5b6df3cccadb9ff680b78b",
+      "targetLUFS": -23,
+      "truePeakLimitDBTP": -2
+    },
+    "nightfall": {
+      "file": "/cinema/audio/nightfall.m4a",
+      "duration": 62.5,
+      "bytes": 1968645,
+      "sha256": "4ca12798bbb7f5091599c77beee4f232088b933599931b49df98e1a945c22d0a",
+      "targetLUFS": -23,
+      "truePeakLimitDBTP": -2
+    },
+    "living": {
+      "file": "/cinema/audio/living.m4a",
+      "duration": 62.5,
+      "bytes": 2017748,
+      "sha256": "a6aa405834c9a9e9bddaac588343924f66d3cf86bc1648ca182cb178daee4a7f",
+      "targetLUFS": -23,
+      "truePeakLimitDBTP": -2
+    },
+    "curiosity": {
+      "file": "/cinema/audio/curiosity.m4a",
+      "duration": 62.5,
+      "bytes": 1917794,
+      "sha256": "b1f8a12764481cfcf62a6d671f1dc5de922013bb8adbc41d0ad65b10891346e4",
+      "targetLUFS": -23,
+      "truePeakLimitDBTP": -2
+    },
+    "invisible": {
+      "file": "/cinema/audio/invisible.m4a",
+      "duration": 62.5,
+      "bytes": 1962903,
+      "sha256": "526f383b259e32f1f549785cd4bc96dddc3a3839277166f66192a3b2db2badc5",
+      "targetLUFS": -23,
+      "truePeakLimitDBTP": -2
+    },
+    "atelier": {
+      "file": "/cinema/audio/atelier.m4a",
+      "duration": 62.5,
+      "bytes": 1959032,
+      "sha256": "0bb798a8b43383aaf11bbb18b69310e8575520963c059461a041a320cbc4c79c",
+      "targetLUFS": -23,
+      "truePeakLimitDBTP": -2
+    }
+  },
+  "cues": {
+    "enter": {
+      "file": "/cinema/audio/enter-cue.m4a",
+      "duration": 1.4,
+      "bytes": 20491,
+      "sha256": "ab6755dde3cbc73da8af2a3221e79d07db75eb907fe03cbfe11195273c33f409"
+    },
+    "page": {
+      "file": "/cinema/audio/page-cue.m4a",
+      "duration": 0.38,
+      "bytes": 9177,
+      "sha256": "85541fb7a6144d7a8598864ab667648f383c2c04db98618b7bd2ec1a21c5e4ac"
+    },
+    "complete": {
+      "file": "/cinema/audio/complete-cue.m4a",
+      "duration": 2.2,
+      "bytes": 25689,
+      "sha256": "c78101b640150ed399f73d9e3da635b90fcfff6220f719c6caf2a6206c585a6a"
+    },
+    "return": {
+      "file": "/cinema/audio/return-cue.m4a",
+      "duration": 1.3,
+      "bytes": 18760,
+      "sha256": "4bfc998ee34e6167401902a826edda44e968f07860945c8bd0ac4898c9161efe"
+    }
+  },
+  "longForm": {
+    "sleep-tail-20": {
+      "file": "/cinema/audio/sleep-tail-20.m4a",
+      "duration": 1200,
+      "bytes": 21589893,
+      "sha256": "b0f60d99ab949249c62729783f1a14608b27b07da79ff90a7e50249e721fe8ac",
+      "fadeStartSeconds": 300,
+      "fadeEndSeconds": 1200
+    }
+  }
+}
