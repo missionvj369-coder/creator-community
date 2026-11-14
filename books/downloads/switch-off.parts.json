@@ -1,0 +1,22 @@
+{
+  "filename": "switch-off.zip",
+  "bytes": 20046716,
+  "sha256": "df41d00011c4a8db808154c720a46683ff20f39b19b0cfe71d3ad4f5e9dee110",
+  "parts": [
+    {
+      "url": "/books/downloads/switch-off/part-01-52f5579aa93c.bin",
+      "bytes": 8388608,
+      "sha256": "52f5579aa93c60e482556bbb5d0f0e13d3525fee7a80d63035393716b49499ee"
+    },
+    {
+      "url": "/books/downloads/switch-off/part-02-c629d9521287.bin",
+      "bytes": 8388608,
+      "sha256": "c629d95212876052ca1f3f0b0e3bc8133395d0d7d11b41e6aa3da0561d792bc0"
+    },
+    {
+      "url": "/books/downloads/switch-off/part-03-1b07dccbd670.bin",
+      "bytes": 3269500,
+      "sha256": "1b07dccbd6708164c34106850401d7fa0fc8592cfdbaffcc7de2b82541cd2569"
+    }
+  ]
+}
