@@ -1,0 +1,32 @@
+{
+  "filename": "body-you-live-in.zip",
+  "bytes": 35657468,
+  "sha256": "c7825ec983e75afe988dd6e04486f0c12320ffb9ff1d70b06b0137723b1cd136",
+  "parts": [
+    {
+      "url": "/books/downloads/body-you-live-in/part-01.bin",
+      "bytes": 8388608,
+      "sha256": "79694ee20e53b5379a15032164b4cb31f1768f06660990034b138e8dcd5f4f44"
+    },
+    {
+      "url": "/books/downloads/body-you-live-in/part-02.bin",
+      "bytes": 8388608,
+      "sha256": "161a2ab334d2459490eebdbcb13f403988684e8fb867cdb9d1e6d87b775299fd"
+    },
+    {
+      "url": "/books/downloads/body-you-live-in/part-03.bin",
+      "bytes": 8388608,
+      "sha256": "4a13186a1923419c1c810252c58ea8bf0de8c320033bfe16c84d45b4592908e0"
+    },
+    {
+      "url": "/books/downloads/body-you-live-in/part-04.bin",
+      "bytes": 8388608,
+      "sha256": "471995dbdb3aa0dd7b9e3e20ac3c3ceda1ba9f25cdb00ba14cb0abac7140cea0"
+    },
+    {
+      "url": "/books/downloads/body-you-live-in/part-05.bin",
+      "bytes": 2103036,
+      "sha256": "838c00ae4976d4a9e8b1b97e617f08ef4156ec41a9d9f65f058ae2cd03d8c378"
+    }
+  ]
+}

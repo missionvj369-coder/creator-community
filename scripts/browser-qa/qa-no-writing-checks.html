@@ -1,0 +1,20 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><title>Writing-free experience checks</title><h1>Writing-free experience checks</h1><pre id="report">Running…</pre><div id="fixture"></div><script type="module">
+import {boot,start,state} from '/js/store.js';
+import {renderExperiences} from '/js/views/experiences.js';
+import {renderYou} from '/js/views/you.js';
+import {renderReader} from '/js/views/reader.js';
+const root=document.querySelector('#fixture'),out=[];
+const assert=(ok,message)=>{if(!ok)throw Error(message);};
+const leave=()=>root.firstElementChild?.dispatchEvent(new Event('ugt:leave'));
+const context={setHue(){},isCurrent:()=>true,close(){},go(){},render(){}};
+try{
+ await boot();if(!state.doc)await start({name:'Friend',intents:[],length:'quick'});
+ renderExperiences(root,{},context);
+ assert(root.querySelectorAll('.experience-card').length===18,'All eighteen experiences must remain available');
+ assert(!root.querySelector('[href="#/studios"],[href*="/mind-unfold"],[href*="/human-bridge"],[href*="/possibility-studio"]'),'Retired studios must not be offered');out.push('PASS — all eighteen experience cards, no retired studio entry');
+ leave();renderYou(root,context);assert(!root.querySelector('textarea'),'Profile must not show a journal composer');assert(!root.textContent.includes('A note to yourself.'),'Old writing invitation remains');out.push('PASS — Your space has no writing activity');
+ leave();await renderReader(root,{realm:'rewire',idx:8,browse:true},context);assert(!root.querySelector('textarea'),'Reader must not ask for a reflection');assert(root.textContent.includes('Choose the next action.'),'Reader must show the new non-writing activity');out.push('PASS — retained reader, current wallpaper and no reflection entry');
+ document.querySelector('#report').textContent=out.join('\n')+'\nALL WRITING-FREE CHECKS PASSED';
+}catch(e){document.querySelector('#report').textContent=out.join('\n')+'\nFAIL — '+e.stack;}
+finally{leave();}
+</script></html>

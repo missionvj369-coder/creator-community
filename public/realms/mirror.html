@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-cinema-product="mirror">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#030712"><meta name="description" content="The Human Mirror: a living visual journey through the universe, body, mind, nature and shared humanity.">
@@ -88,6 +88,8 @@ main{display:flex;align-items:center;flex:1;min-height:0;position:relative}.stor
 @media(max-width:380px){#intro .intro-title{font-size:clamp(45px,14.3vw,57px)}.intro-bottom{letter-spacing:.1em}}
 @media(prefers-reduced-motion:reduce){.launch-ring,.signal-dot,.launch-grid,.launch-core{animation:none!important}#intro .intro-title,#intro .intro-desc,#intro .intro-bar{animation:none!important}}
 </style>
+<link rel="stylesheet" href="/css/cinema-embedded.css">
+<script type="module" src="/js/cinema-bridge.js"></script>
 </head>
 <body>
 <canvas id="world" role="img" aria-label="Interactive luminous particle sculpture evolving through fourteen forms of human existence"></canvas>
@@ -130,7 +132,7 @@ const el=id=>document.getElementById(id),c=el('world'),ctx=c.getContext('2d',{al
 const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
 let width=0,height=0,dpr=1,mobile=false,active=0,prog=0,targetProg=0,userInteracted=false,started=false,clock=0,last=0;
 let angleY=.18,angleX=-.1,velY=0,velX=0,pointer={x:0,y:0,down:false,px:0,py:0},pulse=0, tempo=72, signal=0,cascade=-1,soundOn=false,audio=null,osc=null,gain=null;
-let toastTimer,flowing=false;
+let toastTimer,flowing=false,manualPaused=false;
 function notice(s){let t=el('toast');t.textContent=s;t.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.classList.remove('show'),2500)}
 function rand(seed){let x=Math.sin(seed*129.213+78.233)*43758.5453;return x-Math.floor(x)}
 function rr(i,s=0){return rand(i*31.17+s*71.03)}
@@ -237,9 +239,9 @@ const scenes=[
 function resize(){width=innerWidth;height=innerHeight;dpr=Math.min(devicePixelRatio||1,mobile?1.25:1.7);mobile=width<850;c.width=Math.round(width*dpr);c.height=Math.round(height*dpr);c.style.width=width+'px';c.style.height=height+'px';ctx.setTransform(dpr,0,0,dpr,0,0)}
 addEventListener('resize',resize);resize();
 function setContent(n){n=Math.max(0,Math.min(COUNT-1,n));if(n===active&&el('headline').innerHTML===scenes[n].title)return;active=n;const s=scenes[n],st=el('story');st.classList.add('dimming');clearTimeout(contentTimer);contentTimer=setTimeout(()=>{el('eyebrow').textContent=s.eyebrow;el('headline').innerHTML=s.title;el('subtitle').textContent=s.sub;el('explain').textContent=s.text;el('action').textContent=s.action;el('hint').textContent=s.hint;el('action-note').textContent=s.note;st.classList.remove('dimming')},reduce?0:135);[...document.querySelectorAll('[data-go]')].forEach(b=>b.classList.toggle('current',Number(b.dataset.go)===n));el('step-label').textContent=String(n+1).padStart(2,'0')+' / 14';el('prev').disabled=n===0;el('next').disabled=n===COUNT-1;const tab=document.querySelector(`[data-go="${n}"]`);if(tab&&started)tab.scrollIntoView({block:'nearest',inline:'center',behavior:reduce?'instant':'smooth'})}
-let contentTimer=0;function go(n){flowing=false;el('flow').classList.remove('active');el('flow').textContent='▶';n=Math.max(0,Math.min(COUNT-1,n));if(reduce){targetProg=n;prog=n;sync()}else{targetProg=n}setContent(n);userInteracted=true}
+let contentTimer=0;function go(n){flowing=false;manualPaused=false;syncFlow();n=Math.max(0,Math.min(COUNT-1,n));if(reduce){targetProg=n;prog=n;sync()}else{targetProg=n}setContent(n);userInteracted=true}
 function sync(){slider.value=prog;slider.style.setProperty('--fill',String(prog/(COUNT-1)*100)+'%');const near=Math.round(prog);if(near!==active&&Math.abs(targetProg-prog)<.25)setContent(near)}
-slider.addEventListener('input',()=>{flowing=false;el('flow').classList.remove('active');el('flow').textContent='▶';targetProg=Number(slider.value);prog=targetProg;sync();userInteracted=true});el('next').addEventListener('click',()=>go(Math.min(COUNT-1,Math.round(targetProg)+1)));el('prev').addEventListener('click',()=>go(Math.max(0,Math.round(targetProg)-1)));[...document.querySelectorAll('[data-go]')].forEach(b=>b.addEventListener('click',()=>go(Number(b.dataset.go))));el('restart').addEventListener('click',()=>{go(0);pulse=0;notice('Returned to the beginning')});
+slider.addEventListener('input',()=>{flowing=false;manualPaused=false;syncFlow();targetProg=Number(slider.value);prog=targetProg;sync();userInteracted=true});el('next').addEventListener('click',()=>go(Math.min(COUNT-1,Math.round(targetProg)+1)));el('prev').addEventListener('click',()=>go(Math.max(0,Math.round(targetProg)-1)));[...document.querySelectorAll('[data-go]')].forEach(b=>b.addEventListener('click',()=>go(Number(b.dataset.go))));el('restart').addEventListener('click',()=>{go(0);pulse=0;notice('Returned to the beginning')});
 function action(){const a=Math.round(targetProg);
 if(a===0){pulse=1.5;velY+=.028;notice('A spiral set into motion')}
 else if(a===1){velY+=.12;velX+=.06;notice('Exploring the two intertwined strands')}
@@ -256,21 +258,23 @@ else if(a===11){cascade=0;signal=1.8;notice('An idea is spreading')}
 else if(a===12){pulse=2.2;notice('Branches moving with life')}
 else{cascade=0;signal=2.2;pulse=1.4;notice('One world · one humanity')}
 }
-el('action').addEventListener('click',action);el('flow').addEventListener('click',()=>{if(Math.round(targetProg)>=COUNT-1){targetProg=0;prog=0;setContent(0)}flowing=!flowing;el('flow').classList.toggle('active',flowing);el('flow').textContent=flowing?'Ⅱ':'▶';notice(flowing?'Auto journey playing':'Journey paused')});
+el('action').addEventListener('click',action);el('flow').addEventListener('click',()=>{if(Math.round(targetProg)>=COUNT-1){targetProg=0;prog=0;setContent(0)}flowing=!flowing;manualPaused=!flowing;syncFlow();notice(flowing?'Auto journey playing':'Journey paused')});
 let downX=0,downY=0;function pointerDown(e){if(!started)return;pointer.down=true;pointer.px=e.clientX;pointer.py=e.clientY;downX=e.clientX;downY=e.clientY;c.setPointerCapture?.(e.pointerId)}
 function pointerMove(e){pointer.x=(e.clientX/width-.5)*2;pointer.y=(e.clientY/height-.5)*2;if(pointer.down){let dx=e.clientX-pointer.px,dy=e.clientY-pointer.py;angleY+=dx*.006;angleX=Math.max(-1.1,Math.min(1.1,angleX+dy*.004));velY=dx*.0009;velX=dy*.0005;pointer.px=e.clientX;pointer.py=e.clientY}}
 function pointerUp(e){if(!pointer.down)return;pointer.down=false;if(Math.hypot(e.clientX-downX,e.clientY-downY)<12){let a=Math.round(targetProg);if(a===3||a===4)action()}}
 c.addEventListener('pointerdown',pointerDown);c.addEventListener('pointermove',pointerMove);c.addEventListener('pointerup',pointerUp);c.addEventListener('pointercancel',()=>pointer.down=false);
-addEventListener('keydown',e=>{if(intro.hidden&&el('sourceOverlay').hidden){if(e.key==='ArrowRight')go(Math.round(targetProg)+1);if(e.key==='ArrowLeft')go(Math.round(targetProg)-1);if(e.key.toLowerCase()===' '&&e.target===document.body){e.preventDefault();action()}}if(e.key==='Escape'){el('sourceOverlay').hidden=true}});
+addEventListener('keydown',e=>{if(intro.hidden&&el('sourceOverlay').hidden){if(e.key==='ArrowRight')go(Math.round(targetProg)+1);if(e.key==='ArrowLeft')go(Math.round(targetProg)-1);if(e.key.toLowerCase()===' '&&e.target===document.body){e.preventDefault();action()}}if(e.key==='Escape'){sources(false)}});
 let startTouch=null;c.addEventListener('touchstart',e=>{if(e.touches.length===1)startTouch={x:e.touches[0].clientX,y:e.touches[0].clientY}},{passive:true});c.addEventListener('touchend',e=>{if(!startTouch||!e.changedTouches.length)return;let dx=e.changedTouches[0].clientX-startTouch.x,dy=e.changedTouches[0].clientY-startTouch.y;if(Math.abs(dx)>95&&Math.abs(dx)>Math.abs(dy)*1.6)go(Math.round(targetProg)+(dx<0?1:-1));startTouch=null},{passive:true});
 function start(){started=true;intro.classList.add('depart');setTimeout(()=>{intro.hidden=true},700);el('app').classList.add('revealed');setContent(0)}el('begin').addEventListener('click',start);
-function sources(open){el('sourceOverlay').hidden=!open}el('sources').addEventListener('click',()=>sources(true));el('openInfo').addEventListener('click',()=>sources(true));el('closeInfo').addEventListener('click',()=>sources(false));el('sourceOverlay').addEventListener('click',e=>{if(e.target===el('sourceOverlay'))sources(false)});
-function audioToggle(){try{if(!audio){audio=new (window.AudioContext||window.webkitAudioContext)();osc=audio.createOscillator();osc.type='sine';gain=audio.createGain();gain.gain.value=0;osc.connect(gain).connect(audio.destination);osc.start()}audio.resume();soundOn=!soundOn;gain.gain.setTargetAtTime(soundOn?.032:0,audio.currentTime,.3);el('sound').classList.toggle('active',soundOn);el('sound').setAttribute('aria-label',soundOn?'Mute ambient tone':'Turn on generative ambient sound');notice(soundOn?'Ambient tone on':'Sound off')}catch(e){notice('Sound unavailable in this browser')}}el('sound').addEventListener('click',audioToggle);
+function sources(open){el('sourceOverlay').hidden=!open;syncFlow()}el('sources').addEventListener('click',()=>sources(true));el('openInfo').addEventListener('click',()=>sources(true));el('closeInfo').addEventListener('click',()=>sources(false));el('sourceOverlay').addEventListener('click',e=>{if(e.target===el('sourceOverlay'))sources(false)});
+async function audioToggle(){try{if(!window.HumanCinema)return notice('Sound is preparing. Try again in a moment.');soundOn=await HumanCinema.toggle();el('sound').classList.toggle('active',soundOn);el('sound').setAttribute('aria-label',soundOn?'Mute soundtrack':'Turn on soundtrack');notice(soundOn?'Cinematic soundtrack on':'Sound off')}catch{notice('Sound unavailable in this browser')}}el('sound').addEventListener('click',audioToggle);addEventListener('human-cinema-state',e=>{soundOn=e.detail.enabled;el('sound').classList.toggle('active',soundOn);el('sound').setAttribute('aria-label',soundOn?'Mute soundtrack':'Turn on soundtrack');});
 function capture(){const o=document.createElement('canvas');o.width=width*2;o.height=height*2;const g=o.getContext('2d');g.fillStyle='#030711';g.fillRect(0,0,o.width,o.height);g.drawImage(c,0,0,o.width,o.height);g.fillStyle='#f0f8fa';g.font=`600 ${Math.max(24,Math.round(o.width*.024))}px Georgia`;g.fillText('THE HUMAN MIRROR',Math.round(o.width*.055),Math.round(o.height*.083));g.fillStyle='#c9fbee';g.font=`${Math.max(15,Math.round(o.width*.013))}px sans-serif`;g.fillText('THE THREAD  ·  '+['STARS','DNA','BODY','MIND','US','CELL','HEART','BREATH','SENSES','MEMORY','BONDS','CULTURE','NATURE','ONENESS'][active],Math.round(o.width*.055),Math.round(o.height*.12));let a=document.createElement('a');a.download='The_Human_Mirror_'+['Stars','DNA','Body','Mind','Us','Cell','Heart','Breath','Senses','Memory','Bonds','Culture','Nature','Oneness'][active]+'.png';a.href=o.toDataURL('image/png');a.click();notice('Artwork saved as PNG')}el('capture').addEventListener('click',capture);
 function glow(x,y,r,col,alpha=1){if(r<=0)return;const g=ctx.createRadialGradient(x,y,0,x,y,r);g.addColorStop(0,col.replace('ALPHA',(.28*alpha).toString()));g.addColorStop(.3,col.replace('ALPHA',(.10*alpha).toString()));g.addColorStop(1,col.replace('ALPHA','0'));ctx.fillStyle=g;ctx.fillRect(x-r,y-r,2*r,2*r)}
-function frame(ms){let dt=Math.min((ms-last)/1000||.016,.05);last=ms;clock+=dt;
+function syncFlow(){const b=el('flow');b.classList.toggle('active',flowing);b.textContent=flowing?'Ⅱ':'▶';b.setAttribute('aria-label',flowing?'Pause journey':'Play journey');const paused=manualPaused||document.hidden||!el('sourceOverlay').hidden;document.documentElement.dataset.playback=paused?'paused':'playing';if(window.HumanCinema)paused?HumanCinema.pause():HumanCinema.resume();}
+document.addEventListener('visibilitychange',()=>{last=performance.now();if(document.hidden&&started){flowing=false;manualPaused=true;}syncFlow();});addEventListener('human-cinema-ready',syncFlow);syncFlow();
+function frame(ms){let dt=Math.min((ms-last)/1000||.016,.05);last=ms;if(manualPaused||document.hidden||!el('sourceOverlay').hidden)dt=0;clock+=dt;
 if(!pointer.down){angleY+=velY;angleX+=velX;velY*=Math.pow(.91,dt*60);velX*=Math.pow(.91,dt*60);if(!reduce)angleY+=dt*.055}
-if(flowing&&started&&intro.hidden&&el('sourceOverlay').hidden){targetProg=Math.min(COUNT-1,targetProg+dt*.155);if(targetProg>=COUNT-1){flowing=false;el('flow').classList.remove('active');el('flow').textContent='▶'}}
+if(flowing&&started&&intro.hidden&&el('sourceOverlay').hidden){targetProg=Math.min(COUNT-1,targetProg+dt*.155);if(targetProg>=COUNT-1){flowing=false;manualPaused=true;syncFlow()}}
 if(Math.abs(targetProg-prog)>.0005){prog+= (targetProg-prog)*Math.min(1,dt*(reduce?40:3.8));if(Math.abs(targetProg-prog)<.002)prog=targetProg;sync()}
 pulse=Math.max(0,pulse-dt*.85);signal=Math.max(0,signal-dt*.42);if(cascade>=0){cascade+=dt*.35;if(cascade>1.8)cascade=-1}
 if(soundOn&&audio&&osc){osc.frequency.setTargetAtTime(82+prog*19+Math.sin(clock*.23)*4,audio.currentTime,.4)}

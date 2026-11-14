@@ -1,0 +1,4 @@
+<!doctype html><meta charset="utf-8"><title>Discovery export cancellation</title><pre id="report">Running…</pre><script type="module">
+import {creationLoop} from '/js/discovery-stage.js';
+const out=document.querySelector('#report');try{const job=creationLoop({style:'orbit'},()=>{});job.cancel();const result=await job.promise;if(!result.cancelled)throw Error('cancel must settle without a download');out.textContent='PASS · cancel stops the recording and settles without a download';}catch(e){out.textContent='FAIL · '+e.stack;}
+</script>

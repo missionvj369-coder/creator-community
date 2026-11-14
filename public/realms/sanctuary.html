@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-cinema-product="sanctuary">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -29,7 +29,10 @@
 
 .journey-controls{display:grid;grid-template-columns:1fr auto 1fr}.journey-controls>.quiet-button{justify-self:start}.journey-controls>.paused-message{grid-column:2}
 
+.journey-controls{flex-wrap:wrap;gap:16px}.scene-step{pointer-events:auto;border:1px solid #bed0b72a;background:#142c2340;color:#c6d8b9;border-radius:30px;padding:10px 15px;min-height:40px;font-family:inherit;font-size:10px;cursor:pointer}.scene-step:disabled{opacity:.25}.scene-step:focus-visible{outline:2px solid #c9dcb8;outline-offset:3px}@media(max-width:700px){.journey-controls{gap:10px}.scene-step{font-size:9px;padding:8px 12px}}
 </style>
+<link rel="stylesheet" href="/css/cinema-embedded.css">
+<script type="module" src="/js/cinema-bridge.js"></script>
 </head>
 <body>
   <div id="app" data-view="welcome">
@@ -61,7 +64,7 @@
         <div class="journey-top"><span id="scene-kicker">01 / ARRIVE</span><span class="session-clock" id="session-clock" aria-label="Time remaining">17:00</span></div>
         <div class="scene-copy" id="scene-copy" aria-live="polite" aria-atomic="true"><p class="scene-eyebrow" id="scene-eyebrow">A MOMENT THAT BELONGS TO YOU</p><h1 id="scene-title" tabindex="-1">Nothing to prove.<br><em>Nowhere else to be.</em></h1><p class="scene-instruction" id="scene-instruction">Feel the surface supporting you.<br>You can let this moment be simple.</p></div>
         <div class="interaction-hint" id="interaction-hint"><span class="hint-dot"></span><span id="hint-text">Touch the open space. Let the light gather.</span></div>
-        <div class="journey-controls"><button class="quiet-button" id="pause-button" type="button" aria-label="Pause experience"><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path id="pause-icon" d="M7 5v10M13 5v10"/></svg><span id="pause-label">Pause</span></button><span class="paused-message" id="paused-message" hidden>Take all the time you need.</span></div>
+        <div class="journey-controls"><button class="scene-step" id="scene-prev" aria-label="Previous sanctuary scene">← Back</button><button class="quiet-button" id="pause-button" type="button" aria-label="Pause experience"><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path id="pause-icon" d="M7 5v10M13 5v10"/></svg><span id="pause-label">Pause</span></button><button class="scene-step" id="scene-next" aria-label="Next sanctuary scene">Next →</button><span class="paused-message" id="paused-message" hidden>Take all the time you need.</span></div>
       </section>
 
       <section class="completion" id="completion" aria-labelledby="completion-title" hidden>
@@ -425,34 +428,13 @@
   const finalScene=scenes.length-1;let chapterPage=-1;
 
   class Soundscape {
-    constructor(){this.context=null;this.master=null;this.oscillators=[];this.enabled=false;this.suspendTimer=null;this.scene=0;}
-    async prepare(){
-      if(this.context){await this.context.resume();return;}
-      const Audio=window.AudioContext||window.webkitAudioContext;if(!Audio)throw Error('Audio unavailable');
-      const ctx=this.context=new Audio();
-      this.master=ctx.createGain();this.master.gain.value=0;
-      const compressor=ctx.createDynamicsCompressor();compressor.threshold.value=-20;compressor.knee.value=20;compressor.ratio.value=3;compressor.attack.value=.05;compressor.release.value=.5;
-      this.master.connect(compressor);compressor.connect(ctx.destination);
-      this.filter=ctx.createBiquadFilter();this.filter.type='lowpass';this.filter.frequency.value=1100;this.filter.Q.value=.4;this.filter.connect(this.master);
-      const chord=[146.832,220,293.664,369.994];
-      chord.forEach((frequency,i)=>{
-        const gain=ctx.createGain();gain.gain.value=.16/(i+1);
-        let destination=gain;
-        if(ctx.createStereoPanner){const pan=ctx.createStereoPanner();pan.pan.value=(i%2?1:-1)*.32;gain.connect(pan);pan.connect(this.filter);const lfo=ctx.createOscillator(),depth=ctx.createGain();lfo.frequency.value=.017+i*.006;depth.gain.value=.18;lfo.connect(depth);depth.connect(pan.pan);lfo.start();}else gain.connect(this.filter);
-        for(let j=0;j<2;j++){const oscillator=ctx.createOscillator();oscillator.type='sine';oscillator.frequency.value=frequency;oscillator.detune.value=j?2:-2;oscillator.connect(destination);oscillator.start();this.oscillators.push(oscillator);}
-      });
-      const buffer=ctx.createBuffer(1,ctx.sampleRate*3,ctx.sampleRate),data=buffer.getChannelData(0);let brown=0;for(let i=0;i<data.length;i++){brown=(brown+(Math.random()*2-1)*.02)/1.02;data[i]=brown*3.5;}
-      const noise=ctx.createBufferSource();noise.buffer=buffer;noise.loop=true;
-      const noiseFilter=ctx.createBiquadFilter();noiseFilter.type='lowpass';noiseFilter.frequency.value=550;
-      const noiseGain=ctx.createGain();noiseGain.gain.value=.065;noise.connect(noiseFilter);noiseFilter.connect(noiseGain);noiseGain.connect(this.filter);noise.start();
-      await ctx.resume();this.tune(this.scene);
-    }
-    async enable(){clearTimeout(this.suspendTimer);await this.prepare();this.enabled=true;this.update();}
-    update(){if(!this.context||!this.master)return;const isAudible=this.enabled&&!document.hidden&&!(mode==='journey'&&paused);const now=this.context.currentTime;this.master.gain.setTargetAtTime(isAudible?volume*.8:0,now,.65);}
-    disable(){this.enabled=false;this.update();clearTimeout(this.suspendTimer);if(this.context)this.suspendTimer=setTimeout(()=>{if(!this.enabled)this.context.suspend().catch(()=>{});},2500);}
-    tune(index){this.scene=index;if(!this.context)return;const chords=[[146.832,220,293.664,369.994],[130.813,196,261.626,329.628],[174.614,261.626,349.228,440],[164.814,246.942,329.628,415.305],[146.832,220,293.664,440],[174.614,261.626,349.228,440],[146.832,220,293.664,369.994],[130.813,196,261.626,392],[130.813,196,261.626,329.628],[164.814,246.942,329.628,415.305],[174.614,220,349.228,440],[146.832,220,293.664,440],[164.814,246.942,329.628,440],[146.832,220,293.664,440]];const time=this.context.currentTime;this.oscillators.forEach((o,i)=>o.frequency.setTargetAtTime(chords[index][Math.floor(i/2)],time,2));this.filter.frequency.setTargetAtTime([1100,650,1400,1000,1500,1400,800,850,650,950,1050,1200,1350,1500][index],time,3);}
+   constructor(){this.enabled=false;this.scene=0;}
+   async enable(){if(!window.HumanCinema)throw Error('Sound is still preparing');this.enabled=true;await HumanCinema.start();this.update();}
+   update(){if(!window.HumanCinema)return;this.enabled&&!document.hidden&&!(mode==='journey'&&paused)?HumanCinema.resume():HumanCinema.pause();HumanCinema.level(Math.min(1,volume*2));}
+   disable(){this.enabled=false;window.HumanCinema?.stop();}
+   tune(index){this.scene=index;window.HumanCinema?.tune();}
   }
-  const audio=new Soundscape();
+  const audio=new Soundscape();addEventListener('human-cinema-state',e=>{soundOn=e.detail.enabled;audio.enabled=soundOn;updateSoundUI();audio.update();});
   function announce(message){$('status').textContent=message;}
   function updateSoundUI(){
     $('sound-button').setAttribute('aria-pressed',String(soundOn));$('sound-button').setAttribute('aria-label',soundOn?'Turn sound off':'Turn sound on');$('sound-label').textContent=soundOn?'Sound on':'Sound off';$('sound-toggle').checked=soundOn;
@@ -473,6 +455,7 @@
     if(immediate||!motion)apply();else{$('scene-copy').classList.add('changing');setTimeout(apply,450);}
   }
   function updateChapterUI(){
+    $('scene-prev').disabled=sceneIndex===0;$('scene-next').textContent=sceneIndex===finalScene?'Finish':'Next →';$('scene-next').setAttribute('aria-label',sceneIndex===finalScene?'Finish sanctuary':'Next sanctuary scene');
     const page=Math.floor(sceneIndex/5);
     if(page!==chapterPage){chapterPage=page;const first=chapterButtons[page*5];chapterNav.scrollTo({left:first.offsetLeft-chapterButtons[0].offsetLeft,behavior:motion&&mode!=='welcome'?'smooth':'instant'});}
     for(let i=0;i<chapterButtons.length;i++){
@@ -506,6 +489,8 @@
   function goHome(){mode='welcome';app.dataset.view=mode;$('welcome').hidden=false;$('journey').hidden=true;$('completion').hidden=true;sceneIndex=0;elapsed=0;setPaused(false);$('world-name').textContent='THE THRESHOLD';$('world-coordinate').textContent='A place between hurry and here';updateChapterUI();$('enter-button').focus({preventScroll:true});}
   $('enter-button').addEventListener('click',()=>startJourney());
   $('home-link').addEventListener('click',event=>{event.preventDefault();goHome();});
+  $('scene-prev').addEventListener('click',()=>goToScene(Math.max(0,sceneIndex-1)));
+  $('scene-next').addEventListener('click',()=>sceneIndex===finalScene?finish():goToScene(sceneIndex+1));
   $('pause-button').addEventListener('click',()=>setPaused(!paused,paused?'Experience resumed.':'Experience paused. Take all the time you need.'));
   $('return-button').addEventListener('click',()=>startJourney(finalScene,true));
   $('begin-again').addEventListener('click',()=>startJourney());

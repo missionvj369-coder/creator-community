@@ -1,0 +1,11 @@
+# Independent experience flow — 6 November 2026
+
+Version 7.1.0 removes the daily home, daily runner and Progress tab. The original fifteen products are independent again, with a suggested path through five chapters: stillness, self, choice, connection and return. Ebooks remain separate.
+
+The experience home uses a cream, sage and pearl palette, a softly moving connection sculpture, five chapter anchors and fifteen distinct original illustrations. Product pages share compact path navigation, overview/collection/next controls and a matching visual identity. Brief CSS entrance fades keep page changes quiet without blocking navigation. All animation respects app and system reduced-motion preferences.
+
+Reader and sound completion now opens a pause screen. Users can continue the same collection, choose the next product or return to the home. Visual/audio worlds use the same pause screen after Leave gently and stop their iframe/media before it appears. Such exits record a visit rather than falsely claiming that every scene or the full soundtrack has been completed. Wallpaper downloads remain available individually and as a complete pack. Clarity retains the affirmation companion.
+
+The pure model in public/js/experience-flow.js defines the order, neighbours and compatibility rules. Old daily-plan progress is preserved in exported backups and contributes to the independent courses’ continuation positions. Old daily links redirect to the matching product. The daily UI, adapter, stylesheet and engagement bridge have been removed; the data model is retained for compatibility.
+
+The full automated suite passed, including all 375 adapted units, 105 situations, six book/asset/download inventories, all 30 wallpaper originals, profile backup/restore, opening and meditation behavior, and the independent order/retired-link/progress compatibility cases. Browser checks covered the full real three-minute sound completion, reading completion, immersive-world exit and iframe cleanup, all fifteen home cards, chapter navigation, product tabs, the separate six-book room and reduced-motion controls. At 320 px and 390 px the home and cards have no horizontal overflow; the long Awakening product title and its controls also fit at 320 px. Native iOS/Android hardware testing is outside this pass. Data remains local to the browser unless exported.

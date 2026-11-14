@@ -12,7 +12,7 @@ const tzNow = () => { try { return Intl.DateTimeFormat().resolvedOptions().timeZ
 
 function fail(code, message, status) { return Object.assign(new Error(message), { code, status }); }
 const mem = {};
-const ls = { get: k => { try { return localStorage.getItem(k); } catch { return mem[k] ?? null; } }, set: (k, v) => { try { localStorage.setItem(k, v); } catch { mem[k] = v; state.persistent=false; } }, del: k => { try { localStorage.removeItem(k); } catch { delete mem[k]; } } };
+const ls = { get: k => { if(Object.hasOwn(mem,k))return mem[k];try { return localStorage.getItem(k); } catch { return null; } }, set: (k, v) => { try { localStorage.setItem(k, v);delete mem[k]; } catch { mem[k] = v; state.persistent=false; } }, del: k => { delete mem[k];try { localStorage.removeItem(k); } catch {} } };
 
 /* ───────── API backend ───────── */
 async function call(method, path, body) {
@@ -80,7 +80,7 @@ export async function act(name, body = {}) {
 export async function setPin(pin) { const d = await call('POST', '/api/pin', { pin }); return apply(d); }
 export async function exportData() {
   const readerState={};
-  try{for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(['neoXhuman.body.illustrated.v2','neoxhuman.growingmind.reader.2026.v1','switch-off-flipbook-2026-page','human-simple-v3'].includes(k)||k.startsWith('ugt.how-to-work-with-me.')||k.startsWith('astralyon.how-to-work-with-me.')||k.startsWith('hj-single-')||k.startsWith('human-journey'))readerState[k]=localStorage.getItem(k);}}catch{}
+  try{for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(['neoXhuman.body.illustrated.v2','neoxhuman.growingmind.reader.2026.v1','switch-off-flipbook-2026-page','human-simple-v3','human.within.sleep.position.v1'].includes(k)||k.startsWith('ugt.how-to-work-with-me.')||k.startsWith('astralyon.how-to-work-with-me.')||k.startsWith('hj-single-')||k.startsWith('human-journey'))readerState[k]=localStorage.getItem(k);}}catch{}
   return {app:'human-within',version:1,exportedAt:new Date().toISOString(),profile:{name:state.doc?.name||'',intents:state.doc?.intents||[]},progress:normaliseSpace(state.doc?.space),readerState};
 }
 export function mutateSpace(transform){

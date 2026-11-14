@@ -8,11 +8,22 @@
     "color": "#c5944c",
     "cover": "/assets/covers/human-journey.webp",
     "file": "/books/human-journey.html",
-    "bytes": 385823,
+    "bytes": 385886,
     "downloadType": "reader-pack",
     "download": "/books/downloads/human-journey.zip",
     "optimised": true,
-    "downloadBytes": 141001
+    "downloadBytes": 141040,
+    "coverTypography": {
+      "style": "journey",
+      "eyebrow": "A LITERARY JOURNEY",
+      "lines": [
+        "THE",
+        "HUMAN",
+        "JOURNEY"
+      ],
+      "subtitle": "Origins · One life · Our shared future",
+      "author": "Shanmugam Vijay Balakrishnan"
+    }
   },
   {
     "id": "how-to-work-with-me",
@@ -23,11 +34,11 @@
     "color": "#4d6fc5",
     "cover": "/assets/covers/how-to-work-with-me.webp",
     "file": "/books/how-to-work-with-me.html",
-    "bytes": 173650,
+    "bytes": 171971,
     "downloadType": "reader-pack",
     "download": "/books/downloads/how-to-work-with-me.zip",
     "optimised": true,
-    "downloadBytes": 5609226
+    "downloadBytes": 5609312
   },
   {
     "id": "why-am-i-like-this",
@@ -53,11 +64,21 @@
     "color": "#2a8078",
     "cover": "/assets/covers/growing-mind.webp",
     "file": "/books/growing-mind.html",
-    "bytes": 1351696,
+    "bytes": 1259786,
     "downloadType": "reader-pack",
     "download": "/books/downloads/growing-mind.zip",
     "optimised": true,
-    "downloadBytes": 6083797
+    "downloadBytes": 6057014,
+    "coverTypography": {
+      "style": "parenting",
+      "eyebrow": "NEOXHUMAN",
+      "lines": [
+        "YOUR CHILD’S",
+        "GROWING MIND"
+      ],
+      "subtitle": "25 illustrated discoveries for parents",
+      "author": ""
+    }
   },
   {
     "id": "switch-off",
@@ -68,11 +89,12 @@
     "color": "#69785c",
     "cover": "/assets/covers/switch-off.webp",
     "file": "/books/switch-off.html",
-    "bytes": 112159,
+    "bytes": 112187,
     "downloadType": "reader-pack",
-    "download": "/books/downloads/switch-off.zip",
+    "download": "/books/downloads/switch-off.html",
     "optimised": true,
-    "downloadBytes": 20305383
+    "downloadBytes": 20046716,
+    "downloadPage": true
   },
   {
     "id": "body-you-live-in",
@@ -85,8 +107,9 @@
     "file": "/books/body-you-live-in.html",
     "bytes": 181657,
     "downloadType": "reader-pack",
-    "download": "/books/downloads/body-you-live-in.zip",
+    "download": "/books/downloads/body-you-live-in.html",
     "optimised": true,
-    "downloadBytes": 35657468
+    "downloadBytes": 35657468,
+    "downloadPage": true
   }
 ]

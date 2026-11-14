@@ -1,15 +1,18 @@
 {
   "name": "human-within",
-  "version": "3.1.0",
+  "version": "12.0.0",
   "private": true,
   "type": "module",
-  "description": "Human Within \u2014 15 experiences, six eBooks, 30 wallpapers and tools for being human.",
+  "description": "Human Within — eighteen independent cinematic experiences, with living immersive worlds and a separate reading room.",
   "scripts": {
     "start": "node server.js",
     "dev": "node server.js",
-    "build": "echo Building for Netlify...",
-    "test": "node scripts/test-engine.mjs && node scripts/test-api.mjs && node scripts/test-catalogue.mjs && node scripts/test-personal.mjs",
-    "extract": "node scripts/extract-content.cjs ../source ./public/content"
+    "test": "node scripts/test-engine.mjs && node scripts/test-api.mjs && node scripts/test-catalogue.mjs && node scripts/test-personal.mjs && node scripts/test-journey.mjs && node scripts/test-arrival.mjs && node scripts/test-opening.mjs && node scripts/test-meditation.mjs && node scripts/test-daily-plan.mjs && node scripts/test-experience-flow.mjs && node scripts/test-immersive.mjs && node scripts/test-body.mjs && node scripts/test-anatomy.mjs && node scripts/test-cinema.mjs && node scripts/test-playback.mjs && node scripts/test-studios.mjs && node scripts/test-reader-pack.mjs && node scripts/test-no-writing.mjs && node scripts/test-discovery.mjs",
+    "extract": "node scripts/extract-content.cjs ../source ./public/content",
+    "test:release": "node scripts/test-static-release.mjs",
+    "verify:books": "python3 scripts/verify-book-packs.py",
+    "build:body": "node scripts/build-body-atlas.mjs",
+    "build:anatomy:lite": "node scripts/build-anatomy-lite.mjs"
   },
   "engines": {
     "node": ">=18"

@@ -1,0 +1,182 @@
+{
+  "home": {
+    "file": "/cinema/audio/home-voice.m4a",
+    "text": "Welcome to Human Within. There is no finish line here. Follow the experience that feels useful, and let the rest wait.",
+    "duration": 8.586,
+    "bytes": 159761,
+    "sha256": "d13b12972e1a13b8b93e75e721a591a2741e89c69d1dd6b42879bf563eee2724",
+    "voice": "af_heart",
+    "sourceSampleRate": 24000
+  },
+  "protocol": {
+    "file": "/cinema/audio/protocol-voice.m4a",
+    "text": "Welcome to Sound Reset. Begin at a comfortable volume. Let each small session give your attention a little room to settle.",
+    "duration": 8.853,
+    "bytes": 173508,
+    "sha256": "4efe9be44879fa08848d3492a6b6bc5b0e231a88fa5b5b69382048376cd915ec",
+    "voice": "af_heart",
+    "sourceSampleRate": 24000
+  },
+  "frequency": {
+    "file": "/cinema/audio/frequency-voice.m4a",
+    "text": "Welcome to Frequency. Explore the sound gently. Choose a profile that feels comfortable, and remember that you can stop at any time.",
+    "duration": 9.731,
+    "bytes": 189450,
+    "sha256": "763ad4641bff784c9c1a16bb302c0c674a5b542462d4c3092634be9a5d76c7b2",
+    "voice": "af_heart",
+    "sourceSampleRate": 24000
+  },
+  "sanctuary": {
+    "file": "/cinema/audio/sanctuary-voice.m4a",
+    "text": "Welcome to the Human Sanctuary. Nothing needs to be achieved here. Follow the light, take an easy breath, and arrive as you are.",
+    "duration": 9.256,
+    "bytes": 175437,
+    "sha256": "4034a2db05cfec70de913a5c7f8ac09c0cf705f400738844e3c5de10dd1fca7f",
+    "voice": "af_heart",
+    "sourceSampleRate": 24000
+  },
+  "journey": {
+    "file": "/cinema/audio/journey-voice.m4a",
+    "text": "Welcome to the Human Journey. From our beginnings to the life ahead, follow one thread at a time. Your place will be kept.",
+    "duration": 8.312,
+    "bytes": 158768,
+    "sha256": "c8d0ded2bc8b9db7cf0b335d2dac6fc630ebde9ad46aff410d1761b05d45d9df",
+    "voice": "af_heart",
+    "sourceSampleRate": 24000
+  },
+  "mirror": {
+    "file": "/cinema/audio/mirror-voice.m4a",
+    "text": "Welcome to the Human Mirror. Look a little closer. A world of small connections is already moving within you.",
+    "duration": 7.22,
+    "bytes": 141005,
+    "sha256": "30a6d78b5515048057d2d581501dede77ffeb4bf9232f3a0e7339cdf25127769",
+    "voice": "af_heart",
+    "sourceSampleRate": 24000
+  },
+  "mirror2": {
+    "file": "/cinema/audio/mirror2-voice.m4a",
+    "text": "Welcome to a new perspective. Move through these worlds slowly, and let your curiosity choose where you look next.",
+    "duration": 7.431,
+    "bytes": 140874,
+    "sha256": "15a35e1712f0152a12abbbe22c2ced4031e8b4201580c124eca439a1ba24e579",
+    "voice": "af_heart",
+    "sourceSampleRate": 24000
+  },
+  "loop": {
+    "file": "/cinema/audio/loop-voice.m4a",
+    "text": "Welcome to the Loop. Between a familiar cue and an automatic response, there can be a little space. Begin by noticing.",
+    "duration": 8.441,
+    "bytes": 164748,
+    "sha256": "a4e4449329598d29bcaf1fe020348612363d1f9ce554fa3057b995baa6389c1f",
+    "voice": "af_heart",
+    "sourceSampleRate": 24000
+  },
+  "escape": {
+    "file": "/cinema/audio/escape-voice.m4a",
+    "text": "Welcome to Matrix Escape. You do not need to solve everything. Look at one familiar pattern from a different angle.",
+    "duration": 8.004,
+    "bytes": 153269,
+    "sha256": "432b1107bc90a14a999ae75683fa4c8e5daed0a4a10fa1c83f385657362bbfa9",
+    "voice": "af_heart",
+    "sourceSampleRate": 24000
+  },
+  "thoughts": {
+    "file": "/cinema/audio/thoughts-voice.m4a",
+    "text": "Welcome to One. A single thought can make room for another person. Take one perspective, and see where it meets your life.",
+    "duration": 8.315,
+    "bytes": 160268,
+    "sha256": "0a50f975f037d7e8b9382ba02855cd13169a42a404e1dc0480fdc01247fddc24",
+    "voice": "af_heart",
+    "sourceSampleRate": 24000
+  },
+  "awakening": {
+    "file": "/cinema/audio/awakening-voice.m4a",
+    "text": "Welcome to Awakening. Let a quieter question find you. One reflection, one small action, and your own unhurried pace.",
+    "duration": 8.96,
+    "bytes": 170682,
+    "sha256": "11b3c500ed460da6874b622708e1a3674e4d959c59ec884ceecf8dd751b52093",
+    "voice": "af_heart",
+    "sourceSampleRate": 24000
+  },
+  "onegod": {
+    "file": "/cinema/audio/onegod-voice.m4a",
+    "text": "Welcome to One God, One Voice. Listen across the distance. Many traditions carry questions that human beings share.",
+    "duration": 8.767,
+    "bytes": 170188,
+    "sha256": "2888ec77ce612a3e319392a04516fca9c129c40c18cd0d5a0c5d058bde1c7a5d",
+    "voice": "af_heart",
+    "sourceSampleRate": 24000
+  },
+  "passage": {
+    "file": "/cinema/audio/passage-voice.m4a",
+    "text": "Welcome to the Passage. Set the world down for a moment. Follow the changing light, and let the journey unfold around you.",
+    "duration": 8.775,
+    "bytes": 168151,
+    "sha256": "9611a3daf487d5999fa7b07d6d9bf412c2ef7d13aaa02335c044d8713c653601",
+    "voice": "af_heart",
+    "sourceSampleRate": 24000
+  },
+  "clarity": {
+    "file": "/cinema/audio/clarity-voice.m4a",
+    "text": "Welcome to Clarity. Meet the morning with one useful intention, or let the evening settle. Keep only what matters for this moment.",
+    "duration": 9.39,
+    "bytes": 182371,
+    "sha256": "b5edbc9bba34a625b0627c07d43ff77e2bac5e018e6b7d542ebe76ecbfadcc10",
+    "voice": "af_heart",
+    "sourceSampleRate": 24000
+  },
+  "rewire": {
+    "file": "/cinema/audio/rewire-voice.m4a",
+    "text": "Welcome to the Art of Noticing. Find an image that gives a thought somewhere to rest. Keep it, download it, and make it yours.",
+    "duration": 8.952,
+    "bytes": 174798,
+    "sha256": "dd1f9a5a384f4bd837635758b7c316470e9d5b26a45a64f149f7e7e5b9a86046",
+    "voice": "af_heart",
+    "sourceSampleRate": 24000
+  },
+  "sleep": {
+    "file": "/cinema/audio/sleep-voice.m4a",
+    "text": "Let this be the end of doing for a while. Rest your phone beside you, choose a quiet volume, and let the guidance carry on.",
+    "duration": 8.486,
+    "bytes": 166892,
+    "sha256": "4fecba040b797f1bb0ed3cfcf11459dec5f478262dc9b02c7a75c7ec6029904e",
+    "voice": "af_heart",
+    "sourceSampleRate": 24000
+  },
+  "ebooks": {
+    "file": "/cinema/audio/ebooks-voice.m4a",
+    "text": "Welcome to the reading room. Open a cover, turn a page, and let one thought unfold in its own time.",
+    "duration": 7.232,
+    "bytes": 139756,
+    "sha256": "505046d44193f6a2088d9b65072756efa2b5677e5bca6290f6f24fd9b1707728",
+    "voice": "af_heart",
+    "sourceSampleRate": 24000
+  },
+  "you": {
+    "file": "/cinema/audio/you-voice.m4a",
+    "text": "This is your space. Your place in the journey, the things you saved, and a little room to return whenever you need it.",
+    "duration": 7.701,
+    "bytes": 152786,
+    "sha256": "92b018870c965199782b5d3268853dd9132f63c40538eb103efb65db3d2ad539",
+    "voice": "af_heart",
+    "sourceSampleRate": 24000
+  },
+  "body": {
+    "file": "/cinema/audio/body-voice.m4a",
+    "text": "Welcome to the living book. Turn the body, move closer to an organ, and discover the quiet work that keeps you alive.",
+    "duration": 8.033,
+    "bytes": 153212,
+    "sha256": "fd241376fa6731004a22b99d53672d87372ae77b6ddfdadcacef04218f33910c",
+    "voice": "af_heart",
+    "sourceSampleRate": 24000
+  },
+  "wallpapers": {
+    "file": "/cinema/audio/wallpapers-voice.m4a",
+    "text": "Welcome to the pocket gallery. Choose a reminder that feels like yours. Each artwork is ready to download.",
+    "duration": 7.652,
+    "bytes": 147587,
+    "sha256": "d499e72ba0836fa7f47fa6252a32e00d8bdbb3e4da72f36b20fc995df3882497",
+    "voice": "af_heart",
+    "sourceSampleRate": 24000
+  }
+}

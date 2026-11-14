@@ -1,0 +1,50 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Still Room — workflow QA</title><link rel="stylesheet" href="/css/app.css"><link rel="stylesheet" href="/css/human-within.css"><link rel="stylesheet" href="/css/journey.css"><link rel="stylesheet" href="/css/meditation.css"><style>body{padding:25px}#report{white-space:pre-wrap;font:14px/1.8 monospace;color:#36503d}#fixture{display:none}</style><h1>Still Room workflow checks</h1><pre id="report">Running controlled media tests…</pre><div id="fixture"></div><script type="module">
+// Explicit test-only virtual media/clock. This file is removed from public before packaging.
+import * as S from '/js/store.js';
+import {renderMeditation} from '/js/views/meditation.js';
+import {renderArrival} from '/js/views/arrival.js';
+import {renderGuideHome} from '/js/views/guide.js';
+const original=localStorage.getItem('ugt.local.v2');let now=0,hidden=false,frames=new Map(),serial=0,players=[],intervals=new Map();
+Object.defineProperty(performance,'now',{value:()=>now,configurable:true});
+Object.defineProperty(document,'hidden',{get:()=>hidden,configurable:true});
+window.requestAnimationFrame=fn=>{const id=++serial;frames.set(id,fn);return id;};window.cancelAnimationFrame=id=>frames.delete(id);
+window.Audio=class{constructor(){const a=document.createElement('audio');let current=0,paused=true;Object.defineProperties(a,{currentTime:{get:()=>current,set:v=>current=Number(v)},paused:{get:()=>paused},duration:{get:()=>a.src.includes('night')?1200:300}});a.play=async()=>{paused=false;};a.pause=()=>{paused=true;};a.load=()=>{};players.push(a);return a;}};
+window.setInterval=fn=>{const id=++serial;intervals.set(id,fn);return id;};window.clearInterval=id=>intervals.delete(id);
+function advance(seconds){for(let i=0;i<seconds;i++){now+=1000;for(const fn of [...intervals.values()])fn();for(const a of players)if(!a.paused){a.currentTime++;a.dispatchEvent(new Event('timeupdate'));}const callbacks=[...frames.values()];frames.clear();callbacks.forEach(fn=>fn(now));}}
+function visibility(value){hidden=value;document.dispatchEvent(new Event('visibilitychange'));}
+const root=document.querySelector('#fixture'),out=[];
+const assert=(value,message)=>{if(!value)throw Error(message);};
+async function ready(){for(let i=0;i<300;i++){if(root.querySelector('.room-start')&&!root.querySelector('.room-start').disabled)return;await new Promise(r=>setTimeout(r,10));}throw Error('Practice never became ready');}
+async function click(selector){root.querySelector(selector).click();await Promise.resolve();await Promise.resolve();}
+const ctx={setHue(){},go(){},render(){}};
+try{
+ await S.boot();await S.start({name:'QA visitor',intents:[],length:'quick'});
+ let left=0,more=0;
+ let controller=renderMeditation(root,{onEnter:()=>left++,onMore:()=>more++});await ready();advance(5);assert(root.querySelector('progress').value===0,'No playback before start');await click('.room-start');advance(30);await click('.room-controls .room-control');const paused=root.querySelector('progress').value;advance(10);assert(root.querySelector('progress').value===paused,'Pause must stop the media clock');await click('.room-controls .room-control');advance(5);visibility(true);advance(10);assert(root.querySelector('.room-controls .room-control').getAttribute('aria-label')==='Resume meditation','Daytime pauses in background');visibility(false);await click('.room-controls .room-control');advance(300);
+ assert(root.querySelector('h1').textContent==='Come back gently.','Daytime ending');assert(left===0,'No automatic main app entry');assert(S.state.doc.space.meditation.last.completed,'Real sequential playback completes');
+ const continuation=document.createElement('div');renderGuideHome(continuation,ctx);assert(continuation.textContent.includes('Carry a little'),'Home recognises completed practice');assert(continuation.querySelector('.still-room-feature .btn').getAttribute('href')==='#/guide','Home offers a useful next step after practice');controller.destroy();out.push('PASS — daytime gesture, pause/resume, background pause, completion and useful continuation');
+ controller=renderMeditation(root,{preset:'night5',onEnter:()=>left++});await ready();await click('.room-start');advance(100);visibility(true);advance(195);assert(players.at(-1).volume<.76,'Bedtime excerpt fades');advance(5);assert(root.querySelector('h1').textContent==='You can stay at rest.','Quiet bedtime ending');assert(players.at(-1).paused&&players.at(-1).volume===0,'Audio ends quietly');assert(left===0,'No automatic exit or sales action');assert(!root.querySelector('.room-reflection'),'No task at bedtime');visibility(false);controller.destroy();out.push('PASS — bedtime background playback, fade and quiet ending');
+ controller=renderMeditation(root,{preset:'night20'});await ready();await click('.room-start');now+=1000;players.at(-1).currentTime=1200;players.at(-1).dispatchEvent(new Event('timeupdate'));assert(!S.state.doc.space.sessions.some(s=>s.route==='#/meditate/night20'&&s.completed),'Seek is not listening');controller.destroy();out.push('PASS — jumping to the end cannot award a completed practice');
+ controller=renderMeditation(root,{});await ready();await click('.room-start');advance(20);players.at(-1).dispatchEvent(new Event('error'));const fallback=[...root.querySelectorAll('button')].find(b=>b.textContent==='Continue with captions');assert(fallback,'Audio interruption offers captions');fallback.click();advance(10);assert(root.querySelector('progress').value>=30,'Caption fallback progresses');const saved=S.state.doc.space.meditation.last;controller.destroy();out.push('PASS — interrupted audio can continue as caption guidance');
+ const recordId=S.state.doc.space.meditation.last.recordId,position=S.state.doc.space.meditation.last.elapsed;controller=renderMeditation(root,{resume:true});await ready();assert(root.querySelector('progress').value>=position,'Saved position restored');await click('.room-start');advance(10);controller.destroy();assert(S.state.doc.space.meditation.last.recordId===recordId,'Resume keeps record identity');assert(S.state.doc.space.sessions.filter(s=>s.id===recordId).length===1,'Resume does not duplicate activity');out.push('PASS — saved position, actual credited time and deduplicated resume');
+ // In the opening journey, completing meditation hands off without another click.
+ controller=renderArrival(root,{onEnter:()=>left++});const startMeditation=root.querySelector('.arrival-enter');startMeditation.click();await ready();await Promise.resolve();await Promise.resolve();advance(299);assert(root.querySelector('.room-player'),'The meditation precedes the restored arrival');assert(!root.querySelector('[aria-label="Automatic quiet arrival"]'),'No early grounding');advance(1);assert(root.querySelector('[aria-label="Automatic quiet arrival"]'),'Automatic handoff after completed meditation');assert(left===0,'Features stay closed until restored sections finish');const trace=[root.firstElementChild.dataset.chapter];
+ for(let i=0;i<116;i++){advance(1);const id=root.firstElementChild?.dataset.chapter;if(id&&id!==trace.at(-1))trace.push(id);}
+ assert(trace.join(',')==='welcome,settle,follow,notice,return','Original restored section order');assert(left===1,'Restored arrival enters the app automatically exactly once');controller.destroy();out.push('PASS — opening meditation → original automatic welcome/garden/return → app, with no extra gesture');
+ let bedtimeAdvanced=0;controller=renderMeditation(root,{preset:'night5',onDayComplete:()=>bedtimeAdvanced++});await ready();await click('.room-start');advance(300);assert(bedtimeAdvanced===0,'Bedtime must stay quiet');assert(root.querySelector('h1').textContent==='You can stay at rest.','Bedtime ending preserved');controller.destroy();out.push('PASS — bedtime never launches the post-meditation visuals automatically');
+ // Regression: Leave gently must not bypass the restored quiet arrival.
+ for(const variant of [{name:'opening',options:{}},{name:'direct daytime',options:{skipWelcome:true}},{name:'direct bedtime',options:{skipWelcome:true,preset:'night5'}},{name:'resume',options:{skipWelcome:true,resume:true}}]){
+  let appEntries=0;controller=renderArrival(root,{...variant.options,onEnter:()=>appEntries++});
+  if(!variant.options.skipWelcome)root.querySelector('.arrival-enter').click();
+  await ready();await Promise.resolve();await Promise.resolve();
+  if(variant.options.skipWelcome)await click('.room-start');
+  advance(8);const unfinishedRecord=S.state.doc.space.meditation.last?.recordId;root.querySelector('.room-exit').click();
+  assert(root.querySelector('[aria-label="Automatic quiet arrival"]'),variant.name+': leave opens the calming sequence');assert(appEntries===0,variant.name+': features stay closed');
+  assert(!S.state.doc.space.sessions.find(s=>s.id===unfinishedRecord)?.completed,variant.name+': leaving does not award completion');
+  advance(115);assert(appEntries===0,variant.name+': calming sequence is not skipped');advance(1);assert(appEntries===1,variant.name+': app opens once after calming');controller.destroy();
+ }
+ out.push('PASS — Leave gently from opening, direct daytime, bedtime and resumed meditation always runs the calming sequence before app features');
+ document.querySelector('#report').textContent=out.join('\n')+'\nALL WORKFLOW CHECKS PASSED';document.body.dataset.result='passed';
+}catch(e){document.querySelector('#report').textContent=out.join('\n')+'\nFAIL — '+e.stack;document.body.dataset.result='failed';}
+finally{if(original===null)localStorage.removeItem('ugt.local.v2');else localStorage.setItem('ugt.local.v2',original);}
+</script></html>

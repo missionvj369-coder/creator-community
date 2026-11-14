@@ -5,7 +5,7 @@
     "theme": "Check the urgency",
     "category": "Study",
     "title": "Three assignments feel equally urgent",
-    "action": "List the due dates. Choose the nearest real deadline and write the first ten-minute step."
+    "action": "Consider the due dates. Choose the nearest real deadline and begin its first small step for ten minutes."
   },
   {
     "id": "escape-01-2",
@@ -125,7 +125,7 @@
     "theme": "Notice a thought without obeying it",
     "category": "Study",
     "title": "One low mark makes you think you cannot learn",
-    "action": "Write the specific skill the question tested. Practise that skill once before judging your ability."
+    "action": "Notice the specific skill the question tested. Practise it once before judging your ability."
   },
   {
     "id": "escape-04-2",
@@ -133,7 +133,7 @@
     "theme": "Notice a thought without obeying it",
     "category": "Work",
     "title": "A slow reply feels like proof you did something wrong",
-    "action": "List one other plausible explanation. Wait for more information before sending another message."
+    "action": "Consider one other plausible explanation. Wait for more information before sending another message."
   },
   {
     "id": "escape-04-3",
@@ -205,7 +205,7 @@
     "theme": "Make the helpful choice easier",
     "category": "Study",
     "title": "You cannot find your notes when you want to study",
-    "action": "Prepare the next page and pen before stopping today. Leave them where you will start tomorrow."
+    "action": "Place what you need for the next small task within reach. Let it be ready when you return."
   },
   {
     "id": "escape-06-2",
@@ -365,7 +365,7 @@
     "theme": "Begin before everything feels ready",
     "category": "Study",
     "title": "You wait for motivation to start an essay",
-    "action": "Write an imperfect first sentence or a three-point outline. Stop after two minutes if needed."
+    "action": "Open the task and look at the first part. Choose one small beginning, then give it two comfortable minutes."
   },
   {
     "id": "escape-10-2",
@@ -381,7 +381,7 @@
     "theme": "Begin before everything feels ready",
     "category": "Relationships",
     "title": "You keep postponing an ordinary apology",
-    "action": "Write a brief acknowledgement of what you did and its impact. Share it without demanding reassurance."
+    "action": "Acknowledge what you did and its impact in a safe conversation. Leave the other person free to respond without reassuring you."
   },
   {
     "id": "escape-10-4",
@@ -405,7 +405,7 @@
     "theme": "Reduce the open loops",
     "category": "Study",
     "title": "You switch between subjects because you fear forgetting one",
-    "action": "Write a short study list. Choose one topic and a clear stopping point before switching."
+    "action": "Choose one study topic and a clear stopping point. Stay with it before switching."
   },
   {
     "id": "escape-11-2",
@@ -413,7 +413,7 @@
     "theme": "Reduce the open loops",
     "category": "Work",
     "title": "Your mind keeps rehearsing unfinished work after hours",
-    "action": "Record the next action and when you will return to it. Use a simple end-of-work routine."
+    "action": "Choose the next action and a suitable time to return to it. Then use a simple end-of-work routine."
   },
   {
     "id": "escape-11-3",
@@ -429,7 +429,7 @@
     "theme": "Reduce the open loops",
     "category": "Daily life",
     "title": "You remember errands only when you cannot do them",
-    "action": "Keep one accessible list and check it at a useful time rather than starting separate lists."
+    "action": "Choose one small task for this moment. Check what is actually needed before adding another demand."
   },
   {
     "id": "escape-11-5",
@@ -469,7 +469,7 @@
     "theme": "Question the message behind the comparison",
     "category": "Daily life",
     "title": "A product promises to fix your whole life",
-    "action": "Write the specific problem you want solved. Check whether the product can reasonably do that one thing."
+    "action": "Pause over the specific problem you want solved. Check whether the product can reasonably do that one thing."
   },
   {
     "id": "escape-12-5",
@@ -485,7 +485,7 @@
     "theme": "State a clear boundary",
     "category": "Study",
     "title": "Classmates expect you to do the whole group project",
-    "action": "List the agreed tasks and ask everyone to choose their share. Raise unresolved issues with the course supervisor."
+    "action": "Agree on the tasks in conversation and invite everyone to choose their share. Raise unresolved issues with the course supervisor."
   },
   {
     "id": "escape-13-2",
@@ -533,7 +533,7 @@
     "theme": "Name the feeling and the next decision",
     "category": "Work",
     "title": "You rehearse a meeting long after it ends",
-    "action": "Write one thing to learn and one action if needed. Close the review when neither adds anything new."
+    "action": "Consider one thing to learn and one useful action. Let the review end when neither adds anything new."
   },
   {
     "id": "escape-14-3",
@@ -573,7 +573,7 @@
     "theme": "Find the simplest useful next step",
     "category": "Work",
     "title": "A project plan has become difficult to follow",
-    "action": "State the desired result in one sentence, then list the next three necessary actions."
+    "action": "Consider the desired result, then choose the next necessary action. Begin with the part you can do now."
   },
   {
     "id": "escape-15-3",
@@ -613,7 +613,7 @@
     "theme": "Listen to body cues with curiosity",
     "category": "Work",
     "title": "You clench your jaw during a difficult call",
-    "action": "Unclench gently, slow your reply, and write down the issue you need to address."
+    "action": "Unclench gently and slow your reply. Consider the specific issue you need to address before responding."
   },
   {
     "id": "escape-16-3",
@@ -693,7 +693,7 @@
     "theme": "Choose some time without an audience",
     "category": "Work",
     "title": "You lose track of your own priorities in a busy team",
-    "action": "Write what you are responsible for and the next action before opening the group discussion."
+    "action": "Clarify your responsibility and choose the next useful action before joining the group discussion."
   },
   {
     "id": "escape-18-3",
@@ -765,7 +765,7 @@
     "theme": "Return to what is happening now",
     "category": "Study",
     "title": "You keep thinking about an answer you got wrong",
-    "action": "Write what the error teaches you and solve one similar question. Then return to the current topic."
+    "action": "Notice what the error teaches you and try one similar question. Then return to the current topic."
   },
   {
     "id": "escape-20-2",
@@ -773,7 +773,7 @@
     "theme": "Return to what is happening now",
     "category": "Work",
     "title": "You worry about next month while today’s task waits",
-    "action": "Give the future issue a planning slot. Write the first step of today’s task and begin it."
+    "action": "Give a non-urgent future issue a later planning slot. Choose the first step of today’s task and begin it."
   },
   {
     "id": "escape-20-3",

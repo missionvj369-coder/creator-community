@@ -40,6 +40,7 @@ export const wordCount = s => String(s || '').trim().split(/\s+/).filter(Boolean
 
 /* ───────── icons (inline, currentColor) ───────── */
 const P = {
+  sliders:'<path d="M4 7h7m5 0h4M4 17h3m5 0h8"/><circle cx="13.5" cy="7" r="2.5"/><circle cx="9.5" cy="17" r="2.5"/>',
   upload:'<path d="M12 17V3M7 8l5-5 5 5M4 16v5h16v-5"/>',
   bookmark:'<path d="M6 3h12v18l-6-4-6 4z"/>',
   home:'<path d="m3 10 9-7 9 7v10H3z"/><path d="M9 20v-7h6v7"/>',
@@ -78,7 +79,8 @@ export function sheet(content, { onClose, label = 'Details' } = {}) {
   const box = h('div', { class: 'sheet', role: 'dialog', 'aria-modal': 'true', 'aria-label': label }, h('button', { class: 'sheet-x', 'aria-label': 'Close', onclick: () => close() }, icon('close', 20)), h('div', { class: 'sheet-body' }, content));
   back.append(box); document.body.append(back); requestAnimationFrame(() => back.classList.add('open'));
   const key = e => { if (e.key === 'Escape') close(); };
-  function close() { document.removeEventListener('keydown', key); back.classList.remove('open'); setTimeout(() => back.remove(), 220); prevFocus && prevFocus.focus && prevFocus.focus(); onClose && onClose(); }
+  let closing=false;
+  function close() { if(closing)return;closing=true;document.removeEventListener('keydown',key);back.style.pointerEvents='none';back.classList.remove('open');prevFocus?.focus?.();onClose?.();box.inert=true;box.setAttribute('aria-hidden','true');setTimeout(()=>back.remove(),220); }
   back.addEventListener('click', e => { if (e.target === back) close(); }); document.addEventListener('keydown', key);
   setTimeout(() => (box.querySelector('[autofocus]') || box.querySelector('button, a, input, textarea'))?.focus(), 60);
   return { close, el: box };

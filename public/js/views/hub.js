@@ -4,6 +4,9 @@ import { state } from '../store.js';
 import { titlesOf } from '../content.js';
 import { books, bookCard, toolCard, recentItem, saveButton } from './library.js';
 import { space, summary, preferredMoments, sequenceProgress } from '../personal.js';
+import { chapterFor } from '../experience-flow.js';
+import { flowBreadcrumbs, productBridge } from './experience-transition.js';
+import { PORTAL_IDENTITIES, experiencePoster } from '../experience-identity.js';
 
 const goLink = (to, text, className='btn primary') => h('a',{href:to,class:className},text,icon('arrow',18));
 const artEl = r => svgEl(art(r.art||r.icon,r.color,r.ink,r.id));
@@ -11,7 +14,7 @@ export const sectionHead = (kicker,title,link,label) => h('div',{class:'section-
 
 export function productCard(r) {
  const route=`#/product/${r.id}`;
- return h('article',{class:'product-shell'},h('a',{class:'product-card',href:route,style:{'--tile':r.color,'--tile-ink':r.ink}},h('div',{class:'product-art'},h('span',{class:'product-num'},r.number),artEl(r),h('span',{class:'art-label'},r.kind==='sequence'?'A small daily practice':'An immersive experience'),h('span',{class:'card-arrow'},icon('arrow',21))),h('div',{class:'product-copy'},h('p',{class:'product-group'},r.group),h('h3',{},r.title),h('p',{class:'fine'},r.short))),saveButton({route,title:r.title,kind:'Experience'}));
+ return h('article',{class:'product-shell'},h('a',{class:'product-card',href:route,style:{'--tile':r.color,'--tile-ink':r.ink}},h('div',{class:'product-art'},h('span',{class:'product-num'},r.number),artEl(r),h('span',{class:'art-label'},r.kind==='studio'?'A personal studio':r.kind==='sequence'?'A small daily practice':'An immersive experience'),h('span',{class:'card-arrow'},icon('arrow',21))),h('div',{class:'product-copy'},h('p',{class:'product-group'},r.group),h('h3',{},r.title),h('p',{class:'fine'},r.short))),saveButton({route,title:r.title,kind:'Experience'}));
 }
 
 export function situationCard(s, compact=false) {
@@ -23,16 +26,16 @@ export function renderHome(root,ctx) {
   const hero=h('div',{class:'home-hero'},h('div',{class:'hero-copy'},h('span',{class:'hero-overline'},h('i'), 'A little space to be human'),
     h('h1',{},'Come back',h('br'),h('em',{},'to yourself.')),
     h('p',{},'A calmer moment. A clearer thought. A deeper connection. Find something that meets you where you are.'),
-    h('div',{class:'hero-actions'},goLink('#/moment',`Take a ${space().minutes}-minute moment`),h('a',{class:'quiet-link',href:'#/products'},'Explore all 15 experiences',icon('arrow',17))),
+    h('div',{class:'hero-actions'},goLink('#/moment',`Take a ${space().minutes}-minute moment`),h('a',{class:'quiet-link',href:'#/products'},'Explore all 18 experiences',icon('arrow',17))),
     h('div',{class:'hero-note'},h('span',{class:'note-dots'},h('i'),h('i'),h('i')),'Your pace. Your way.')),
     h('div',{class:'hero-sculpture','aria-hidden':'true'},h('div',{class:'sculpture-halo'}),h('div',{class:'sculpture-orbit'}),h('div',{class:'sculpture-orbit second'}),h('div',{class:'sculpture-core'},Array.from({length:8},(_,i)=>h('i',{style:{'--petal':i}}))),h('span',{class:'floating-word one'},'a little stillness'),h('span',{class:'floating-word two'},'a fresh perspective'),h('span',{class:'floating-word three'},'room to grow'),h('span',{class:'sculpture-caption'},'THE WORLD INSIDE YOU')));
   const recent=recentItem();
   const path=h('a',{href:'#/moment',class:'daily-ribbon'},h('span',{class:'daily-mark'},icon('path',28)),h('div',{},h('p',{class:'eyebrow'},'Prefer a little guidance?'),h('h3',{},summary().today?'You made a little space today.':'One moment can be a beginning.'),h('p',{},'Choose what you need. Try one useful action. Go at your own pace.')),h('span',{class:'ribbon-link'},'Take a moment',icon('arrow',20)));
   const page=h('section',{class:'page hub-page rise'},hero,
-    h('div',{class:'collection-strip'},h('span',{},h('b',{},'15'),' experiences'),h('span',{},h('b',{},'6'),' eBooks'),h('span',{},h('b',{},'30'),' wallpapers'),h('a',{href:'#/tools'},'More ways to explore',icon('arrow',16))),
+    h('div',{class:'collection-strip'},h('span',{},h('b',{},'18'),' experiences'),h('span',{},h('b',{},'6'),' eBooks'),h('span',{},h('b',{},'30'),' wallpapers'),h('a',{href:'#/tools'},'More ways to explore',icon('arrow',16))),
     recent&&h('a',{class:'continue-strip',href:recent.route},icon('play',18),h('span',{},'Pick up where you left off',h('b',{},recent.title),recent.subtitle&&h('small',{class:'recent-subtitle'},recent.subtitle)),icon('arrow',18)),
     sectionHead('START WITH YOUR MOMENT','What would help right now?','#/moment','Find my moment'),h('div',{class:'situation-grid'},preferredMoments().slice(0,4).map(id=>situationById(id)).map(s=>situationCard(s,true))),
-    sectionHead('A WORLD OF SMALL POSSIBILITIES','Find your way in.','#/products','All 15 experiences'),h('div',{class:'product-grid'},['clarity','loop','sanctuary'].map(id=>productCard(productById(id)))),path,
+    sectionHead('A WORLD OF SMALL POSSIBILITIES','Find your way in.','#/products','All 18 experiences'),h('div',{class:'product-grid'},['clarity','loop','sanctuary'].map(id=>productCard(productById(id)))),path,
     sectionHead('THE READING ROOM','Good things take a page.','#/ebooks','Explore the books'),h('div',{class:'book-grid home-books',id:'home-books'},h('p',{class:'fine'},'Opening the reading room…')),
     h('a',{class:'wallpaper-banner',href:'#/wallpapers'},h('div',{},h('p',{class:'eyebrow'},'A SMALL REMINDER, EVERY TIME YOU LOOK'),h('h2',{},'Let your screen',h('br'),'say something kinder.'),h('p',{},'30 colourful wallpapers. One useful cue at a time.'),h('span',{class:'text-link'},'Find your wallpaper',icon('arrow',18))),h('div',{class:'banner-phones','aria-hidden':'true'},h('img',{src:'/wallpapers/thumb-03.webp',alt:'',loading:'lazy'}),h('img',{src:'/wallpapers/thumb-01.webp',alt:'',loading:'lazy'}),h('img',{src:'/wallpapers/thumb-08.webp',alt:'',loading:'lazy'}))),
     h('footer',{class:'hub-footer'},h('span',{},'Human Within'),h('p',{},'Made for the many ways of being human.'),h('a',{href:'#/tools'},'Explore more tools',icon('arrow',16))));
@@ -48,7 +51,7 @@ export function renderProducts(root,ctx) {
   function paint(){
     mount(chips,groups.map(g=>h('button',{class:`chip ${g===filter?'on':''}`,'aria-pressed':String(g===filter),onclick:()=>{filter=g;paint();}},g)));
     const list=PRODUCTS.filter(r=>(filter==='All experiences'||r.group===filter)&&`${r.title} ${r.short} ${r.tagline}`.toLowerCase().includes(query.toLowerCase()));
-    count.textContent=`${list.length} of 15 experiences`;
+    count.textContent=`${list.length} of 18 experiences`;
     mount(grid,list.length?list.map(productCard):empty('No matches yet.','Try another word or choose a different category.'));
   }
   mount(root,h('section',{class:'page hub-page rise'},h('div',{class:'page-intro'},h('p',{class:'eyebrow'},'YOUR EXPLORATION SPACE'),h('h1',{class:'display'},'Many ways. One you.'),h('p',{class:'lede'},'Sound, reflection, small practices, and worlds to get lost in. Open what calls to you.')),h('div',{class:'search-wrap'},icon('search',21),input),chips,count,grid));paint();
@@ -56,16 +59,27 @@ export function renderProducts(root,ctx) {
 
 export async function renderProduct(root,{id},ctx) {
   const r=productById(id);if(!r)return mount(root,empty('Experience not found.','Choose an experience from Explore.'));
-  ctx.setHue(r.hue);const list=h('div',{class:'unit-list'}),sub=h('div',{class:'product-content'}),st=state.view.realms[r.id];
+  ctx.setHue(r.hue);const list=h('div',{class:'unit-list'}),sub=h('div',{class:'product-content',id:'flow-collection'}),chapter=chapterFor(id);
   const progress=sequenceProgress(r.id,r.count||0),next=progress.next;
   const cta=r.id==='rewire'?'#/wallpapers':r.kind==='experience'?`#/experience/${r.id}`:r.id==='protocol'?`#/listen/${next}`:`#/browse/${r.id}/${next}`;
-  const intro=h('div',{class:'product-detail-hero',style:{'--tile':r.color,'--tile-ink':r.ink}},h('div',{},h('a',{href:'#/products',class:'back-link'},icon('back',16),'All experiences'),h('p',{class:'eyebrow'},`${r.number} / 15 · ${r.group}`),h('h1',{class:'display'},r.title),h('p',{class:'lede'},r.tagline),h('div',{class:'hero-actions'},goLink(cta,r.id==='rewire'?'Explore all wallpapers':r.kind==='experience'?'Enter experience':progress.visited?'Continue exploring':'Start exploring'),null),h('span',{class:'detail-meta'},r.short)),h('div',{class:'detail-art','aria-hidden':'true'},artEl(r)));
-  const page=h('section',{class:'page hub-page rise'},intro,sub);mount(root,page);
-  if(r.kind==='experience'){mount(sub,h('div',{class:'experience-about'},h('h2',{},'Make a little space.'),h('p',{class:'lede'},'Open full-screen if you like. Sound begins when you choose it. Come back whenever you need a moment.'),h('div',{class:'chips'},h('span',{class:'chip'},'Open any time'),h('span',{class:'chip'},'Sound controls inside'),h('span',{class:'chip'},'Your pace'))));return;}
-  if(r.id==='rewire'){mount(sub,sectionHead('A NEW COLOUR FOR EVERY DAY','All 30 are ready.','#/wallpapers','Open the wallpaper studio'),h('div',{class:'wallpaper-mini-grid'},[1,3,8,14].map(i=>h('a',{href:'#/wallpapers'},h('img',{src:`/wallpapers/thumb-${String(i).padStart(2,'0')}.webp`,alt:`Preview wallpaper ${i}`,loading:'lazy'})))));return;}
+  const identity=PORTAL_IDENTITIES[id];
+  const intro=h('div',{class:`product-detail-hero ${identity?'experience-portal':''}`,id:'flow-overview',style:{'--tile':r.color,'--tile-ink':r.ink,...(identity?{'--portal-page':identity.page,'--portal-accent':identity.accent,'--portal-rgb':identity.rgb}:{})}},
+    h('div',{class:'portal-copy'},h('a',{href:`#/home/${chapter.id}`,class:'back-link'},icon('back',16),'All experiences'),h('p',{class:'eyebrow'},`${r.number} / 18 · ${chapter.name}`),h('h1',{class:'display'},r.title),identity&&h('p',{class:'portal-line'},identity.line),h('p',{class:'lede'},identity?.intro||r.tagline),h('div',{class:'hero-actions'},goLink(cta,progress.visited&&r.id==='protocol'?'Continue your listening':identity?.enter||(r.kind==='experience'?'Enter experience':'Begin experience'))),h('span',{class:'detail-meta'},r.short)),
+    h('div',{class:'detail-art portal-art','aria-hidden':'true'},identity?svgEl(experiencePoster(id)):artEl(r),identity&&h('span',{class:'portal-caption'},identity.caption)));
+  const bridge=productBridge(id);bridge.id='flow-next';
+  const detailTabs=h('nav',{class:'product-detail-tabs','aria-label':'Inside this experience'});
+  [['flow-overview','Overview'],['flow-collection',r.kind==='experience'?'Inside':r.id==='rewire'?'Artworks':'Collection'],['flow-next','Where next']].forEach(([target,label],i)=>{const button=h('button',{class:i===0?'active':'',onclick:()=>{detailTabs.querySelectorAll('button').forEach(b=>{b.classList.toggle('active',b===button);b.setAttribute('aria-pressed',String(b===button));});page.querySelector(`#${target}`).scrollIntoView({behavior:document.documentElement.dataset.motion==='reduced'||matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth',block:'start'});},'aria-pressed':String(i===0)},label);detailTabs.append(button);});
+  const page=h('section',{class:`page hub-page product-flow-page ${identity?'portal-flow-page':''}`},flowBreadcrumbs(id),intro,detailTabs,sub,bridge);mount(root,page);
+  const anchors=[intro,sub,bridge];
+  const sectionObserver=new IntersectionObserver(entries=>{const active=entries.filter(e=>e.isIntersecting).sort((a,b)=>Math.abs(a.boundingClientRect.top)-Math.abs(b.boundingClientRect.top))[0];if(!active)return;const index=anchors.indexOf(active.target);detailTabs.querySelectorAll('button').forEach((button,i)=>{button.classList.toggle('active',i===index);button.setAttribute('aria-pressed',String(i===index));});},{rootMargin:'-18% 0px -55% 0px',threshold:0});
+  anchors.forEach(a=>sectionObserver.observe(a));page.addEventListener('ugt:leave',()=>sectionObserver.disconnect());
+  const orientation=identity&&h('section',{class:'portal-orientation'},h('div',{class:'portal-orientation-heading'},h('p',{class:'eyebrow'},'A WAY INTO THIS EXPERIENCE'),h('h2',{},identity.inside)),h('ol',{class:'portal-steps'},identity.steps.map(([title,text],i)=>h('li',{},h('span',{class:'portal-step-number'},String(i+1).padStart(2,'0')),h('div',{},h('h3',{},title),h('p',{},text))))));
+  if(r.kind==='experience'){mount(sub,orientation||h('div',{class:'experience-about'},h('h2',{},'Make a little space.')),h('div',{class:'portal-inside-actions'},goLink(cta,identity?.enter||'Enter experience'),h('span',{class:'fine'},'Sound starts inside the experience. Your own pace, always.')));return;}
+  if(r.id==='rewire'){mount(sub,orientation,sectionHead('THIRTY DISTINCT ARTWORKS','A reminder worth keeping.','#/wallpapers','Open the wallpaper studio'),h('div',{class:'wallpaper-mini-grid'},[1,3,8,14].map(i=>h('a',{href:'#/wallpapers'},h('img',{src:`/wallpapers/thumb-${String(i).padStart(2,'0')}.webp`,alt:`Preview wallpaper ${i}`,loading:'lazy'})))));return;}
   const query=h('input',{type:'search',class:'catalogue-search',placeholder:`Search all ${r.count} ${r.unit.toLowerCase()}s…`,'aria-label':`Search ${r.title}`});
   const tabs=h('div',{class:'chips'});const lessonView=h('div',{class:'lesson-view'},h('div',{class:'search-wrap'},icon('search',20),query),list);const scenariosView=h('div',{class:'escape-view',hidden:true});
-  mount(sub,h('div',{class:'section-heading'},h('div',{},h('p',{class:'eyebrow'},'THE COMPLETE COLLECTION'),h('h2',{},r.id==='escape'?'From noticing to choosing.':`Explore every ${r.unit.toLowerCase()}.`)),h('span',{class:'fine'},'Pick any page. Your place is kept.')),r.id==='escape'&&tabs,lessonView,scenariosView);
+  mount(sub,orientation,h('div',{class:'section-heading'},h('div',{},h('p',{class:'eyebrow'},'THE COMPLETE COLLECTION'),h('h2',{},r.id==='escape'?'From noticing to choosing.':`Explore every ${r.unit.toLowerCase()}.`)),h('span',{class:'fine'},'Pick any page. Your place is kept.')),r.id==='escape'&&tabs,lessonView,scenariosView);
+  if(r.id==='clarity')sub.prepend(h('a',{class:'companion-invitation',href:'#/tool/a-world-within'},icon('sparkle',30),h('div',{},h('h3',{},'A World Within'),h('p',{},'An affirmation companion to Clarity. Touch, explore and let a useful thought find you.')),h('span',{class:'text-link'},'Open companion',icon('arrow',16))));
   if(r.id==='escape'){
     let active='lessons';const paintTabs=()=>mount(tabs,['lessons','situations'].map(t=>h('button',{class:`chip ${active===t?'on':''}`,'aria-pressed':String(active===t),onclick:()=>{active=t;lessonView.hidden=t!=='lessons';scenariosView.hidden=t!=='situations';paintTabs();}},t==='lessons'?'21 lessons':'105 real-life situations')));paintTabs();
     renderEscapeScenarios(scenariosView);

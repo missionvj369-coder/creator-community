@@ -1,0 +1,12 @@
+THE STILL ROOM — HUMAN WITHIN
+
+Original guidance, visual direction and ambient composition for this app.
+Music: procedural warm pads, sparse felt-like notes and filtered ambience. No external samples.
+Narration: an original script, rendered using the stock synthetic af_heart voice from Kokoro v1.0.
+Model license: Apache-2.0 — https://github.com/hexgrad/kokoro
+Offline rendering runtime: kokoro-onnx, MIT — https://github.com/thewh1teagle/kokoro-onnx
+This is not an imitation of an identified person.
+
+An invitation to rest; no promise of a specific feeling, sleep stage, or medical outcome.
+Five-minute daytime and bedtime options. An optional twenty-minute bedtime practice.
+Research, limitations and exact timing: /meditation/research.html

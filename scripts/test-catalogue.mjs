@@ -7,9 +7,11 @@ const root=path.resolve('public');
 const json=name=>JSON.parse(fs.readFileSync(path.join(root,'content',name+'.json'),'utf8'));
 // Exercise every extracted content unit, including the final index in each path.
 globalThis.fetch=async url=>({ok:true,json:async()=>JSON.parse(fs.readFileSync(path.join(root,url.replace(/^\//,'')),'utf8'))});
-assert.equal(PRODUCTS.length,15);assert.equal(new Set(PRODUCTS.map(p=>p.id)).size,15);
+assert.equal(PRODUCTS.length,18);assert.equal(new Set(PRODUCTS.map(p=>p.id)).size,18);
 let units=0;
 for(const p of PRODUCTS){
+  if(p.kind==='discovery'){assert.ok(p.intro&&p.short&&p.title);continue;}
+  if(p.kind==='studio'){assert.ok(p.tagline&&p.short&&p.title);assert.ok(fs.statSync('public/js/views/studios.js').size>10000);continue;}
   if(p.kind==='experience'){assert.ok(fs.statSync(path.join(root,'realms',p.file)).size>1000);continue;}
   for(let i=0;i<p.count;i++){const u=await unit(p.id,i);assert.ok(u.title.trim(),`${p.id}:${i} needs a title`);assert.ok(u.blocks.length,`${p.id}:${i} needs content`);units++;}
 }
@@ -27,7 +29,7 @@ for(const w of wallpapers){
  assert.ok(fs.statSync(path.join(root,w.thumb)).size>1000);
 }
 assert.ok(fs.statSync(path.join(root,'wallpapers/human-within-all-30.zip')).size>100000);
-console.log(`catalogue: 15 products, ${units} content units, 105 situations, 6 eBooks, and all 30 wallpaper originals passed`);
+console.log(`catalogue: 18 products, ${units} content units, 105 situations, 6 eBooks, and all 30 wallpaper originals passed`);
 // The performance fix must retain every referenced asset and all offline downloads.
 for(const b of books){
  const reader=fs.readFileSync(path.join(root,b.file),'utf8');assert.ok(reader.length<1500000,`${b.id} reader must not contain every bitmap`);

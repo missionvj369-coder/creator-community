@@ -1,0 +1,45 @@
+import assert from 'node:assert/strict';
+import { DAILY_PROGRAMS, DAILY_STAGES, normaliseDailyPlan, migrateDailyPlan, planForDay, completeDaily, checkpointDaily, dailyDate, dailyTotals } from '../public/js/daily-plan-model.js';
+import { normaliseSpace, validateBackup, sessionRecord, summaryOf } from '../public/js/space-model.js';
+const now=Date.UTC(2026,10,5,8),dayMs=86400000;
+const fresh=()=>migrateDailyPlan({tz:'Asia/Kolkata',space:{sessions:[]}},now);
+assert.equal(DAILY_PROGRAMS.length,15);assert.equal(new Set(DAILY_PROGRAMS.map(r=>r.id)).size,15);
+assert.equal(DAILY_PROGRAMS.filter(r=>r.length).length,9);assert.equal(DAILY_PROGRAMS.filter(r=>!r.length).length,6);
+assert(!DAILY_PROGRAMS.some(r=>r.id.includes('book')));assert.deepEqual(DAILY_STAGES.map(s=>s.id),['morning','day','evening']);
+let p=fresh();let view=planForDay(p,now);assert.equal(view.total,15);assert.equal(view.next.id,'protocol');
+const finish=(plan,at)=>{const d=planForDay(plan,at),r=d.next;return completeDaily(plan,{id:r.id,idx:r.idx,day:d.date,seconds:r.minimum},at);};
+assert.throws(()=>completeDaily(p,{id:'clarity',idx:0,day:view.date,seconds:90},now),/place/);
+assert.throws(()=>completeDaily(p,{id:'protocol',idx:0,day:view.date,seconds:179},now),/longer/);
+const untouched=JSON.stringify(p);assert.equal(untouched,JSON.stringify(p));
+p=checkpointDaily(p,{id:'protocol',idx:0,seconds:75},now);assert.equal(planForDay(p,now).draft.seconds,75);
+p=checkpointDaily(p,{id:'protocol',idx:0,seconds:76,note:'Keep this draft.'},now);assert.equal(normaliseSpace({dailyPlan:p}).dailyPlan.draft.note,'Keep this draft.');
+p=checkpointDaily(p,{id:'protocol',idx:0,seconds:77},now);assert.equal(p.draft.note,'Keep this draft.','a timer checkpoint must preserve a typed reflection');
+p=checkpointDaily(p,{id:'clarity',idx:0,seconds:999},now);assert.equal(p.draft.id,'protocol','out-of-order checkpoints cannot change the current step');
+p=finish(p,now);assert.equal(p.draft,null);assert.equal(planForDay(p,now).next.id,'clarity');
+const once=JSON.stringify(p);p=completeDaily(p,{id:'protocol',idx:0,day:view.date,seconds:180},now);assert.equal(JSON.stringify(p),once,'double taps are idempotent');
+assert.throws(()=>completeDaily(p,{id:'clarity',idx:0,day:view.date,seconds:90},now+dayMs),/new day/);
+assert.equal(planForDay(p,now+7*dayMs).next.idx,1,'missed calendar days do not skip lessons');
+assert.equal(planForDay(p,now+7*dayMs).items.find(r=>r.id==='clarity').idx,0,'an unfinished course keeps its own place');
+const carry=migrateDailyPlan({tz:'UTC',ptr:{protocol:2},lastDone:{protocol:'2026-11-04'},space:{sessions:[{route:'#/browse/clarity/0',completed:true,at:now-dayMs},{route:'#/browse/clarity/2',completed:true,at:now-dayMs}]}},now);
+assert.equal(carry.items.protocol.completed,2);assert.equal(carry.items.clarity.completed,1,'migration must not jump over a missing lesson');
+assert.equal(migrateDailyPlan({tz:'UTC',space:{dailyPlan:carry}},now).items.protocol.completed,2,'migration is applied once');
+let coursePlan=fresh();const expected={1:15,21:15,22:12,30:12,31:10,32:10,33:9,55:9,56:8,66:8,67:7,99:7,100:6};
+for(let day=1;day<=100;day++){
+ const at=now+(day-1)*dayMs,before=planForDay(coursePlan,at);
+ if(expected[day]!==undefined)assert.equal(before.total,expected[day],`day ${day} active count`);
+ let loops=0;while(!planForDay(coursePlan,at).complete){coursePlan=finish(coursePlan,at);assert(++loops<=15);}
+ const done=planForDay(coursePlan,at);assert.equal(done.done,done.total);assert.equal(coursePlan.finishedDays,day);
+ assert.equal(coursePlan.items.protocol.completed,Math.min(day,21));assert.equal(coursePlan.items.clarity.completed,Math.min(day,30));assert.equal(coursePlan.items.awakening.completed,Math.min(day,66));
+ assert.equal(coursePlan.items.frequency.completed,day,'repeatable experiences continue when courses finish');
+}
+assert.equal(planForDay(coursePlan,now+100*dayMs).finished.length,9);assert.equal(planForDay(coursePlan,now+100*dayMs).next.id,'frequency');
+assert.equal(coursePlan.items.thoughts.completed,99);assert.equal(coursePlan.items.loop.completed,21);
+const midnight=Date.UTC(2026,10,5,18,29,59);assert.equal(dailyDate(midnight,'Asia/Kolkata'),'2026-11-05');assert.equal(dailyDate(midnight+1000,'Asia/Kolkata'),'2026-11-06');
+assert.equal(dailyDate(now,'bad zone'),'2026-11-05');
+let backupSpace=normaliseSpace({dailyPlan:coursePlan,books:{'human-journey':{page:23,total:300}}});
+const backup=validateBackup({app:'human-within',version:1,profile:{name:'Vijay'},progress:backupSpace});assert.deepEqual(backup.space.dailyPlan,coursePlan);assert.equal(backup.space.books['human-journey'].page,23);
+backupSpace=sessionRecord(backupSpace,{id:'daily-one',route:'#/daily/protocol',title:'Daily sound',kind:'Daily practice',seconds:180,completed:true,at:now});
+assert.equal(summaryOf(backupSpace,now,'Asia/Kolkata').completed,dailyTotals(coursePlan).completed,'the ledger keeps lifetime totals after the recent-session list rolls over');
+assert.equal(normaliseDailyPlan({items:{protocol:{completed:1e9},bogus:{completed:99}}}).items.protocol.completed,21);
+assert(!Object.hasOwn(normaliseDailyPlan({items:{bogus:{completed:99}}}).items,'bogus'));
+console.log('daily plan: all 15 in order, once per local day, real completion, saved partials, safe migration, missed days, midnight, backup and 100 days of independent course finishes passed');

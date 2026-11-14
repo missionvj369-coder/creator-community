@@ -58,12 +58,12 @@ function unitStation(s, isNext, doc, ctx) {
   return el;
 }
 function sealStation(s, ready, ctx) {
-  let after = null; const note = h('textarea', { rows: 2, maxlength: 400, placeholder: 'One line to carry into tomorrow (optional)…', 'aria-label': 'One line to carry' });
+  let after = null; const note = {value:''};
   const btn = h('button', { class: 'btn primary wide', disabled: true, onclick: async () => { btn.disabled = true; try { await act('seal', { after, note: note.value }); ctx.render(); } catch (e) { toast(humanError(e)); btn.disabled = false; } } }, 'Seal today');
   const chips = E.AFTER.map(a => h('button', { class: 'chip', 'aria-pressed': 'false', onclick: ev => { after = a.id; chips.forEach(c => { c.classList.remove('on'); c.setAttribute('aria-pressed', 'false'); }); ev.currentTarget.classList.add('on'); ev.currentTarget.setAttribute('aria-pressed', 'true'); btn.disabled = false; } }, a.label));
   return h('li', { class: `station seal ${ready ? 'next' : 'locked'}` }, h('span', { class: 'node', 'aria-hidden': 'true' }, icon(ready ? 'star' : 'lock', 16)),
     h('div', { class: 'st-card static' }, h('span', { class: 'st-body' }, h('span', { class: 'st-role' }, 'Seal'), h('span', { class: 'st-name' }, 'Close the gate'), ready
-      ? h('div', { class: 'seal-form' }, h('p', { class: 'fine' }, 'How do you leave?'), h('div', { class: 'chips' }, chips), note, btn)
+      ? h('div', { class: 'seal-form' }, h('p', { class: 'fine' }, 'How do you leave?'), h('div', { class: 'chips' }, chips), btn)
       : h('span', { class: 'st-title' }, 'Opens when every station above is lived.'))));
 }
 function invite(g, doc, ctx) {

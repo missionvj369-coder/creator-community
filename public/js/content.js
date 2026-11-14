@@ -5,7 +5,7 @@ import { sentenceCase, titleCase, wordCount } from './ui.js';
 
 const cache = {};
 async function load(name) {
-  if (!cache[name]) cache[name] = fetch(`/content/${name}.json`).then(r => { if (!r.ok) throw new Error(`Could not load ${name}`); return r.json(); });
+  if (!cache[name]) cache[name] = fetch(`/content/${name}.json`).then(r => { if (!r.ok) throw new Error(`Could not load ${name}`); return r.json(); }).catch(error=>{delete cache[name];throw error;});
   return cache[name];
 }
 const P = text => ({ t: 'p', text });
@@ -14,19 +14,19 @@ const NOTE = (label, text) => ({ t: 'note', label, text });
 const H = text => ({ t: 'h', text });
 
 const BAND = {
-  delta: { name: 'Delta', line: 'The slowest rhythm — the one of deep rest.', how: 'Let your eyes soften. There is nothing to do except let your breath get longer than your thoughts.' },
-  theta: { name: 'Theta', line: 'The drifting rhythm between waking and dreaming.', how: 'Let images come and go. Follow the slow exhale all the way down.' },
-  alpha: { name: 'Alpha', line: 'The relaxed, wakeful rhythm of calm attention.', how: 'Sit tall and loose. Rest your attention on the sound, and return to it each time you wander.' },
-  beta: { name: 'Beta', line: 'The alert rhythm of focus and engagement.', how: 'Keep a gentle brightness in the face and chest. Breathe evenly and stay lightly awake.' },
-  gamma: { name: 'Gamma', line: 'The fast rhythm of vivid, integrated attention.', how: 'Notice everything at once — sound, breath, body, room — without gripping any of it.' },
+  delta: { name: 'Delta', line: 'A low-rate audio beat for a quiet listening pause.', how: 'Rest comfortably. Let your breathing keep its own pace.' },
+  theta: { name: 'Theta', line: 'A slowly pulsing audio texture.', how: 'Let images come and go. Follow the slow exhale all the way down.' },
+  alpha: { name: 'Alpha', line: 'A steady audio pulse for a listening pause.', how: 'Sit tall and loose. Rest your attention on the sound, and return to it each time you wander.' },
+  beta: { name: 'Beta', line: 'A quicker audio pulse for attentive listening.', how: 'Keep a gentle brightness in the face and chest. Breathe evenly and stay lightly awake.' },
+  gamma: { name: 'Gamma', line: 'A fast audio pulse for a different listening texture.', how: 'Notice everything at once — sound, breath, body, room — without gripping any of it.' },
 };
 
 const builders = {
   async protocol(i) {
     const d = (await load('protocol'))[i]; const b = BAND[d.b];
-    return { kicker: `${b.name} · ${d.f} Hz beat · ${d.c} Hz carrier`, title: d.n, lead: b.line, session: d, blocks: [
+    return { kicker: `${b.name} audio pattern · ${d.f} Hz beat · ${d.c} Hz carrier`, title: d.n, lead: b.line, session: d, blocks: [
       CARD('How to sit with it', `${b.how} Three minutes, eyes soft or closed.`), P('Headphones are best — the effect is made of a slightly different tone in each ear. Keep the volume low and comfortable.'),
-      NOTE('A gentle note', 'Binaural beats may help some people relax; they are not medical treatment. If you feel dizzy or unwell, stop. Never use while driving.')], motif: 'protocol', words: 90 };
+      NOTE('A gentle note', 'These are generated audio patterns, not measurements or guarantees of a brain state, dopamine change or medical outcome. Breathe comfortably. Stop if dizzy or unwell. Never use while driving.')], motif: 'protocol', words: 90 };
   },
   async clarity(i) {
     const d = (await load('clarity'))[i];
@@ -59,7 +59,7 @@ const builders = {
   },
   async escape(i) {
     const [tr, pr] = await Promise.all([load('p3truths'), load('p3prompts')]);
-    return { kicker: `Lesson ${i + 1} of 21`, title: tr[i].title, lead: tr[i].body, blocks: [H('Test it'), { t: 'prompt', label: pr[i].title, text: pr[i].prompt }, NOTE('How to use', 'Copy the prompt into any AI assistant (or write the answers by hand). Replace the [bracketed part] with your real situation.')], motif: 'escape', words: 100 };
+    return { kicker: `Lesson ${i + 1} of 21`, title: tr[i].title, lead: tr[i].body, blocks: [H('Try a small moment'), CARD(pr[i].title, pr[i].practice), NOTE('Your pace', 'Follow the invitation gently. You can pause or move on whenever you wish.')], motif: 'escape', words: 100 };
   },
   async loop(i) {
     const d = (await load('loop'))[i];

@@ -1,0 +1,575 @@
+{
+  "method": "FFmpeg loudnorm input measurements on decoded shipped AAC files; before app volume and mixing. This verifies file levels, not listening quality or device output.",
+  "assets": [
+    {
+      "file": "/cinema/audio/arrival.m4a",
+      "duration": 62.5,
+      "sampleRate": 48000,
+      "channels": 2,
+      "integratedLUFS": -23.02,
+      "truePeakDBTP": -6.09,
+      "loudnessRangeLU": 4.5,
+      "bytes": 1979622
+    },
+    {
+      "file": "/cinema/audio/atelier.m4a",
+      "duration": 62.5,
+      "sampleRate": 48000,
+      "channels": 2,
+      "integratedLUFS": -23.01,
+      "truePeakDBTP": -12.27,
+      "loudnessRangeLU": 2.2,
+      "bytes": 1959032
+    },
+    {
+      "file": "/cinema/audio/awakening-voice.m4a",
+      "duration": 9.0,
+      "sampleRate": 48000,
+      "channels": 1,
+      "integratedLUFS": -20.13,
+      "truePeakDBTP": -3.04,
+      "loudnessRangeLU": 1.6,
+      "bytes": 170682
+    },
+    {
+      "file": "/cinema/audio/belonging.m4a",
+      "duration": 62.5,
+      "sampleRate": 48000,
+      "channels": 2,
+      "integratedLUFS": -23.02,
+      "truePeakDBTP": -8.53,
+      "loudnessRangeLU": 4.0,
+      "bytes": 1995468
+    },
+    {
+      "file": "/cinema/audio/body-voice.m4a",
+      "duration": 8.1,
+      "sampleRate": 48000,
+      "channels": 1,
+      "integratedLUFS": -20.82,
+      "truePeakDBTP": -3.42,
+      "loudnessRangeLU": 1.7,
+      "bytes": 153212
+    },
+    {
+      "file": "/cinema/audio/clarity-voice.m4a",
+      "duration": 9.4,
+      "sampleRate": 48000,
+      "channels": 1,
+      "integratedLUFS": -20.13,
+      "truePeakDBTP": -3.8,
+      "loudnessRangeLU": 1.5,
+      "bytes": 182371
+    },
+    {
+      "file": "/cinema/audio/complete-cue.m4a",
+      "duration": 2.2,
+      "sampleRate": 48000,
+      "channels": 2,
+      "integratedLUFS": -33.19,
+      "truePeakDBTP": -23.99,
+      "loudnessRangeLU": 0.0,
+      "bytes": 25689
+    },
+    {
+      "file": "/cinema/audio/connection.m4a",
+      "duration": 62.5,
+      "sampleRate": 48000,
+      "channels": 2,
+      "integratedLUFS": -23.0,
+      "truePeakDBTP": -7.29,
+      "loudnessRangeLU": 4.4,
+      "bytes": 2003326
+    },
+    {
+      "file": "/cinema/audio/curiosity.m4a",
+      "duration": 62.5,
+      "sampleRate": 48000,
+      "channels": 2,
+      "integratedLUFS": -23.0,
+      "truePeakDBTP": -12.44,
+      "loudnessRangeLU": 3.4,
+      "bytes": 1917794
+    },
+    {
+      "file": "/cinema/audio/ebooks-voice.m4a",
+      "duration": 7.3,
+      "sampleRate": 48000,
+      "channels": 1,
+      "integratedLUFS": -19.63,
+      "truePeakDBTP": -3.01,
+      "loudnessRangeLU": 0.5,
+      "bytes": 139756
+    },
+    {
+      "file": "/cinema/audio/enter-cue.m4a",
+      "duration": 1.4,
+      "sampleRate": 48000,
+      "channels": 2,
+      "integratedLUFS": -32.81,
+      "truePeakDBTP": -23.99,
+      "loudnessRangeLU": 0.0,
+      "bytes": 20491
+    },
+    {
+      "file": "/cinema/audio/escape-voice.m4a",
+      "duration": 8.1,
+      "sampleRate": 48000,
+      "channels": 1,
+      "integratedLUFS": -20.51,
+      "truePeakDBTP": -3.15,
+      "loudnessRangeLU": 1.0,
+      "bytes": 153269
+    },
+    {
+      "file": "/cinema/audio/firstlight.m4a",
+      "duration": 62.5,
+      "sampleRate": 48000,
+      "channels": 2,
+      "integratedLUFS": -23.01,
+      "truePeakDBTP": -6.4,
+      "loudnessRangeLU": 4.4,
+      "bytes": 1977864
+    },
+    {
+      "file": "/cinema/audio/frequency-voice.m4a",
+      "duration": 9.8,
+      "sampleRate": 48000,
+      "channels": 1,
+      "integratedLUFS": -19.53,
+      "truePeakDBTP": -3.01,
+      "loudnessRangeLU": 1.9,
+      "bytes": 189450
+    },
+    {
+      "file": "/cinema/audio/home-voice.m4a",
+      "duration": 8.6,
+      "sampleRate": 48000,
+      "channels": 1,
+      "integratedLUFS": -20.94,
+      "truePeakDBTP": -3.3,
+      "loudnessRangeLU": 2.6,
+      "bytes": 159761
+    },
+    {
+      "file": "/cinema/audio/homeward.m4a",
+      "duration": 62.5,
+      "sampleRate": 48000,
+      "channels": 2,
+      "integratedLUFS": -23.01,
+      "truePeakDBTP": -8.53,
+      "loudnessRangeLU": 3.6,
+      "bytes": 1988256
+    },
+    {
+      "file": "/cinema/audio/invisible.m4a",
+      "duration": 62.5,
+      "sampleRate": 48000,
+      "channels": 2,
+      "integratedLUFS": -23.01,
+      "truePeakDBTP": -12.04,
+      "loudnessRangeLU": 3.2,
+      "bytes": 1962903
+    },
+    {
+      "file": "/cinema/audio/journey-voice.m4a",
+      "duration": 8.4,
+      "sampleRate": 48000,
+      "channels": 1,
+      "integratedLUFS": -21.06,
+      "truePeakDBTP": -3.15,
+      "loudnessRangeLU": 3.4,
+      "bytes": 158768
+    },
+    {
+      "file": "/cinema/audio/living.m4a",
+      "duration": 62.5,
+      "sampleRate": 48000,
+      "channels": 2,
+      "integratedLUFS": -23.02,
+      "truePeakDBTP": -5.95,
+      "loudnessRangeLU": 2.9,
+      "bytes": 2017748
+    },
+    {
+      "file": "/cinema/audio/loop-voice.m4a",
+      "duration": 8.5,
+      "sampleRate": 48000,
+      "channels": 1,
+      "integratedLUFS": -20.2,
+      "truePeakDBTP": -3.93,
+      "loudnessRangeLU": 1.7,
+      "bytes": 164748
+    },
+    {
+      "file": "/cinema/audio/mirror-voice.m4a",
+      "duration": 7.3,
+      "sampleRate": 48000,
+      "channels": 1,
+      "integratedLUFS": -19.62,
+      "truePeakDBTP": -3.01,
+      "loudnessRangeLU": 0.8,
+      "bytes": 141005
+    },
+    {
+      "file": "/cinema/audio/mirror2-voice.m4a",
+      "duration": 7.5,
+      "sampleRate": 48000,
+      "channels": 1,
+      "integratedLUFS": -20.81,
+      "truePeakDBTP": -4.21,
+      "loudnessRangeLU": 1.8,
+      "bytes": 140874
+    },
+    {
+      "file": "/cinema/audio/nightfall.m4a",
+      "duration": 62.5,
+      "sampleRate": 48000,
+      "channels": 2,
+      "integratedLUFS": -23.01,
+      "truePeakDBTP": -7.09,
+      "loudnessRangeLU": 3.9,
+      "bytes": 1968645
+    },
+    {
+      "file": "/cinema/audio/onegod-voice.m4a",
+      "duration": 8.8,
+      "sampleRate": 48000,
+      "channels": 1,
+      "integratedLUFS": -20.27,
+      "truePeakDBTP": -3.74,
+      "loudnessRangeLU": 1.8,
+      "bytes": 170188
+    },
+    {
+      "file": "/cinema/audio/opening-follow-0-voice.m4a",
+      "duration": 6.4,
+      "sampleRate": 48000,
+      "channels": 1,
+      "integratedLUFS": -19.48,
+      "truePeakDBTP": -3.0,
+      "loudnessRangeLU": 0.6,
+      "bytes": 125161
+    },
+    {
+      "file": "/cinema/audio/opening-follow-16000-voice.m4a",
+      "duration": 7.3,
+      "sampleRate": 48000,
+      "channels": 1,
+      "integratedLUFS": -19.57,
+      "truePeakDBTP": -2.99,
+      "loudnessRangeLU": 1.4,
+      "bytes": 131361
+    },
+    {
+      "file": "/cinema/audio/opening-notice-0-voice.m4a",
+      "duration": 6.6,
+      "sampleRate": 48000,
+      "channels": 1,
+      "integratedLUFS": -20.75,
+      "truePeakDBTP": -4.05,
+      "loudnessRangeLU": 3.0,
+      "bytes": 117100
+    },
+    {
+      "file": "/cinema/audio/opening-notice-15500-voice.m4a",
+      "duration": 5.4,
+      "sampleRate": 48000,
+      "channels": 1,
+      "integratedLUFS": -21.19,
+      "truePeakDBTP": -3.07,
+      "loudnessRangeLU": 3.3,
+      "bytes": 103543
+    },
+    {
+      "file": "/cinema/audio/opening-return-0-voice.m4a",
+      "duration": 6.8,
+      "sampleRate": 48000,
+      "channels": 1,
+      "integratedLUFS": -20.48,
+      "truePeakDBTP": -3.0,
+      "loudnessRangeLU": 1.4,
+      "bytes": 116799
+    },
+    {
+      "file": "/cinema/audio/opening-reveal-2200-voice.m4a",
+      "duration": 3.7,
+      "sampleRate": 48000,
+      "channels": 1,
+      "integratedLUFS": -20.21,
+      "truePeakDBTP": -2.99,
+      "loudnessRangeLU": 2.2,
+      "bytes": 66153
+    },
+    {
+      "file": "/cinema/audio/opening-settle-0-voice.m4a",
+      "duration": 4.9,
+      "sampleRate": 48000,
+      "channels": 1,
+      "integratedLUFS": -19.87,
+      "truePeakDBTP": -3.84,
+      "loudnessRangeLU": 0.8,
+      "bytes": 94530
+    },
+    {
+      "file": "/cinema/audio/opening-settle-14500-voice.m4a",
+      "duration": 4.2,
+      "sampleRate": 48000,
+      "channels": 1,
+      "integratedLUFS": -20.91,
+      "truePeakDBTP": -5.5,
+      "loudnessRangeLU": 2.6,
+      "bytes": 78948
+    },
+    {
+      "file": "/cinema/audio/opening-welcome-500-voice.m4a",
+      "duration": 7.6,
+      "sampleRate": 48000,
+      "channels": 1,
+      "integratedLUFS": -20.91,
+      "truePeakDBTP": -3.3,
+      "loudnessRangeLU": 3.4,
+      "bytes": 140838
+    },
+    {
+      "file": "/cinema/audio/opening.m4a",
+      "duration": 62.5,
+      "sampleRate": 48000,
+      "channels": 2,
+      "integratedLUFS": -23.0,
+      "truePeakDBTP": -7.11,
+      "loudnessRangeLU": 4.0,
+      "bytes": 1967483
+    },
+    {
+      "file": "/cinema/audio/origins.m4a",
+      "duration": 62.5,
+      "sampleRate": 48000,
+      "channels": 2,
+      "integratedLUFS": -23.02,
+      "truePeakDBTP": -5.81,
+      "loudnessRangeLU": 4.1,
+      "bytes": 2017898
+    },
+    {
+      "file": "/cinema/audio/page-cue.m4a",
+      "duration": 0.38,
+      "sampleRate": 48000,
+      "channels": 2,
+      "integratedLUFS": -Infinity,
+      "truePeakDBTP": -25.07,
+      "loudnessRangeLU": 0.0,
+      "bytes": 9177
+    },
+    {
+      "file": "/cinema/audio/passage-voice.m4a",
+      "duration": 8.8,
+      "sampleRate": 48000,
+      "channels": 1,
+      "integratedLUFS": -20.04,
+      "truePeakDBTP": -3.0,
+      "loudnessRangeLU": 1.4,
+      "bytes": 168151
+    },
+    {
+      "file": "/cinema/audio/passage.m4a",
+      "duration": 62.5,
+      "sampleRate": 48000,
+      "channels": 2,
+      "integratedLUFS": -23.01,
+      "truePeakDBTP": -8.53,
+      "loudnessRangeLU": 3.7,
+      "bytes": 2012684
+    },
+    {
+      "file": "/cinema/audio/patterns.m4a",
+      "duration": 62.5,
+      "sampleRate": 48000,
+      "channels": 2,
+      "integratedLUFS": -23.01,
+      "truePeakDBTP": -6.07,
+      "loudnessRangeLU": 3.8,
+      "bytes": 1981649
+    },
+    {
+      "file": "/cinema/audio/perspective.m4a",
+      "duration": 62.5,
+      "sampleRate": 48000,
+      "channels": 2,
+      "integratedLUFS": -23.01,
+      "truePeakDBTP": -7.33,
+      "loudnessRangeLU": 5.0,
+      "bytes": 2001690
+    },
+    {
+      "file": "/cinema/audio/protocol-voice.m4a",
+      "duration": 8.9,
+      "sampleRate": 48000,
+      "channels": 1,
+      "integratedLUFS": -20.16,
+      "truePeakDBTP": -3.57,
+      "loudnessRangeLU": 1.8,
+      "bytes": 173508
+    },
+    {
+      "file": "/cinema/audio/reading.m4a",
+      "duration": 62.5,
+      "sampleRate": 48000,
+      "channels": 2,
+      "integratedLUFS": -23.01,
+      "truePeakDBTP": -8.68,
+      "loudnessRangeLU": 4.0,
+      "bytes": 1998233
+    },
+    {
+      "file": "/cinema/audio/reflection.m4a",
+      "duration": 62.5,
+      "sampleRate": 48000,
+      "channels": 2,
+      "integratedLUFS": -23.02,
+      "truePeakDBTP": -8.64,
+      "loudnessRangeLU": 3.6,
+      "bytes": 1995524
+    },
+    {
+      "file": "/cinema/audio/resonance.m4a",
+      "duration": 62.5,
+      "sampleRate": 48000,
+      "channels": 2,
+      "integratedLUFS": -23.01,
+      "truePeakDBTP": -9.74,
+      "loudnessRangeLU": 4.0,
+      "bytes": 2008596
+    },
+    {
+      "file": "/cinema/audio/return-cue.m4a",
+      "duration": 1.3,
+      "sampleRate": 48000,
+      "channels": 2,
+      "integratedLUFS": -32.95,
+      "truePeakDBTP": -24.0,
+      "loudnessRangeLU": 0.0,
+      "bytes": 18760
+    },
+    {
+      "file": "/cinema/audio/rewire-voice.m4a",
+      "duration": 9.0,
+      "sampleRate": 48000,
+      "channels": 1,
+      "integratedLUFS": -20.06,
+      "truePeakDBTP": -3.01,
+      "loudnessRangeLU": 1.8,
+      "bytes": 174798
+    },
+    {
+      "file": "/cinema/audio/sanctuary-voice.m4a",
+      "duration": 9.3,
+      "sampleRate": 48000,
+      "channels": 1,
+      "integratedLUFS": -20.51,
+      "truePeakDBTP": -3.02,
+      "loudnessRangeLU": 1.6,
+      "bytes": 175437
+    },
+    {
+      "file": "/cinema/audio/sanctuary.m4a",
+      "duration": 62.5,
+      "sampleRate": 48000,
+      "channels": 2,
+      "integratedLUFS": -23.0,
+      "truePeakDBTP": -7.12,
+      "loudnessRangeLU": 4.1,
+      "bytes": 2014788
+    },
+    {
+      "file": "/cinema/audio/sleep-tail-20.m4a",
+      "duration": 1200.0,
+      "sampleRate": 48000,
+      "channels": 2,
+      "integratedLUFS": -25.89,
+      "truePeakDBTP": -9.13,
+      "loudnessRangeLU": 19.4,
+      "bytes": 21589893
+    },
+    {
+      "file": "/cinema/audio/sleep-voice.m4a",
+      "duration": 8.5,
+      "sampleRate": 48000,
+      "channels": 1,
+      "integratedLUFS": -20.04,
+      "truePeakDBTP": -4.27,
+      "loudnessRangeLU": 1.2,
+      "bytes": 166892
+    },
+    {
+      "file": "/cinema/audio/stillness.m4a",
+      "duration": 62.5,
+      "sampleRate": 48000,
+      "channels": 2,
+      "integratedLUFS": -23.01,
+      "truePeakDBTP": -6.84,
+      "loudnessRangeLU": 3.1,
+      "bytes": 1968666
+    },
+    {
+      "file": "/cinema/audio/thoughts-voice.m4a",
+      "duration": 8.4,
+      "sampleRate": 48000,
+      "channels": 1,
+      "integratedLUFS": -20.14,
+      "truePeakDBTP": -3.34,
+      "loudnessRangeLU": 1.2,
+      "bytes": 160268
+    },
+    {
+      "file": "/cinema/audio/unfolding.m4a",
+      "duration": 62.5,
+      "sampleRate": 48000,
+      "channels": 2,
+      "integratedLUFS": -23.03,
+      "truePeakDBTP": -6.11,
+      "loudnessRangeLU": 3.0,
+      "bytes": 2019871
+    },
+    {
+      "file": "/cinema/audio/wallpapers-voice.m4a",
+      "duration": 7.7,
+      "sampleRate": 48000,
+      "channels": 1,
+      "integratedLUFS": -20.34,
+      "truePeakDBTP": -3.49,
+      "loudnessRangeLU": 2.1,
+      "bytes": 147587
+    },
+    {
+      "file": "/cinema/audio/wonder.m4a",
+      "duration": 62.5,
+      "sampleRate": 48000,
+      "channels": 2,
+      "integratedLUFS": -23.0,
+      "truePeakDBTP": -7.19,
+      "loudnessRangeLU": 4.1,
+      "bytes": 2004853
+    },
+    {
+      "file": "/cinema/audio/you-voice.m4a",
+      "duration": 7.8,
+      "sampleRate": 48000,
+      "channels": 1,
+      "integratedLUFS": -19.71,
+      "truePeakDBTP": -3.3,
+      "loudnessRangeLU": 0.7,
+      "bytes": 152786
+    },
+    {
+      "file": "/videos/welcome-flow.mp4",
+      "duration": 67.1,
+      "sampleRate": 48000,
+      "channels": 2,
+      "integratedLUFS": -20.14,
+      "truePeakDBTP": -5.08,
+      "loudnessRangeLU": 4.4,
+      "bytes": 11822796
+    }
+  ]
+}

@@ -1,0 +1,65 @@
+[
+  {
+    "name": "opening-reveal-2200",
+    "chapter": "reveal",
+    "at": 2200,
+    "chapterDuration": 12000,
+    "text": "Human Within. A quieter world begins within."
+  },
+  {
+    "name": "opening-welcome-500",
+    "chapter": "welcome",
+    "at": 500,
+    "chapterDuration": 15000,
+    "text": "Welcome to Human Within. For the next little while, nothing needs to be solved. Just let this moment be here."
+  },
+  {
+    "name": "opening-settle-0",
+    "chapter": "settle",
+    "at": 0,
+    "chapterDuration": 30000,
+    "text": "Let your hands soften. If it feels comfortable, let your shoulders settle."
+  },
+  {
+    "name": "opening-settle-14500",
+    "chapter": "settle",
+    "at": 14500,
+    "chapterDuration": 30000,
+    "text": "Notice where your body meets the chair, the bed, or the ground."
+  },
+  {
+    "name": "opening-follow-0",
+    "chapter": "follow",
+    "at": 0,
+    "chapterDuration": 30000,
+    "text": "Rest your eyes wherever they feel comfortable. Follow the little light, or let your gaze be still."
+  },
+  {
+    "name": "opening-follow-16000",
+    "chapter": "follow",
+    "at": 16000,
+    "chapterDuration": 30000,
+    "text": "Let your breathing find its own pace. No counting. No holding. Simply notice one breath."
+  },
+  {
+    "name": "opening-notice-0",
+    "chapter": "notice",
+    "at": 0,
+    "chapterDuration": 30000,
+    "text": "Notice one ordinary thing around you. A colour. A texture. A quiet sound."
+  },
+  {
+    "name": "opening-notice-15500",
+    "chapter": "notice",
+    "at": 15500,
+    "chapterDuration": 30000,
+    "text": "You do not need to make this moment feel any particular way. Let it be as it is."
+  },
+  {
+    "name": "opening-return-0",
+    "chapter": "return",
+    "at": 0,
+    "chapterDuration": 11000,
+    "text": "You can carry this pace with you. A little more room. A little less rush. Welcome inside."
+  }
+]

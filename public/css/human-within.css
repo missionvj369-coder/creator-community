@@ -44,3 +44,19 @@ html[data-motion=reduced] *,html[data-motion=reduced] *:before,html[data-motion=
 .profile-welcome>div{min-width:0}.profile-welcome h1{overflow-wrap:anywhere}
 
 .more-moments{align-self:center;font-size:.73rem;margin-top:5px}.recent-subtitle{display:block;color:#8a9b78;font-size:.65rem;margin-top:3px}
+
+/* The artwork for these two covers is separate from its typography. */
+.book-object{container-type:inline-size}
+.book-cover-typography{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;text-align:center;pointer-events:none;padding:10% 9%;z-index:1;overflow:hidden}
+.book-cover-typography .cover-eyebrow{font:500 3.4cqw/1.5 var(--fu);letter-spacing:.17em;margin:0 0 12%;color:inherit}
+.book-cover-typography .cover-title{font:400 14cqw/1.05 var(--fd);letter-spacing:-.025em;display:flex;flex-direction:column;gap:3cqw;color:inherit;max-width:100%}
+.book-cover-typography .cover-subtitle{font:400 4.5cqw/1.7 var(--fu);color:inherit;max-width:22ch}
+.book-cover-typography .cover-author{font:400 4.5cqw/1.65 var(--fu);letter-spacing:.06em;color:inherit;max-width:21ch;margin-top:auto}
+.book-cover-typography.journey{color:#f1dcad;text-shadow:0 1px 8px #06102099;padding-top:12%;padding-bottom:12%}
+.book-cover-typography.journey .cover-title{margin-top:8%;margin-bottom:12%;font-size:16cqw}
+.book-cover-typography.journey .cover-title span:first-child{font-size:9cqw;letter-spacing:.2em}
+.book-cover-typography.parenting{color:#28584e;padding:7% 6% 0}
+.book-cover-typography.parenting .cover-eyebrow{font-size:3.6cqw;margin-bottom:6%}
+.book-cover-typography.parenting .cover-title{font-size:10cqw;line-height:1.16;gap:1cqw;letter-spacing:.01em;margin-bottom:5%}
+.book-cover-typography.parenting .cover-subtitle{font-size:4cqw;line-height:1.5;max-width:25ch}
+.book-object:after{z-index:2}

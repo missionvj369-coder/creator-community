@@ -1,0 +1,14 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="/css/app.css"><link rel="stylesheet" href="/css/human-within.css"><link rel="stylesheet" href="/css/meditation.css"><style>html,body{margin:0;padding:0}#diagnostics{display:none}</style><div id="root"></div><pre id="diagnostics"></pre><script type="module">
+import * as S from '/js/store.js';import {renderMeditation} from '/js/views/meditation.js';
+const args=new URLSearchParams(location.search),preset=args.get('preset')||'arrival',sample=args.get('case')||'ready';let now=0,frames=new Map(),serial=0,player;
+Object.defineProperty(performance,'now',{value:()=>now,configurable:true});window.requestAnimationFrame=fn=>{const id=++serial;frames.set(id,fn);return id;};window.cancelAnimationFrame=id=>frames.delete(id);
+window.Audio=class{constructor(){const a=document.createElement('audio');let current=0,paused=true;Object.defineProperties(a,{currentTime:{get:()=>current,set:v=>current=+v},paused:{get:()=>paused}});a.play=async()=>{paused=false;};a.pause=()=>paused=true;a.load=()=>{};player=a;return a;}};
+const original=localStorage.getItem('ugt.local.v2');await S.boot();if(!S.state.doc)await S.start({name:'QA visitor',intents:[],length:'quick'});
+const controller=renderMeditation(document.querySelector('#root'),{preset});
+for(let i=0;i<300&&document.querySelector('.room-start').disabled;i++)await new Promise(r=>setTimeout(r,10));
+if(sample!=='ready'){document.querySelector('.room-start').click();await Promise.resolve();await Promise.resolve();const seconds=sample==='body'?170:sample==='rest'?250:300;for(let i=0;i<seconds;i++){now+=1000;if(!player.paused){player.currentTime++;player.dispatchEvent(new Event('timeupdate'));}const jobs=[...frames.values()];frames.clear();jobs.forEach(fn=>fn(now));}}
+await new Promise(r=>setTimeout(r,50));
+const rect=selector=>document.querySelector(selector).getBoundingClientRect(),body=rect('.room-player-body'),visual=rect('.room-visual'),words=rect('.room-caption-region'),footer=rect('.room-player-footer');const visible=[...document.querySelector('.room-player-body').children].filter(el=>el.getBoundingClientRect().height>0).map(el=>el.getBoundingClientRect().bottom);
+document.querySelector('#diagnostics').textContent=JSON.stringify({width:innerWidth,height:innerHeight,preset,sample,horizontalOverflow:document.documentElement.scrollWidth>innerWidth,wordVisualOverlap:words.height>0&&visual.bottom>words.top+1,bodyFooterOverlap:Math.max(...visible)>footer.top+1,scrollHeight:document.documentElement.scrollHeight,startBottom:document.querySelector('.room-start')?.getBoundingClientRect().bottom,finished:!!document.querySelector('.room-finished'),paused:player.paused,volume:player.volume});
+if(original===null)localStorage.removeItem('ugt.local.v2');else localStorage.setItem('ugt.local.v2',original);
+</script></html>

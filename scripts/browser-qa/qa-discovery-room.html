@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f8f8f2">
+<meta name="description" content="Human Within — eighteen independent cinematic experiences, for stillness, self-understanding, choice and connection. Explore at your own pace, with six ebooks in a separate reading room.">
+<title>Discovery room checks</title>
+<link rel="icon" href="/assets/mark.svg" type="image/svg+xml">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="stylesheet" href="/css/app.css">
+<link rel="stylesheet" href="/css/human-within.css">
+<link rel="stylesheet" href="/css/journey.css">
+<link rel="stylesheet" href="/css/experiences.css">
+<link rel="stylesheet" href="/css/immersive.css">
+<link rel="stylesheet" href="/css/portals.css">
+<link rel="stylesheet" href="/css/body.css">
+<link rel="stylesheet" href="/css/body-anatomy.css">
+<link rel="stylesheet" href="/css/arrival.css">
+<link rel="stylesheet" href="/css/meditation.css">
+<link rel="stylesheet" href="/css/cinema.css">
+<link rel="stylesheet" href="/css/polish.css">
+<link rel="stylesheet" href="/css/studios.css">
+<link rel="stylesheet" href="/css/discovery.css">
+</head><body><div id="fixture"></div><pre id="qa-result" style="white-space:pre-wrap;font:12px/1.6 monospace;padding:20px;background:#f5f3e7;color:#213528"></pre><script type="module">
+import {boot,start,state} from '/js/store.js';
+import {renderDiscovery} from '/js/views/discovery.js';
+import {space} from '/js/personal.js';
+const id=new URLSearchParams(location.search).get('id')||'wonder-engine',root=document.querySelector('#fixture'),report=document.querySelector('#qa-result');
+const errors=[];addEventListener('error',e=>errors.push(e.message));addEventListener('unhandledrejection',e=>errors.push(String(e.reason)));
+await boot();if(!state.doc)await start({name:'Friend',intents:[],length:'quick'});
+renderDiscovery(root,{id},{setHue(){},go(){},isCurrent:()=>true});
+await new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)));
+const assert=(ok,msg)=>{if(!ok)throw Error(msg);};
+try{
+ const scenes=[...root.querySelectorAll('[data-scene]')];assert(scenes.length===(id==='wonder-engine'?5:3),'scene count');
+ for(const scene of scenes){scene.click();await new Promise(r=>requestAnimationFrame(r));assert(root.querySelector('canvas').width>200,'canvas drawn');assert(!root.querySelector('textarea,input[type=text]'),'no writing');assert(document.documentElement.scrollWidth<=innerWidth+1,'horizontal overflow');}
+ const pause=root.querySelector('[aria-label="Pause animation"]');if(pause)pause.click();assert(root.querySelector('[aria-label="Resume animation"]'),'pause action');
+ if(id==='creation-field'){
+  const click=text=>[...root.querySelectorAll('button')].find(b=>b.textContent.trim()===text).click();const before=JSON.stringify(space().explorations.creation.strokes);click('Make a gesture');await new Promise(r=>setTimeout(r,300));assert(JSON.stringify(space().explorations.creation.strokes)!==before,'gesture persists');click('Undo');
+  root.querySelector('[aria-label="Dawn palette"]').click();click('Phone');await new Promise(r=>requestAnimationFrame(r));assert(document.documentElement.scrollWidth<=innerWidth+1,'phone art aspect');
+ }
+ assert(errors.length===0,errors.join('; '));report.textContent='PASS '+id+' · '+innerWidth+'px · scene navigation, canvas render, no writing, pause and width checks';
+}catch(e){report.textContent='FAIL '+id+' · '+e.stack;}
+</script></body></html>

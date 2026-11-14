@@ -1,0 +1,18 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><title>Daily journey workflow checks</title><style>body{margin:0;font:14px system-ui;background:#e7e9df}header{padding:14px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}button{padding:9px 13px;border:1px solid #a9b99b;border-radius:10px;background:white;color:#345534;cursor:pointer}iframe{display:block;width:100%;height:830px;border:0;background:#f8f8f2}output{padding-left:12px;color:#627652}</style><header><strong>Internal QA · seeded progress</strong><button id="fresh">Fresh day</button><button id="sound">Resume sound · 1 second left</button><button id="reader">Resume Clarity</button><button id="world">Frequency visit ready</button><button id="finish">Finish final activity</button><button id="after21">After 21 full days</button><button id="after66">After 66 full days</button><button id="after99">After 99 full days</button><button id="restore">Restore original profile</button><output id="status">Preparing</output></header><iframe id="app" title="Production app under test"></iframe><script type="module">
+import * as S from '/js/store.js';import{migrateDailyPlan,planForDay,completeDaily,checkpointDaily}from'/js/daily-plan-model.js';import{unit}from'/js/content.js';
+await S.boot();if(!S.state.doc)await S.start({name:'QA',intents:[],length:'quick'});const original=await S.exportData();
+sessionStorage.setItem('human.within.arrival.session.v2','1');
+const status=document.querySelector('#status'),app=document.querySelector('#app');let serial=0;
+function at(n){return Date.now()-n*86400000}
+function finish(p,t){const d=planForDay(p,t),r=d.next;return completeDaily(p,{id:r.id,idx:r.idx,day:d.date,seconds:r.minimum},t)}
+function make(days=0){let p=migrateDailyPlan({tz:'UTC',space:{}},at(days));for(let i=days;i>0;i--){let t=at(i);while(!planForDay(p,t).complete)p=finish(p,t)}return p}
+function load(p,label,route='home'){S.mutateSpace(s=>({...s,dailyPlan:p}));app.src='/?daily-qa='+(++serial)+'#/'+route;status.textContent=label;}
+document.querySelector('#fresh').onclick=()=>load(make(),'Fresh day');
+document.querySelector('#sound').onclick=()=>load(checkpointDaily(make(),{id:'protocol',idx:0,seconds:179}),'Seeded sound resume','daily');
+document.querySelector('#reader').onclick=async()=>{let p=finish(make(),Date.now()),r=planForDay(p).next,u=await unit(r.id,r.idx),need=Math.max(r.minSeconds,Math.min(90,Math.round(u.est*.5)));p=checkpointDaily(p,{id:r.id,idx:r.idx,seconds:need});load(p,'Seeded completed reading time','daily')};
+document.querySelector('#world').onclick=()=>{let p=make(1);while(planForDay(p).next.id!=='frequency')p=finish(p,Date.now());p=checkpointDaily(p,{id:'frequency',idx:planForDay(p).next.idx,seconds:120});load(p,'Seeded Frequency visit time','daily')};
+document.querySelector('#finish').onclick=()=>{let p=make();while(planForDay(p).next.id!=='sleep')p=finish(p,Date.now());p=checkpointDaily(p,{id:'sleep',idx:0,seconds:120});load(p,'Seeded final visit time','daily')};
+for(const n of [21,66,99])document.querySelector('#after'+n).onclick=()=>load(make(n),'After '+n+' complete days');
+document.querySelector('#restore').onclick=async()=>{await S.importData(original);app.src='/?daily-qa=restored#/home';status.textContent='Original profile restored'};
+load(make(),'Fresh day');
+</script></html>
