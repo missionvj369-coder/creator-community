@@ -1,0 +1,126 @@
+// Original, local vector illustrations. These explain relationships, not measured anatomy.
+const C={mint:'#b8ddc3',gold:'#e4cf9c',rose:'#d99e91',blue:'#89b9ce',ink:'#0b211f',ivory:'#e5e8cf'};
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&apos;'}[c]));
+const p=(d,color=C.mint,w=2,fill='none',extra='')=>`<path d="${d}" stroke="${color}" stroke-width="${w}" fill="${fill}" stroke-linecap="round" stroke-linejoin="round" ${extra}/>`;
+const e=(x,y,rx,ry,color=C.mint,opacity=.12)=>`<ellipse cx="${x}" cy="${y}" rx="${rx}" ry="${ry}" fill="${color}" fill-opacity="${opacity}" stroke="${color}" stroke-width="1.4"/>`;
+const dot=(x,y,r=3,color=C.gold)=>`<circle cx="${x}" cy="${y}" r="${r}" fill="${color}"/>`;
+const label=(x,y,t,color=C.ivory)=>`<text x="${x}" y="${y}" fill="${color}" font-family="sans-serif" font-size="10" letter-spacing=".5" text-anchor="middle">${esc(t)}</text>`;
+const motion=(d,color=C.gold,n=4,duration=6)=>Array.from({length:n},(_,i)=>`<circle r="2.7" fill="${color}" opacity=".88"><animateMotion dur="${duration}s" begin="-${i*duration/n}s" repeatCount="indefinite" path="${d}"/></circle>`).join('');
+const route=(d,color=C.mint,n=4,duration=6)=>p(d,color,1.5)+motion(d,color,n,duration);
+const wave=(x,y,width,height,phase=0)=>Array.from({length:51},(_,i)=>`${i?'L':'M'}${x+i*width/50} ${y+Math.sin(i/50*Math.PI*4+phase)*height}`).join(' ');
+
+export const BODY_MECHANISMS={
+ cell:{name:'A world inside a cell',caption:'A membrane surrounds a busy interior. Organelles share the work that keeps a cell alive.'},
+ dna:{name:'Instructions, folded into life',caption:'The two strands of DNA carry a sequence of bases. Cells use parts of these instructions to make proteins.'},
+ chromosomes:{name:'A library in pairs',caption:'Most human body cells have 23 pairs of chromosomes. Egg and sperm cells carry one set.'},
+ energy:{name:'Energy, made usable',caption:'Mitochondria help transfer energy from food into ATP, a form cells can use.'},
+ balance:{name:'The conversation of balance',caption:'Sensors, control centres and responses work together. Feedback helps conditions stay within a useful range.'},
+ neuron:{name:'A signal becomes a message',caption:'Electrical signals travel along a nerve cell. Chemical messengers cross many of the tiny gaps between cells.'},
+ reflex:{name:'A shorter route to a response',caption:'Some protective responses are coordinated through the spinal cord before you consciously notice what happened.'},
+ brainFlow:{name:'A brain supplied by blood',caption:'Arteries deliver oxygen and nutrients. Brain cells need a continuing blood supply.'},
+ eye:{name:'Light becomes information',caption:'The cornea and lens focus light onto the retina. Signals then travel towards the brain through the optic nerve.'},
+ ear:{name:'A vibration becomes hearing',caption:'The eardrum and tiny middle-ear bones pass vibration towards the fluid-filled cochlea.'},
+ vestibular:{name:'A sense of movement',caption:'Fluid and sensory cells in the inner ear help the brain track head motion and balance.'},
+ taste:{name:'The beginning of a meal',caption:'Chewing and saliva start processing food. Taste receptor cells send information through nerves.'},
+ tooth:{name:'Strength around a living centre',caption:'Enamel covers the crown. Dentine surrounds the pulp, where nerves and blood vessels enter.'},
+ heart:{name:'Two pumps, one connected journey',caption:'The right side sends blood to the lungs. The left side sends oxygen-rich blood around the body.'},
+ vessels:{name:'An exchange at the edges',caption:'Arteries branch into capillaries. Thin capillary walls allow exchanges with surrounding tissues.'},
+ marrow:{name:'Where blood cells begin',caption:'Red marrow contains stem cells that give rise to red blood cells, many white blood cells and platelets.'},
+ clot:{name:'A temporary repair',caption:'Platelets gather at damaged vessels. A mesh of fibrin helps stabilise the clot.'},
+ lungs:{name:'Room for every breath',caption:'The diaphragm moves down as the chest expands. Air travels through branching airways into the lungs.'},
+ alveoli:{name:'Air and blood, closely connected',caption:'Across a very thin barrier, oxygen enters blood and carbon dioxide moves towards the air.'},
+ gut:{name:'A moving, absorbing passage',caption:'Muscle contractions move food along. Digestion breaks it down; the small intestine absorbs many nutrients.'},
+ pancreas:{name:'Two kinds of delivery',caption:'The pancreas sends digestive juices through ducts and hormones such as insulin into the blood.'},
+ liver:{name:'Processing, storing, preparing',caption:'The liver processes substances arriving in blood and makes bile. The gallbladder stores and releases bile.'},
+ nephron:{name:'Filter. Reclaim. Adjust.',caption:'A nephron filters fluid from blood, returns needed substances and helps form urine from what remains.'},
+ urinary:{name:'A route out of the body',caption:'Urine travels from the kidneys through the ureters, waits in the bladder and leaves through the urethra.'},
+ bone:{name:'A living framework',caption:'Dense outer bone surrounds an internal structure. Bone is living tissue that is continually maintained.'},
+ joint:{name:'Where movement meets support',caption:'At a synovial joint, cartilage covers bone ends. A capsule and fluid support smooth movement.'},
+ muscle:{name:'A pull, made of smaller pulls',caption:'Within muscle fibres, actin and myosin slide past one another. Many tiny interactions produce a larger movement.'},
+ skin:{name:'A living boundary',caption:'Skin has an outer epidermis and a deeper dermis. Vessels, nerves and glands support its many roles.'},
+ lymph:{name:'A returning stream',caption:'Lymphatic vessels return excess tissue fluid towards the blood. Lymph nodes are meeting places for immune cells.'},
+ immune:{name:'Recognition and response',caption:'Different immune cells detect, communicate and respond. Some responses also create longer-lasting memory.'},
+ division:{name:'Growth with checks',caption:'Cells use signals and checkpoints to regulate division. Cancer can develop when these controls fail.'},
+ hormones:{name:'Messages carried in blood',caption:'Endocrine glands release hormones. Cells with suitable receptors can respond to these signals.'},
+ uterus:{name:'Ovaries, tubes and uterus',caption:'An egg may travel from an ovary into a uterine tube. A pregnancy usually develops in the uterus.'},
+ testes:{name:'A route for sperm',caption:'Sperm develop in the testes, mature in the epididymis and travel through ducts. This is a separate anatomical view.'},
+ fertilisation:{name:'Two cells, a new beginning',caption:'Fertilisation is the joining of a sperm and an egg, usually in a uterine tube.'},
+ placenta:{name:'An interface between circulations',caption:'Maternal and fetal blood usually remain in separate circulations. Materials are exchanged across placental tissue.'},
+ sleep:{name:'A night moves through stages',caption:'Sleep cycles through non-REM and REM stages. This trace is illustrative; the pattern and timing vary.'},
+ nutrition:{name:'A variety of building materials',caption:'Food supplies energy and nutrients. Different nutrients contribute to different jobs throughout the body.'}
+};
+
+function diagram(kind){
+ switch(kind){
+ case 'cell':return e(200,153,137,100)+e(215,147,44,36,C.rose)+e(218,146,12,10,C.gold)+[[-75,-32],[-60,40],[70,-35],[68,47]].map(([x,y])=>e(200+x,150+y,19,9,C.gold)).join('')+route('M90 155 Q140 80 195 108 Q270 80 300 160 Q260 228 190 205 Q125 210 90 155')+label(215,154,'nucleus')+label(200,277,'MEMBRANE · ORGANELLES · NUCLEUS');
+ case 'dna':{let a=wave(78,145,245,45),b=wave(78,145,245,45,Math.PI);return Array.from({length:23},(_,i)=>{let x=78+i*245/22,y=Math.sin(i/22*Math.PI*4)*45;return p(`M${x} ${145+y}V${145-y}`,i%2?C.gold:C.ivory,1)}).join('')+route(a,C.mint,5,8)+route(b,C.rose,5,8)+label(200,251,'TWO STRANDS · COMPLEMENTARY BASES');}
+ case 'chromosomes':return Array.from({length:23},(_,i)=>{let x=60+(i%8)*40,y=70+Math.floor(i/8)*75,s=17-(i%5);return p(`M${x-5} ${y-s}L${x+5} ${y+s}M${x+5} ${y-s}L${x-5} ${y+s}`,i===22?C.rose:C.mint,4)+label(x,y+32,String(i+1));}).join('')+motion('M38 265H360',C.gold,3,9);
+ case 'energy':return e(200,150,137,73,C.rose)+p('M87 149Q105 98 127 116L142 178L160 115L182 181L204 113L224 179L245 115L267 175Q292 168 307 145',C.gold,2.5)+route('M82 146Q200 47 322 146Q211 255 82 146',C.mint,6,8)+label(200,263,'NUTRIENTS + OXYGEN → USABLE ENERGY');
+ case 'balance':return [e(200,65,53,26),e(92,215,60,28,C.gold),e(306,215,61,28,C.rose)].join('')+label(200,69,'sensor')+label(92,219,'control')+label(306,219,'response')+route('M163 86L112 186M153 215H245M287 189L222 88')+label(200,286,'FEEDBACK HELPS ADJUST THE RESPONSE');
+ case 'neuron':return e(91,155,34,28,C.rose)+p('M60 142L30 105M63 160L24 185M78 128L62 84M80 181L58 218',C.rose)+route('M120 155H279',C.gold,5,4)+[145,183,221].map(x=>e(x,155,13,12)).join('')+p('M279 155L306 125M279 155L307 184',C.gold)+p('M333 108V201',C.mint,4)+route('M306 125Q322 150 333 137',C.rose,3,3)+label(205,249,'AXON → SYNAPSE → NEXT CELL');
+ case 'reflex':return e(267,151,40,84)+e(86,204,39,17,C.rose)+route('M55 79Q140 65 252 110Q299 151 254 183Q180 229 123 209',C.gold,6,5)+p('M55 58L44 83L69 80',C.rose,3)+label(270,259,'spinal cord')+label(77,242,'muscle response')+label(89,48,'sensory input');
+ case 'brainFlow':return e(200,135,97,79,C.rose)+p('M200 60V210M111 134Q154 86 193 129M290 130Q252 83 207 130',C.rose)+route('M171 279V200Q115 170 132 120Q168 76 195 135M229 279V200Q286 174 268 120Q238 78 207 135',C.gold,8,8)+label(200,304,'A CONTINUOUS SUPPLY');
+ case 'eye':return e(183,145,113,78)+e(123,145,12,39,C.blue)+p('M256 88Q298 146 257 203',C.rose,5)+p('M290 143L347 155',C.gold,7)+route('M18 95L123 145L273 156M18 193L123 145L273 156',C.gold,5,6)+label(112,241,'lens')+label(256,241,'retina')+label(333,190,'optic nerve');
+ case 'ear':return p('M70 75Q24 60 37 144Q42 176 82 168Q105 153 88 130Q71 118 57 142',C.rose,7)+p('M90 149H157M159 111L169 180',C.ivory,4)+route('M98 149L165 147L198 128L221 150',C.gold,5,4)+p('M221 150Q226 100 270 109Q322 120 301 173Q278 217 244 184Q223 157 250 141Q283 129 281 160Q273 182 259 166',C.mint,5)+route('M303 151H364',C.gold,3,4)+label(174,252,'VIBRATION → COCHLEA → NERVE');
+ case 'vestibular':return [0,60,120].map(a=>`<g transform="rotate(${a} 200 145)">${e(200,145,101,35)}${motion('M99 145C99 97 301 97 301 145C301 192 99 192 99 145',C.gold,3,6)}</g>`).join('')+e(200,145,23,23,C.rose)+label(200,278,'THREE CANALS SENSE ROTATION');
+ case 'taste':return p('M94 109Q200 61 306 109Q293 211 200 224Q106 210 94 109',C.rose,2,C.ink)+e(200,179,74,33,C.rose)+Array.from({length:24},(_,i)=>dot(143+(i%8)*16,166+Math.floor(i/8)*12,2,C.gold)).join('')+route('M100 109Q183 127 298 109',C.mint,5,5)+route('M201 210Q262 232 294 273',C.gold,4,5)+label(200,49,'TASTE · CHEWING · SALIVA');
+ case 'tooth':return p('M137 68Q162 49 199 75Q235 49 263 69L252 156Q245 188 235 249Q211 265 204 177H194Q184 265 164 249L148 156Z',C.ivory,3,C.ink)+p('M159 91Q196 112 241 91L231 159L217 213L208 149H192L180 213L169 159Z',C.gold,2)+route('M198 269V132Q173 120 165 108M200 133Q229 124 234 108',C.rose,4,5)+label(200,298,'ENAMEL · DENTINE · PULP');
+ case 'heart':return p('M200 104Q166 51 124 84Q77 131 124 195L200 251Q279 204 290 151Q305 81 251 76Q216 74 200 104Z',C.rose,2,C.ink)+p('M200 115V230M122 152H192M209 150H282',C.rose)+route('M165 206Q135 162 162 115Q178 63 106 37Q45 79 105 142',C.blue,6,7)+route('M238 209Q271 160 238 111Q215 43 321 39Q380 152 316 250Q271 287 238 209',C.gold,7,9)+label(158,164,'R')+label(241,164,'L')+label(66,35,'lungs')+label(333,285,'body');
+ case 'vessels':return p('M34 65Q130 60 173 127M34 239Q130 241 173 177',C.rose,12)+p('M366 65Q273 60 227 127M366 239Q276 241 227 177',C.blue,12)+[-20,0,20].map(y=>route(`M160 ${150+y}Q200 ${120+y} 240 ${150+y}`,C.gold,4,6)).join('')+route('M195 164V228',C.mint,3,5)+route('M220 228V164',C.rose,3,5)+label(200,279,'CAPILLARIES · EXCHANGE WITH TISSUE');
+ case 'marrow':return p('M127 69Q99 36 75 65Q53 96 92 125L266 247Q294 282 320 252Q340 219 299 201Z',C.ivory,6,C.ink)+p('M109 105L281 224',C.rose,27)+Array.from({length:12},(_,i)=>dot(115+i*14,109+i*9,4,i%3?C.rose:C.gold)).join('')+motion('M109 105L281 224',C.gold,5,7)+label(200,298,'BLOOD CELLS DEVELOP IN RED MARROW');
+ case 'clot':return p('M35 109H161L186 144L208 108H365M35 208H365',C.rose,4)+Array.from({length:11},(_,i)=>p(`M${151+i*6} 104L${212-i*3} 158`,C.gold,1)).join('')+[155,169,187,204].map((x,i)=>dot(x,128+(i%2)*11,6,C.mint)).join('')+motion('M37 165H160Q186 129 208 166H362',C.rose,7,7)+label(200,269,'PLATELETS + FIBRIN HELP SEAL A BREAK');
+ case 'lungs':return p('M199 42V144M199 129L147 159M199 129L250 159',C.ivory,7)+p('M177 94Q113 87 83 178L78 225Q148 241 183 206Z',C.mint,2,C.ink)+p('M223 94Q286 87 317 178L322 225Q267 239 218 208L238 176L218 150Z',C.mint,2,C.ink)+[0,1].map(i=>route(i?'M199 43V129L250 159L288 205':'M199 43V129L147 159L111 205',C.gold,4,6)).join('')+p('M65 255Q200 216 335 255',C.rose,4)+label(200,288,'AIRWAYS · LUNGS · DIAPHRAGM');
+ case 'alveoli':return [145,195,245].map((x,i)=>e(x,126+(i%2)*35,42,40,C.mint)).join('')+route('M51 210Q103 240 137 212Q179 180 211 217Q263 254 347 205',C.rose,8,9)+route('M194 157V217',C.gold,3,4)+route('M224 217V158',C.blue,3,4)+label(173,267,'oxygen')+label(269,267,'carbon dioxide')+label(200,49,'ALVEOLI · A THIN EXCHANGE SURFACE');
+ case 'gut':return p('M142 34V95Q118 151 161 165Q245 185 259 119Q261 83 225 89L216 40',C.rose,3)+p('M143 171Q90 145 85 190V257Q89 280 126 277H280Q310 272 308 241V183Q300 158 267 173',C.mint,12)+route('M162 166Q140 193 239 189Q291 208 153 217Q107 236 252 243Q279 261 238 279',C.gold,7,10)+label(201,309,'PERISTALSIS · DIGESTION · ABSORPTION');
+ case 'pancreas':return p('M74 168Q143 121 205 130Q273 124 326 157Q261 199 180 188Q111 204 74 168Z',C.gold,2,C.ink)+route('M95 167L305 155L337 192',C.mint,5,7)+route('M151 184V247H325',C.rose,4,7)+p('M335 90Q302 111 337 192Q350 225 332 252',C.ivory,4)+label(218,98,'pancreas')+label(325,277,'blood')+label(343,63,'gut');
+ case 'liver':return p('M67 105Q183 58 322 104L294 172Q241 201 199 158Q119 211 67 172Z',C.rose,2,C.ink)+e(200,192,14,25,C.gold)+route('M204 142V192Q212 226 280 246',C.gold,4,6)+route('M41 159Q142 120 206 146Q261 167 347 128',C.mint,6,8)+label(195,47,'liver')+label(137,237,'gallbladder')+label(284,276,'bile towards intestine');
+ case 'nephron':return e(99,91,36,35)+p('M71 66Q121 103 76 108M83 63Q138 93 87 113',C.rose,4)+route('M65 40L98 75Q136 83 126 108L143 135Q179 102 196 144L190 236Q201 278 215 233L221 146Q250 117 268 147L294 153V268',C.gold,7,10)+route('M52 98Q76 136 104 111Q156 135 170 185Q203 215 265 197',C.rose,5,8)+label(83,165,'filter')+label(162,295,'reclaim')+label(304,295,'urine');
+ case 'urinary':return p('M109 65Q65 43 63 103Q65 149 108 137Q88 101 109 65M291 65Q335 43 337 103Q335 149 292 137Q313 101 291 65',C.rose,3,C.ink)+e(200,225,51,36,C.gold)+route('M103 110Q129 144 168 218M297 110Q266 144 231 218M200 259V292',C.gold,6,8)+label(200,46,'kidneys')+label(200,230,'bladder');
+ case 'bone':return p('M127 60Q98 31 76 61Q55 89 91 118L270 248Q300 276 322 243Q335 212 300 190Z',C.ivory,5,C.ink)+p('M115 100L282 218',C.gold,19)+Array.from({length:17},(_,i)=>p(`M${108+i*10} ${89+i*7}l-4 24l24 -9`,C.ivory,1)).join('')+motion('M119 103L282 219',C.rose,5,9)+label(200,300,'COMPACT BONE · INNER STRUCTURE · MARROW');
+ case 'joint':return p('M140 33V103Q132 136 154 146Q198 167 236 142Q260 133 247 104V33M147 290V203Q125 168 160 169Q199 189 241 168Q265 171 244 205V290',C.ivory,3,C.ink)+p('M144 140Q200 168 250 137M142 174Q201 193 252 170',C.blue,6)+e(199,161,83,52,C.mint,.03)+motion('M128 162Q199 112 274 162Q197 214 128 162',C.gold,4,8)+label(200,309,'CARTILAGE · FLUID · JOINT CAPSULE');
+ case 'muscle':return Array.from({length:5},(_,i)=>{let y=74+i*40;return p(`M50 ${y}H351`,C.rose,9)+p(`M123 ${y+15}H273`,C.gold,5)+[145,190,235].map(x=>p(`M${x} ${y+15}l9 -12`,C.gold,2)).join('');}).join('')+motion('M64 277H337',C.mint,6,6)+label(200,35,'SLIDING FILAMENTS');
+ case 'skin':return p('M35 98Q89 82 134 99T235 99T365 99L365 141H35Z',C.ivory,2,C.ink)+p('M35 143H365V242H35Z',C.rose,1,C.ink)+p('M35 245H365',C.gold,10)+p('M137 45L156 174Q176 205 182 180L161 72',C.ivory,3)+p('M266 95V184Q240 191 257 209Q280 230 283 208Q281 191 266 184',C.gold,2)+route('M45 223Q114 196 212 224T354 222',C.rose,7,9)+label(80,124,'epidermis')+label(77,185,'dermis')+label(277,281,'sweat gland');
+ case 'lymph':return [90,200,310].map(x=>e(x,154,29,37)).join('')+route('M32 155H61M118 155H171M229 155H281M339 155H372',C.mint,8,10)+[90,200,310].map(x=>[0,1,2].map(i=>dot(x-9+i*9,146+(i%2)*14,3,C.gold)).join('')).join('')+route('M190 55L200 118',C.gold,3,5)+label(200,250,'FLUID → VESSELS → LYMPH NODES');
+ case 'immune':return e(129,149,64,60)+e(129,149,23,24,C.rose)+e(292,151,31,29,C.rose)+Array.from({length:8},(_,i)=>{let a=i*Math.PI/4;return p(`M${292+Math.cos(a)*31} ${151+Math.sin(a)*29}l${Math.cos(a)*12} ${Math.sin(a)*12}`,C.rose,2)}).join('')+route('M186 149Q226 106 260 149',C.gold,4,5)+label(124,248,'immune cell')+label(290,248,'target');
+ case 'division':return e(84,146,41,46)+e(201,146,48,46)+e(312,114,32,32)+e(312,185,32,32)+route('M126 145H151M249 135L280 115M249 156L280 185',C.gold,5,7)+p('M185 128L200 164L216 128M190 152H211',C.rose,2)+label(200,260,'GROWTH · CHECKPOINTS · CELL DIVISION');
+ case 'hormones':return e(80,147,39,49,C.rose)+route('M115 151Q195 94 281 150',C.gold,6,8)+p('M51 230Q203 190 350 227',C.rose,7)+e(320,149,36,54)+p('M281 125L293 136L282 146',C.gold,3)+label(80,72,'gland')+label(202,75,'hormone')+label(320,72,'receptor');
+ case 'uterus':return p('M170 125Q152 81 100 111Q81 126 68 120M230 125Q252 81 300 111Q320 126 332 120',C.rose,8)+e(79,144,24,15,C.gold)+e(320,144,24,15,C.gold)+p('M155 115Q199 129 245 115Q254 166 225 201L213 256H187L175 201Q147 165 155 115Z',C.rose,3,C.ink)+route('M88 121Q142 91 169 135L198 176',C.gold,4,8)+label(200,289,'OVARIES · UTERINE TUBES · UTERUS');
+ case 'testes':return e(179,211,22,35,C.gold)+e(229,211,22,35,C.gold)+p('M163 210Q147 174 164 128Q179 94 182 72M247 210Q265 174 243 128Q227 98 224 72',C.mint,3)+e(202,71,37,24,C.rose)+route('M174 226Q148 194 163 144Q177 106 197 126V278',C.gold,5,9)+label(200,310,'TESTES · EPIDIDYMIS · DUCTS');
+ case 'fertilisation':return e(255,149,69,69)+e(255,149,25,25,C.rose)+[[-12,0],[9,-52],[1,58]].map(([x,y])=>e(98+x,149+y,9,5,C.gold)+p(`M${90+x} ${149+y}q-22 -19 -52 0`,C.gold)).join('')+route('M86 149H252',C.gold,3,8)+label(255,251,'egg')+label(85,251,'sperm');
+ case 'placenta':return p('M195 51Q170 147 195 258M212 51Q235 145 212 258',C.ivory,3)+route('M43 80Q179 68 177 150Q178 242 43 232',C.rose,6,8)+route('M357 80Q232 68 236 150Q232 242 357 232',C.gold,6,8)+route('M171 138H236M236 173H174',C.mint,4,6)+label(85,284,'maternal blood')+label(307,284,'fetal blood')+label(200,30,'PLACENTAL EXCHANGE');
+ case 'sleep':return p('M45 51V252H362',C.ivory,1)+route('M47 84H68V123H87V167H111V215H139V165H155V126H178V85H197V125H220V172H247V127H268V85H289V125H315V84H351',C.mint,7,14)+label(200,294,'ILLUSTRATIVE SLEEP STAGES · NOT A MEASUREMENT');
+ case 'nutrition':return [[100,106,25],[197,153,34],[292,106,25],[100,219,18],[292,219,18]].map(([x,y,r],i)=>e(x,y,r,r,i%2?C.rose:C.gold)+label(x,y+4,['carbs','protein','fats','vitamins','minerals'][i])).join('')+route('M113 126L173 142M222 142L277 126M174 173L113 207M221 173L278 207',C.mint,6,8);
+ default:return diagram('cell');
+ }
+}
+export function mechanismSVG(kind='cell'){
+ if(!BODY_MECHANISMS[kind])kind='cell';const d=BODY_MECHANISMS[kind];
+ return `<svg class="body-mechanism" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 320" role="img" aria-label="${esc(d.name+'. '+d.caption)}" data-mechanism="${kind}">${diagram(kind)}</svg>`;
+}
+
+export function bodyFigure(active='whole',{staticArt=false}={}){
+ const organ=(id,region,art)=>`<g class="body-organ ${active===region?'organ-current':''}" data-organ="${id}">${art}</g>`;
+ const outline='M190 98Q173 84 176 58Q174 20 211 15Q249 10 262 47Q268 77 251 98L249 116Q255 128 288 137Q311 148 321 185L342 266L354 319L350 342L345 351L340 349L342 328L338 348L333 348L334 324L330 343L326 341L327 320L323 333L319 329L320 305L295 244L280 191L273 250L280 320L271 402L265 470L256 583L262 610Q265 623 240 625L223 618L229 597L228 477L220 411L211 477L211 596L218 617L199 625Q176 625 179 611L185 583L177 470L169 402L162 320L169 250L162 191L147 244L121 305L122 329L117 333L113 320L114 341L109 343L105 324L106 348L101 348L98 328L101 349L96 351L91 342L87 319L100 266L122 185Q132 148 154 137Q187 128 192 116Z';
+ let art=`<defs><linearGradient id="bodyglass"><stop stop-color="#b8ddc3" stop-opacity=".16"/><stop offset=".28" stop-color="#b8ddc3" stop-opacity=".035"/><stop offset=".5" stop-color="#b8ddc3" stop-opacity=".012"/><stop offset=".72" stop-color="#b8ddc3" stop-opacity=".06"/><stop offset="1" stop-color="#b8ddc3" stop-opacity=".13"/></linearGradient><radialGradient id="bodyhalo"><stop stop-color="#a5cfc1" stop-opacity=".12"/><stop offset="1" stop-color="#a5cfc1" stop-opacity="0"/></radialGradient></defs><ellipse cx="220" cy="320" rx="215" ry="310" fill="url(#bodyhalo)"/><g class="body-skin-surface">${p(outline,C.mint,.9,'url(#bodyglass)')}</g>`;
+ let skeleton=p('M220 112V388',C.ivory,4)+p('M166 147Q220 165 276 147M184 325Q219 360 257 325L249 389L220 407L189 389Z',C.ivory,3);
+ for(let i=0;i<7;i++){let y=163+i*12;skeleton+=p(`M216 ${y}Q167 ${y-10} 171 ${y+6}Q185 ${y+24} 216 ${y+11}M224 ${y}Q274 ${y-10} 269 ${y+6}Q254 ${y+24} 224 ${y+11}`,C.ivory,1.4);}
+ skeleton+=p('M158 167L126 262L108 313M282 167L314 262L334 313M195 403L193 493L201 592M245 403L247 493L239 592',C.ivory,4);
+ art+=organ('skeleton','movement',skeleton);
+ art+=organ('muscle','movement',p('M180 152Q199 149 210 182L204 232L179 224ZM230 181Q240 147 263 152L263 224L235 232ZM188 405Q211 409 203 480L191 474ZM237 407Q260 409 250 477L237 478',C.rose,1,C.rose));
+ art+=organ('brain','nervous',`<g transform="translate(44 -4) scale(.8)">${p('M191 90Q174 81 183 65Q173 49 189 41Q189 25 208 28Q225 17 237 30Q257 27 260 44Q275 51 265 68Q270 87 252 92Q234 103 219 93Q202 100 191 90Z',C.rose,1.2,C.rose)}${p('M220 28V91M193 46Q209 36 212 55M236 40Q249 49 237 62M191 72Q205 60 211 82M230 75Q248 67 254 83',C.ivory,1)}</g>`+route('M220 99V361M220 160L161 179L123 276M220 160L280 179L317 276M220 357L192 426L200 561M220 357L248 426L242 561',C.gold,7,12));
+ art+=organ('eyes','senses',e(202,75,7,3,C.gold)+e(237,75,7,3,C.gold)+p('M198 75L211 63M241 75L229 63',C.gold,1));
+ art+=organ('heart','circulation',`<g class="body-heart">${p('M224 202Q210 194 214 211Q216 230 232 241Q248 224 244 210Q241 197 231 205Z',C.rose,1,C.rose)}</g>`+route('M235 207L236 140L246 112M234 225L237 322L249 460L244 565M234 154L281 163L312 261M233 320L191 451L199 564',C.rose,8,13)+route('M206 557L204 451L208 316L207 150M329 280L285 168L208 150L207 204',C.blue,7,13));
+ art+=organ('lungs','respiration',`<g class="body-lungs">${p('M207 160Q176 154 164 193L164 237Q193 243 210 229Z',C.mint,1,C.mint)}${p('M234 160Q264 154 276 193L277 237Q255 242 244 232L247 213L233 198Z',C.mint,1,C.mint)}</g>${p('M220 123V177M220 167L187 191M220 167L253 191',C.ivory,2)}${p('M160 248Q220 232 280 248',C.gold,1.3,'none','class="body-diaphragm"')}`);
+ art+=organ('liver','digestion',p('M169 259Q197 246 235 262L221 281Q192 295 170 278Z',C.rose,1,C.rose));
+ art+=organ('stomach','digestion',p('M233 242L235 267Q261 255 265 277Q271 302 244 309Q220 305 228 283',C.gold,1,C.gold)+p('M183 310Q173 302 177 326V362H262V312Q259 305 251 312',C.mint,6)+p('M192 316Q244 310 247 322Q244 334 193 333Q181 345 246 346Q253 356 221 358',C.gold,3));
+ art+=organ('pancreas','digestion',p('M211 297Q233 286 252 294L259 300L226 305Z',C.gold,1,C.gold));
+ art+=organ('kidneys','urinary',p('M182 289Q166 279 165 302Q163 324 180 321Q171 303 182 289M259 289Q275 279 276 302Q279 324 261 321Q271 303 259 289',C.rose,1,C.rose)+route('M176 309Q191 335 205 391M266 309Q253 334 235 391',C.gold,4,10));
+ art+=organ('bladder','urinary',e(220,395,17,15,C.gold)+p('M220 411V431',C.gold,1));
+ art+=organ('lymph','defence',route('M174 166Q184 219 186 285L190 376L196 457M266 166Q256 219 254 285L250 376L244 457',C.mint,6,15)+[174,266].map(x=>[165,205,282,373].map(y=>dot(x+(x<220?6:-6),y,3,C.gold)).join('')).join(''));
+ art+=organ('thyroid','endocrine',p('M210 121Q203 112 205 132L217 136L220 127L223 136L235 132Q237 113 230 121L220 124Z',C.gold,1,C.gold)+dot(220,63,3,C.gold)+dot(183,284,3,C.gold)+dot(258,284,3,C.gold));
+ art+=organ('reproductive','endocrine',p('M208 368Q196 354 187 363M232 368Q244 354 253 363M207 369Q220 373 233 369L228 392L220 402L212 392Z',C.rose,1,C.rose)+e(187,368,5,3,C.gold)+e(253,368,5,3,C.gold));
+ if(active==='cells')for(let i=0;i<25;i++)art+=e(175+(i%5)*22,160+Math.floor(i/5)*42,4,6,C.gold,.5);
+ let svg=`<svg class="body-figure ${active==='whole'||active==='cells'?'body-whole':''}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 660" role="img" aria-label="Illustrated transparent human body. Front view; the body's left is on the viewer's right.">${art}</svg>`;
+ if(staticArt)svg=svg.replace(/<circle\b[^>]*><animateMotion\b[^>]*\/><\/circle>/g,'');
+ return svg;
+}
