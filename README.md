@@ -1,5 +1,7 @@
 # Human Within
 
+The current launch replaces public slots 16, 17 and 18 with Music, Video and Podcast. The protected administration console is separate. See [Cloudflare launch](CLOUDFLARE_LAUNCH.md) for the active architecture, checks and provisioning. The legacy product notes below describe the prior discovery release.
+
 A premium, responsive app with eighteen independent experiences, arranged through stillness, self-understanding, choice, connection, return and discovery. Every product opens on its own and keeps its own collection. Six ebooks remain in a separate reading room. The cinematic opening, five-minute Still Room practice and automatic calming sequence welcome each new session.
 
 ## Guided experiences with no writing activities

@@ -4,3 +4,7 @@ data
 dist
 
 public/qa-*.html
+
+.wrangler/
+.dev.vars*
+.env*

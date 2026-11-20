@@ -10,7 +10,7 @@ globalThis.fetch=async url=>({ok:true,json:async()=>JSON.parse(fs.readFileSync(p
 assert.equal(PRODUCTS.length,18);assert.equal(new Set(PRODUCTS.map(p=>p.id)).size,18);
 let units=0;
 for(const p of PRODUCTS){
-  if(p.kind==='discovery'){assert.ok(p.intro&&p.short&&p.title);continue;}
+  if(p.kind==='media'){assert.ok(p.short&&p.title);continue;}
   if(p.kind==='studio'){assert.ok(p.tagline&&p.short&&p.title);assert.ok(fs.statSync('public/js/views/studios.js').size>10000);continue;}
   if(p.kind==='experience'){assert.ok(fs.statSync(path.join(root,'realms',p.file)).size>1000);continue;}
   for(let i=0;i<p.count;i++){const u=await unit(p.id,i);assert.ok(u.title.trim(),`${p.id}:${i} needs a title`);assert.ok(u.blocks.length,`${p.id}:${i} needs content`);units++;}

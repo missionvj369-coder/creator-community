@@ -1,3 +1,4 @@
+import {mediaProducts} from './launch-catalogue.js';
 import {studioMeta,studioPoster} from './studio-meta.js';
 import {discoveryMeta,discoveryPoster} from './discovery-meta.js';
 import { illustration } from './product-art.js';
@@ -22,7 +23,7 @@ export const PRODUCT_META = {
   mirror2: { group:'Immersive worlds', number:'14', short:'36 worlds · an 18-minute journey', color:'#f0dcd6', ink:'#a66a5b', art:'ribbon' },
   sanctuary: { group:'Immersive worlds', number:'15', short:'14 scenes of quiet', color:'#dceada', ink:'#55835d', art:'bloom' },
 };
-export const PRODUCTS = EXPERIENCE_ORDER.map((id,i) => ({ ...(discoveryMeta(id)||studioMeta(id)||REALMS.find(r=>r.id===id)), ...PRODUCT_META[id], number:String(i+1).padStart(2,'0') }));
+export const PRODUCTS = EXPERIENCE_ORDER.map((id,i) => ({ ...(mediaProducts.find(item=>item.id===id)||discoveryMeta(id)||studioMeta(id)||REALMS.find(r=>r.id===id)), ...PRODUCT_META[id], number:String(i+1).padStart(2,'0') }));
 export const TOOLS = [
   { id:'a-world-within', title:'A World Within', description:'99 living affirmations in a flowing, colourful world. Touch, drag, and make a moment your own.', file:'/tools/a-world-within.html', color:'#eddcf3', ink:'#94659e', art:'bloom', meta:'99 affirmations · music & touch' },
   { id:'arrival', title:'The Still Room', description:'A guided pause with a calm water scene, a gentle voice, and an original ambient score.', route:'#/meditate', color:'#dcece6', ink:'#4a7f6b', art:'ripple', meta:'5 minutes · a little room to rest' },

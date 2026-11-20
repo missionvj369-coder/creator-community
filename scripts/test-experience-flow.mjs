@@ -8,9 +8,13 @@ assert.deepEqual(PRODUCTS.map(p=>p.id),EXPERIENCE_ORDER);
 assert.deepEqual(PRODUCTS.map(p=>p.number),Array.from({length:18},(_,i)=>String(i+1).padStart(2,'0')));
 assert.equal(EXPERIENCE_CHAPTERS.length,6);
 for(const chapter of EXPERIENCE_CHAPTERS){assert.equal(chapter.products.length,3);for(const id of chapter.products){assert.equal(chapterFor(id),chapter);assert(EXPERIENCE_INVITATIONS[id]);}}
-assert.equal(experienceNeighbours('protocol').previous,null);assert.equal(experienceNeighbours('creation-field').next,null);
+assert.equal(experienceNeighbours('protocol').previous,null);assert.equal(experienceNeighbours('podcast').next,null);
 for(let i=0;i<17;i++)assert.equal(experienceNeighbours(EXPERIENCE_ORDER[i]).next,EXPERIENCE_ORDER[i+1]);
 assert.deepEqual(experienceNeighbours('missing'),{previous:null,next:null});
+
+assert.deepEqual(experienceNeighbours('video',id=>id!=='music'),{previous:'sleep',next:'podcast'});
+assert.equal(experienceNeighbours('music',id=>id!=='video').next,'podcast');
+assert.equal(independentRoute('#/daily/creation-field'),'#/product/podcast');
 
 const carried={initialized:true,items:{clarity:{completed:5}},draft:{id:'clarity',idx:5,seconds:44,note:'An unfinished reflection.'}};
 assert.equal(independentRoute('#/daily',carried),'#/product/clarity');

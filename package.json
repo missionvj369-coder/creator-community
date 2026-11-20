@@ -3,19 +3,30 @@
   "version": "12.0.0",
   "private": true,
   "type": "module",
-  "description": "Human Within — eighteen independent cinematic experiences, with living immersive worlds and a separate reading room.",
+  "description": "Human Within · eighteen public experiences, a six-book reader and a protected administration console.",
   "scripts": {
     "start": "node server.js",
     "dev": "node server.js",
-    "test": "node scripts/test-engine.mjs && node scripts/test-api.mjs && node scripts/test-catalogue.mjs && node scripts/test-personal.mjs && node scripts/test-journey.mjs && node scripts/test-arrival.mjs && node scripts/test-opening.mjs && node scripts/test-meditation.mjs && node scripts/test-daily-plan.mjs && node scripts/test-experience-flow.mjs && node scripts/test-immersive.mjs && node scripts/test-body.mjs && node scripts/test-anatomy.mjs && node scripts/test-cinema.mjs && node scripts/test-playback.mjs && node scripts/test-studios.mjs && node scripts/test-reader-pack.mjs && node scripts/test-no-writing.mjs && node scripts/test-discovery.mjs",
+    "test": "node scripts/test-engine.mjs && node scripts/test-api.mjs && node scripts/test-catalogue.mjs && node scripts/test-personal.mjs && node scripts/test-journey.mjs && node scripts/test-arrival.mjs && node scripts/test-opening.mjs && node scripts/test-meditation.mjs && node scripts/test-daily-plan.mjs && node scripts/test-experience-flow.mjs && node scripts/test-immersive.mjs && node scripts/test-body.mjs && node scripts/test-anatomy.mjs && node scripts/test-cinema.mjs && node scripts/test-playback.mjs && node scripts/test-studios.mjs && node scripts/test-reader-pack.mjs && node scripts/test-no-writing.mjs && node scripts/test-discovery.mjs && npm run test:worker",
     "extract": "node scripts/extract-content.cjs ../source ./public/content",
     "test:release": "node scripts/test-static-release.mjs",
     "verify:books": "python3 scripts/verify-book-packs.py",
     "build:body": "node scripts/build-body-atlas.mjs",
-    "build:anatomy:lite": "node scripts/build-anatomy-lite.mjs"
+    "build:anatomy:lite": "node scripts/build-anatomy-lite.mjs",
+    "build": "node scripts/build-static.mjs",
+    "check:budget": "node scripts/check-site-budget.mjs",
+    "test:worker": "node scripts/test-worker.mjs",
+    "dev:cloud": "wrangler dev",
+    "check:cloud": "wrangler deploy --dry-run --outdir .wrangler/check"
   },
   "engines": {
-    "node": ">=18"
+    "node": ">=22.13.0"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "@videojs/cdn": "10.5.0",
+    "esbuild": "0.28.2",
+    "jose": "6.2.18",
+    "wrangler": "4.165.0"
+  }
 }

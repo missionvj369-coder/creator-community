@@ -8,8 +8,9 @@ import {normaliseSpace,validateBackup} from '../public/js/space-model.js';
 import {arrivalDestination} from '../public/js/arrival-model.js';
 import {retiredWritingRoute,experienceNeighbours} from '../public/js/experience-flow.js';
 import {sceneForRoute,CINEMA_SCENES} from '../public/js/cinema-model.js';
-assert.deepEqual(PRODUCTS.filter(x=>x.kind==='discovery').map(x=>x.id),DISCOVERY_IDS);
-assert.equal(PRODUCTS.length,18);assert.equal(experienceNeighbours('sleep').next,'wonder-engine');assert.equal(experienceNeighbours('creation-field').next,null);
+assert.deepEqual(PRODUCTS.filter(x=>x.kind==='media').map(x=>x.id),['music','video','podcast']);
+assert(DISCOVERY_IDS.every(id=>!PRODUCTS.some(product=>product.id===id)));
+assert.equal(PRODUCTS.length,18);assert.equal(experienceNeighbours('sleep').next,'music');assert.equal(experienceNeighbours('podcast').next,null);
 for(const id of DISCOVERY_IDS){assert.equal(sceneForRoute('#/product/'+id),id);assert(!retiredWritingRoute('#/product/'+id));assert.equal(arrivalDestination('#/product/'+id),'#/product/'+id);assert(art('',null,null,id).includes('<svg'));assert(CINEMA_SCENES[id].score);}
 assert.equal(new Set(DISCOVERY_IDS.map(x=>CINEMA_SCENES[x].score)).size,3);assert.equal(arrivalDestination('#/discover'),'#/discover');
 for(const id of ['mind-unfold','human-bridge','possibility-studio'])assert(retiredWritingRoute('#/product/'+id));
@@ -34,7 +35,7 @@ assert.equal(chooseVideoType(null),null);assert.equal(chooseVideoType({isTypeSup
 const vectors=CREATION_STYLES.map(x=>animatedCreationSVG({style:x.id,strokes:[[[.2,.3],[.6,.8]]]}));assert.equal(new Set(vectors).size,3);for(const svg of vectors){assert(!/NaN|undefined|<script|onload/.test(svg));assert(svg.includes('dur="6s"'));}
 for(const aspect of Object.keys(CREATION_ASPECTS))assert(animatedCreationSVG({aspect}).includes(`width="${CREATION_ASPECTS[aspect].width}"`));
 assert.equal(WONDER_SCENES.length,5);assert.equal(UNSEEN_SCENES.length,3);for(const s of UNSEEN_SCENES)assert.match(s.label,/ILLUSTRAT/);
-console.log('discovery: 18 active experiences, 8 experiments/worlds, bounded gestures, exact composition backups, stable 4-item gallery, real physics invariants, pause/resume clock, video formats and 3 distinct animated vector fallbacks passed');
+console.log('discovery: retired rooms remain backup-compatible, 8 experiments/worlds, bounded gestures, exact composition backups, stable 4-item gallery, real physics invariants, pause/resume clock, video formats and 3 distinct animated vector fallbacks passed');
 
 const sound=new CinemaSound({storage:()=>({getItem(){return null;}})}),notes=[];
 const gain={gain:{setValueAtTime(){},linearRampToValueAtTime(){},exponentialRampToValueAtTime(){}},connect(){return this;},disconnect(){}};
