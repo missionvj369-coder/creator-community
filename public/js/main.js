@@ -1,3 +1,4 @@
+import {enabled,legacyMediaRoutes,loadSiteSettings,siteSettings} from './launch-catalogue.js';
 import {cinemaSound} from './cinema-sound.js';
 import {sceneForRoute} from './cinema-model.js';
 import {soundSettingsButton,soundToggleButton} from './cinema-controls.js';
@@ -15,14 +16,14 @@ import { createArrivalVisit, arrivalDestination } from './arrival-model.js';
 import { immersiveWorld } from './immersive-model.js';
 
 const loaders={
- you:()=>import('./views/you.js'),reader:()=>import('./views/reader.js'),session:()=>import('./views/session.js'),world:()=>import('./views/world.js'),onboarding:()=>import('./views/onboarding.js'),hub:()=>import('./views/hub.js'),library:()=>import('./views/library.js'),wallpapers:()=>import('./views/wallpapers.js'),moment:()=>import('./views/moment.js'),meditation:()=>import('./views/meditation.js'),experiences:()=>import('./views/experiences.js'),immersive:()=>import('./views/immersive.js'),body:()=>import('./views/body.js'),discovery:()=>import('./views/discovery.js')
+ you:()=>import('./views/you.js'),reader:()=>import('./views/reader.js'),session:()=>import('./views/session.js'),world:()=>import('./views/world.js'),onboarding:()=>import('./views/onboarding.js'),hub:()=>import('./views/hub.js'),library:()=>import('./views/library.js'),wallpapers:()=>import('./views/wallpapers.js'),moment:()=>import('./views/moment.js'),meditation:()=>import('./views/meditation.js'),experiences:()=>import('./views/experiences.js'),immersive:()=>import('./views/immersive.js'),body:()=>import('./views/body.js'),media:()=>import('./views/media.js')
 };
 const viewCache=new Map();
 function viewModule(name){if(!viewCache.has(name)){const request=loaders[name]().catch(error=>{viewCache.delete(name);throw error;});viewCache.set(name,request);}return viewCache.get(name);}
 async function drawView(name,exportName,root,args,context){const module=await viewModule(name);if(!context.isCurrent())return;return module[exportName](root,...args,context);}
 function goHome(){arrivalVisit.admit();leaveOverlay();if(document.fullscreenElement)document.exitFullscreen?.().catch(()=>{});ctx.go('#/home');}
 
-const TABS=[['home','Home','realms'],['discover','Discover','sparkle'],['ebooks','Ebooks','book'],['you','Your space','you']];
+const TABS=[['home','Home','realms'],['discover','Media','sparkle'],['ebooks','Ebooks','book'],['you','Your space','you']];
 let lastTab='#/home',token=0,arrivalController=null;
 const arrivalVisit=createArrivalVisit(()=>sessionStorage);
 const main=()=>$('#main'),overlay=()=>$('#overlay'),chrome=()=>$('#chrome');
@@ -42,7 +43,22 @@ async function route(){
   try{
     if(retiredWritingRoute(location.hash)){ctx.go('#/home');return;}
     applyPreferences();if(S.state.doc?.space?.cinemaSound&&JSON.stringify(S.state.doc.space.cinemaSound)!==JSON.stringify(cinemaSound.prefs))cinemaSound.configure(S.state.doc.space.cinemaSound);
-    if(!arrivalVisit.admitted||seg==='arrive'||(seg==='meditate'&&a)){
+    if(['product','experience'].includes(seg)&&Object.hasOwn(legacyMediaRoutes,a)){
+      ctx.go(`#/product/${legacyMediaRoutes[a]}`);
+      return;
+    }
+    if(seg==='support'&&a)return await room('media','renderSupport',[{order:a}]);
+    const feature=['product','experience','read','browse','world'].includes(seg)
+      ?a==='know-your-body'?'ebooks':a
+      :({book:'ebooks',library:'ebooks',ebooks:'ebooks',meditate:'meditate',listen:'protocol',session:'protocol',wallpapers:'rewire',support:'support'})[seg];
+    const book=seg==='book'?a:seg==='experience'&&a==='know-your-body'?'body-you-live-in':null;
+    if((feature&&!enabled(feature))||(book&&!enabled('ebook:'+book))){
+      showOverlay(true);
+      mount(root,h('section',{class:'media-room'},h('h1',{},'This feature is currently unavailable'),h('a',{href:'#/home'},'Return home')));
+      return;
+    }
+    if(!enabled('welcome')&&!arrivalVisit.admitted)arrivalVisit.admit();
+    if(!arrivalVisit.admitted||(seg==='arrive'&&enabled('welcome'))||(seg==='meditate'&&a)){
       const direct=seg==='meditate'&&a;const destination=direct?'#/home':arrivalDestination(seg==='arrive'?lastTab:location.hash);
       showOverlay(true);document.body.classList.add('arrival-visible');cinemaSound.setScene('arrival');
       arrivalController=renderArrival(root,{reduced:document.documentElement.dataset.motion==='reduced',skipWelcome:!!direct,preset:direct?a:'arrival',resume:direct&&a==='resume',onEnter:()=>{arrivalVisit.admit();ctx.go(destination);},onMore:()=>{arrivalVisit.admit();ctx.go('#/meditate');}});
@@ -55,9 +71,11 @@ async function route(){
     if(['products','realms','tools','today','journey','path'].includes(seg)){ctx.go('#/home');return;}
     if(seg==='library'){ctx.go('#/ebooks');return;}
     if(seg==='moment'&&a)return await room('moment','renderMoment',[{id:a}]);
+    if(seg==='welcome'&&!enabled('welcome')){ctx.go('#/home');return;}
     if(seg==='welcome')return await room('onboarding','renderWelcomeVideos');
     if(seg==='onboarding')return await room('onboarding','renderOnboarding');
-    if(['product','experience'].includes(seg)&&productById(a)?.kind==='discovery')return await room('discovery','renderDiscovery',[{id:a,art:b}]);
+    if(['product','experience'].includes(seg)&&productById(a)?.kind==='media')return await room('media','renderMedia',[{id:a}]);
+    if(seg==='support')return await room('media','renderSupport',[{}]);
     if(seg==='product'&&immersiveWorld(a))return await room('immersive','renderImmersive',[{id:a}]);
     if(seg==='read'||seg==='browse')return await (immersiveWorld(a)?room('immersive','renderImmersive',[{id:a,idx:+b}]):room('reader','renderReader',[{realm:a,idx:+b,browse:true}]));
     if(seg==='session'||seg==='listen')return await room('session','renderSession',[{idx:+a,browse:true}]);
@@ -86,12 +104,12 @@ function navigate(){
     const target=chapter?document.getElementById(`chapter-${chapter}`):null;
     if(!chapter||target){lastTab=location.hash;const behavior=document.documentElement.dataset.motion==='reduced'||matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth';if(target)target.scrollIntoView({behavior,block:'start'});else window.scrollTo({top:0,behavior});return;}
   }
-  if(document.startViewTransition&&document.documentElement.dataset.motion!=='reduced'&&!matchMedia('(prefers-reduced-motion: reduce)').matches){navigationTransition?.skipTransition?.();navigationTransition=document.startViewTransition(()=>{route();});navigationTransition.finished.catch(()=>{});}else route();
+  if(document.startViewTransition&&document.documentElement.dataset.motion!=='reduced'&&!matchMedia('(prefers-reduced-motion: reduce)').matches){navigationTransition?.skipTransition?.();navigationTransition=document.startViewTransition(()=>{route();});navigationTransition.ready.catch(()=>{});navigationTransition.finished.catch(()=>{});}else route();
 }
 async function start(){
   try{
-    await S.boot();if(S.state.doc?.space?.cinemaSound)cinemaSound.configure(S.state.doc.space.cinemaSound);let soundSignature=JSON.stringify(cinemaSound.prefs);cinemaSound.install();installCinemaPresentation();installExperienceUtilities(overlay(),{onHome:goHome});window.HumanCinemaHome=goHome;cinemaSound.subscribe(()=>{const current=JSON.stringify(cinemaSound.prefs);if(current!==soundSignature&&S.state.doc){soundSignature=current;S.mutateSpace(s=>({...s,cinemaSound:{...cinemaSound.prefs}}));}});if(!S.state.doc)await S.start({name:'Friend',intents:[],length:'quick'});$('#boot')?.remove();addEventListener('hashchange',navigate);addEventListener('pageshow',e=>{if(e.persisted)route();});if(!location.hash||location.hash==='#')history.replaceState(null,'','#/home');await route();
-    const warm=e=>{const href=e.target.closest?.('a[href^="#/"]')?.getAttribute('href');if(!href)return;const [,segment,id]=href.split('/'),name=['product','experience'].includes(segment)&&productById(id)?.kind==='discovery'?'discovery':segment==='experience'?(id==='know-your-body'?'body':'library'):segment==='product'?(immersiveWorld(id)?'immersive':'hub'):segment==='book'||segment==='ebooks'?'library':segment==='listen'||segment==='session'?'session':['home','discover'].includes(segment)?'experiences':segment==='you'?'you':null;if(name)viewModule(name).catch(()=>{});};
+    await Promise.all([S.boot(),loadSiteSettings()]);document.title=siteSettings().title;if(S.state.doc?.space?.cinemaSound)cinemaSound.configure(S.state.doc.space.cinemaSound);let soundSignature=JSON.stringify(cinemaSound.prefs);cinemaSound.install();installCinemaPresentation();installExperienceUtilities(overlay(),{onHome:goHome});window.HumanCinemaHome=goHome;cinemaSound.subscribe(()=>{const current=JSON.stringify(cinemaSound.prefs);if(current!==soundSignature&&S.state.doc){soundSignature=current;S.mutateSpace(s=>({...s,cinemaSound:{...cinemaSound.prefs}}));}});if(!S.state.doc)await S.start({name:'Friend',intents:[],length:'quick'});$('#boot')?.remove();addEventListener('hashchange',navigate);addEventListener('pageshow',e=>{if(e.persisted)route();});if(!location.hash||location.hash==='#')history.replaceState(null,'','#/home');await route();
+    const warm=e=>{const href=e.target.closest?.('a[href^="#/"]')?.getAttribute('href');if(!href)return;const [,segment,id]=href.split('/'),name=['product','experience'].includes(segment)&&productById(id)?.kind==='media'?'media':segment==='experience'?(id==='know-your-body'?'body':'library'):segment==='product'?(immersiveWorld(id)?'immersive':'hub'):segment==='book'||segment==='ebooks'?'library':segment==='listen'||segment==='session'?'session':['home','discover'].includes(segment)?'experiences':segment==='you'?'you':null;if(name)viewModule(name).catch(()=>{});};
     document.addEventListener('pointerover',warm,{passive:true});document.addEventListener('focusin',warm);setTimeout(()=>viewModule('experiences').catch(()=>{}),1200);
     document.addEventListener('visibilitychange',async()=>{if(!document.hidden&&S.state.doc){try{await S.refresh();}catch{}}});addEventListener('keydown',e=>{if(e.key==='Escape'&&!document.querySelector('.sheet-back')&&!overlay().hidden){if(arrivalController)arrivalController.enter();else ctx.close();}});
   }catch(e){$('#boot')?.remove();mount(main(),h('div',{class:'empty-state'},h('h1',{class:'display'},'Your space is taking a moment.'),h('p',{},'Refresh to try again.'),h('button',{class:'btn primary',onclick:()=>location.reload()},'Refresh')));console.error(e);}

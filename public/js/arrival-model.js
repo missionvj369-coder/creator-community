@@ -4,5 +4,5 @@ export function createArrivalVisit(storage){
  return {get admitted(){return admitted;},admit(){admitted=true;try{storage()?.setItem(ARRIVAL_SESSION_KEY,'1');}catch{}}};
 }
 export function arrivalDestination(hash){
- return /^#\/(daily|meditate|home|discover|journey|library|products|product|ebooks|wallpapers|you|guide|thread|moment|tools|tool|book|experience|read|browse|listen|session|situations|situation|today|path|world|welcome)(?:\/[a-z0-9-]+)?(?:\/\d+)?$/.test(hash)?hash:'#/home';
+ return /^#\/(daily|meditate|home|discover|journey|library|products|product|ebooks|wallpapers|you|guide|thread|moment|tools|tool|book|experience|support|read|browse|listen|session|situations|situation|today|path|world|welcome)(?:\/[a-z0-9-]+)?(?:\/\d+)?$/.test(hash)?hash:'#/home';
 }

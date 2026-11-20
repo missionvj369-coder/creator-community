@@ -1,4 +1,3 @@
-import {discoveryShelf} from './discovery-shelf.js';
 import {openSoundSettings} from '../cinema-controls.js';
 import { h, mount, icon, sheet, toast } from '../ui.js';
 import { state, resetDevice } from '../store.js';
@@ -46,7 +45,6 @@ export function renderYou(root,ctx){
     h('div',{class:'honest-stats'},stat(stats.completed,'moments completed'),stat(stats.minutes,'minutes here'),stat(stats.days,'days you made space'),stat(stats.books,'books explored')),
     h('div',{class:'profile-columns'},h('div',{class:'profile-column'},form,h('section',{class:'profile-panel'},h('h2',{},'Comfort, your way.'),motion,sound)),h('div',{class:'profile-column'},h('section',{class:'profile-panel'},h('h2',{},'Your recent moments.'),activity),h('section',{class:'profile-panel'},h('h2',{},'Saved for another day.'),savedList))),
     s.notes.length>0&&h('section',{class:'profile-panel'},h('h2',{},'Previously saved thoughts.'),notesList),
-    discoveryShelf(),
     h('section',{class:'profile-panel backup-panel'},h('div',{},h('h2',{},'Keep your space with you.'),h('p',{class:'fine'},'Your profile, moments, saved items, creations, reading positions and previous saved material stay on this device. Export a backup to move them to another browser.')),h('div',{class:'chips'},h('button',{class:'btn ghost small',onclick:()=>downloadBackup().catch(()=>toast('The backup could not be created.'))},icon('download',17),'Export backup'),h('button',{class:'btn ghost small',onclick:()=>upload.click()},icon('upload',17),'Restore backup'),upload)),
     h('button',{class:'quiet-link reset-link',onclick:()=>confirmReset(ctx)},'Reset this device’s space')));
 }

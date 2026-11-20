@@ -9,6 +9,15 @@ export function flowBreadcrumbs(id){
   const chapter=chapterFor(id);
   return h('nav',{class:'flow-breadcrumbs','aria-label':'The experience path'},EXPERIENCE_CHAPTERS.map((c,i)=>h('a',{href:`#/home/${c.id}`,class:c===chapter?'current':'','aria-current':c===chapter?'step':null},h('span',{},String(i+1).padStart(2,'0')),c.word)));
 }
+export function experienceLinks(id){
+  const {previous,next}=experienceNeighbours(id);
+  const link=(target,label)=>target&&h('a',{href:`#/product/${target}`},label);
+  return h('nav',{class:'media-journey','aria-label':'Continue exploring'},
+    link(previous,previous&&`Back to ${productById(previous).title}`),
+    link(next,next&&`Explore next · ${productById(next).title}`),
+    h('a',{href:'#/home'},'All experiences'));
+}
+
 export function productBridge(id){
   const {previous,next}=experienceNeighbours(id),r=productById(next),p=productById(previous);
   return h('section',{class:'product-bridge'},h('div',{class:'bridge-copy'},h('p',{class:'eyebrow'},r?'A NATURAL NEXT STEP':'THE PATH LEAVES ROOM FOR YOU'),h('h2',{},r?EXPERIENCE_INVITATIONS[r.id]:'Return whenever you need a little space.'),h('p',{},'These are invitations. Every experience is open, and your own pace is enough.')),

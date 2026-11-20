@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Human Within · Administration</title>
+  <link rel="stylesheet" href="/css/admin.css">
+  <script type="module" src="/js/admin.js"></script>
+</head>
+<body>
+<header class="admin-header">
+  <div><p>Human Within</p><h1>Administration</h1><p id="identity"></p></div>
+  <nav aria-label="Administration links">
+    <a href="/">Open site</a><a href="/cdn-cgi/access/logout">Sign out</a>
+  </nav>
+</header>
+<main>
+  <p id="status" role="status" aria-live="polite">Loading administration…</p>
+  <nav id="tabs" aria-label="Administration sections" hidden>
+    <button data-panel="site">Site & features</button>
+    <button data-panel="media">Media catalogue</button>
+    <button data-panel="payments">Payments</button>
+    <button data-panel="audit">Audit log</button>
+  </nav>
+  <section id="workspace" aria-label="Settings"></section>
+</main>
+</body>
+</html>

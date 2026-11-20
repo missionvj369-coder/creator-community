@@ -6,7 +6,7 @@ import {PRODUCTS} from '../public/js/catalogue.js';
 import {EXPERIENCE_ORDER,experienceNeighbours} from '../public/js/experience-flow.js';
 import {sceneForRoute,CINEMA_SCENES} from '../public/js/cinema-model.js';
 const base=(kind,extra)=>normaliseStudioDraft(kind,{id:kind+'-test',createdAt:1,...extra});
-assert.equal(PRODUCTS.length,18);assert.ok(STUDIO_IDS.every(id=>!EXPERIENCE_ORDER.includes(id)));assert.equal(experienceNeighbours('sleep').next,'wonder-engine');
+assert.equal(PRODUCTS.length,18);assert.ok(STUDIO_IDS.every(id=>!EXPERIENCE_ORDER.includes(id)));assert.equal(experienceNeighbours('sleep').next,'music');
 for(const meta of STUDIO_PRODUCTS){assert.ok(!PRODUCTS.some(p=>p.id===meta.id));assert.equal(sceneForRoute('#/product/'+meta.id),meta.id);assert.ok(CINEMA_SCENES[meta.id].score);const a=studioPoster(meta.id),b=studioPoster(meta.id);assert.notEqual(a,b,'SVG references must be unique per instance');assert.ok(!a.includes('NaN'));}
 // Inserting/reordering thoughts must not move a classification onto the wrong thought.
 let thoughts=splitThoughts('Write the introduction\nAsk which day works');thoughts[0].lane='now';thoughts[1].lane='learn';
