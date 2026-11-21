@@ -1,0 +1,13 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Member account · Creator Community</title>
+<link rel="stylesheet" href="/css/admin.css">
+<script type="module" src="/js/member-account.js"></script>
+</head><body><header class="admin-header"><h1>Member account</h1><a href="/">Open site</a></header>
+<main><p id="status" role="status"></p>
+<form id="member-login" hidden>
+<label>Access key <input name="token" type="password" autocomplete="off" required maxlength="43"></label>
+<button type="submit" class="primary">Sign in</button></form>
+<section id="member-details" hidden><p id="member-name"></p><button id="member-signout" type="button">Sign out</button></section>
+</main></body></html>

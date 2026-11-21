@@ -4,7 +4,7 @@ import {launchFeatures,mediaKinds} from './launch-catalogue.js';
 const workspace=document.querySelector('#workspace');
 const status=document.querySelector('#status');
 const tabs=document.querySelector('#tabs');
-let state,active='site',busy=false;
+let state,active='overview',busy=false,issuedKey='';
 const signOut=document.querySelector('#admin-signout');
 const labels={ebooks:'Ebook library',meditate:'Still Room',welcome:'Cinematic opening',support:'Support checkout',music:'16 · Music',video:'17 · Video',podcast:'18 · Podcast'};
 
@@ -22,9 +22,10 @@ async function call(url,method='GET',data){
 async function refresh(){
   state=await call('/api/admin');
   document.querySelector('#identity').textContent=state.actor;
-  if(state.mode==='media'){
-    active='media';
-    for(const button of tabs.querySelectorAll('button'))button.hidden=button.dataset.panel!=='media';
+  for(const button of tabs.querySelectorAll('button')){
+    button.hidden=state.mode==='netlify'?button.dataset.panel==='audit':button.dataset.panel==='users';
+  }
+  if(state.mode==='netlify'){
     signOut.onclick=async event=>{
       event.preventDefault();
       try{await call('/api/admin/session','DELETE');location.reload();}
@@ -40,7 +41,8 @@ async function write(url,method,data){
   status.textContent='Saving…';
   workspace.inert=true;
   try{
-    await call(url,method,data);
+    const result=await call(url,method,data);
+    issuedKey=result.token||'';
     await refresh();
     status.textContent='Saved.';
   }catch(error){status.textContent=error.message;}
@@ -100,11 +102,38 @@ function table(title,columns,records){
     :h('p',{},'No records yet.'));
 }
 
+function userEditor(member){
+  const form=h('form',{class:'admin-card',onsubmit:event=>{
+    event.preventDefault();
+    const values=dataOf(form);
+    void write('/api/admin/users','PUT',{id:member?.id,revision:member?.revision,name:values.name,email:values.email,
+      enabled:Boolean(values.enabled),rotate:Boolean(values.rotate)});
+  }},h('h3',{},member?'Edit member':'Create member'),
+    field('Name','name',member?.name??'',{required:true,maxlength:100}),
+    field('Email','email',member?.email??'',{required:true,type:'email',maxlength:254}),
+    h('label',{class:'check'},h('input',{type:'checkbox',name:'enabled',checked:member?.enabled??true}),'Account enabled'),
+    member&&h('label',{class:'check'},h('input',{type:'checkbox',name:'rotate'}),'Replace existing access key'),
+    h('button',{type:'submit',class:'primary'},member?'Save member':'Create access key'));
+  return member?h('details',{},h('summary',{},member.name+' · '+member.email+(member.enabled?'':' (disabled)')),form):form;
+}
+function overview(){
+  const panels=[['site','Site & features',state.site.title],['media','Media',state.media.length+' items'],
+    ...(state.users?[['users','Users',state.users.length+' member accounts']]:[]),
+    ['payments','Payments',state.paymentReady?'Gateway configured':'Setup required']];
+  return h('section',{class:'admin-card'},h('h2',{},'Overview'),h('div',{class:'feature-grid'},
+    panels.map(([key,title,detail])=>h('button',{type:'button',onclick:()=>{active=key;paint();}},title+' · '+detail))));
+}
 function paint(){
   for(const button of tabs.querySelectorAll('button'))button.setAttribute('aria-pressed',String(button.dataset.panel===active));
+  if(active==='overview')mount(workspace,overview());
+  if(active==='users')mount(workspace,h('h2',{},'Member accounts'),
+    h('p',{},'Share each access key privately. Members sign in at /account/.'),
+    issuedKey&&h('div',{class:'admin-card'},h('strong',{},'New access key · shown once'),
+      field('Access key','access',issuedKey,{readonly:true,autocomplete:'off'})),
+    userEditor(),state.users.map(userEditor));
   if(active==='site')mount(workspace,settings());
   if(active==='media')mount(workspace,h('h2',{},'Media catalogue'),
-    h('p',{},state.mode==='media'?'Paste a direct HTTPS audio or video file link. Caption tracks use WebVTT.':'Use packaged media paths or URLs on the configured HTTPS media origin. Caption tracks use WebVTT.'),editor(null),state.media.map(editor));
+    h('p',{},state.mode==='netlify'?'Paste a direct HTTPS audio or video file link. Caption tracks use WebVTT.':'Use packaged media paths or URLs on the configured HTTPS media origin. Caption tracks use WebVTT.'),editor(null),state.media.map(editor));
   if(active==='payments')mount(workspace,h('p',{},state.paymentReady?'BTCPay credentials configured.':'BTCPay credentials are missing.'),
     table('Latest 50 orders',[['Created','created_at'],['Invoice','invoice_id'],['Amount','amount'],['Currency','currency'],['Status','status']],state.orders));
   if(active==='audit')mount(workspace,table('Latest 50 changes',[['Time','created_at'],['Administrator','actor'],['Action','action'],['Record','target']],state.events));
@@ -115,7 +144,7 @@ tabs.addEventListener('click',event=>{
 });
 function login(){
   signOut.hidden=true;
-  status.textContent='Sign in to publish music, videos, and podcasts.';
+  status.textContent='Sign in to manage Creator Community.';
   const form=h('form',{class:'admin-card',onsubmit:async event=>{
     event.preventDefault();
     if(busy)return;
