@@ -28,5 +28,8 @@
     "esbuild": "0.28.2",
     "jose": "6.2.18",
     "wrangler": "4.165.0"
+  },
+  "dependencies": {
+    "@netlify/blobs": "11.1.9"
   }
 }
